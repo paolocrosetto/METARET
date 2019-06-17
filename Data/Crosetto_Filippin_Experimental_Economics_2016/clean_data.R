@@ -62,7 +62,6 @@ df <- df %>% mutate(r = case_when(task == "BRET" ~ choice/(100-choice),
                                   task == "Holt & Laury" & choice == 10 ~ -0.37))
 
 
-
 # Order of variables
 df <- df %>% 
   select(bibkey, paper, task, subject, age, gender, choice, r, everything())
