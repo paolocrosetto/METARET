@@ -27,14 +27,14 @@ df <- df %>% mutate(r = perc/(100-perc))
 # BRET: sometimes the computed r is /0 -> hence Inf in R --> correcting
 df <- df %>% mutate(r = if_else(r == Inf, 99, r))
 
-# Adding task, paper and bibtex handles
+# Adding task, paper and bibtex handles#### Crosetto and Filippin, "The Bomb Risk Elicitation Task", JRU 2013
+
+#### cleaning data to be used for the meta-nalaysis
+
 df <- df %>% 
   mutate(task = "BRET",
          paper = "Crosetto and Filippin, JRU 2013",
          bibkey = "Crosetto2013")
 
 # Writing to file
-df %>% write_csv("Crosetto_Filippin_JRU2013.csv")
-
-
-
+df %>% write_csv("Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/formatted_dataset.csv")
