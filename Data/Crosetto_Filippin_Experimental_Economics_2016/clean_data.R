@@ -25,6 +25,10 @@ df <- df %>%
   gather(key, choice, -subject, -gender, -age, -inconsistent, -soep, -starts_with("do"), -treatment) %>% 
   filter(!is.na(choice))
 
+## recoding HL as higher number -> more risk
+df <- df %>% 
+  mutate(choice = if_else(treatment == "hl", 10 - choice, choice))
+
 # adding task
 df <- df %>% 
   mutate(task = case_when(treatment == "bret" ~ "BRET",
