@@ -9,7 +9,7 @@ library(broom)
 
 
 #### getting the data
-df <- read_dta("Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/Bomb_JRU.dta") %>% as_factor()
+df <- read_dta("Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/original_dataset.dta") %>% as_factor()
 
 ## selecting the needed variables
 ## we select only:
