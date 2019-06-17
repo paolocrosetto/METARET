@@ -28,7 +28,7 @@ df <- df %>% mutate(r = perc/(100-perc))
 df <- df %>% mutate(r = if_else(r == Inf, 99, r))
 
 
-df %>% to_csv("Crosetto_Filippin_JRU2013.csv")
+df %>% write_csv("Crosetto_Filippin_JRU2013.csv")
 
 
 
