@@ -27,7 +27,7 @@ df <- df %>% mutate(r = perc/(100-perc))
 # BRET: sometimes the computed r is /0 -> hence Inf in R --> correcting
 df <- df %>% mutate(r = if_else(r == Inf, 99, r))
 
-
+# Writing to file
 df %>% write_csv("Crosetto_Filippin_JRU2013.csv")
 
 
