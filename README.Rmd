@@ -34,7 +34,7 @@ Each task is represented by a point estimate + confidence interval. Here are the
 
 The plots and analyses are updated for each new contributed paper.
 
-```{r, fig.height=12, fig.width = 9}
+```{r, fig.height=12, fig.width = 9, dpi=600}
 
 ### playing around with the correlation plots
 library(tidyverse)
@@ -43,7 +43,8 @@ library(hrbrthemes)
 
 theme_set(theme_ipsum_rc()+
             theme(legend.position = "bottom")+
-            theme(strip.text.x = element_text(hjust = 1)))
+            theme(strip.text.x = element_text(hjust = 0.5))+
+            theme(panel.spacing.x = unit(0.2, "lines")))
 
 ## getting data from all the "formatted_dataset.csv" files in each subdirectory of /Data
 df <- list.files(recursive = T, pattern = "^formatted_dataset") %>% 
@@ -126,6 +127,7 @@ corr %>%
    coord_flip()+
    geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
    scale_color_manual(name = "significance", values = c("red", "orange", "yellow", "black"), drop = F)+
+  scale_y_continuous(breaks = c(-0.2, 0, 0.2, 0.4), labels = c("-0.2","0","0.2","0.4"))+
    facet_grid(task~questionnaire, scales = "free_y", space = "free_y")+
    xlab("")+ylab("Pearson correlation")
 
