@@ -41,3 +41,5 @@ are the results of correlations between several tasks and:
   - the DOSPERT scale and its subscales
 
 The plots and analyses are updated for each new contributed paper.
+
+![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->

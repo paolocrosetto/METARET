@@ -32,10 +32,18 @@ df <- df %>%
 # adding task
 df <- df %>% 
   mutate(task = case_when(treatment == "bret" ~ "BRET",
-                          treatment == "cgp" ~ "Investment Game",
-                          treatment == "eg" ~ "Binswanger",
-                          treatment == "hl" ~ "Holt & Laury",
+                          treatment == "cgp" ~ "IG",
+                          treatment == "eg" ~ "EG",
+                          treatment == "hl" ~ "HL",
                           treatment == "balloon" ~ "BART"))
+
+# removing bret as it is duplicate of the one in JRU
+df <- df %>% 
+  filter(treatment != "bret")
+
+# cleaning the "treatment" variable as it is not needed <- a HACK CHANGE THIS LATER
+df <- df %>% 
+  mutate(treatment = " ")
 
 # adding paper name and bibkey
 df <- df %>% 

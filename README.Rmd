@@ -33,3 +33,101 @@ Each task is represented by a point estimate + confidence interval. Here are the
 - the DOSPERT scale and its subscales
 
 The plots and analyses are updated for each new contributed paper.
+
+```{r, fig.height=12, fig.width = 9}
+
+### playing around with the correlation plots
+library(tidyverse)
+library(broom)
+library(hrbrthemes)
+
+theme_set(theme_ipsum_rc()+
+            theme(legend.position = "bottom")+
+            theme(strip.text.x = element_text(hjust = 1)))
+
+## getting data from all the "formatted_dataset.csv" files in each subdirectory of /Data
+df <- list.files(recursive = T, pattern = "^formatted_dataset") %>% 
+  map_dfr(read_csv)
+
+#### playground for the final plot -- commented away
+
+## TODO/ need to automate this in a function, adn don't know how. MESSY!
+
+# SOEP
+soep <- df %>%
+  nest(-paper, -task, -treatment) %>%
+  mutate(
+    test = map(data, ~ cor.test(.x$choice, .x$soep, method = "pearson", conf.level = 0.95)), 
+    tidied = map(test, tidy)
+  ) %>%
+  unnest(tidied, .drop = TRUE) %>% 
+    mutate(questionnaire = "SOEP")
+
+# DOSPERT
+dospert <- df %>%
+  nest(-paper, -task, -treatment) %>%
+  mutate(
+    test = map(data, ~ cor.test(.x$choice, .x$doall, method = "pearson", conf.level = 0.95)), 
+    tidied = map(test, tidy)
+  ) %>%
+  unnest(tidied, .drop = TRUE) %>% 
+    mutate(questionnaire = "DOSPERT")
+
+# DOSPERT-GAMBLE
+dogamble <- df %>%
+  nest(-paper, -task, -treatment) %>%
+  mutate(
+    test = map(data, ~ cor.test(.x$choice, .x$dogamble, method = "pearson", conf.level = 0.95)), 
+    tidied = map(test, tidy)
+  ) %>%
+  unnest(tidied, .drop = TRUE) %>% 
+    mutate(questionnaire = "D-gamble")
+
+# DOSPERT-INVESTMENT
+doinvest <- df %>%
+  nest(-paper, -task, -treatment) %>%
+  mutate(
+    test = map(data, ~ cor.test(.x$choice, .x$doinvest, method = "pearson", conf.level = 0.95)), 
+    tidied = map(test, tidy)
+  ) %>%
+  unnest(tidied, .drop = TRUE) %>% 
+    mutate(questionnaire = "D-invest")
+
+# DOSPERT-HEALTH
+dohealth <- df %>%
+  nest(-paper, -task, -treatment) %>%
+  mutate(
+    test = map(data, ~ cor.test(.x$choice, .x$dohealth, method = "pearson", conf.level = 0.95)), 
+    tidied = map(test, tidy)
+  ) %>%
+  unnest(tidied, .drop = TRUE) %>% 
+    mutate(questionnaire = "D-health")
+
+# rbind
+corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>% 
+  mutate(questionnaire = fct_relevel(as_factor(questionnaire), "SOEP", "DOSPERT"))
+
+# join  the N of observations oer study
+corr <- df %>% group_by(paper, task, treatment) %>% summarise(N = n()) %>% left_join(corr, by = c("paper", "task", "treatment"))
+
+# another stupid hack
+corr <- corr %>% mutate(treatment = if_else(is.na(treatment), "", treatment))
+
+## plot on non-transformed values
+corr %>%
+  filter(treatment != "repeated") %>%
+  mutate(p.value = cut(p.value,
+                       breaks = c(-1, 0.01, 0.05, 0.1, 1),
+                       labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
+  mutate(treatment = paste(treatment, " (N = ", N, ")", sep ="")) %>%
+  ggplot(aes(reorder(treatment, estimate), estimate, color= p.value))+
+  geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
+   geom_point(size = 2)+
+   coord_flip()+
+   geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
+   scale_color_manual(name = "significance", values = c("red", "orange", "yellow", "black"), drop = F)+
+   facet_grid(task~questionnaire, scales = "free_y", space = "free_y")+
+   xlab("")+ylab("Pearson correlation")
+
+```
+
