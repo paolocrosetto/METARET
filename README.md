@@ -18,7 +18,7 @@ This repository contains
   - **code** for an interactive shiny app that will give the users the
     possibility to explore the data by themselves (*completely TODO*)
 
-## Contributed papers
+### Contributed papers (list updates as papers are contributed)
 
   - Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation
     Task*, JRU, 2013
@@ -28,3 +28,16 @@ This repository contains
     Experimental Appraisal of Four Risk ELicitation Methods*, ExEc, 2016
     [paper](https://link.springer.com/article/10.1007/s10683-015-9457-9)
     [data](/Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/)
+
+## First look at the results
+
+As a first step, I compute the (Pearson) correlation of each RET to
+(each of a series of) self-reported risk measures.
+
+Each task is represented by a point estimate + confidence interval. Here
+are the results of correlations between several tasks and:
+
+  - the SOEP risk question
+  - the DOSPERT scale and its subscales
+
+The plots and analyses are updated for each new contributed paper.
