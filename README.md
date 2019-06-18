@@ -21,9 +21,10 @@ This repository contains
 ## Contributed papers
 
   - Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation
-    Task*, Journal of Risk and Uncertainty, 2013
+    Task*, JRU, 2013
     [paper](https://link.springer.com/article/10.1007/s11166-013-9170-z)
     [data](/Data/Crosetto_Filippin_Experimental_Economics_2016)
   - Crosetto, Paolo, and Filippin, Antonio, *A Theoretical and
-    Experimental Appraisal of Four Risk ELicitation Methods*,
-    Experimental Economics, 2016
+    Experimental Appraisal of Four Risk ELicitation Methods*, ExEc, 2016
+    [paper](https://link.springer.com/article/10.1007/s10683-015-9457-9)
+    [data](/Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/)
