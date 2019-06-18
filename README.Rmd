@@ -53,56 +53,32 @@ df <- list.files(recursive = T, pattern = "^formatted_dataset") %>%
 #### playground for the final plot -- commented away
 
 ## TODO/ need to automate this in a function, adn don't know how. MESSY!
+compute_corr <- function(data, var, name) {
+  data %>%
+  nest(-paper, -task, -treatment) %>%
+  mutate(
+    test = map(data, ~ cor.test(.x$choice, .x[[var]], method = "pearson", conf.level = 0.95)), 
+    tidied = map(test, tidy)
+  ) %>%
+  unnest(tidied, .drop = TRUE) %>% 
+    mutate(questionnaire = name)
+}
+
 
 # SOEP
-soep <- df %>%
-  nest(-paper, -task, -treatment) %>%
-  mutate(
-    test = map(data, ~ cor.test(.x$choice, .x$soep, method = "pearson", conf.level = 0.95)), 
-    tidied = map(test, tidy)
-  ) %>%
-  unnest(tidied, .drop = TRUE) %>% 
-    mutate(questionnaire = "SOEP")
+soep <- compute_corr(df, "soep", "SOEP")
 
 # DOSPERT
-dospert <- df %>%
-  nest(-paper, -task, -treatment) %>%
-  mutate(
-    test = map(data, ~ cor.test(.x$choice, .x$doall, method = "pearson", conf.level = 0.95)), 
-    tidied = map(test, tidy)
-  ) %>%
-  unnest(tidied, .drop = TRUE) %>% 
-    mutate(questionnaire = "DOSPERT")
+dospert <- compute_corr(df, "doall", "DOSPERT")
 
 # DOSPERT-GAMBLE
-dogamble <- df %>%
-  nest(-paper, -task, -treatment) %>%
-  mutate(
-    test = map(data, ~ cor.test(.x$choice, .x$dogamble, method = "pearson", conf.level = 0.95)), 
-    tidied = map(test, tidy)
-  ) %>%
-  unnest(tidied, .drop = TRUE) %>% 
-    mutate(questionnaire = "D-gamble")
+dogamble <- compute_corr(df, "dogamble", "D-gamble")
 
 # DOSPERT-INVESTMENT
-doinvest <- df %>%
-  nest(-paper, -task, -treatment) %>%
-  mutate(
-    test = map(data, ~ cor.test(.x$choice, .x$doinvest, method = "pearson", conf.level = 0.95)), 
-    tidied = map(test, tidy)
-  ) %>%
-  unnest(tidied, .drop = TRUE) %>% 
-    mutate(questionnaire = "D-invest")
+doinvest <- compute_corr(df, "doinvest", "D-invest")
 
 # DOSPERT-HEALTH
-dohealth <- df %>%
-  nest(-paper, -task, -treatment) %>%
-  mutate(
-    test = map(data, ~ cor.test(.x$choice, .x$dohealth, method = "pearson", conf.level = 0.95)), 
-    tidied = map(test, tidy)
-  ) %>%
-  unnest(tidied, .drop = TRUE) %>% 
-    mutate(questionnaire = "D-health")
+dohealth <- compute_corr(df, "dohealth", "D-health")
 
 # rbind
 corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>% 
