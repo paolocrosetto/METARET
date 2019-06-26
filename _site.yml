@@ -1,0 +1,15 @@
+name: "METARET"
+output_dir: "docs"
+navbar:
+  title: "METARET"
+  left:
+  - text: "Home"
+   href: index.html
+  - text: "how to contribute"
+   href: speed-and-distance.html
+  - text: "initial results"
+   href: initial-results.html
+output:
+  html_document:
+ theme: cosmo
+
