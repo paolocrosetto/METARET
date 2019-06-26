@@ -6,11 +6,6 @@ navbar:
   - text: "Home"
     href: index.html
 output:
-  html_notebook:
-    code_folding: hide
-    toc: yes
-    toc_depth: 2
-    toc_float:
-      collapsed: no
+  html_document:
 theme: cosmo
 
