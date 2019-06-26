@@ -3,12 +3,7 @@ title: "METARET -- A Meta Analysis of the External Validity of Risk Elicitation 
 author: "Paolo Crosetto"
 date: "6/26/2019"
 output:
-  html_notebook:
-    code_folding: hide
-    toc: yes
-    toc_depth: 2
-    toc_float:
-      collapsed: no
+  html_document
 ---
 
 ```{r setup, include=FALSE}

@@ -4,8 +4,13 @@ navbar:
   title: "METARET"
   left:
   - text: "Home"
-    href: index.nb.html
+    href: index.html
 output:
-  html_document:
+  html_notebook:
+    code_folding: hide
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: no
 theme: cosmo
 
