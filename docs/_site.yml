@@ -4,7 +4,7 @@ navbar:
   title: "METARET"
   left:
   - text: "Home"
-    href: index.html
+    href: index.nb.html
 output:
   html_document:
 theme: cosmo
