@@ -4,21 +4,43 @@ Tasks
 Paolo Crosetto
 This version: June 2019
 
-This project is about the **external validity** of **risk elicitation
-tasks** (RETs) – i.e. their ability to predict self-reported or
-real-world behavior.
+This repository hosts all the development files of the METARET project
+on the **external validity** of **risk elicitation tasks** (RETs) –
+i.e. their ability to predict self-reported or real-world behavior.
 
-This repository contains
+## Aim of the project
 
-  - **data** contributed from each of several *contributed papers* by
-    experimental economists and social psychologists.
-  - **code** to format each original dataset into a common format for
-    later analysis
-  - **results** in the form of plots and tables (*work in progress*)
-  - **code** for an interactive shiny app that will give the users the
-    possibility to explore the data by themselves (*completely TODO*)
+## Resources
 
-### Contributed papers (list updates as papers are contributed)
+The project can count on:
+
+  - a **web site** [(here)]() setting up the aim of the project,
+    tracking its ongoing devlopment of the project, and giving
+    information on how to contribute.
+  - a **shiny interactive app**
+    [(here)](https://paolocrosetto.shinyapps.io/METARET/) where the data
+    accumulated so far can be explored and visualised
+  - an **OSF page** [(here)](https://osf.io/h2z56/) where the project
+    has been pre-registered
+  - this **github repository** where the real work is done and updated,
+    and that contains
+      - **data** from each of several *contributed papers* by
+        experimental economists and social psychologists.
+      - **code** to format each original dataset into a common format
+        for later analysis
+      - **results** in the form of plots and tables (*work in progress*)
+      - **code** for the interactive shiny app (*work in progress*)
+
+## How to contribute
+
+HERE HOW TO CONTRIBUTE
+
+  - git pull request + you add your own code. See the API
+  - send me your data: it will be treated in such and such a way
+  - send me your summary stats
+  - other
+
+## Contributed papers (list updates as papers are contributed)
 
   - Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation
     Task*, JRU, 2013
