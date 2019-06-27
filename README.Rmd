@@ -9,7 +9,15 @@ output: github_document
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
 ```
 
-This project is about the **external validity** of **risk elicitation tasks** (RETs) -- i.e. their ability to predict self-reported or real-world behavior.
+This repository hosts all the development files of the METARET project on the **external validity** of **risk elicitation tasks** (RETs) -- i.e. their ability to predict self-reported or real-world behavior.
+
+The project is made up of 
+
+- a **web site** [(here)]() setting up the aim of the project, tracking its ongoing devlopment of the project, and giving information on how to contribute.
+- a **shiny interactive app** [(here)]() where the data accumulated so far can be explored and visualised
+- an **OSF page** [(here)]() where the project has been pre-registered
+- this **github repository** where the real work is done and updated
+
 
 This repository contains 
 
