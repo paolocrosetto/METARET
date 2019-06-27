@@ -11,23 +11,24 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 This repository hosts all the development files of the METARET project on the **external validity** of **risk elicitation tasks** (RETs) -- i.e. their ability to predict self-reported or real-world behavior.
 
-The project is made up of 
+## Aim of the project
+
+
+## Resources
+
+The project can count on:
 
 - a **web site** [(here)]() setting up the aim of the project, tracking its ongoing devlopment of the project, and giving information on how to contribute.
-- a **shiny interactive app** [(here)]() where the data accumulated so far can be explored and visualised
-- an **OSF page** [(here)]() where the project has been pre-registered
-- this **github repository** where the real work is done and updated
+- a **shiny interactive app** [(here)](https://paolocrosetto.shinyapps.io/METARET/) where the data accumulated so far can be explored and visualised
+- an **OSF page** [(here)](https://osf.io/h2z56/) where the project has been pre-registered
+- this **github repository** where the real work is done and updated, and that contains
+  - **data** from each of several *contributed papers* by experimental economists and social psychologists. 
+  - **code** to format each original dataset into a common format for later analysis
+  - **results** in the form of plots and tables (*work in progress*)
+  - **code** for the interactive shiny app (*work in progress*)
 
 
-This repository contains 
-
-- **data** contributed from each of several *contributed papers* by experimental economists and social psychologists. 
-- **code** to format each original dataset into a common format for later analysis
-- **results** in the form of plots and tables (*work in progress*)
-- **code** for an interactive shiny app that will give the users the possibility to explore the data by themselves (*completely TODO*)
-
-
-### How to contribute
+## How to contribute
 
 HERE HOW TO CONTRIBUTE
 
@@ -36,7 +37,7 @@ HERE HOW TO CONTRIBUTE
 - send me your summary stats
 - other 
 
-### Contributed papers (list updates as papers are contributed)
+## Contributed papers (list updates as papers are contributed)
 
 - Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation Task*, JRU, 2013 [paper](https://link.springer.com/article/10.1007/s11166-013-9170-z) [data](/Data/Crosetto_Filippin_Experimental_Economics_2016)
 - Crosetto, Paolo, and Filippin, Antonio, *A Theoretical and Experimental Appraisal of Four Risk ELicitation Methods*, ExEc, 2016 [paper](https://link.springer.com/article/10.1007/s10683-015-9457-9) [data](/Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/)
