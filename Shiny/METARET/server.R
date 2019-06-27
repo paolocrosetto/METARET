@@ -17,7 +17,7 @@ theme_set(theme_ipsum_rc()+
               theme(strip.text.x = element_text(hjust = 0.5))+
               theme(panel.spacing.x = unit(0.2, "lines")))
 
-setwd("..")
+setwd("../..")
 ## getting data from all the "formatted_dataset.csv" files in each subdirectory of /Data
 df <- list.files(recursive = T, pattern = "^formatted_dataset") %>% 
     map_dfr(read_csv)
@@ -61,26 +61,60 @@ corr <- df %>% group_by(paper, task, treatment) %>% summarise(N = n()) %>% left_
 # another stupid hack
 corr <- corr %>% mutate(treatment = if_else(is.na(treatment), "", treatment))
 
+##function that uses input from the UI to subset the task and give out details
+
+plotcor <- function(inputtask, inputquestionnaire) {
+    
+    if (inputtask == "all" & inputquestionnaire == "all") {
+        plotdf <- corr %>%
+            filter(treatment != "repeated")
+    }
+    
+    if (inputtask != "all" & inputquestionnaire != "all") {
+        plotdf <- corr %>%
+            filter(treatment != "repeated") %>%
+            filter(task == inputtask, questionnaire == inputquestionnaire)
+    }
+    
+    if (inputtask == "all" & inputquestionnaire != "all") {
+        plotdf <- corr %>%
+            filter(treatment != "repeated") %>%
+            filter(questionnaire == inputquestionnaire)
+    }
+    if (inputtask != "all" & inputquestionnaire == "all") {
+        plotdf <- corr %>%
+            filter(treatment != "repeated") %>%
+            filter(task == inputtask)
+    }
+    
+    plotdf %>% 
+        mutate(p.value = cut(p.value,
+                             breaks = c(-1, 0.01, 0.05, 0.1, 1),
+                             labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
+        mutate(treatment = paste(paper, ": ", treatment, " (N = ", N, ")", sep ="")) %>%
+        ggplot(aes(reorder(treatment, estimate), estimate, color= p.value))+
+        geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
+        geom_point(size = 2)+
+        coord_flip(ylim = c(-0.3, 0.5))+
+        geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
+        scale_color_manual(name = "significance", values = c("red", "orange", "yellow", "black"), drop = F)+
+        scale_y_continuous(breaks = c(-0.2, 0, 0.2, 0.4), labels = c("-0.2","0","0.2","0.4"))+
+        facet_grid(task~questionnaire, scales = "free_y", space = "free_y")+
+        xlab("")+ylab("Pearson correlation")+
+        labs(title = "Spearman correlation between risk elicitation task and questionnaire",
+             subtitle = "by versions of the task")
+    
+}
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
     output$distPlot <- renderPlot({
 
-        corr %>%
-            filter(treatment != "repeated") %>%
-            mutate(p.value = cut(p.value,
-                                 breaks = c(-1, 0.01, 0.05, 0.1, 1),
-                                 labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
-            mutate(treatment = paste(treatment, " (N = ", N, ")", sep ="")) %>%
-            ggplot(aes(reorder(treatment, estimate), estimate, color= p.value))+
-            geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
-            geom_point(size = 2)+
-            coord_flip()+
-            geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
-            scale_color_manual(name = "significance", values = c("red", "orange", "yellow", "black"), drop = F)+
-            scale_y_continuous(breaks = c(-0.2, 0, 0.2, 0.4), labels = c("-0.2","0","0.2","0.4"))+
-            facet_grid(task~questionnaire, scales = "free_y", space = "free_y")+
-            xlab("")+ylab("Pearson correlation")
+        task <- input$task
+        questionnaire <- input$questionnaire
+        
+        plotcor(task, questionnaire)
 
     })
 

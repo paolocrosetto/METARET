@@ -11,19 +11,30 @@ library(shiny)
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Explore the METARET database"),
+    titlePanel("Explore the METARET database", windowTitle = "METARET -- a METa Analysis of the external validity of Risk Elicitation Tasks"),
+    
+    
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
+            helpText("Select a Risk Elicitation Task and a 
+                     risk attitude self-eported questionnaire.
+                     On the right you will see the correlation
+                     from current included studies"),
             selectInput("task", label = h3("Select a Risk Elicitation Task"), 
                         choices = list("BRET" = "BRET", "Holt & Laury" = "HL",
                                        "Eckel & Grossmann" = "EG",
-                                       "Investment Game" = "IG"), 
+                                       "Investment Game" = "IG",
+                                       "All" = "all"), 
                         selected = 1),
             hr(),
             selectInput("questionnaire", label = h3("Select a risk Questionnaire"), 
-                        choices = list("SOEP" = "SOEP", "DOSPERT" = "DOSPERT"), 
+                        choices = list("SOEP" = "SOEP", "DOSPERT" = "DOSPERT",
+                                       "DOSPERT-Gamble" = "D-gamble",
+                                       "DOSPERT-investment" = "D-invest",
+                                       "DOSPERT-health" = "D-health",
+                                       "All" = "all"), 
                         selected = 1),
             
             hr(),
