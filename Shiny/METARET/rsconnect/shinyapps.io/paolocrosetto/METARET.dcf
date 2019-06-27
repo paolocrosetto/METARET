@@ -1,0 +1,12 @@
+name: METARET
+title: METARET
+username:
+account: paolocrosetto
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1001555
+bundleId: 2182286
+url: https://paolocrosetto.shinyapps.io/METARET/
+when: 1561630857.80599
+asMultiple: FALSE
+asStatic: FALSE

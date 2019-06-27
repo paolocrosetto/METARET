@@ -11,6 +11,9 @@ theme_set(theme_ipsum_rc()+
 df <- list.files(recursive = T, pattern = "^formatted_dataset") %>% 
   map_dfr(read_csv)
 
+## save the df to the shiny director for deployment
+df %>% write_csv("home/paolo/METARET/METARET_github/Shiny/METARET/df.csv")
+
 #### playground for the final plot -- commented away
 
 ## by treatment

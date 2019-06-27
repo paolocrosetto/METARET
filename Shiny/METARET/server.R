@@ -17,10 +17,9 @@ theme_set(theme_ipsum_rc()+
               theme(strip.text.x = element_text(hjust = 0.5))+
               theme(panel.spacing.x = unit(0.2, "lines")))
 
-setwd("../..")
-## getting data from all the "formatted_dataset.csv" files in each subdirectory of /Data
-df <- list.files(recursive = T, pattern = "^formatted_dataset") %>% 
-    map_dfr(read_csv)
+
+## getting data -- dirty manual hack
+df <- read_csv("df.csv")
 
 
 ## TODO/ need to automate this in a function, adn don't know how. MESSY!
