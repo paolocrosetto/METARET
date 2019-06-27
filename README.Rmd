@@ -18,6 +18,16 @@ This repository contains
 - **results** in the form of plots and tables (*work in progress*)
 - **code** for an interactive shiny app that will give the users the possibility to explore the data by themselves (*completely TODO*)
 
+
+### How to contribute
+
+HERE HOW TO CONTRIBUTE
+
+- git pull request + you add your own code. See the API
+- send me your data: it will be treated in such and such a way
+- send me your summary stats
+- other 
+
 ### Contributed papers (list updates as papers are contributed)
 
 - Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation Task*, JRU, 2013 [paper](https://link.springer.com/article/10.1007/s11166-013-9170-z) [data](/Data/Crosetto_Filippin_Experimental_Economics_2016)
