@@ -23,18 +23,19 @@ shinyUI(fluidPage(
                      On the right you will see the correlation
                      from current included studies"),
             selectInput("task", label = h3("Select a Risk Elicitation Task"), 
-                        choices = list("BRET" = "BRET", "Holt & Laury" = "HL",
+                        choices = list("All" = "all",
+                                       "BRET" = "BRET", "Holt & Laury" = "HL",
                                        "Eckel & Grossmann" = "EG",
-                                       "Investment Game" = "IG",
-                                       "All" = "all"), 
+                                       "Investment Game" = "IG"
+                                       ), 
                         selected = 1),
             hr(),
             selectInput("questionnaire", label = h3("Select a risk Questionnaire"), 
-                        choices = list("SOEP" = "SOEP", "DOSPERT" = "DOSPERT",
+                        choices = list("All" = "all",
+                                       "SOEP" = "SOEP", "DOSPERT" = "DOSPERT",
                                        "DOSPERT-Gamble" = "D-gamble",
                                        "DOSPERT-investment" = "D-invest",
-                                       "DOSPERT-health" = "D-health",
-                                       "All" = "all"), 
+                                       "DOSPERT-health" = "D-health"), 
                         selected = 1),
             
             hr(),
@@ -43,7 +44,7 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("distPlot")
+            plotOutput("distPlot",height = "800px")
         )
     )
 ))
