@@ -10,18 +10,71 @@ i.e. their ability to predict self-reported or real-world behavior.
 
 ## Aim of the project
 
+The accurate measure of **risk preferences** is of large importance in
+both theoretical and applied work. Despite this importance, increasing
+experimental evidence points to the fact that the behavioral measures we
+use to elicit risk attitudes have **low external validity**.
+
+Lottery-based risk elicitation tasks (*RETs*), at least in the way they
+are typically implemented in behavioral economics and psychology, 1.
+**correlate poorly** with self-reported risk attitudes, real-world risk
+behaviors, and among themselves; 2. introduce distinct **measurement
+errors** and behavioral biases, and 3. are not robust to **test-retest**
+exercises.
+
+But the issue can not be settled by a handful of papers, that despite
+all efforts are limited in sample size, and types of task and
+questionnaires considered.
+
+The good news is that the **data** to assess the external validity of a
+large variety of RETs and a large variety of self-reported
+questionnaires **already exists**. It sits in the drawers of dozens of
+experimentlasits that have used RETs for their disparate aims. If
+collected, the *existing data* would give us a detailed, precise, and
+extensive **map of the external validity** of RETs under a variety of
+experimental conditions.
+
+The aim of METARET – the Meta-analysis of the external validity of RETs
+– is to collect in a single, public, open repository all the data
+pertaining to the external validity of RETs. Its objectives are to
+
+  - **document exhaustively** the scope and limits of the external
+    validity of different RETs.
+  - provide a **detailed map** of which **features** of a RET are more
+    conducive to external validity validity.
+  - serve as a basis for the **development** of a more predictive
+    lottery-based RET (*French ANR grant under submission*).
+
+METARET will collect data of papers that have run:
+
+  - any **lottery-based RET** (incentivized or not)
+  - any **other measure of risk** attitudes (questionnaire, bids in an
+    auction, self-reported, implied by behavior in another game
+    (insurance, trust…))
+  - any **self-declared real-world risky behaviour**.
+
+The **metric** of interest will be (linear and rank) **correlations**
+between any two RETs, any RET and any questionnaire, any RET and any
+real-world behavior. For lottery-based RETs, *two* metrics will be used:
+**bare choices** – whose domain and granularity change across tasks –
+and **implied CRRA coefficients** of risk attitudes *r* – that are
+burdened by theoretical assumptions but are more comparable across
+tasks.
+
+The aim is to be as **inclusive** as possible, to allow the map to cover
+most possible ground – data availability will impose us to restrict
+attention to certain broad class of RETs and of self-reported measures
+in due time.
+
 ## Resources
 
-The project can count on:
+METARET is composed of:
 
-  - a **web site** [(here)]() setting up the aim of the project,
-    tracking its ongoing devlopment of the project, and giving
-    information on how to contribute.
   - a **shiny interactive app**
     [(here)](https://paolocrosetto.shinyapps.io/METARET/) where the data
-    accumulated so far can be explored and visualised
-  - an **OSF page** [(here)](https://osf.io/h2z56/) where the project
-    has been pre-registered
+    accumulated so far can be explored and visualised;
+  - an **OSF page** [(here)](https://osf.io/h2z56/) where the project is
+    being pre-registered;
   - this **github repository** where the real work is done and updated,
     and that contains
       - **data** from each of several *contributed papers* by
@@ -33,12 +86,44 @@ The project can count on:
 
 ## How to contribute
 
-HERE HOW TO CONTRIBUTE
+METARET is about correlations. So data need to be collected within
+subjects. If you have experimental data that includes:
 
-  - git pull request + you add your own code. See the API
-  - send me your data: it will be treated in such and such a way
-  - send me your summary stats
-  - other
+  - two (or more) lottery-based RETs
+  - one (or more) RETs and one (or more) self-reported questionnaires
+    (SOEP, DOSPERT, sensation seeking, other scales)
+  - one (or more) questionnaires or RET and risk-related behavior in
+    another game/task (insurance, trust, strategic uncertainty,
+    contests, competitiveness…)
+  - one (or more) RET or questionnaire and self-reported real world risk
+    attitudes (health, sports, sexual behavior, smoking…)
+
+then your data can be included in METARET.
+
+To contribute:
+
+  - open a git pull request and upload directly your data to the /Data
+    folder, in an appropriately named subfolder;
+  - send your raw data (limited to the RET, questionnaires,
+    risk-behavior data, subject ID) and a codebook to
+    <paolo.crosetto@gmail.com> and I will upload it to this repository
+    and the shiny app. Send along also the published paper that is based
+    on that data, as well as any detail about the RET, the
+    questionnaire, the sample that you might find relevant;
+  - compute by yourself the correlations and send them to
+    <paolo.crosetto@gmail.com>
+
+### Data dissemination and disclosure
+
+This is an open science project. All data shared will be made public. It
+will be available for external scrutiny, download, and further use (upon
+citation and contact, CC NC-BY-SA)
+
+  - static, on this github repository;
+  - dynamically explorable, on the shiny app.
+
+If you do not wish your raw data to be disclosed but still want to
+contribute,
 
 ## Contributed papers (list updates as papers are contributed)
 
