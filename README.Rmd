@@ -13,6 +13,18 @@ This repository hosts all the development files of the METARET project on the **
 
 ## Aim of the project
 
+Risk attitudes play a crucial role in a variety of settings, from insurance, financial decision making, education and career choices, to development and public policy. The accurate measure of risk preferences is of large importance in both theoretical and applied work.
+
+Increasing experimental evidence points to the fact that the behavioral measures we use to elicit risk attitudes have low external validity. Risk elicitation tasks (RETs), at least in the way they are typically implemented in behavioral economics and psychology, 1. correlate poorly with self-reported risk attitudes, real-world risk behaviors, and among themselves; 2. introduce distinct measurement errors and behavioral biases, and 3. are not robust to sit-resit exercises. 
+
+But the issue can not be settled by a handful of papers. The data to assess the external validity of RETs already exists. It sits in the drawers of dozens of experimentlasits that have used RETs for their disparate aims. 
+
+The aim of this project is to collect in a single, public, open repository all the data pertaining to the external validity of RETs. The objectives are to
+
+- document exhaustively the scope and limits of the external validity of different RETs.
+- provide a detailed map of which features of a RET are more conducive to external validity validity.
+- serve as a basis for the development of a more predictive lottery-based RET.
+
 
 ## Resources
 
