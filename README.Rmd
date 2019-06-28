@@ -13,17 +13,29 @@ This repository hosts all the development files of the METARET project on the **
 
 ## Aim of the project
 
-Risk attitudes play a crucial role in a variety of settings, from insurance, financial decision making, education and career choices, to development and public policy. The accurate measure of risk preferences is of large importance in both theoretical and applied work.
+The accurate measure of **risk preferences** is of large importance in both theoretical and applied work. Despite this importance, increasing experimental evidence points to the fact that the behavioral measures we use to elicit risk attitudes have **low external validity**. 
 
-Increasing experimental evidence points to the fact that the behavioral measures we use to elicit risk attitudes have low external validity. Risk elicitation tasks (RETs), at least in the way they are typically implemented in behavioral economics and psychology, 1. correlate poorly with self-reported risk attitudes, real-world risk behaviors, and among themselves; 2. introduce distinct measurement errors and behavioral biases, and 3. are not robust to sit-resit exercises. 
+Lottery-based risk elicitation tasks (*RETs*), at least in the way they are typically implemented in behavioral economics and psychology, 1. **correlate poorly** with self-reported risk attitudes, real-world risk behaviors, and among themselves; 2. introduce distinct **measurement errors** and behavioral biases, and 3. are not robust to **test-retest** exercises. 
 
-But the issue can not be settled by a handful of papers. The data to assess the external validity of RETs already exists. It sits in the drawers of dozens of experimentlasits that have used RETs for their disparate aims. 
+But the issue can not be settled by a handful of papers, that despite all efforts are limited in sample size, and types of task and questionnaires considered. 
 
-The aim of this project is to collect in a single, public, open repository all the data pertaining to the external validity of RETs. The objectives are to
+The good news is that the **data** to assess the external validity of a large variety of RETs and a large variety of self-reported questionnaires **already exists**. It sits in the drawers of dozens of experimentlasits that have used RETs for their disparate aims. If collected, the *existing data* would give us a detailed, precise, and extensive **map of the external validity** of RETs under a variety of experimental conditions.
 
-- document exhaustively the scope and limits of the external validity of different RETs.
-- provide a detailed map of which features of a RET are more conducive to external validity validity.
-- serve as a basis for the development of a more predictive lottery-based RET.
+The aim of METARET -- the Meta-analysis of the external validity of RETs --  is to collect in a single, public, open repository all the data pertaining to the external validity of RETs. Its objectives are to
+
+- **document exhaustively** the scope and limits of the external validity of different RETs.
+- provide a **detailed map** of which **features** of a RET are more conducive to external validity validity.
+- serve as a basis for the **development** of a more predictive lottery-based RET (*French ANR grant under submission*).
+
+METARET will collect data of papers that have run:
+
+- any **lottery-based RET** (incentivized or not)
+- any **other measure of risk** attitudes (questionnaire, bids in an auction, self-reported, implied by behavior in another game (insurance, trust...))
+- any **self-declared real-world risky behaviour**.
+
+The metric of interest will be (linear and rank) correlations between any two RETs, any RET and any questionnaire, any RET and any real-world behavior. For lottery-based RETs, two metrics will be used: bare choices -- whose domain and granularity change across tasks -- and implied CRRA coefficients of risk attitudes *r* -- that are burdened by theoretical assumptions but are more comparable across tasks. 
+
+The aim is to be as large as possible, to allow the map to cover most possible ground -- data availability will impose us to restric attention to certain broad class of RETs and of self-reported measures in due time. 
 
 
 ## Resources
