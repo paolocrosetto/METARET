@@ -86,46 +86,73 @@ METARET is composed of:
 
 ## How to contribute
 
-METARET is about correlations. So data need to be collected within
-subjects. If you have experimental data that includes:
+METARET is about **correlations**. So data need to be collected *within
+subjects*. If you have experimental data that includes:
 
-  - two (or more) lottery-based RETs
-  - one (or more) RETs and one (or more) self-reported questionnaires
-    (SOEP, DOSPERT, sensation seeking, other scales)
-  - one (or more) questionnaires or RET and risk-related behavior in
+  - two (or more) lottery-based **RETs**
+  - one (or more) RETs and one (or more) self-reported
+    **questionnaires** (SOEP, DOSPERT, sensation seeking, other scales)
+  - one (or more) questionnaires or RET and **risk-related behavior** in
     another game/task (insurance, trust, strategic uncertainty,
     contests, competitiveness…)
-  - one (or more) RET or questionnaire and self-reported real world risk
-    attitudes (health, sports, sexual behavior, smoking…)
+  - one (or more) RET or questionnaire and self-reported **real world
+    risk attitudes** (health, sports, sexual behavior, smoking…)
 
 then your data can be included in METARET.
 
 To contribute:
 
-  - open a git pull request and upload directly your data to the /Data
-    folder, in an appropriately named subfolder;
-  - send your raw data (limited to the RET, questionnaires,
+  - open a **git pull request** and push your data to the /Data folder,
+    in an appropriately named subfolder;
+  - **send your raw data** (limited to the RET, questionnaires,
     risk-behavior data, subject ID) and a codebook to
     <paolo.crosetto@gmail.com> and I will upload it to this repository
-    and the shiny app. Send along also the published paper that is based
-    on that data, as well as any detail about the RET, the
+    and the shiny app. Send along also the **published paper** that is
+    based on that data, as well as any detail about the RET, the
     questionnaire, the sample that you might find relevant;
-  - compute by yourself the correlations and send them to
+  - **compute by yourself the correlations** and send them to
     <paolo.crosetto@gmail.com>
 
 ### Data dissemination and disclosure
 
-This is an open science project. All data shared will be made public. It
-will be available for external scrutiny, download, and further use (upon
-citation and contact, CC NC-BY-SA)
+This is an **open science project**. All data shared will be **made
+public**. It will be available for external scrutiny, download, and
+further use (upon citation and contact, CC NC-BY-SA):
 
-  - static, on this github repository;
-  - dynamically explorable, on the shiny app.
+  - *static .csv files* and analysis scripts (mainly R and Stata), on
+    this **github** repository;
+  - *dynamically explorable*, on the [shiny
+    app](https://paolocrosetto.shinyapps.io/METARET/).
 
-If you do not wish your raw data to be disclosed but still want to
-contribute,
+If **you do not wish** your raw data to be disclosed but *still want to
+contribute*, let me know. It is possible to include only the computed
+correlations to the shiny app and the meta-analysis plots *without*
+fully disclosing the individual data. Of course, with individual data
+more is possible (distribution plots, large scatter plots, computation
+of different utility functions, more measures…)
+
+### Open science
+
+METARET will be **developed in public**. As new papers and data sources
+arrive, they will be added to the repository, cleaned, correlations will
+be computed, and results will be fed to the [shiny
+app](https://paolocrosetto.shinyapps.io/METARET/). You will be able to
+**track** the active development of the meta-analysis.
+
+### Presentation
+
+The methodology and first results of METARET will be the object of a
+special [semi-pleanry
+session](https://lessac.bsb-education.com/index.php?page=plenary)
+organized by me at the [2019 Dijon European ESA
+meeting](https://lessac.bsb-education.com/index.php?page=european-esa-meeting-dijon-sept-2019).
+Pop by Dijon to learn more.
 
 ## Contributed papers (list updates as papers are contributed)
+
+In order to give a feeling of the final product, METARET started from
+two papers of mine. More papers whose data is freely available for
+download will be soon added.
 
   - Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation
     Task*, JRU, 2013
@@ -136,7 +163,7 @@ contribute,
     [paper](https://link.springer.com/article/10.1007/s10683-015-9457-9)
     [data](/Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/)
 
-## First look at the results
+### First look at the results
 
 As a first step, I compute the (Pearson) correlation of each RET to
 (each of a series of) self-reported risk measures.
@@ -147,6 +174,8 @@ are the results of correlations between several tasks and:
   - the SOEP risk question
   - the DOSPERT scale and its subscales
 
-The plots and analyses are updated for each new contributed paper.
+The plots and analyses are updated for each new contributed paper. An
+interactive version fo the same data is to be found at the [shiny
+app](https://paolocrosetto.shinyapps.io/METARET/)
 
 ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
