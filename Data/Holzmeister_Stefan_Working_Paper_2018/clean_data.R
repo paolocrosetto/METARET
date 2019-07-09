@@ -1,4 +1,4 @@
-#### Crosetto and Filippin, "The Bomb Risk Elicitation Task", JRU 2013
+#### Holzmeister, F. & Stefan, M. (2019). The risk elicitation puzzle revisited: Across-methods (In)consistency?
 
 #### cleaning data to be used for the meta-nalaysis
 
@@ -6,49 +6,32 @@
 library(tidyverse)
 library(haven)
 library(broom)
+library(readxl)
 
 
 #### getting the data
-df <- read_dta("Data/Crosetto_Filippin_Experimental_Economics_2016/original_dataset.dta") %>% as_factor()
+df <- read_xls("Data/Holzmeister_Stefan_Working_Paper_2018/original_dataset.xls")
 
 ## selecting the needed variables
 ## we select only:
 ## 1. the result of the task
 ## 2. any treatment or differences in the task
 ## 3. answers to questionnaires
-df <- df %>% 
-  select(subject, gender, age, treatment, perc, pump, eg, cgptotal, safechoices, inconsistent, soep, starts_with("do")) %>% 
-  select(-dominated)
 
-# gathering and renaming each different chocie variable 'choice'
-df <- df %>% 
-  gather(key, choice, -subject, -gender, -age, -inconsistent, -soep, -starts_with("do"), -treatment) %>% 
-  filter(!is.na(choice))
+
 
 ## recoding HL as higher number -> more risk
-df <- df %>% 
-  mutate(choice = if_else(treatment == "hl", 10 - choice, choice))
 
 # adding task
-df <- df %>% 
-  mutate(task = case_when(treatment == "bret" ~ "BRET",
-                          treatment == "cgp" ~ "IG",
-                          treatment == "eg" ~ "EG",
-                          treatment == "hl" ~ "HL",
-                          treatment == "balloon" ~ "BART"))
 
 # removing bret as it is duplicate of the one in JRU
-df <- df %>% 
-  filter(treatment != "bret")
 
 # cleaning the "treatment" variable as it is not needed <- a HACK CHANGE THIS LATER
-df <- df %>% 
-  mutate(treatment = " ")
 
 # adding paper name and bibkey
 df <- df %>% 
-  mutate(bibkey = "Crosetto2016",
-         paper = "Crosetto and Filippin EXEC 2016")
+  mutate(bibkey = "Holzmeister2019",
+         paper = "Holzmeister and Stefan Working Paper 2019")
 
 
 
@@ -75,8 +58,6 @@ df <- df %>% mutate(r = case_when(task == "BRET" ~ choice/(100-choice),
 
 
 # Order of variables
-df <- df %>% 
-  select(bibkey, paper, task, subject, age, gender, choice, r, everything())
 
 # Writing to file
-df %>% write_csv("Data/Crosetto_Filippin_Experimental_Economics_2016/formatted_dataset.csv")
+df %>% write_csv("Data/Holzmeister_Stefan_Working_Paper_2018/formatted_dataset.csv")
