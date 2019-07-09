@@ -1,0 +1,20 @@
+### TODOlist
+
+## data 
+- process and add Holzmeister and Stefan
+- process and add Pedroni et al (Frey et al)
+- process and add Zhou and hey
+- contact the HL paper authors
+- contact authors in list of concerned papers
+
+
+## analyses
+- add RET vs RET analysis
+- consider doing ML analyses by paper and overall
+
+## shiny
+- add a description of each RET and questionnaire
+- add the RET vs RET correlation analysis
+- optimize the RET vs Questionnaire analysis and output
+
+## presentation
