@@ -1,0 +1,9 @@
+column1: subject number (1-24 for session 1; 25-48 for session 2; 49-72 for session 3; 73-96 for session 4)
+column2: problem number
+column3: subject choices (1=left,2=right,adjusted)
+column4: outcome1 of left lottery
+column5: probability of outcome1 of left lottery (multiplied by 10)
+column6: outcome2 of left lottery
+column7: outcome1 of right lottery
+column8: probability of outcome1 of right lottery (multiplied by 10)
+column9: outcome2 of right lotery
