@@ -55,7 +55,10 @@ corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>%
     mutate(questionnaire = fct_relevel(as_factor(questionnaire), "SOEP", "DOSPERT"))
 
 # join  the N of observations oer study
-corr <- df %>% group_by(paper, task, treatment) %>% summarise(N = n()) %>% left_join(corr, by = c("paper", "task", "treatment"))
+corr <- df %>% 
+    group_by(paper, task, treatment) %>% 
+    summarise(N = n()) %>% 
+    left_join(corr, by = c("paper", "task", "treatment"))
 
 # another stupid hack
 corr <- corr %>% mutate(treatment = if_else(is.na(treatment), "", treatment))
@@ -105,6 +108,22 @@ plotcor <- function(inputtask, inputquestionnaire) {
     
 }
 
+## function that generates the description for each task 
+
+describe <- function(taskorquest) {
+    out <- "mamama"
+    if (taskorquest == "all") {
+        out <- ""
+    }
+    if (taskorquest == "BRET") {
+        out <- "The BRET was developed by XXX.... The BRET was developed by XXX.... The BRET was developed by XXX.... The BRET was developed by XXX.... The BRET was developed by XXX....The BRET was developed by XXX.... "
+    }
+    if (taskorquest == "HL") {
+        out <- "The HL task was developed by Charles Holt and Susan K Laury in 2002 AER..."
+    }
+ out   
+}
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
@@ -116,5 +135,7 @@ shinyServer(function(input, output) {
         plotcor(task, questionnaire)
 
     })
+    
+    output$description <- renderText(describe(input$task))
 
 })

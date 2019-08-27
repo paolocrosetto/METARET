@@ -11,7 +11,7 @@ library(shiny)
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Explore the METARET database", windowTitle = "METARET -- a METa Analysis of the external validity of Risk Elicitation Tasks"),
+    headerPanel("Explore the METARET database", windowTitle = "METARET -- a METa Analysis of the external validity of Risk Elicitation Tasks"),
     
     
 
@@ -39,7 +39,7 @@ shinyUI(fluidPage(
                         selected = 1),
             
             hr(),
-            fluidRow(column(3, verbatimTextOutput("value")))
+            textOutput("description")
             ),
 
         # Show a plot of the generated distribution
