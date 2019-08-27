@@ -25,7 +25,9 @@ tests <- df %>%
   ) %>%
   unnest(tidied, .drop = TRUE)
 
-prova <- df %>% group_by(paper, task, treatment) %>% summarise(N = n()) %>% left_join(tests, by = c("paper", "task", "treatment"))
+prova <- df %>% 
+  group_by(paper, task, treatment) %>% 
+  summarise(N = n()) %>% left_join(tests, by = c("paper", "task", "treatment"))
 
 ## plot on non-transformed values
 prova %>%
@@ -41,3 +43,22 @@ prova %>%
    geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
    scale_color_manual(name = "significance", values = c("red", "orange", "yellow", "black"), drop = F)
 ggsave("main_META_plot_playground.png")
+
+## plot to visualize the 'r' parameter estimates from different tasks and treatments
+df %>% 
+  filter(bibkey == "Crosetto2016") %>% 
+  ggplot(aes(r, color = task, fill = task))+
+  geom_density(alpha = 0.3, adjust = 0.2)+
+  coord_cartesian(xlim = c(-1,2))+
+  facet_wrap(~task)
+
+library(ggridges)
+
+df %>% 
+  ggplot(aes(x = r, y = task, color = task, fill = task))+
+  geom_density_ridges(alpha = 0.3, bandwidth = 0.001, scale = 2)+
+  coord_cartesian(xlim = c(-1.5,2.5))+
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed")+
+  labs(x = "risk aversion parameter r (CRRA, x^r)",
+       y = "task")+
+  theme(legend.title = element_blank())
