@@ -58,7 +58,7 @@ df <- df %>%
 
 # adding paper name and bibkey
 df <- df %>% 
-  mutate(bibkey = "Charness 2019",
+  mutate(bibkey = "Charness2019",
          paper = "Charness et al 2019")
 
 ## function to assign random parameter within bounds to HL
@@ -69,7 +69,7 @@ df <- df %>%
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 ## note: IG data not yet implemented!
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::map2_dbl(task, choice, get_r))
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 
 # Order of variables
