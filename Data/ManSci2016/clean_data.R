@@ -36,10 +36,6 @@ df <- df %>%
 df <- df %>% 
   mutate(task = "HL")
 
-## recoding HL as higher number -> more risk
-df <- df %>% 
-  mutate(choice = 10 - choice)
-
 # cleaning the "treatment" variable as it is not needed <- a HACK CHANGE THIS LATER
 df <- df %>% 
   mutate(treatment = " ")
@@ -51,20 +47,18 @@ df <- df %>%
   separate(keep, into = c("bibkey", "drop"), sep = "\\}") %>% 
   select(-drop)
 
+# since this is a meta analysis paper that groups different papers we need a metabibkey
+df <- df %>% 
+  mutate(metabibkey = "Meta2016")
+
+## some choices are coded as 'half choice' -- the subject has made e.g. 1.5 choices -> DROP THEM
+df <- df %>% 
+  filter(choice != 1.5 & choice != 4.5 & choice != 5.5 & choice != 6.5 & choice != 7.5 )
 
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
-df <- df %>% mutate(r = case_when(task == "HL" & choice == 10 ~ 1.95,
-                                  task == "HL" & choice == 9 ~ 1.95,
-                                  task == "HL" & choice == 8 ~ (1.49+1.95)/2,
-                                  task == "HL" & choice == 7 ~ (1.49+1.15)/2,
-                                  task == "HL" & choice == 6 ~ (0.85+1.15)/2,
-                                  task == "HL" & choice == 5 ~ (0.59+0.85)/2,
-                                  task == "HL" & choice == 4 ~ (0.32+0.59)/2,
-                                  task == "HL" & choice == 3 ~ (0.03+0.32)/2,
-                                  task == "HL" & choice == 2 ~ (0.03+-0.37)/2,
-                                  task == "HL" & choice == 1 ~ -0.37,
-                                  task == "HL" & choice == 0 ~ -0.37))
+source("Data/generate_r.R")
+df <- df %>% mutate(r = purrr::pmap_dbl(list(metabibkey, task, choice), get_r))
 
 
 # Order of variables
