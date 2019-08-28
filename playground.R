@@ -55,8 +55,8 @@ df %>%
 library(ggridges)
 
 tasks <- c("IG","EG","HL",'BART',"BRET")
-tasks <- c("IG","EG")
-tasks <- "HL"
+# tasks <- c("IG","EG")
+# tasks <- "HL"
 df %>% 
   filter(task %in% tasks) %>% 
   ggplot(aes(x = r, y = task, color = task, fill = task))+
@@ -72,7 +72,14 @@ source("flat_violin.R")
 library(ggbeeswarm)
 df %>% 
   filter(r > -1.5 & r < 2.5) %>% 
-ggplot(aes(task, r, color=task, fill = task)) +
+  group_by(task) %>% 
+  mutate(m = mean(r, na.rm = T),
+            sd = sd(r, na.rm = T),
+            se = sd/sqrt(n()),
+            ci = se * qt(.95/2 + .5, n()-1),
+            cih = m+ci,
+            cil = m-ci) %>% 
+  ggplot(aes(reorder(task,m), r, color=task, fill = task)) +
   geom_flat_violin(position = position_nudge(x = 0.15, y = 0),
                    alpha = 0.7, 
                    adjust = 0.8) +
@@ -82,12 +89,20 @@ ggplot(aes(task, r, color=task, fill = task)) +
                outlier.alpha = 0) +
   geom_point(alpha = 0.2,
              position = position_jitter(width = 0.12, height = 0),
-             size = 2) +
+             size = 0.5) +
+  geom_point(aes(y = m), shape = 21, size = 3, fill = "black", position = position_nudge(x = -0.2))+
+  geom_errorbar(aes(ymin = cil, ymax = cih), width = 0.05, position = position_nudge(x = -0.2))+
+  # stat_summary(fun.data = mean_cl_boot, 
+               # geom = "pointrange", position = position_nudge(x = - 0.15, y = 0))+
+  geom_hline(yintercept = 1, color = 'red', linetype = 'dashed')+
+  labs(y = "risk aversion parameter r (CRRA, x^r)",
+       x = "")+
+  theme(legend.title = element_blank())+
   coord_flip()
 
 ## simple dot + whisker plot
 df %>% 
-  filter(r < 10) %>% 
+  filter(r > -1.5 & r < 2.5) %>% 
   group_by(task) %>% 
   summarise(m = mean(r, na.rm = T),
             sd = sd(r, na.rm = T),

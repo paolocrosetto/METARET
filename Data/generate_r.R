@@ -78,7 +78,6 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 9) { out <- -0.37 }
       if (choice == 10) { out <- -0.37 }
     }    
-    
   }
   
   out
