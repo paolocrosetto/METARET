@@ -3,6 +3,7 @@
 library(tidyverse)
 library(broom)
 library(hrbrthemes)
+library(viridis)
 
 theme_set(theme_ipsum_rc()+
             theme(legend.position = "bottom"))
@@ -70,6 +71,7 @@ df %>%
 ## raincloud plot
 source("flat_violin.R")
 library(ggbeeswarm)
+library(wesanderson)
 df %>% 
   filter(r > -1.5 & r < 2.5) %>% 
   group_by(task) %>% 
@@ -79,25 +81,30 @@ df %>%
             ci = se * qt(.95/2 + .5, n()-1),
             cih = m+ci,
             cil = m-ci) %>% 
-  ggplot(aes(reorder(task,m), r, color=task, fill = task)) +
+  ggplot(aes(reorder(task,m), r, colour = task, fill = task)) +
   geom_flat_violin(position = position_nudge(x = 0.15, y = 0),
                    alpha = 0.7, 
-                   adjust = 0.8) +
+                   adjust = 0.8,
+                   scale = "width",
+                   color = "white") +
+  geom_point(alpha = 0.2,
+             position = position_jitter(width = 0.12, height = 0),
+             size = 0.5, show.legend = F) +  
   geom_boxplot(fill = 'white',
                color = 'grey30',
                width = 0.25,
-               outlier.alpha = 0) +
-  geom_point(alpha = 0.2,
-             position = position_jitter(width = 0.12, height = 0),
-             size = 0.5) +
-  geom_point(aes(y = m), shape = 21, size = 3, fill = "black", position = position_nudge(x = -0.2))+
-  geom_errorbar(aes(ymin = cil, ymax = cih), width = 0.05, position = position_nudge(x = -0.2))+
+               outlier.alpha = 0,
+               alpha = 0) +
+  geom_errorbar(aes(ymin = cil, ymax = cih), width = 0.05, position = position_nudge(x = -0.2), show.legend = F)+
+  geom_point(aes(y = m), shape = 21, size = 3, position = position_nudge(x = -0.2), show.legend = F)+
   # stat_summary(fun.data = mean_cl_boot, 
                # geom = "pointrange", position = position_nudge(x = - 0.15, y = 0))+
   geom_hline(yintercept = 1, color = 'red', linetype = 'dashed')+
   labs(y = "risk aversion parameter r (CRRA, x^r)",
        x = "")+
   theme(legend.title = element_blank())+
+  scale_fill_viridis_d()+
+  scale_color_viridis_d()+
   coord_flip()
 
 ## simple dot + whisker plot
