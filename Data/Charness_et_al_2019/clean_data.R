@@ -42,6 +42,10 @@ df <- df %>%
 df <- df %>% 
   mutate(h_l = h_l - 1)
 
+## choice in IG saved in cents -- transforming to euros
+df <- df %>% 
+  mutate(g_p = g_p/100)
+
 # gathering and renaming each different chocie variable 'choice'
 df <- df %>% 
   gather(key, choice, -subject, -gender, -age, -task) %>%  

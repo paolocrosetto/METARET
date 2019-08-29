@@ -12,4 +12,5 @@ def power(l, a):
     
 def findmax(a):
     k = linspace(1,100,1000)
-    return argmax(power(k,a))
+    index = argmax(power(k,a))+1
+    return index/10.0

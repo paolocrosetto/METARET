@@ -28,7 +28,14 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 10) { out <- -0.37 }
     }
     
-    if (task != "HL" & task != "EG") { out <- NA }
+    ## TODO: how to deal with the long left tail??
+    if (task == "IG") {
+      if (choice == 8) { out <- 1  }
+      if (choice == 0) { out <- -1  }
+      if (choice != 8 & choice != 0) { out <- (-0.405465 -log(8 - choice) + log(8 + 1.5*choice))/(-log(8-choice) + log(8 + 1.5*choice))  }
+    } 
+    
+    if (task != "HL" & task != "EG" & task != "IG") { out <- NA }
   }
   
   if (bibkey == "Crosetto2016") {
@@ -98,7 +105,11 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 5) { out <- 1}
     }
     
-    if (task == "IG") {out <- NA} ## change this once closed form solution obtained
+    if (task == "IG") {
+      if (choice == 100) { out <- 1  }
+      if (choice == 0) { out <- -1  }
+      if (choice != 100 & choice != 0) { out <- (log(1/(2*(100-choice))) + log(100 + 2*choice))/(-log(100-choice) + log(100 + 2*choice))  }
+    } 
     
     if (task == "CEPL") {
       if (choice == 0) { out <- 1.52   }
