@@ -52,5 +52,6 @@ df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 # Order of variables
 
+
 # Writing to file
 df %>% write_csv("Data/Holzmeister_Stefan_Working_Paper_2018/formatted_dataset.csv")
