@@ -71,7 +71,6 @@ df %>%
 ## raincloud plot
 source("flat_violin.R")
 library(ggbeeswarm)
-library(wesanderson)
 df %>% 
   filter(r > -1.5 & r < 2.5) %>% 
   group_by(task) %>% 
@@ -95,10 +94,10 @@ df %>%
                width = 0.25,
                outlier.alpha = 0,
                alpha = 0) +
-  geom_errorbar(aes(ymin = cil, ymax = cih), width = 0.05, position = position_nudge(x = -0.2), show.legend = F)+
-  geom_point(aes(y = m), shape = 21, size = 3, position = position_nudge(x = -0.2), show.legend = F)+
-  # stat_summary(fun.data = mean_cl_boot, 
-               # geom = "pointrange", position = position_nudge(x = - 0.15, y = 0))+
+  # geom_errorbar(aes(ymin = cil, ymax = cih), width = 0.05, position = position_nudge(x = -0.2), show.legend = F)+
+  # geom_point(aes(y = m), shape = 21, size = 2, position = position_nudge(x = -0.2), show.legend = F)+
+  stat_summary(fun.data = mean_cl_boot, 
+               geom = "pointrange", position = position_nudge(x = - 0.2, y = 0))+
   geom_hline(yintercept = 1, color = 'red', linetype = 'dashed')+
   labs(y = "risk aversion parameter r (CRRA, x^r)",
        x = "")+

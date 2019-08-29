@@ -34,7 +34,7 @@ df <- df %>%
 ## variable for CEPL is switching point
 ## converting in the NUMBER OF SAFE CHOICES -- these are defined as switching point - 1
 df <- df %>% 
-  mutate(choice = if_else(task == "CEPL", choice -1 , choice))
+   mutate(choice = if_else(task == "CEPL", choice -1 , choice))
 
 # adding paper name and bibkey
 df <- df %>% 
@@ -49,7 +49,7 @@ df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 # Order of variables
 df <- df %>% 
-  select(bibkey, paper, task, subject, age, gender, choice, r, everything())
+  select(bibkey, paper, task, subject, choice, r, everything())
 
 # Writing to file
-df %>% write_csv("Data/Charness_et_al_2019/formatted_dataset.csv")
+df %>% write_csv("Data/Menkhoff_Sakha_Jo_Econ_Psy_2017/formatted_dataset.csv")
