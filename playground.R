@@ -82,7 +82,7 @@ df %>%
             cil = m-ci) %>% 
   mutate(n = n()) %>% 
   ungroup() %>% 
-  # mutate(task = paste0(task, " (N = ",n,")")) %>% 
+  mutate(task = paste0(task, " (N = ",n,")")) %>% 
   ggplot(aes(reorder(task,m), r, colour = task, fill = task)) +
   geom_flat_violin(position = position_nudge(x = 0.15, y = 0),
                    alpha = 0.7, 
@@ -91,7 +91,7 @@ df %>%
                    color = "white") +
   geom_point(alpha = 0.4,
              position = position_jitter(width = 0.12, height = 0),
-             size = 0.5, show.legend = F, 
+             size = 0.8, show.legend = F, 
              shape = 21,
              color = "white") +  
   geom_boxplot(fill = 'white',
@@ -109,8 +109,8 @@ df %>%
        x = "")+
   theme(legend.title = element_blank(),
         legend.position = "none")+
-  scale_fill_viridis_d()+
-  scale_color_viridis_d()+
+  scale_fill_brewer(palette = "Set1")+
+  scale_color_brewer(palette = "Set1")+
   coord_flip()
 ggsave("map_elicited_r_preliminary.png", width = 10, height = 7, units = "in", dpi = 500)
 
