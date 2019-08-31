@@ -3,7 +3,10 @@ title: "METARET"
 subtitle: "a Meta-analysis of Risk Elicitation Tasks"
 author: "Paolo Crosetto"
 date: "ESA Dijon -- September 6th, 2019"
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+    incremental: TRUE
+    logo: inra.png 
 ---
 
 ```{r setup, include=FALSE}
@@ -16,10 +19,64 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Nothing new
 
-Slovic 1962
+![](Presentation_ESA_files/Slovic1962.png){width=800px}
 
+- this is from Slovic 1962
+- correlation among now-deceased measures of risk is low
+- notice the wrong signs
 
 ## But still
+
+# Elicited risk attitudes
+
+## tasks
+
+## papers covered
+
+## across tasks: task-specific
+
+## within tasks: detail-specific
+
+## within tasks: replication-specific
+
+## questionnaires
+
+# Correlation among RETs
+
+## papers covered
+
+## rather low across the board
+
+## blah
+
+# Correlation with questionnaires
+
+## papers covered
+
+## results
+
+# Why?
+
+## Noise
+
+## Risk perception
+
+## Theory
+
+# Where do we go from here?
+
+## Contribute to the meta-analysis!
+
+## Lookign fro patterns
+
+## Tackling noise
+
+## Tackling perceptions
+
+## Tackling theory
+
+# Thanks!
+
 
 
 
