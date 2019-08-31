@@ -50,8 +50,11 @@ source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 
-# Order of variables
-
+# generate a numeric subect variable
+df <- df %>% 
+  mutate(subject = as.numeric(factor(pid, levels=unique(pid))),
+         subject = 23100+subject) %>% 
+  select(-pid)
 
 # Writing to file
 df %>% write_csv("Data/Holzmeister_Stefan_Working_Paper_2018/formatted_dataset.csv")
