@@ -10,51 +10,15 @@ library(readxl)
 
 
 #### getting the data
-df <- read_xls("Data/Holzmeister_Stefan_Working_Paper_2018/original_dataset.xls")
+df <- read_dta("Data/Nielsen_2019/original_dataset.dta")
 
-## sum of choices can be mapped to
-## BRET: number of boxes
-## EG: chosen lottery
-## CEPL: number of risky choices
-## HL: number of risky choices
-df <- df %>% 
-  mutate(task = as_factor(task),
-         task = fct_recode(task, "BRET" = "1", "CEPL" = "2", "HL" = "3", "EG" = "4")) %>% 
-  group_by(task, pid) %>% 
-  summarise(choice = sum(choice))
-
-## recoding HL as higher number -> more risk
-
-# adding task
-
-# removing bret as it is duplicate of the one in JRU
-
-# cleaning the "treatment" variable as it is not needed <- a HACK CHANGE THIS LATER
-
-# adding paper name and bibkey
-df <- df %>% 
-  mutate(bibkey = "Holzmeister2019",
-         paper = "Holzmeister and Stefan Working Paper 2019")
-
-## translating CEPL and HL as number of SAFE choices
-## EG goes from 0 to 5 -> translating into 1 to 6
-df <- df %>% 
-  mutate(choice = if_else(task == "HL", 10-choice, choice)) %>% 
-  mutate(choice = if_else(task == "CEPL", 9-choice, choice)) %>% 
-  mutate(choice = if_else(task == "EG", choice +1, choice))
-
-
-
-## Computing the CRRA (x^r) coefficient of risk aversion from the task data
-source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
-
-
-# generate a numeric subect variable
-df <- df %>% 
-  mutate(subject = as.numeric(factor(pid, levels=unique(pid))),
-         subject = 23100+subject) %>% 
-  select(-pid)
+## some subjects have made no choice apparently (0 everywhere)
+df %>% 
+  filter(!(box1 == 0 & box2 == 0 & box3 == 0 & box4 ==0)) %>% 
+  mutate(treatment = as.factor(treatment)) %>% 
+  mutate(box1 = box1*4) %>% 
+  ggplot(aes(box1, color = treatment, fill = treatment))+
+  geom_histogram(alpha =0.5, position = position_dodge())
 
 # Writing to file
-df %>% write_csv("Data/Holzmeister_Stefan_Working_Paper_2018/formatted_dataset.csv")
+df %>% write_csv("Data/Nielsen_2019/formatted_dataset.csv")
