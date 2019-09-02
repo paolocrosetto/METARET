@@ -36,19 +36,24 @@ compute_corr <- function(data, var, name) {
 
 
 # SOEP
-soep <- compute_corr(df, "soep", "SOEP")
+soep <- df %>% filter(!is.na(soep)) %>% 
+    compute_corr("soep", "SOEP")
 
 # DOSPERT
-dospert <- compute_corr(df, "doall", "DOSPERT")
+dospert <- df %>% filter(!is.na(doall)) %>% 
+    compute_corr("doall", "DOSPERT")
 
 # DOSPERT-GAMBLE
-dogamble <- compute_corr(df, "dogamble", "D-gamble")
+dogamble <- df %>% filter(!is.na(dogamble)) %>% 
+    compute_corr("dogamble", "D-gamble")
 
 # DOSPERT-INVESTMENT
-doinvest <- compute_corr(df, "doinvest", "D-invest")
+doinvest <- df %>% filter(!is.na(doinvest)) %>% 
+    compute_corr("doinvest", "D-invest")
 
 # DOSPERT-HEALTH
-dohealth <- compute_corr(df, "dohealth", "D-health")
+dohealth <- df %>% filter(!is.na(dohealth)) %>% 
+    compute_corr("dohealth", "D-health")
 
 # rbind
 corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>% 

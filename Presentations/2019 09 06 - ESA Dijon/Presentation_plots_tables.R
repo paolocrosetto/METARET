@@ -157,8 +157,9 @@ corrdf %>%
   select(-bibkey, -subject) %>% 
    ggplot(aes(x = .panel_x, y = .panel_y))+
    geom_jitter(alpha = 0.5)+
-  geom_autodensity()+
-   facet_matrix(vars(BRET, CEPL, HL, EG), layer.diag = 2)+
+  geom_smooth(method = "lm")+
+  geom_autodensity(fill = "grey70", alpha = 0.5)+
+   facet_matrix(vars(BRET, CEPL, HL, EG), layer.diag = 3)+
    theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
 
