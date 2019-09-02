@@ -1,2 +1,2 @@
  
-## Multiple Price List from Holt and Laury (AER 2002)
+## Balloon Analog Risk Task (Lejuez et al.)

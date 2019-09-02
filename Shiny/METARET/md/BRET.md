@@ -1,2 +1,2 @@
  
-## Multiple Price List from Holt and Laury (AER 2002)
+## Bomb Risk Elicitation Task (Crosetto and Filippin)
