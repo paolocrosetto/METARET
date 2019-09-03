@@ -14,15 +14,18 @@ theme_set(theme_ipsum_rc()+
             theme(panel.spacing.x = unit(0.2, "lines")))
 
 ## getting data -- dirty manual hack
-df <- read_csv("df.csv")
+df <- read_csv("df.csv",col_types = cols(
+                 .default = col_double(),
+                 bibkey = col_character(),
+                 paper = col_character(),
+                 task = col_character(),
+                 treatment = col_character(),
+                 inconsistent = col_logical(),
+                 key = col_character(),
+                 metabibkey = col_logical(),
+                 soep_financial = col_logical()
+               ))
 
-
-corr_task_c <- merge_corr(df, "task", "choice")
-corr_treat_c <- merge_corr(df, "treatment", "choice")
-corr_task_r <- merge_corr(df, "task", "r")
-corr_treat_r <- merge_corr(df, "treatment", "r")
-
-corr <- rbind(corr_task_c, corr_task_r, corr_treat_c, corr_treat_r)
 ## functions to generate plots
 
 # density by task 
@@ -151,7 +154,7 @@ task_variability_plot <- function(selectedtask) {
 compute_corr <- function(data, var, name, level, choicevar) {
   if (level == "task") {
     out <- data %>%
-      nest(-paper, -task) %>%
+      nest(-task) %>%
       mutate(
         test = map(data, ~ cor.test(.x[[choicevar]], .x[[var]], method = "p", conf.level = 0.95)), 
         tidied = map(test, tidy)
@@ -202,10 +205,11 @@ merge_corr <- function(data, level, choicevar){
     # join  the N of observations oer study
     if (level == "task"){
     corr <- data %>% 
-      group_by(paper, task) %>% 
+      group_by(task) %>% 
       summarise(N = n()) %>% 
-      left_join(corr, by = c("paper", "task"))
+      left_join(corr, by = c("task"))
     }
+    
     if (level == "treatment"){
       corr <- data %>% 
         group_by(paper, task, treatment) %>% 
@@ -215,16 +219,21 @@ merge_corr <- function(data, level, choicevar){
   
     corr <- corr %>% filter(!is.na(statistic))
   
-    # addign "level" and "chocievar" as variable for further filtering
-    
+    # adding "level" and "choicevar" as variable for further filtering
     corr <- corr %>%  mutate(level = level, choicevar = choicevar)
-  corr
+    
+    # # managing the treatment = "NA" thing
+    # if (level == "treatment") {
+    #   corr <- corr %>% mutate(treatment = if_else(is.na(treatment), "", treatment))
+    #   
+    # }
+    corr
 }
 
 quest_cor_plot <- function(data, inputtask, inputquestionnaire, level, choicevar) {
   
-  if (level == task) {
-  data %>% 
+  if (level == "task") {
+  out <- data %>% 
     filter(level == {{level}}) %>% 
     filter(choicevar == {{choicevar}}) %>% 
     filter(task %in% inputtask) %>% 
@@ -246,7 +255,7 @@ quest_cor_plot <- function(data, inputtask, inputquestionnaire, level, choicevar
          subtitle = "by task")
   }
   if (level == "treatment"){
-    data %>% 
+    out <- data %>% 
       filter(level == {{level}}) %>% 
       filter(choicevar == {{choicevar}}) %>% 
       filter(task %in% inputtask) %>% 
@@ -267,8 +276,19 @@ quest_cor_plot <- function(data, inputtask, inputquestionnaire, level, choicevar
       labs(title = "Pearson correlation between risk elicitation task and questionnaire",
            subtitle = "by versions of a task")
   }
-  
+  out
 }
+
+
+## creating needed datasets
+
+corr_task_c <- merge_corr(df, "task", "choice")
+corr_treat_c <- merge_corr(df, "treatment", "choice")
+corr_task_r <- merge_corr(df, "task", "r")
+corr_treat_r <- merge_corr(df, "treatment", "r")
+
+corr_task <- rbind(corr_task_c, corr_task_r)
+corr_treat <- rbind(corr_treat_c, corr_treat_r)
 
 ## plotting the correlations among tasks
 
@@ -345,7 +365,7 @@ shinyServer(function(input, output){
     cvar <- input$choicevar
     level <- "task"
     
-    quest_cor_plot(corr, tlist, qlist, level, cvar)
+    quest_cor_plot(corr_task, tlist, qlist, level, cvar)
   })
   
   output$questplottreat <- renderPlot({
@@ -355,7 +375,7 @@ shinyServer(function(input, output){
     cvar <- input$choicevar_treat
     level <- "treatment"
     
-    quest_cor_plot(corr, tlist, qlist, level, cvar)
+    quest_cor_plot(corr_treat, tlist, qlist, level, cvar)
   })
 } 
 )
