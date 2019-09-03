@@ -31,7 +31,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                                    mainPanel(htmlOutput('markdown', inline = T))
                  ),
                    # visualisation of visits mapped on to interactive map
-                   tabPanel("Elicited Risk Attitudes",
+                   tabPanel("Elicited Risk Attitudes - across tasks",
                             sidebarPanel(
                               helpText("Choose a RET to display the elicited values"),
                               checkboxGroupInput("task", NULL,
@@ -48,7 +48,23 @@ shinyUI(navbarPage("METARET Data Explorer",
                               plotOutput("density", height = "800px")
                             )
                    ),
-                   # commute journey duration vs. touch in time
+                 tabPanel("Elicited Risk Attitudes - within tasks",
+                          sidebarPanel(
+                            helpText("Choose a RET to display the elicited values"),
+                            radioButtons("vartask", NULL,
+                                               c("Holt and Laury" = "HL",
+                                                 "Binswanger / Eckel and Grossmann" = "EG",
+                                                 "Investment Game" = "IG",
+                                                 "Bomb Risk Elicitation Task" = "BRET",
+                                                 "Balloon Analog Risk Task" = "BART",
+                                                 "Certainty equivalent price list" = "CEPL"))
+                          ),
+                          
+                          # Show a plot of the generated distribution
+                          mainPanel(
+                            plotOutput("variabilityplot", height = "800px")
+                          )
+                 ),
                    tabPanel("Correlations among tasks",
                             sidebarPanel(
                               helpText("Choose a RET to display cross correlations"),
@@ -66,7 +82,8 @@ shinyUI(navbarPage("METARET Data Explorer",
                             
                             mainPanel(
                               plotOutput("corrplot", height = "800px")
-                            )),
+                            )
+                    ),
                    
                    # simple data table output
                    tabPanel("Correlations with questionnaires",
