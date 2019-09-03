@@ -22,8 +22,8 @@ df <- read_csv("df.csv",col_types = cols(
                  treatment = col_character(),
                  inconsistent = col_logical(),
                  key = col_character(),
-                 metabibkey = col_logical(),
-                 soep_financial = col_logical()
+                 metabibkey = col_character(),
+                 soep_financial = col_double()
                ))
 
 ## functions to generate plots
