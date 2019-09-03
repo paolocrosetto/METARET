@@ -33,7 +33,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                    # visualisation of visits mapped on to interactive map
                  navbarMenu("Elicited Risk Attitudes",
                             tabPanel("Across tasks",
-                            sidebarPanel(
+                            sidebarPanel(width = 3,
                               helpText("Choose a RET to display the elicited values"),
                               checkboxGroupInput("task", NULL,
                                            c("Holt and Laury" = "HL",
@@ -51,7 +51,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                             )
                    ),
                  tabPanel("Within tasks",
-                          sidebarPanel(
+                          sidebarPanel(width = 3,
                             helpText("Choose a RET to display the elicited values"),
                             radioButtons("vartask", NULL,
                                                c("Holt and Laury" = "HL",
@@ -69,7 +69,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                           )
                  )),
                    tabPanel("Correlations among tasks",
-                            sidebarPanel(
+                            sidebarPanel(width = 3,
                               helpText("Choose a RET to display cross correlations"),
                               checkboxGroupInput("corrtask", NULL,
                                                  c("Holt and Laury" = "HL",
@@ -93,7 +93,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                    # simple data table output
                  navbarMenu("Correlations with questionnaires",
                             tabPanel("By task",
-                            sidebarPanel(
+                            sidebarPanel(width = 3,
                               helpText("Choose one or more RETs"),
                               checkboxGroupInput("qtask", NULL,
                                                  c("Holt and Laury" = "HL",
@@ -125,7 +125,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                             )
                     ),
                     tabPanel("By versions of each task",
-                             sidebarPanel(
+                             sidebarPanel(width = 3,
                                helpText("Choose one RET"),
                                radioButtons("qtask_treat", NULL,
                                                   c("Holt and Laury" = "HL",
