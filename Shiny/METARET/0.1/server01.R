@@ -22,51 +22,55 @@ theme_set(theme_ipsum_rc()+
 df <- read_csv("df.csv")
 
 
-## TODO/ need to automate this in a function, adn don't know how. MESSY!
+## comptes correlations
 compute_corr <- function(data, var, name) {
     data %>%
-        nest(-paper, -task, -treatment) %>%
+        nest(-paper, -task) %>%
         mutate(
-            test = map(data, ~ cor.test(.x$choice, .x[[var]], method = "pearson", conf.level = 0.95)), 
+            test = map(data, ~ cor.test(.x$choice, .x[[var]], method = "p", conf.level = 0.95)), 
             tidied = map(test, tidy)
         ) %>%
         unnest(tidied, .drop = TRUE) %>% 
         mutate(questionnaire = name)
 }
 
+merge_corr <- function(data){
+    # SOEP
+    soep <- data %>% filter(!is.na(soep)) %>% 
+        compute_corr("soep", "SOEP")
+    
+    # DOSPERT
+    dospert <- data %>% filter(!is.na(doall)) %>% 
+        compute_corr("doall", "DOSPERT")
+    
+    # DOSPERT-GAMBLE
+    dogamble <- data %>% filter(!is.na(dogamble)) %>% 
+        compute_corr("dogamble", "D-gamble")
+    
+    # DOSPERT-INVESTMENT
+    doinvest <-data %>% filter(!is.na(doinvest)) %>% 
+        compute_corr("doinvest", "D-invest")
+    
+    # DOSPERT-HEALTH
+    dohealth <- data %>% filter(!is.na(dohealth)) %>% 
+        compute_corr("dohealth", "D-health")
+    
+    # rbind
+    corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>% 
+        mutate(questionnaire = fct_relevel(as_factor(questionnaire), "SOEP", "DOSPERT"))
+    
+    # join  the N of observations oer study
+    corr <- data %>% 
+        group_by(paper, task) %>% 
+        summarise(N = n()) %>% 
+        left_join(corr, by = c("paper", "task"))
+    
+    corr <- corr %>% filter(!is.na(statistic))
+    
+    corr
+}
 
-# SOEP
-soep <- df %>% filter(!is.na(soep)) %>% 
-    compute_corr("soep", "SOEP")
 
-# DOSPERT
-dospert <- df %>% filter(!is.na(doall)) %>% 
-    compute_corr("doall", "DOSPERT")
-
-# DOSPERT-GAMBLE
-dogamble <- df %>% filter(!is.na(dogamble)) %>% 
-    compute_corr("dogamble", "D-gamble")
-
-# DOSPERT-INVESTMENT
-doinvest <- df %>% filter(!is.na(doinvest)) %>% 
-    compute_corr("doinvest", "D-invest")
-
-# DOSPERT-HEALTH
-dohealth <- df %>% filter(!is.na(dohealth)) %>% 
-    compute_corr("dohealth", "D-health")
-
-# rbind
-corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>% 
-    mutate(questionnaire = fct_relevel(as_factor(questionnaire), "SOEP", "DOSPERT"))
-
-# join  the N of observations oer study
-corr <- df %>% 
-    group_by(paper, task, treatment) %>% 
-    summarise(N = n()) %>% 
-    left_join(corr, by = c("paper", "task", "treatment"))
-
-# another stupid hack
-corr <- corr %>% mutate(treatment = if_else(is.na(treatment), "", treatment))
 
 ##function that uses input from the UI to subset the task and give out details
 
@@ -95,11 +99,12 @@ plotcor <- function(inputtask, inputquestionnaire) {
     }
     
     plotdf %>% 
+        filter(!is.na(statistic)) %>% 
         mutate(p.value = cut(p.value,
                              breaks = c(-1, 0.01, 0.05, 0.1, 1),
                              labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
         mutate(treatment = paste(paper, ": ", treatment, " (N = ", N, ")", sep ="")) %>%
-        ggplot(aes(reorder(treatment, estimate), estimate, color= p.value))+
+        ggplot(aes(reorder(task, estimate), estimate, color= p.value))+
         geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
         geom_point(size = 2)+
         coord_flip(ylim = c(-0.3, 0.5))+
@@ -109,6 +114,46 @@ plotcor <- function(inputtask, inputquestionnaire) {
         facet_grid(task~questionnaire, scales = "free_y", space = "free_y")+
         xlab("")+ylab("Pearson correlation")+
         labs(title = "Spearman correlation between risk elicitation task and questionnaire",
+             subtitle = "by versions of the task")
+    
+}
+
+plotcortask <- function(inputtask, inputquestionnaire) {
+    
+    if (inputtask == "all" & inputquestionnaire == "all") {
+        plotdf <- corr 
+        }
+    
+    if (inputtask != "all" & inputquestionnaire != "all") {
+        plotdf <- corr %>%
+            filter(task == inputtask, questionnaire == inputquestionnaire)
+    }
+    
+    if (inputtask == "all" & inputquestionnaire != "all") {
+        plotdf <- corr %>%
+            filter(questionnaire == inputquestionnaire)
+    }
+    if (inputtask != "all" & inputquestionnaire == "all") {
+        plotdf <- corr %>%
+            filter(task == inputtask)
+    }
+    
+    plotdf %>% 
+        filter(!is.na(statistic)) %>% 
+        mutate(p.value = cut(p.value,
+                             breaks = c(-1, 0.01, 0.05, 0.1, 1),
+                             labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
+        mutate(task = paste(task, ": ", " (N = ", N, ")", sep ="")) %>%
+        ggplot(aes(reorder(task, estimate), estimate, color= p.value))+
+        geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
+        geom_point(size = 2)+
+        coord_flip(ylim = c(-0.3, 0.5))+
+        geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
+        scale_color_manual(name = "significance", values = c("red", "orange", "yellow", "black"), drop = F)+
+        scale_y_continuous(breaks = c(-0.2, 0, 0.2, 0.4), labels = c("-0.2","0","0.2","0.4"))+
+        facet_grid(.~questionnaire, scales = "free_y", space = "free_y")+
+        xlab("")+ylab("Pearson correlation")+
+        labs(title = "Pearson correlation between risk elicitation task and questionnaire",
              subtitle = "by versions of the task")
     
 }

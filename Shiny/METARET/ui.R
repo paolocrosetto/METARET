@@ -17,21 +17,22 @@ shinyUI(navbarPage("METARET Data Explorer",
                             includeMarkdown("./md/intro.md"),
                             hr()),
                    
-                 # journey time histogram(s)
-                 tabPanel("Risk Elicitation Tasks",
-                          sidebarPanel(h4("RETs"),
-                                                # helpText("Select which RET you need info about"),
-                                                radioButtons("RET", NULL,
-                                                             c("Holt and Laury" = "HL",
-                                                               "Binswanger / Eckel and Grossmann" = "EG",
-                                                               "Investment Game" = "IG",
-                                                               "Bomb Risk Elicitation Task" = "BRET",
-                                                               "Balloon Analog Risk Task" = "BART",
-                                                               "Certainty equivalent price list" = "CEPL"))),
-                                   mainPanel(htmlOutput('markdown', inline = T))
-                 ),
+                 # # explanation of what RETs are -- on hold for the moment
+                 # tabPanel("Risk Elicitation Tasks",
+                 #          sidebarPanel(h4("RETs"),
+                 #                                # helpText("Select which RET you need info about"),
+                 #                                radioButtons("RET", NULL,
+                 #                                             c("Holt and Laury" = "HL",
+                 #                                               "Binswanger / Eckel and Grossmann" = "EG",
+                 #                                               "Investment Game" = "IG",
+                 #                                               "Bomb Risk Elicitation Task" = "BRET",
+                 #                                               "Balloon Analog Risk Task" = "BART",
+                 #                                               "Certainty equivalent price list" = "CEPL"))),
+                 #                   mainPanel(htmlOutput('markdown', inline = T))
+                 # ),
                    # visualisation of visits mapped on to interactive map
-                   tabPanel("Elicited Risk Attitudes - across tasks",
+                 navbarMenu("Elicited Risk Attitudes",
+                            tabPanel("Across tasks",
                             sidebarPanel(
                               helpText("Choose a RET to display the elicited values"),
                               checkboxGroupInput("task", NULL,
@@ -48,7 +49,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                               plotOutput("density", height = "800px")
                             )
                    ),
-                 tabPanel("Elicited Risk Attitudes - within tasks",
+                 tabPanel("Within tasks",
                           sidebarPanel(
                             helpText("Choose a RET to display the elicited values"),
                             radioButtons("vartask", NULL,
@@ -64,7 +65,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                           mainPanel(
                             plotOutput("variabilityplot", height = "800px")
                           )
-                 ),
+                 )),
                    tabPanel("Correlations among tasks",
                             sidebarPanel(
                               helpText("Choose a RET to display cross correlations"),
@@ -86,13 +87,63 @@ shinyUI(navbarPage("METARET Data Explorer",
                     ),
                    
                    # simple data table output
-                   tabPanel("Correlations with questionnaires",
-                            column(2,
-                                   h1("The raw data"),
-                                   p("This tabs shows the raw data as received from TfL.
-                    Filter, sort and search. If you'd like to know more, get in
-                    touch with the app creator via",
-                                     span(tags$a(href="https://twitter.com/leach_jim", "twitter.")))),
-                            column(10, dataTableOutput("data", height = "100%")))
-)
-)
+                 navbarMenu("Correlations with questionnaires",
+                            tabPanel("By task",
+                            sidebarPanel(
+                              helpText("Choose one or more RETs"),
+                              checkboxGroupInput("qtask", NULL,
+                                                 c("Holt and Laury" = "HL",
+                                                   "Binswanger / Eckel and Grossmann" = "EG",
+                                                   "Investment Game" = "IG",
+                                                   "Bomb Risk Elicitation Task" = "BRET",
+                                                   # "Balloon Analog Risk Task" = "BART",
+                                                   "Certainty equivalent price list" = "CEPL")),
+                              hr(),
+                              helpText("Choose one or more questionnaires"),
+                              checkboxGroupInput("tquest", NULL,
+                                                 c("SOEP" = "SOEP", 
+                                                   "DOSPERT" = "DOSPERT",
+                                                   "DOSPERT-Gamble" = "D-gamble",
+                                                   "DOSPERT-investment" = "D-invest",
+                                                   "DOSPERT-health" = "D-health")),
+                              hr(),
+                              helpText("Raw choices or risk parameter"),
+                              radioButtons("choicevar",NULL,
+                                           choices = c("risk parameter" = "r",
+                                                       "raw choices" = "choice"))
+                              ),
+                              
+                            mainPanel(
+                              plotOutput("questplottask", height = "800px")
+                            )
+                    ),
+                    tabPanel("By versions of each task",
+                             sidebarPanel(
+                               helpText("Choose one RET"),
+                               radioButtons("qtask_treat", NULL,
+                                                  c("Holt and Laury" = "HL",
+                                                    "Binswanger / Eckel and Grossmann" = "EG",
+                                                    "Investment Game" = "IG",
+                                                    "Bomb Risk Elicitation Task" = "BRET",
+                                                    # "Balloon Analog Risk Task" = "BART",
+                                                    "Certainty equivalent price list" = "CEPL")),
+                               hr(),
+                               helpText("Choose one or more questionnaires"),
+                               checkboxGroupInput("tquest_treat", NULL,
+                                                  c("SOEP" = "SOEP", 
+                                                    "DOSPERT" = "DOSPERT",
+                                                    "DOSPERT-Gamble" = "D-gamble",
+                                                    "DOSPERT-investment" = "D-invest",
+                                                    "DOSPERT-health" = "D-health")),
+                               hr(),
+                               helpText("Raw choices or risk parameter"),
+                               radioButtons("choicevar_treat",NULL,
+                                            choices = c("risk parameter" = "r",
+                                                        "raw choices" = "choice"))
+                             ),
+                             
+                             mainPanel(
+                               plotOutput("questplottreat", height = "800px")
+                             )
+                    ))
+))

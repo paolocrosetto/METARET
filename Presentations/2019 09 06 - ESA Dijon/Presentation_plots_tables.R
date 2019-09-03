@@ -165,3 +165,7 @@ corrdf %>%
 
 library(GGally)
 ggpairs(corrdf, columns = c("BRET", "HL", "EG", "CEPL", "IG", "EG_loss"))
+
+
+## correlation with questionnaires
+
