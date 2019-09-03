@@ -41,7 +41,8 @@ shinyUI(navbarPage("METARET Data Explorer",
                                              "Investment Game" = "IG",
                                              "Bomb Risk Elicitation Task" = "BRET",
                                              "Balloon Analog Risk Task" = "BART",
-                                             "Certainty equivalent price list" = "CEPL"))
+                                             "Certainty equivalent price list" = "CEPL"),
+                                           selected = "HL")
                             ),
                             
                             # Show a plot of the generated distribution
@@ -58,7 +59,8 @@ shinyUI(navbarPage("METARET Data Explorer",
                                                  "Investment Game" = "IG",
                                                  "Bomb Risk Elicitation Task" = "BRET",
                                                  "Balloon Analog Risk Task" = "BART",
-                                                 "Certainty equivalent price list" = "CEPL"))
+                                                 "Certainty equivalent price list" = "CEPL"),
+                                         selected = "HL")
                           ),
                           
                           # Show a plot of the generated distribution
@@ -75,10 +77,12 @@ shinyUI(navbarPage("METARET Data Explorer",
                                                    "Investment Game" = "IG",
                                                    "Bomb Risk Elicitation Task" = "BRET",
                                                    # "Balloon Analog Risk Task" = "BART",
-                                                   "Certainty equivalent price list" = "CEPL")),
+                                                   "Certainty equivalent price list" = "CEPL"),
+                                                 selected = c("HL","EG")),
                               radioButtons("r_or_choice","choice or risk parameter",
                                            choices = c("risk parameter" = "r",
-                                                       "raw choices" = "choice"))
+                                                       "raw choices" = "choice"),
+                                           selected = 'choice')
                             ),
                             
                             mainPanel(
@@ -97,7 +101,8 @@ shinyUI(navbarPage("METARET Data Explorer",
                                                    "Investment Game" = "IG",
                                                    "Bomb Risk Elicitation Task" = "BRET",
                                                    # "Balloon Analog Risk Task" = "BART",
-                                                   "Certainty equivalent price list" = "CEPL")),
+                                                   "Certainty equivalent price list" = "CEPL"),
+                                                 selected = "HL"),
                               hr(),
                               helpText("Choose one or more questionnaires"),
                               checkboxGroupInput("tquest", NULL,
@@ -105,12 +110,14 @@ shinyUI(navbarPage("METARET Data Explorer",
                                                    "DOSPERT" = "DOSPERT",
                                                    "DOSPERT-Gamble" = "D-gamble",
                                                    "DOSPERT-investment" = "D-invest",
-                                                   "DOSPERT-health" = "D-health")),
+                                                   "DOSPERT-health" = "D-health"),
+                                                 selected = "SOEP"),
                               hr(),
                               helpText("Raw choices or risk parameter"),
                               radioButtons("choicevar",NULL,
                                            choices = c("risk parameter" = "r",
-                                                       "raw choices" = "choice"))
+                                                       "raw choices" = "choice"),
+                                           selected = "choice")
                               ),
                               
                             mainPanel(
@@ -126,7 +133,8 @@ shinyUI(navbarPage("METARET Data Explorer",
                                                     "Investment Game" = "IG",
                                                     "Bomb Risk Elicitation Task" = "BRET",
                                                     # "Balloon Analog Risk Task" = "BART",
-                                                    "Certainty equivalent price list" = "CEPL")),
+                                                    "Certainty equivalent price list" = "CEPL"),
+                                            selected = "EG"),
                                hr(),
                                helpText("Choose one or more questionnaires"),
                                checkboxGroupInput("tquest_treat", NULL,
@@ -134,12 +142,14 @@ shinyUI(navbarPage("METARET Data Explorer",
                                                     "DOSPERT" = "DOSPERT",
                                                     "DOSPERT-Gamble" = "D-gamble",
                                                     "DOSPERT-investment" = "D-invest",
-                                                    "DOSPERT-health" = "D-health")),
+                                                    "DOSPERT-health" = "D-health"),
+                                                  selected = "SOEP"),
                                hr(),
                                helpText("Raw choices or risk parameter"),
                                radioButtons("choicevar_treat",NULL,
                                             choices = c("risk parameter" = "r",
-                                                        "raw choices" = "choice"))
+                                                        "raw choices" = "choice"),
+                                            selected = "choice")
                              ),
                              
                              mainPanel(
