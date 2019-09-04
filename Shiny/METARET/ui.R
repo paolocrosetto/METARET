@@ -91,6 +91,24 @@ shinyUI(navbarPage("METARET Data Explorer",
                     ),
                    
                    # simple data table output
+                 navbarMenu("Answers to questionnaires",
+                            tabPanel("By sample",
+                                     sidebarPanel(width = 3,
+                                     helpText("Choose one questionnaire"),
+                                     radioButtons("distquest", NULL,
+                                                        c("SOEP" = "soep", 
+                                                          "DOSPERT" = "doall",
+                                                          "DOSPERT-Gamble" = "dogamble",
+                                                          "DOSPERT-investment" = "doinvest",
+                                                          "DOSPERT-health" = "dohealth"),
+                                                        selected = "soep")
+                                     ),
+                                     mainPanel(
+                                       plotOutput("distquestplot", height = "800px")
+                                     )
+                                     ),
+                            tabPanel("Correlations")
+                            ),
                  navbarMenu("Correlations with questionnaires",
                             tabPanel("By task",
                             sidebarPanel(width = 3,

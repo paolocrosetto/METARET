@@ -149,6 +149,74 @@ task_variability_plot <- function(selectedtask) {
   }
 }
 
+
+#### 0. questionnaires
+
+preparedata <- function(quest) {
+  df %>% 
+  filter(!is.na({{quest}}))  %>% 
+  mutate(subsample = case_when(paper == "Crosetto and Filippin EXEC 2016" ~ task,
+                               paper == "Crosetto and Filippin, JRU 2013" ~ treatment,
+                               paper == "Menkhoff and Sakha 2017" ~ "",
+                               TRUE ~ "")) %>% 
+    mutate(subsample = paste0(paper, ' -- ', subsample)) %>% 
+    select(subsample, subject, {{quest}}) %>% 
+    distinct() %>% 
+    group_by(subsample) %>% 
+    mutate(m = mean({{quest}}, na.rm = T),
+           sd = sd({{quest}}, na.rm = T),
+           se = sd/sqrt(n()),
+           ci = se * qt(.95/2 + .5, n()-1),
+           cih = m+ci,
+           cil = m-ci) %>% 
+    mutate(n = n()) %>% 
+    ungroup() %>% 
+    mutate(subsample = paste0(subsample, " (N = ",n,")")) %>% 
+    rename(choice = {{quest}})
+}
+
+dfsoep <- preparedata(soep)
+dfdoall <- preparedata(doall)
+dfdogamble <- preparedata(dogamble)
+dfdoinvest <- preparedata(doinvest)
+dfdohealth <- preparedata(dohealth)
+
+
+## across papers
+acrossQuestPlot <- function(data){
+  data %>% 
+  ggplot(aes(reorder(subsample, m), choice)) +
+    geom_flat_violin(position = position_nudge(x = 0.15, y = 0),
+                     alpha = 0.7, 
+                     adjust = 0.8,
+                     scale = "width",
+                     fill = "grey70") +
+    geom_point(alpha = 0.4,
+               position = position_jitter(width = 0.12, height = 0),
+               size = 0.8, show.legend = F, 
+               shape = 21,
+               fill = "grey70") +  
+    geom_boxplot(fill = 'white',
+                 color = 'grey30',
+                 width = 0.25,
+                 outlier.alpha = 0,
+                 alpha = 0) +
+    # geom_errorbar(aes(ymin = cil, ymax = cih), width = 0.05, position = position_nudge(x = -0.2), show.legend = F)+
+    # geom_point(aes(y = m), shape = 21, size = 2, position = position_nudge(x = -0.2), show.legend = F)+
+    stat_summary(fun.data = mean_cl_boot, 
+                 geom = "pointrange", position = position_nudge(x = - 0.2, y = 0),
+                 show.legend = F)+
+    # geom_hline(yintercept = 5, color = 'red', linetype = 'dashed', show.legend = F)+
+    labs(y = "Likert scale answer",
+         x = "")+
+    theme(legend.title = element_blank(),
+          legend.position = "none")+
+    scale_fill_brewer(palette = "Set1")+
+    scale_color_brewer(palette = "Set1")+
+    coord_flip()
+}
+
+
 # correlations with questionnaires -- task level
 
 compute_corr <- function(data, var, name, level, choicevar) {
@@ -348,7 +416,10 @@ shinyServer(function(input, output){
     if (input$r_or_choice == "choice") {
      dataset <- corr_choice
     }
-    ggpairs(dataset, columns = input$corrtask)
+    ggpairs(dataset, 
+            columns = input$corrtask, 
+            lower = list(continuous = "smooth", na = "blank"),
+            upper = list(continuous = wrap("cor", size=12)), na = "blank")
   })
   
   output$variabilityplot <- renderPlot({
@@ -377,6 +448,27 @@ shinyServer(function(input, output){
     level <- "treatment"
     
     quest_cor_plot(corr_treat, tlist, qlist, level, cvar)
+  })
+  
+  output$distquestplot <- renderPlot({
+    dq <- input$distquest
+    
+    if (dq == "soep") {
+      out <- acrossQuestPlot(dfsoep)
+    }
+    if (dq == "doall") {
+      out <- acrossQuestPlot(dfdoall)
+    }
+    if (dq == "dogamble") {
+      out <- acrossQuestPlot(dfdogamble)
+    }
+    if (dq == "doinvest") {
+      out <- acrossQuestPlot(dfdoinvest)
+    }
+    if (dq == "dohealth") {
+      out <- acrossQuestPlot(dfdohealth)
+    }
+    out
   })
 } 
 )
