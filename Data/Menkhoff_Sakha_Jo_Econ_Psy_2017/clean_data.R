@@ -32,9 +32,9 @@ df <- df %>%
   mutate(choice = if_else(task == "IG", 100 - choice, choice))
 
 ## variable for CEPL is switching point
-## converting in the NUMBER OF SAFE CHOICES -- these are defined as switching point - 1
+## converting in the NUMBER OF RISKY CHOICES -- these are defined as switching point - 1
 df <- df %>% 
-   mutate(choice = if_else(task == "CEPL", choice -1 , choice))
+   mutate(choice = if_else(task == "CEPL", 21 - choice , choice))
 
 # adding paper name and bibkey
 df <- df %>% 

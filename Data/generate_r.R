@@ -112,27 +112,27 @@ get_r <- function(bibkey, task, choice) {
     } 
     
     if (task == "CEPL") {
-      if (choice == 0) { out <- 1.52   }
-      if (choice == 1)  { out <- runif(1, min = 1.36, max = 1.52) }
-      if (choice == 2)  { out <- runif(1, min = 1.22, max = 1.36) }
-      if (choice == 3)  { out <- runif(1, min = 1.1, max = 1.22) }
-      if (choice == 4)  { out <- runif(1, min = 1, max = 1.1) }
-      if (choice == 5)  { out <- runif(1, min = 0.91, max = 1) }
-      if (choice == 6)  { out <- runif(1, min = 0.83, max = 0.91) }
-      if (choice == 7)  { out <- runif(1, min = 0.76, max = 0.83) }
-      if (choice == 8)  { out <- runif(1, min = 0.69, max = 0.76) }
-      if (choice == 9)  { out <- runif(1, min = 0.63, max = 0.69) }
+      if (choice == 20) { out <- 1.52   }
+      if (choice == 19)  { out <- runif(1, min = 1.36, max = 1.52) }
+      if (choice == 18)  { out <- runif(1, min = 1.22, max = 1.36) }
+      if (choice == 17)  { out <- runif(1, min = 1.1, max = 1.22) }
+      if (choice == 16)  { out <- runif(1, min = 1, max = 1.1) }
+      if (choice == 15)  { out <- runif(1, min = 0.91, max = 1) }
+      if (choice == 14)  { out <- runif(1, min = 0.83, max = 0.91) }
+      if (choice == 13)  { out <- runif(1, min = 0.76, max = 0.83) }
+      if (choice == 12)  { out <- runif(1, min = 0.69, max = 0.76) }
+      if (choice == 11)  { out <- runif(1, min = 0.63, max = 0.69) }
       if (choice == 10) { out <- runif(1, min = 0.57, max = 0.63) }
-      if (choice == 11) { out <- runif(1, min = 0.52, max = 0.57) }
-      if (choice == 12) { out <- runif(1, min = 0.48, max = 0.52) }
-      if (choice == 13) { out <- runif(1, min = 0.43, max = 0.48) }
-      if (choice == 14) { out <- runif(1, min = 0.39, max = 0.43) }
-      if (choice == 15) { out <- runif(1, min = 0.34, max = 0.39) }
-      if (choice == 16) { out <- runif(1, min = 0.3, max = 0.34) }
-      if (choice == 17) { out <- runif(1, min = 0.26, max = 0.3) }
-      if (choice == 18) { out <- runif(1, min = 0.2, max = 0.26) }
-      if (choice == 19) { out <- runif(1, min = -1, max = 0.2) }
-      if (choice == 20) { out <- -1 }
+      if (choice == 9) { out <- runif(1, min = 0.52, max = 0.57) }
+      if (choice == 8) { out <- runif(1, min = 0.48, max = 0.52) }
+      if (choice == 7) { out <- runif(1, min = 0.43, max = 0.48) }
+      if (choice == 6) { out <- runif(1, min = 0.39, max = 0.43) }
+      if (choice == 5) { out <- runif(1, min = 0.34, max = 0.39) }
+      if (choice == 4) { out <- runif(1, min = 0.3, max = 0.34) }
+      if (choice == 3) { out <- runif(1, min = 0.26, max = 0.3) }
+      if (choice == 2) { out <- runif(1, min = 0.2, max = 0.26) }
+      if (choice == 1) { out <- runif(1, min = -1, max = 0.2) }
+      if (choice == 0) { out <- -1 }
     }
   }
   
@@ -167,15 +167,15 @@ get_r <- function(bibkey, task, choice) {
       }
       
       if (task == "CEPL") {
-        if (choice == 1) { out <- 7.96 }
-        if (choice == 2) { out <- runif(1, min = 3.71, max = 7.96) }
-        if (choice == 3) { out <- runif(1, min = 2.06, max = 3.71) }
-        if (choice == 4) { out <- runif(1, min = 1, max = 2.06) }
+        if (choice == 9) { out <- 7.96 }
+        if (choice == 8) { out <- runif(1, min = 3.71, max = 7.96) }
+        if (choice == 7) { out <- runif(1, min = 2.06, max = 3.71) }
+        if (choice == 6) { out <- runif(1, min = 1, max = 2.06) }
         if (choice == 5) { out <- runif(1, min = 0.07, max = 1) }
-        if (choice == 6) { out <- runif(1, min = -1, max = 0.07) }
-        if (choice == 7) { out <- runif(1, min = -2.93, max = -1) }
-        if (choice == 8) { out <- runif(1, min = -2.93) }
-        if (choice == 9) { out <- -2.93 }
+        if (choice == 4) { out <- runif(1, min = -1, max = 0.07) }
+        if (choice == 3) { out <- runif(1, min = -2.93, max = -1) }
+        if (choice == 2) { out <- runif(1, min = -2.93) }
+        if (choice == 1) { out <- -2.93 }
       }
     }
   

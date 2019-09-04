@@ -39,7 +39,7 @@ df <- df %>%
 ## translating CEPL and HL as number of RISKY choices
 ## EG goes from 0 to 5 -> translating into 1 to 6
 df <- df %>% 
-  mutate(choice = if_else(task == "CEPL", 9-choice, choice)) %>% 
+  mutate(choice = if_else(task == "CEPL", choice + 1, choice)) %>% 
   mutate(choice = if_else(task == "EG", choice +1, choice))
 
 
