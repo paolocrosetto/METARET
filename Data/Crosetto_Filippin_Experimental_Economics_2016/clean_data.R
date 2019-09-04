@@ -47,6 +47,9 @@ df <- df %>%
          paper = "Crosetto and Filippin EXEC 2016")
 
 
+# coding choices in HL as number of risky choices
+df <- df %>% 
+  mutate(choice = if_else(task == "HL", 10-choice, choice))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")

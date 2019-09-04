@@ -55,6 +55,9 @@ df <- df %>%
 df <- df %>% 
   filter(choice != 1.5 & choice != 4.5 & choice != 5.5 & choice != 6.5 & choice != 7.5 )
 
+# change to make choice in HL be the number of safe choices
+df <- df %>% 
+  mutate(choice = 10-choice)
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")

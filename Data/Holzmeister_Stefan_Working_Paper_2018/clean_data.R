@@ -36,10 +36,9 @@ df <- df %>%
   mutate(bibkey = "Holzmeister2019",
          paper = "Holzmeister and Stefan Working Paper 2019")
 
-## translating CEPL and HL as number of SAFE choices
+## translating CEPL and HL as number of RISKY choices
 ## EG goes from 0 to 5 -> translating into 1 to 6
 df <- df %>% 
-  mutate(choice = if_else(task == "HL", 10-choice, choice)) %>% 
   mutate(choice = if_else(task == "CEPL", 9-choice, choice)) %>% 
   mutate(choice = if_else(task == "EG", choice +1, choice))
 

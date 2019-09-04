@@ -58,6 +58,9 @@ df <- df %>%
   select(-key)
 
 
+# turning HL around so that higher numbers imply higher risk taking
+df <- df %>% 
+  mutate(choice = if_else(task == "HL", 10-choice, choice))
 
 
 # adding paper name and bibkey
@@ -65,13 +68,8 @@ df <- df %>%
   mutate(bibkey = "Charness2019",
          paper = "Charness et al 2019")
 
-## function to assign random parameter within bounds to HL
-## note: use pmap, add one layer for the 'paper' name, and then just apply this to each and every case -- neater, better, less errors.
-
-
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
-## note: IG data not yet implemented!
 source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
