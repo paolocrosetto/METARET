@@ -363,7 +363,8 @@ corr_treat <- rbind(corr_treat_c, corr_treat_r)
 #1. computing correlations
 corrdf <- df %>% 
   filter(bibkey != "Crosetto2013") %>% 
-  filter(task != "BART") %>% 
+  filter(bibkey != "Gnambs2015") %>% 
+  #filter(task != "BART") %>% 
   select(-starts_with("do"), -soep, -inconsistent, -treatment,
          -age, -gender, - key, -soep_financial)
 

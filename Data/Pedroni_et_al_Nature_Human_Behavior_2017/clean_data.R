@@ -36,8 +36,9 @@ quest <- quest %>%
                 dogamble = Dgam,
                 doinvest = Dinv,
                 dohealth = Dhea,
-                Deth, Drec, Dsoc) %>% 
-  mutate(doall = (Deth+Drec+dogamble+dohealth+doinvest+Dsoc)/6) %>% 
+         Deth, Drec, Dsoc) %>% 
+  mutate(soep = soep - 1) %>% 
+  mutate(doall = 1+(Deth+Drec+dogamble+dohealth+doinvest+Dsoc)/6) %>%  ##TODO this is just a hack, as renato about this
   select(-Deth, -Drec, -Dsoc)
 
 # CEPL -- multiple price list
