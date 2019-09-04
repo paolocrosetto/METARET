@@ -470,5 +470,14 @@ shinyServer(function(input, output){
     }
     out
   })
+  
+  output$corquestplot <- renderPlot({
+    cq <- input$corquest
+    
+    df %>% 
+      ggpairs(columns = cq, 
+              upper = list(continuous = wrap("cor", size=12)),
+              lower = list(continuous = "smooth"))
+  })
 } 
 )

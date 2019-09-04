@@ -91,8 +91,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                     ),
                    
                    # simple data table output
-                 navbarMenu("Answers to questionnaires",
-                            tabPanel("By sample",
+                            tabPanel("Answers to questionnaires",
                                      sidebarPanel(width = 3,
                                      helpText("Choose one questionnaire"),
                                      radioButtons("distquest", NULL,
@@ -107,10 +106,23 @@ shinyUI(navbarPage("METARET Data Explorer",
                                        plotOutput("distquestplot", height = "800px")
                                      )
                                      ),
-                            tabPanel("Correlations")
+                            tabPanel("Correlations among questionnaires",
+                                     sidebarPanel(width = 3,
+                                                  helpText("Choose two or more questionnaires"),
+                                                  checkboxGroupInput("corquest", NULL,
+                                                               c("SOEP" = "soep", 
+                                                                 "DOSPERT" = "doall",
+                                                                 "DOSPERT-Gamble" = "dogamble",
+                                                                 "DOSPERT-investment" = "doinvest",
+                                                                 "DOSPERT-health" = "dohealth"),
+                                                               selected = c("soep","doall"))
+                                     ),
+                                     mainPanel(
+                                       plotOutput("corquestplot", height = "800px")
+                                     )
                             ),
-                 navbarMenu("Correlations with questionnaires",
-                            tabPanel("By task",
+                 navbarMenu("Correlations task <-> questionnaires",
+                            tabPanel("By risk elicitation task",
                             sidebarPanel(width = 3,
                               helpText("Choose one or more RETs"),
                               checkboxGroupInput("qtask", NULL,
@@ -142,7 +154,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                               plotOutput("questplottask", height = "800px")
                             )
                     ),
-                    tabPanel("By versions of each task",
+                    tabPanel("By versions of each risk elicitation task",
                              sidebarPanel(width = 3,
                                helpText("Choose one RET"),
                                radioButtons("qtask_treat", NULL,
