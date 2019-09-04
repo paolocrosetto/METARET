@@ -12,30 +12,69 @@ library(readxl)
 
 #### getting the data
 
-## selecting the needed variables
-## we select only:
-## 1. the result of the task
-## 2. any treatment or differences in the task
-## 3. answers to questionnaires
+## data is split over several files. Getting them one by one
 
+# participants ID and demographifcs
+id <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/participants/participants.csv")
 
+id <- id %>% 
+  select(subject = partid, gender = sex, age) %>% 
+  mutate(gender = if_else(gender == "female", 1, 0))
 
-## recoding HL as higher number -> more risk
+# BART: adjusted pump by subject
+bart <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/bart/bart.csv")
 
-# adding task
+bart <- bart %>% 
+  select(subject = partid, BART = pumps_adj)
 
-# removing bret as it is duplicate of the one in JRU
+# Quetionnaires -- note MANY MORE done, now only using some for the time being
+quest <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/quest/quest_scores.csv")
 
-# cleaning the "treatment" variable as it is not needed <- a HACK CHANGE THIS LATER
+quest <- quest %>% 
+  select(subject = partid, 
+                soep = SOEP,
+                dogamble = Dgam,
+                doinvest = Dinv,
+                dohealth = Dhea,
+                Deth, Drec, Dsoc) %>% 
+  mutate(doall = (Deth+Drec+dogamble+dohealth+doinvest+Dsoc)/6) %>% 
+  select(-Deth, -Drec, -Dsoc)
+
+# CEPL -- multiple price list
+hl <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/mpl/mplBehavior.csv")
+
+hl <- hl %>% 
+  select(subject = partid, 
+         inconsistent = CheckHolt,
+         HL = MPLr) %>% 
+  filter(inconsistent == 0) %>% 
+  filter(!is.na(HL)) %>% 
+  select(-inconsistent)
+
+## merging
+df <- left_join(id, quest, by = "subject")
+df <- left_join(df, bart, by = "subject")
+df <- left_join(df, hl, by = "subject")
+
+## gathering
+df <- df %>% 
+  gather(task, choice, -subject, -gender, -age, -soep, -doall, -dogamble, -doinvest, -dohealth)
+
+## 
+df <- df %>% 
+  filter(!is.na(choice))
 
 # adding paper name and bibkey
 df <- df %>% 
   mutate(bibkey = "Frey2017",
-         paper = "Frey et al Science Advances 2017")
+         paper = "Frey et al Science Advances 2017",
+         treatment = "")
 
 
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
+source("Data/generate_r.R")
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 
 
