@@ -310,8 +310,9 @@ quest_cor_plot <- function(data, inputtask, inputquestionnaire, level, choicevar
                          breaks = c(-1, 0.01, 0.05, 0.1, 1),
                          labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
     mutate(task = paste(task, ": ", " (N = ", N, ")", sep ="")) %>%
-    ggplot(aes(task, estimate, color= p.value))+
+    ggplot(aes(reorder(task, estimate), estimate, color= p.value))+
     geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
+    geom_text(aes(label = round(estimate, 2)), color = "black", size = 8, position = position_nudge(x = 0.1))+
     geom_point(size = 2)+
     coord_flip(ylim = c(-0.3, 0.5))+
     geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
@@ -334,6 +335,7 @@ quest_cor_plot <- function(data, inputtask, inputquestionnaire, level, choicevar
       mutate(treatment = paste(paper, " - ", treatment, ": ", " (N = ", N, ")", sep ="")) %>%
       ggplot(aes(reorder(treatment, estimate), estimate, color= p.value))+
       geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
+      geom_text(aes(label = round(estimate, 2)), color = "black", size = 8, position = position_nudge(x = 0.1))+
       geom_point(size = 2)+
       coord_flip(ylim = c(-0.3, 0.5))+
       geom_hline(yintercept = 0, linetype = "dotted", color = "indianred")+
