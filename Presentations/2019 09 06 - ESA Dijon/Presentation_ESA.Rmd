@@ -12,7 +12,7 @@ output:
 
 ## Slovic (1962)
 
-```{r setup}
+```{r setup, echo = F, message= F, warning=F}
 knitr::opts_chunk$set(echo = F, warning = F, message = F)
 library(tidyverse)
 library(hrbrthemes)
