@@ -39,6 +39,8 @@ consider the problem of adequately **defining** and
   - ask or **t**ask?
   - elicit by *descrption* or by *experience*?
 
+> and by the way, what is our **objective**?
+
 ## The state of the art: psychology
 
 > risk loosely defined as **probability of harm**
@@ -111,16 +113,6 @@ consider the problem of adequately **defining** and
 
 # Elicited risk attitudes
 
-## CRRA (à la Wakker)
-
-<p align="center">
-  <font size = "10"> $u(x) = x^r$ </font>
-</p>
-
-- simple
-- captures risk aversion
-- makes different tasks comparable
-
 ## Holt and Laury
 
 ![](HL.png){width=800px}
@@ -156,6 +148,17 @@ consider the problem of adequately **defining** and
   ![](CEPL.png){width=350px}
 </p>
 
+## CRRA (à la Wakker)
+
+<p align="center">
+  <font size = "16"> $u(x) = x^r$ </font>
+</p>
+
+- simple
+- captures risk aversion
+- makes different tasks comparable
+
+
 ## How big are these differences?
 
 ```{r}
@@ -172,18 +175,60 @@ ggplot(df, aes(x,y, label = round(y,1)))+
   scale_x_continuous(breaks = seq(0,1,0.1))
 ```
 
+## Elicited attitudes: summary
 
 
-# Convergent validity: correlations among RETs
+- **low** consistency across tasks
+
+- surprisingly, **low** consistency also *within* tasks
+
+- but **heterogeneity** by task is large
+
+- only result that holds: most people are *risk averse*
+
+> possible explanation: between-subjects variation.
 
 # Questionnaires
 
+## Questionnaires: summary
+
+- **better** consistency across samples
+
+- a tendency to report *'in the middle'*
+
+- we do not really know what those number mean
+
+# Convergent validity: **correlations** among RETs
+
+## Convergence: more evidence
+
+![Pedroni et al. Nature Human Behavior 2017](NHB_correlation.png){width=650px}
+
+## Convergence: summary
+
+- we replicate Slovic 1962 (!!)
+
+- no correlation higher than .35
+
+- when transalitng into $r$ things get *worse*
+
+
 # Predictive validity: correlation with questionnaires
 
+## Predictive validity: more evidence
 
-## Frey et al
+![Frey et al. Science Advances 2017](frey.png){width=700px}
 
-![](frey.png){width=700px}
+## Predictive validity: summary
+
+- **low** correlations with questionnaires
+
+- across questionnaires and tasks
+
+- Beauchamp et al JRU 2016: questionnaires are rather predictive
+
+
+> **we have a problem**
 
 
 # Why?
@@ -192,51 +237,114 @@ ggplot(df, aes(x,y, label = round(y,1)))+
 
 > *noisy* preference + one-shot choices $\Rightarrow$ noisy data
 
-- cognitive resources limited
-- one-shot probably not enough
-- AI, ML
-- ...
+- cognitive limits $\Rightarrow$ limited understanding
+
+- *if* risk preferences fuzzy $\Rightarrow$ noisy estiamte
+
+> solution: go **fully structural**
+
+- Hey and Orme 1994
+- Harrison and coauthors (several papers)
+
+> forget quick & dirty task, embrace complexity
+
+> Maximum Likelihood at the **individual** level
 
 ## Risk perception
 
-> **risk**, *ADDDEFINITION from NEWTON WEBSTER*
+![](risk_def.png){width=700px}
 
-- definition in Econ and Finance: EV/variance + EUT
 
-(risky curves...)
+## Risk perception: a mismatch
+
+- economists *assume* subjects share the same risk *definition*
+
+- namely: 
+  - risk as a distribution of **probability** over outcomes
+  - $EV$ as the average across all possible states of the world
+  - risk aversion as diminishing marginal utility of money
+  - subjects care about **variance**
+
+- but subjects think of risk as *probability of a loss*
+
+> - *do subjects find our tasks risky?*
+
+> - We **do not know** because we **assume** they do
+
+
 
 ## Experimenting on risk perception
 
+- Holzmeister et al Working Paper
+- gave description of return from an asset to subjects
+- $\sim$7000 subjects 
+- including $\sim$2500 **traders**
+- asked to rate **perceived risk of each asset**
+
+## Holzmeister et al: design
+
+![](hm_dist.png){width=630px}
+
+## results - skewness
+
+<p align="center">
+![](skew.png){width=500px}
+</p>
+
+## results - aggregate risk measures
+
 ![](zeisberger.png){width=800px}
+
+# Roads ahead
 
 ## Theory
 
-- heuristics 
-- aims and goals
+- Spiliopoulos & Hertwig: *different* **decision rules** for different contexts
+- Schneider and Sutter: **higher moments** matter
+- Sunder et al: *curvature of utility* function **not** a valid theory
+- **Ergodicity** economics (peters et al): drop EV, use time-means
+- ...
 
+
+## Empirics
+
+- use **meta-analysis** to find patterns 
+  - do not aggregate *by task* but **by characteristic**
+  - map what correlates and what doesn't
+
+- tackle **noise** through 
+  - binary chocies among lotteries
+  - econometric modeling of noise
+  - individual esitmates with MaxLik
+  - iterate with Machine Learning to fid best lottery set
+  
+- tackle **perception** rather than assuming it away
+
+
+## In a few words...
+
+> - *"...future research must carefully
+consider the problem of adequately **defining** and
+**assessing** risk taking behavior."*
+
+> - **exactly as in 1962**
+
+# Thanks!
 
 ## Contribute to the meta-analysis!
 
-> data, code, analysis, references on gitHub
+**if**:
 
-> live exploration of results on shinyapps
+- you have **run a RET**
+- you have run **more** than one
+- you have run a RET and a **questionnaire**
+- you have run a RET and another **risk-related measure**
 
-## To contribute
+> send your data -- paolo.crosetto@inra.fr
 
-- if you have run a RET
-- if you have run TWO
-- if you have run a RET and a questionnaire
-- if you have run a RET and another risk-related measure
+> github: (https://github.com/paolocrosetto/METARET)
 
-## Lookign for patterns
-
-## Tackling noise
-
-## Tackling perceptions
-
-## Tackling theory
-
-# Thanks!
+> shiny app: (https://paolocrosetto.shinyapps.io/METARET/)
 
 
 
