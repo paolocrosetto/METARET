@@ -111,6 +111,16 @@ consider the problem of adequately **defining** and
 
 # Elicited risk attitudes
 
+## CRRA (à la Wakker)
+
+<p align="center">
+  <font size = "10"> $u(x) = x^r$ </font>
+</p>
+
+- simple
+- captures risk aversion
+- makes different tasks comparable
+
 ## Holt and Laury
 
 ![](HL.png){width=800px}
@@ -149,16 +159,17 @@ consider the problem of adequately **defining** and
 ## How big are these differences?
 
 ```{r}
-df <- tibble(x = seq(0.5,1,0.1)) %>% 
+df <- tibble(x = seq(0.1,1,0.1)) %>% 
   mutate(y = 0.5*(100)^x)
 
 ggplot(df, aes(x,y, label = round(y,1)))+
   geom_point()+
-  geom_label(position = position_nudge(y = 3))+
+  geom_label(position = position_nudge(y = 4))+
   labs(x = "Risk aversion parameter of CRRA x^r",
        y = "certainty equivalent",
        title = "Certainty Equivalent of {0.5: 100; 0.5: 0} lottery",
-       subtitle = "CRRA x^r")
+       subtitle = "CRRA x^r")+
+  scale_x_continuous(breaks = seq(0,1,0.1))
 ```
 
 
@@ -179,6 +190,13 @@ ggplot(df, aes(x,y, label = round(y,1)))+
 
 ## Noise
 
+> *noisy* preference + one-shot choices $\Rightarrow$ noisy data
+
+- cognitive resources limited
+- one-shot probably not enough
+- AI, ML
+- ...
+
 ## Risk perception
 
 > **risk**, *ADDDEFINITION from NEWTON WEBSTER*
@@ -193,7 +211,9 @@ ggplot(df, aes(x,y, label = round(y,1)))+
 
 ## Theory
 
-# Where do we go from here?
+- heuristics 
+- aims and goals
+
 
 ## Contribute to the meta-analysis!
 
@@ -213,8 +233,6 @@ ggplot(df, aes(x,y, label = round(y,1)))+
 ## Tackling noise
 
 ## Tackling perceptions
-
-
 
 ## Tackling theory
 
