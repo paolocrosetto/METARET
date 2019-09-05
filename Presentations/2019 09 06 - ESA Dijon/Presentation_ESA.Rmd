@@ -20,7 +20,7 @@ theme_set(theme_ipsum_rc())
 ```
 
 
-![](Presentation_ESA_files/Slovic1962.png){width=800px}
+![](Slovic1962.png){width=800px}
 
 > - *"...future research must carefully
 consider the problem of adequately **defining** and
@@ -111,6 +111,41 @@ consider the problem of adequately **defining** and
 
 # Elicited risk attitudes
 
+## Holt and Laury
+
+![](HL.png){width=800px}
+
+## Binswanger / Eckel and Grossmann
+
+<p align="center">
+  ![](EG.png){width=400px}
+</p>
+
+## Bomb Risk Elicitation Task
+
+<p align="center">
+  ![](BRET.png){width=600p}
+</p>
+
+## Investment Game (Gneezy and Potters)
+
+<p align="center">
+  ![](CGP.png){width=600px}
+</p>
+
+
+## Balloon Analog Risk Task (Lejuez et al)
+
+<p align="center">
+  ![](BART.png){width=300px}
+</p>
+
+## Certainty Equivalent MPL
+
+<p align="center">
+  ![](CEPL.png){width=350px}
+</p>
+
 ## How big are these differences?
 
 ```{r}
@@ -137,7 +172,7 @@ ggplot(df, aes(x,y, label = round(y,1)))+
 
 ## Frey et al
 
-![](Presentation_ESA_files/Corr_Frey.png){width=700px}
+![](frey.png){width=700px}
 
 
 # Why?
@@ -154,7 +189,7 @@ ggplot(df, aes(x,y, label = round(y,1)))+
 
 ## Experimenting on risk perception
 
-![](Presentation_ESA_files/holzmeister_et_al_risk_perception.png){width=800px}
+![](zeisberger.png){width=800px}
 
 ## Theory
 
