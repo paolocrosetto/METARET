@@ -6,6 +6,7 @@
   source("flat_violin.R") ## used for creating the 'raincloud' plot
   library(ggbeeswarm)     ## quasirandom jitter
   library(GGally)         ## correlation plot
+  library(RColorBrewer)   ## colors
   
   ## theming
   theme_set(theme_ipsum_rc()+
@@ -30,9 +31,9 @@
   
   # density by task 
   plotDensity <- function(tasklist) {
-    df %>% 
+    
+    data <- df %>% 
       filter(r > -1.5 & r < 2.5) %>% 
-      filter(task %in% tasklist) %>% 
       group_by(task) %>% 
       mutate(m = mean(r, na.rm = T),
              sd = sd(r, na.rm = T),
@@ -42,8 +43,14 @@
              cil = m-ci) %>% 
       mutate(n = n()) %>% 
       ungroup() %>% 
+      mutate(task = reorder(task,r))
+    
+    values <- c(rev(brewer.pal(length(levels(data$task)), "Set1")))
+    names(values) <- levels(data$task)
+    
+    plot <- data %>% 
       mutate(task = paste0(task, " (N = ",n,")")) %>% 
-      ggplot(aes(reorder(task, r), r, colour = task, fill = task)) +
+      ggplot(aes(task, r, colour = task, fill = task)) +
       geom_flat_violin(position = position_nudge(x = 0.15, y = 0),
                        alpha = 0.7, 
                        adjust = 0.8,
@@ -69,9 +76,11 @@
            x = "")+
       theme(legend.title = element_blank(),
             legend.position = "none")+
-      scale_fill_brewer(palette = "Set1")+
-      scale_color_brewer(palette = "Set1")+
       coord_flip()
+    
+  plot %+% droplevels(data[data$task %in% tasklist,]) +
+    scale_fill_manual(values = values)+
+    scale_color_manual(values = values)
   }
   
   # density within versions of each task
