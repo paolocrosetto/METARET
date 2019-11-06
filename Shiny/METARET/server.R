@@ -231,7 +231,8 @@
   compute_corr <- function(data, var, name, level, choicevar) {
     if (level == "task") {
       out <- data %>%
-        nest(-task) %>%
+        group_by(task) %>% 
+        nest() %>%
         mutate(
           test = map(data, ~ cor.test(.x[[choicevar]], .x[[var]], method = "p", conf.level = 0.95)), 
           tidied = map(test, tidy)
@@ -241,8 +242,9 @@
       
     }
     if (level == "treatment"){
-      out <- data %>%
-        nest(-paper, -task, -treatment) %>%
+      out <- data %>% 
+        group_by(paper, task, treatment) %>% 
+        nest() %>% 
         mutate(
           test = map(data, ~ cor.test(.x[[choicevar]], .x[[var]], method = "p", conf.level = 0.95)), 
           tidied = map(test, tidy)
