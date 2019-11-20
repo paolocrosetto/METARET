@@ -16,7 +16,7 @@ shinyUI(navbarPage("METARET Data Explorer",
                    tabPanel("Intro",
                             includeMarkdown("./md/intro.md"),
                             hr()),
-                   
+                    
                  # # explanation of what RETs are -- on hold for the moment
                  # tabPanel("Risk Elicitation Tasks",
                  #          sidebarPanel(h4("RETs"),
