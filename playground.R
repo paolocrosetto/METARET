@@ -162,7 +162,7 @@ plot_dr <- df %>%
   scale_color_brewer(palette = "Set1")+
   coord_flip()
 plot_dr
-ggsave("map_elicited_r_DR.png", width = 10, height = 7, units = "in", dpi = 600)
+ggsave("map_elicited_r_DR_1.png", width = 12, height = 7, units = "in", dpi = 600)
 
 
 extradata <- df %>% 
@@ -184,7 +184,7 @@ extradata <- df %>%
 
 
 plot_dr + geom_label(data = extradata, aes(x = reorder(task,m), y = m, label = CE), position = position_nudge(x = - 0.3, y = 0))
-ggsave("map_elicited_r_DR.png", width = 10, height = 7, units = "in", dpi = 600)
+ggsave("map_elicited_r_DR.png", width = 12, height = 7, units = "in", dpi = 600)
 
 ## simple dot + whisker plot
 df %>% 
