@@ -32,4 +32,5 @@ df %>%
        x = "",
        y = "CRRA risk parameter")
   
+
 ggsave("Presentations/2019 11 22 - UiB Bergen/img/Rmap.png", width = 8, height = 6, units = "in", dpi = 300)
