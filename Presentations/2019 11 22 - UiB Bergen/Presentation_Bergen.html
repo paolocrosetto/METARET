@@ -3447,9 +3447,7 @@ slide:not(.current) .plotly.html-widget{
 <li><p>we do not really know what those number mean</p></li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>3. Convergent validity:</h2></hgroup><article  id="convergent-validity">
-
-<p>\(\circlearrowright\) RETs</p>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>3. Convergent validity</h2></hgroup><article  id="convergent-validity">
 
 </article></slide><slide class=""><hgroup><h2>Convergence: more evidence</h2></hgroup><article  id="convergence-more-evidence">
 
@@ -3463,7 +3461,7 @@ slide:not(.current) .plotly.html-widget{
 <li><p>when transalitng into r things get <em>worse</em></p></li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>4. Predictive validity: RET \(\iff\) questionnaires</h2></hgroup><article  id="predictive-validity-ret-iff-questionnaires">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>4. Predictive validity</h2></hgroup><article  id="predictive-validity">
 
 </article></slide><slide class=""><hgroup><h2>Predictive validity: more evidence</h2></hgroup><article  id="predictive-validity-more-evidence">
 
@@ -3477,13 +3475,31 @@ slide:not(.current) .plotly.html-widget{
 <li><p>Beauchamp et al JRU 2016: questionnaires are rather predictive</p></li>
 </ul>
 
-<blockquote>
-<p><strong>we have a problem</strong></p>
-</blockquote>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We have a problem</h2></hgroup><article  id="we-have-a-problem">
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Why?</h2></hgroup><article  id="why">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Finding one’s way</h2></hgroup><article  id="finding-ones-way">
 
-</article></slide><slide class=""><hgroup><h2>Noise</h2></hgroup><article  id="noise">
+</article></slide><slide class=""><hgroup><h2>Finding one’s way</h2></hgroup><article  id="finding-ones-way-1">
+
+<ol>
+<li>task-specific bias</li>
+<li>noise</li>
+<li>risk perception</li>
+<li>theory</li>
+</ol>
+
+</article></slide><slide class=""><hgroup><h2>Finding one’s way</h2></hgroup><article  id="finding-ones-way-2">
+
+<ol>
+<li><strong>task-specific bias</strong></li>
+<li>(noise)</li>
+<li><strong>risk perception</strong></li>
+<li>(theory)</li>
+</ol>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Task-specfic bias</h2></hgroup><article  id="task-specfic-bias">
+
+</article></slide><slide class=""><hgroup><h2>Task-specific noise</h2></hgroup><article  id="task-specific-noise">
 
 <blockquote>
 <p><em>noisy</em> preference + one-shot choices \(\Rightarrow\) noisy data</p>
@@ -3491,27 +3507,119 @@ slide:not(.current) .plotly.html-widget{
 
 <ul>
 <li><p>cognitive limits \(\Rightarrow\) limited understanding</p></li>
-<li><p><em>if</em> risk preferences fuzzy \(\Rightarrow\) noisy estiamte</p></li>
+<li><p><em>task-specific</em> bias?</p></li>
 </ul>
 
-<blockquote>
-<p>solution: go <strong>fully structural</strong></p>
-</blockquote>
+<p>(this work: Crosetto and Filippin, ExEc 2015)</p>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-1">
+
+<img width="800px" src='img/Rmap.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>Simulations</h2></hgroup><article  id="simulations">
+
+<p><strong>How does the mere mechanics of each task affect the outcome?</strong></p>
+
+<p>Simulation exercise:</p>
 
 <ul>
-<li>Hey and Orme 1994</li>
-<li>Harrison and coauthors (several papers)</li>
+<li>generate 100k virtual agents</li>
+<li>for each agent, \(r\sim N(0.7,0.3)\)</li>
+<li>let the agents play each of the 4 tasks</li>
+<li>collect results, run statistics</li>
+<li>analyze the retrieved \(\hat{r}\)</li>
 </ul>
 
+<p>A good task should be able to <strong>recreate the starting distribution</strong>, if no error.</p>
+
+</article></slide><slide class=""><hgroup><h2>Deterministic vs noisy</h2></hgroup><article  id="deterministic-vs-noisy">
+
+<p><strong>3 types of simulations</strong>:</p>
+
+<ul>
+<li><p>deterministic</p></li>
+<li><p>random parameter model \(\Rightarrow\) models fuzzy preferences</p>
+
+<ul>
+<li>for each agent, \(r = r_0 + \varepsilon, \; \varepsilon \sim \mathcal{N}(0,\mu)\)</li>
+<li>\(\mu \in (0.3;0.6)\)</li>
+</ul></li>
+<li><p>random agents \(\Rightarrow\) models frame effects</p>
+
+<ul>
+<li>10% of subjects act randomly on the space of the task</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Starting distribution</h2></hgroup><article  id="starting-distribution">
+
+<img width="800px" src='img/AgentDistribution.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>HL</h2></hgroup><article  id="hl">
+
+<img width="800px" src='img/HL_normal.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>HL</h2></hgroup><article  id="hl-1">
+
+<img width="800px" src='img/HL_noise.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>HL</h2></hgroup><article  id="hl-2">
+
+<img width="800px" src='img/HL_random.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>EG</h2></hgroup><article  id="eg">
+
+<img width="800px" src='img/EG_normal.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>EG</h2></hgroup><article  id="eg-1">
+
+<img width="800px" src='img/EG_noise.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>EG</h2></hgroup><article  id="eg-2">
+
+<img width="800px" src='img/EG_random.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>GP</h2></hgroup><article  id="gp">
+
+<img width="800px" src='img/GP_normal.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>GP</h2></hgroup><article  id="gp-1">
+
+<img width="800px" src='img/GP_noise.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>GP</h2></hgroup><article  id="gp-2">
+
+<img width="800px" src='img/GP_random.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>BRET</h2></hgroup><article  id="bret">
+
+<img width="800px" src='img/BRET_normal.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>BRET</h2></hgroup><article  id="bret-1">
+
+<img width="800px" src='img/BRET_noise.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>BRET</h2></hgroup><article  id="bret-2">
+
+<img width="800px" src='img/BRET_random.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>Task-specific summary</h2></hgroup><article  id="task-specific-summary">
+
 <blockquote>
-<p>forget quick &amp; dirty task, embrace complexity</p>
+<p>is there a task-specific bias? <strong>yes</strong></p>
 </blockquote>
 
 <blockquote>
-<p>Maximum Likelihood at the <strong>individual</strong> level</p>
+<p>does it account for all differences? <strong>no</strong></p>
 </blockquote>
 
-</article></slide><slide class=""><hgroup><h2>Risk perception</h2></hgroup><article  id="risk-perception">
+<blockquote>
+<p>is this the only way to take noise into account? <strong>no</strong></p>
+</blockquote>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Risk perception</h2></hgroup><article  id="risk-perception">
+
+</article></slide><slide class=""><hgroup><h2>Risk perception</h2></hgroup><article  id="risk-perception-1">
 
 <img width="700px" src='risk_def.png' title=''/>
 
@@ -3543,8 +3651,8 @@ slide:not(.current) .plotly.html-widget{
 <ul>
 <li>Holzmeister et al Working Paper</li>
 <li>gave description of return from an asset to subjects</li>
-<li>$$7000 subjects</li>
-<li>including $$2500 <strong>traders</strong></li>
+<li>\(\sim\) 7000 subjects</li>
+<li>including \(\sim\) 2500 <strong>traders</strong></li>
 <li>asked to rate <strong>perceived risk of each asset</strong></li>
 </ul>
 
@@ -3564,43 +3672,29 @@ slide:not(.current) .plotly.html-widget{
 
 <img width="800px" src='zeisberger.png' title=''/>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Roads ahead</h2></hgroup><article  id="roads-ahead">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Theory</h2></hgroup><article  id="theory">
 
 </article></slide><slide class=""><hgroup><h2>Have we got the right theory?</h2></hgroup><article  id="have-we-got-the-right-theory">
 
+<img width="800px" src='img/map_elicited_r_DR_1.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>Have we got the right theory?</h2></hgroup><article  id="have-we-got-the-right-theory-1">
+
 <img width="800px" src='img/eliocentrism.gif' title=''/>
 
-</article></slide><slide class=""><hgroup><h2>Theory</h2></hgroup><article  id="theory">
+</article></slide><slide class=""><hgroup><h2>Other theories</h2></hgroup><article  id="other-theories">
 
 <ul>
 <li>Spiliopoulos &amp; Hertwig: <em>different</em> <strong>decision rules</strong> for different contexts</li>
 <li>Schneider and Sutter: <strong>higher moments</strong> matter</li>
 <li>Sunder et al: <em>curvature of utility</em> function <strong>not</strong> a valid theory</li>
-<li><strong>Ergodicity</strong> economics (peters et al): drop EV, use time-means</li>
+<li><strong>Ergodicity</strong> economics (Peters et al): drop EV, use time-means</li>
 <li>…</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Empirics</h2></hgroup><article  id="empirics">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Summing up</h2></hgroup><article  id="summing-up">
 
-<ul>
-<li>use <strong>meta-analysis</strong> to find patterns
-
-<ul>
-<li>do not aggregate <em>by task</em> but <strong>by characteristic</strong></li>
-<li>map what correlates and what doesn’t</li>
-</ul></li>
-<li>tackle <strong>noise</strong> through
-
-<ul>
-<li>binary chocies among lotteries</li>
-<li>econometric modeling of noise</li>
-<li>individual esitmates with MaxLik</li>
-<li>iterate with Machine Learning to fid best lottery set</li>
-</ul></li>
-<li>tackle <strong>perception</strong> rather than assuming it away</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>In a few words…</h2></hgroup><article  id="in-a-few-words">
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-2">
 
 <ul class = 'build'>
 <li><em>&ldquo;…future research must carefully consider the problem of adequately <strong>defining</strong> and <strong>assessing</strong> risk taking behavior.&rdquo;</em></li>

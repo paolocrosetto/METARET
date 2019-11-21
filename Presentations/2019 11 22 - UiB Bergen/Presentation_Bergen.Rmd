@@ -314,22 +314,133 @@ Examples:
 
 # Finding one's way
 
-## Noise
+## Finding one's way
+
+1. task-specific bias
+2. noise
+3. risk perception
+4. theory
+
+## Finding one's way
+
+1. **task-specific bias**
+2. (noise)
+3. **risk perception**
+4. (theory)
+
+# Task-specfic bias
+
+## Task-specific noise
 
 > *noisy* preference + one-shot choices $\Rightarrow$ noisy data
 
 - cognitive limits $\Rightarrow$ limited understanding
 
-- *if* risk preferences fuzzy $\Rightarrow$ noisy estiamte
+- *task-specific* bias?
 
-> solution: go **fully structural**
+(this work: Crosetto and Filippin, ExEc 2015)
 
-- Hey and Orme 1994
-- Harrison and coauthors (several papers)
+## 
 
-> forget quick & dirty task, embrace complexity
+![](img/Rmap.png){width=800px}
 
-> Maximum Likelihood at the **individual** level
+
+## Simulations
+
+**How does the mere mechanics of each task affect the outcome?**
+
+
+Simulation exercise:
+
+- generate 100k virtual agents
+- for each agent, $r\sim N(0.7,0.3)$
+- let the agents play each of the 4 tasks
+- collect results, run statistics
+- analyze the retrieved $\hat{r}$
+ 
+A good task should be able to **recreate the starting distribution**, if no error.
+
+## Deterministic vs noisy
+
+**3 types of simulations**:
+
+- deterministic
+
+- random parameter model $\Rightarrow$ models fuzzy preferences
+  - for each agent, $r = r_0 + \varepsilon, \; \varepsilon \sim \mathcal{N}(0,\mu)$
+  - $\mu \in (0.3;0.6)$
+
+- random agents $\Rightarrow$ models frame effects
+  - 10% of subjects act randomly on the space of the task
+  
+
+## Starting distribution
+
+![](img/AgentDistribution.png){width=800px}
+
+
+## HL
+
+![](img/HL_normal.png){width=800px}
+
+## HL
+
+![](img/HL_noise.png){width=800px}
+
+## HL
+
+![](img/HL_random.png){width=800px}
+
+## EG
+
+![](img/EG_normal.png){width=800px}
+
+## EG
+
+![](img/EG_noise.png){width=800px}
+
+## EG
+
+![](img/EG_random.png){width=800px}
+
+## GP
+
+![](img/GP_normal.png){width=800px}
+
+## GP
+
+![](img/GP_noise.png){width=800px}
+
+## GP
+
+![](img/GP_random.png){width=800px}
+
+
+
+## BRET
+
+![](img/BRET_normal.png){width=800px}
+
+
+## BRET
+
+![](img/BRET_noise.png){width=800px}
+
+
+
+## BRET
+
+![](img/BRET_random.png){width=800px}
+
+## Task-specific summary
+
+> is there a task-specific bias? **yes**
+
+> does it account for all differences? **no**
+
+> is this the only way to take noise into account? **no**
+
+# Risk perception
 
 ## Risk perception
 
@@ -358,8 +469,8 @@ Examples:
 
 - Holzmeister et al Working Paper
 - gave description of return from an asset to subjects
-- $\sim$7000 subjects 
-- including $\sim$2500 **traders**
+- $\sim$ 7000 subjects 
+- including $\sim$ 2500 **traders**
 - asked to rate **perceived risk of each asset**
 
 ## Holzmeister et al: design
@@ -376,7 +487,12 @@ Examples:
 
 ![](zeisberger.png){width=800px}
 
-# Roads ahead
+# Theory
+
+## Have we got the right theory?
+
+![](img/map_elicited_r_DR_1.png){width=800px}
+
 
 ## Have we got the right theory?
 
@@ -384,31 +500,18 @@ Examples:
 
 
 
-## Theory
+## Other theories
 
 - Spiliopoulos & Hertwig: *different* **decision rules** for different contexts
 - Schneider and Sutter: **higher moments** matter
 - Sunder et al: *curvature of utility* function **not** a valid theory
-- **Ergodicity** economics (peters et al): drop EV, use time-means
+- **Ergodicity** economics (Peters et al): drop EV, use time-means
 - ...
 
 
-## Empirics
+# Summing up
 
-- use **meta-analysis** to find patterns 
-  - do not aggregate *by task* but **by characteristic**
-  - map what correlates and what doesn't
-
-- tackle **noise** through 
-  - binary chocies among lotteries
-  - econometric modeling of noise
-  - individual esitmates with MaxLik
-  - iterate with Machine Learning to fid best lottery set
-  
-- tackle **perception** rather than assuming it away
-
-
-## In a few words...
+## 
 
 > - *"...future research must carefully
 consider the problem of adequately **defining** and
