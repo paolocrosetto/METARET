@@ -25,12 +25,13 @@ df %>%
   # scale_color_manual(name = "", values = wes_palette("Darjeeling2", n = 4))+
   scale_color_brewer(name = "", palette = "Set1")+
   coord_cartesian(ylim = c(-1, 2.5), xlim = c(0.5,9.2))+
-  scale_x_discrete(labels = c("1" = "no risk", "2" = "", "3" = "little\n risk", "4" = "",
-                              "5" = "mid\n point", "6" = "", "7" = "high risk", "8" = "",
+  scale_x_discrete(labels = c("1" = "no risk", "2" = "", "3" = "little\nrisk", "4" = "",
+                              "5" = "mid\npoint", "6" = "", "7" = "high risk", "8" = "",
                               "9" = "all in"))+
   labs(title = "Implied CRRA risk parameter across tasks",
        x = "",
-       y = "CRRA risk parameter")
+       y = "CRRA risk parameter")+
+  theme(axis.text = element_text(face = "bold"))
   
 
 ggsave("Presentations/2019 11 22 - UiB Bergen/img/Rmap.png", width = 8, height = 6, units = "in", dpi = 300)
