@@ -1,7 +1,7 @@
 ---
 title: "METARET"
 author: "Paolo Crosetto"
-date: "ESA Dijon -- September 6th, 2019"
+date: "UiB Bergen"
 output:
   ioslides_presentation:
     incremental: no
