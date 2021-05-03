@@ -72,7 +72,7 @@
                    geom = "pointrange", position = position_nudge(x = - 0.2, y = 0),
                    show.legend = F)+
       geom_hline(yintercept = 1, color = 'red', linetype = 'dashed', show.legend = F)+
-      labs(y = "risk aversion parameter r (CRRA, x^r)",
+      labs(y = "risk aversion parameter r (CRRA, x*r)",
            x = "")+
       theme(legend.title = element_blank(),
             legend.position = "none")+
@@ -122,7 +122,7 @@
                    geom = "pointrange", position = position_nudge(x = - 0.2, y = 0),
                    show.legend = F)+
       geom_hline(yintercept = 1, color = 'red', linetype = 'dashed', show.legend = F)+
-      labs(y = "risk aversion parameter r (CRRA, x^r)",
+      labs(y = "risk aversion parameter r (CRRA, x*r)",
            x = "")+
       theme(legend.title = element_blank(),
             legend.position = "none")+
