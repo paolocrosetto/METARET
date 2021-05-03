@@ -1,14 +1,6 @@
-### TODOlist
+### TODOLIST 
+### May 2021
 
-## data 
-- process and add Pedroni et al (Frey et al)
-- process and add Zhou and hey
+## Welcome Jean on the team
 
-
-## analyses
-- consider doing ML analyses by paper and overall
-
-## shiny
-- add a description of each RET and questionnaire
-
-## presentation
+## 
