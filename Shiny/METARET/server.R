@@ -9,7 +9,7 @@
   library(RColorBrewer)   ## colors
   
   ## theming
-  theme_set(theme_ipsum_rc()+
+  theme_set(
               theme(legend.position = "bottom")+
               theme(strip.text.x = element_text(hjust = 0.5))+
               theme(panel.spacing.x = unit(0.2, "lines")))
