@@ -34,7 +34,56 @@
   source("Analysis/across_questionnaire_plot.R")
   source("Analysis/correlations.R")
 
-  
+dfsoep <- preparedata(df, soep)
+dfdoall <- preparedata(df, doall)
+dfdogamble <- preparedata(df, dogamble)
+dfdoinvest <- preparedata(df, doinvest)
+dfdohealth <- preparedata(df, dohealth)
+
+## creating needed datasets
+
+corr_task_c <- merge_corr(df, "task", "choice")
+corr_treat_c <- merge_corr(df, "treatment", "choice")
+corr_task_r <- merge_corr(df, "task", "r")
+corr_treat_r <- merge_corr(df, "treatment", "r")
+
+corr_task <- rbind(corr_task_c, corr_task_r)
+corr_treat <- rbind(corr_treat_c, corr_treat_r)
+
+## plotting the correlations among tasks
+
+#1. computing correlations
+corrdf <- df %>% 
+  filter(bibkey != "Crosetto2013") %>% 
+  filter(bibkey != "Gnambs2015") %>% 
+  #filter(task != "BART") %>% 
+  select(-starts_with("do"), -soep, -inconsistent, -treatment,
+         -age, -gender, - key, -soep_financial)
+
+#2. choosing r or choices
+corr_choice <- corrdf %>% 
+  select(bibkey, subject, task, choice)  %>% 
+  group_by(bibkey, subject) %>% 
+  mutate(n = n()) %>% 
+  filter(n>1) %>% 
+  # filter(!is.na(r)) %>% 
+  # filter(!is.na(subject)) %>% 
+  select(-n) %>% 
+  # filter(r > -1.5 & r < 2.5) %>% 
+  group_by(bibkey,subject) %>% 
+  spread(task, choice)
+
+corr_r <- corrdf %>% 
+  select(bibkey, subject, task, r)  %>% 
+  group_by(bibkey, subject) %>% 
+  mutate(n = n()) %>% 
+  filter(n>1) %>% 
+  # filter(!is.na(r)) %>% 
+  # filter(!is.na(subject)) %>% 
+  select(-n) %>% 
+  # filter(r > -1.5 & r < 2.5) %>% 
+  group_by(bibkey,subject) %>% 
+  spread(task, r)
 shinyServer(function(input, output){
   
   output$markdown <- renderUI({

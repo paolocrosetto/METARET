@@ -1,4 +1,4 @@
-preparedata <- function(quest) {
+preparedata <- function(df, quest) {
   df %>% 
     filter(!is.na({{quest}}))  %>% 
     mutate(subsample = case_when(paper == "Crosetto and Filippin EXEC 2016" ~ task,
@@ -20,9 +20,3 @@ preparedata <- function(quest) {
     mutate(subsample = paste0(subsample, " (N = ",n,")")) %>% 
     rename(choice = {{quest}})
 }
-
-dfsoep <- preparedata(soep)
-dfdoall <- preparedata(doall)
-dfdogamble <- preparedata(dogamble)
-dfdoinvest <- preparedata(doinvest)
-dfdohealth <- preparedata(dohealth)
