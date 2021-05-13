@@ -69,12 +69,14 @@ ui <- navbarPage(
                                  dashboardSidebar(disable = TRUE),
                                  dashboardBody()
                                ))
-           )
-           
-           
-  )
+           ))),
+  tabPanel("Questionnaires", icon = icon("pencil")),
+  tabPanel("Correlations among tasks", icon = icon("line-chart")),
+  tabPanel("Correlations among questionnaires", icon = icon("line-chart")),
+  tabPanel("Correlations tasks <-> questionnaires", icon = icon("line-chart"))
 )
-)
+
+  
 
 
 
