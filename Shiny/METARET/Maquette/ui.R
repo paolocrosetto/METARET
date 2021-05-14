@@ -69,7 +69,34 @@ ui <- navbarPage(
                                  dashboardSidebar(disable = TRUE),
                                  dashboardBody()
                                ))
-           ))),
+           ),
+           navbarMenu("Balloon Analog Risk Task",
+                      tabPanel("Presentation", icon = icon("th"),
+                               balloon_dashboard1 <- dashboardPage(
+                                 dashboardHeader(disable = TRUE),
+                                 dashboardSidebar(disable = TRUE),
+                                 dashboardBody()
+                               )),
+                      tabPanel("Analysis", icon = icon("line-chart"),
+                               balloon_dashboard2 <- dashboardPage(
+                                 dashboardHeader(disable = TRUE),
+                                 dashboardSidebar(disable = TRUE),
+                                 dashboardBody()
+                               ))),
+           navbarMenu("Certainty equivalent price list",
+                      tabPanel("Presentation", icon = icon("th"),
+                               certainty_dashboard1 <- dashboardPage(
+                                 dashboardHeader(disable = TRUE),
+                                 dashboardSidebar(disable = TRUE),
+                                 dashboardBody()
+                               )),
+                      tabPanel("Analysis", icon = icon("line-chart"),
+                               certainty_dashboard2 <- dashboardPage(
+                                 dashboardHeader(disable = TRUE),
+                                 dashboardSidebar(disable = TRUE),
+                                 dashboardBody()
+                               )))
+           )),
   tabPanel("Questionnaires", icon = icon("pencil"),
            navbarPage(
              title = "Questionnaires:",
@@ -101,7 +128,7 @@ ui <- navbarPage(
                                    dashboardBody()
                                  ))
              ),
-             navbarMenu("Gamble",
+             navbarMenu("Gamble", icon = icon("piggy-bank"),
                         tabPanel("Presentation", icon = icon("th"),
                                  gamble_dashboard1 <- dashboardPage(
                                    dashboardHeader(disable = TRUE),
@@ -114,7 +141,7 @@ ui <- navbarPage(
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody()
                                  ))),
-             navbarMenu("Investment",
+             navbarMenu("Investment", icon = icon("dollar"),
                         tabPanel("Presentation", icon = icon("th"),
                                  investment_dashboard1 <- dashboardPage(
                                    dashboardHeader(disable=TRUE),
@@ -127,7 +154,7 @@ ui <- navbarPage(
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody()
                                  ))),
-             navbarMenu("Health",
+             navbarMenu("Health", icon = icon("tint"),
                         tabPanel("Presentation", icon=icon("th"),
                                  health_dashboard1 <- dashboardPage(
                                    dashboardHeader(disable = TRUE),
