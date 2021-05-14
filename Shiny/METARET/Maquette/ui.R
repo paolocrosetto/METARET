@@ -13,7 +13,7 @@ ui <- navbarPage(
            )),
   tabPanel("Tasks", icon = icon("list"),
            navbarPage(
-             title = "Tasks Explorer:",
+             title = "Tasks:",
              navbarMenu("Holt and Laury",
                         tabPanel("Presentation", icon = icon("th"),
                                  HL_dashboard1 <- dashboardPage(
@@ -72,7 +72,7 @@ ui <- navbarPage(
            ))),
   tabPanel("Questionnaires", icon = icon("pencil"),
            navbarPage(
-             title = "Select a questionnaire:",
+             title = "Questionnaires:",
              navbarMenu("SOEP",
                         tabPanel("Presentation", icon = icon("th"),
                                  SOEP_dashboard1 <- dashboardPage(
@@ -86,12 +86,64 @@ ui <- navbarPage(
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody()
                                  ))
-                        )
-           )),
-  tabPanel("Correlations among tasks", icon = icon("line-chart")),
-  tabPanel("Correlations among questionnaires", icon = icon("line-chart")),
-  tabPanel("Correlations tasks <-> questionnaires", icon = icon("line-chart"))
+                        ),
+             navbarMenu("DOPSERT",
+                        tabPanel("Presentation", icon = icon("th"),
+                                 DOPSERT_dasboard1 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 )),
+                        tabPanel("Results", icon = icon("pencil"),
+                                 DOPSERT_dasboard2 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 ))
+             ),
+             navbarMenu("Gamble",
+                        tabPanel("Presentation", icon = icon("th"),
+                                 gamble_dashboard1 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 )),
+                        tabPanel("Results", icon = icon("pencil"),
+                                 gamble_dashboard2 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 ))),
+             navbarMenu("Investment",
+                        tabPanel("Presentation", icon = icon("th"),
+                                 investment_dashboard1 <- dashboardPage(
+                                   dashboardHeader(disable=TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 )),
+                        tabPanel("Results", icon = icon("pencil"),
+                                 investment_dashboard2 <- dashboardPage(
+                                   dashboardHeader(disable=TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 ))),
+             navbarMenu("Health",
+                        tabPanel("Presentation", icon=icon("th"),
+                                 health_dashboard1 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 )),
+                        tabPanel("Results", icon = icon("pencil"),
+                                 health_dashboard2 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE), 
+                                   dashboardBody()
+                                 )))
+           )
+  )
 )
+
 
   
 
