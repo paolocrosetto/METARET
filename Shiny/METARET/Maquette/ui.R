@@ -70,7 +70,24 @@ ui <- navbarPage(
                                  dashboardBody()
                                ))
            ))),
-  tabPanel("Questionnaires", icon = icon("pencil")),
+  tabPanel("Questionnaires", icon = icon("pencil"),
+           navbarPage(
+             title = "Select a questionnaire:",
+             navbarMenu("SOEP",
+                        tabPanel("Presentation", icon = icon("th"),
+                                 SOEP_dashboard1 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 )),
+                        tabPanel("Results", icon = icon("pencil"),
+                                 SOEP_dashboard2 <- dashboardPage(
+                                   dashboardHeader(disable = TRUE),
+                                   dashboardSidebar(disable = TRUE),
+                                   dashboardBody()
+                                 ))
+                        )
+           )),
   tabPanel("Correlations among tasks", icon = icon("line-chart")),
   tabPanel("Correlations among questionnaires", icon = icon("line-chart")),
   tabPanel("Correlations tasks <-> questionnaires", icon = icon("line-chart"))
