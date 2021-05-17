@@ -13,7 +13,7 @@ ui <- navbarPage(
              dashboardBody(
                fluidRow(
                  box(
-                   textInput("name", "Enter your Name", "David"),
+                   textInput("name", "Enter your name", "David"),
                    plotOutput("trend")
                  )
                )
@@ -27,7 +27,12 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     fluidRow(
+                                       valueBox(20, "Number", icon = icon("list")
+                                       )
+                                     )
+                                   )
                                  )),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
