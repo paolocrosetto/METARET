@@ -1,7 +1,7 @@
 library(shinydashboard)
 library(shiny)
 library(tidyverse)
-library(babynames)
+library(shinipsum)
 
 ui <- navbarPage(
   theme = shinythemes::shinytheme("superhero"),
@@ -13,8 +13,7 @@ ui <- navbarPage(
              dashboardBody(
                fluidRow(
                  box(
-                   textInput("name", "Enter your name", "David"),
-                   plotOutput("trend")
+                   plotOutput("random1")
                  )
                )
              )
@@ -38,7 +37,11 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     fluidRow(
+                                       textOutput("Hello")
+                                     )
+                                   )
                                  ))
              ),
              navbarMenu("Binswanger, Eckel and Grossmann",
