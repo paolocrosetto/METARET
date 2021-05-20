@@ -2,6 +2,8 @@ library(shinydashboard)
 library(shiny)
 library(tidyverse)
 library(shinipsum)
+library(babynames)
+
 
 ui <- navbarPage(
   theme = shinythemes::shinytheme("superhero"),
@@ -12,12 +14,14 @@ ui <- navbarPage(
              dashboardSidebar(disable = TRUE),
              dashboardBody(
                fluidRow(
-                 box(
-                   plotOutput("random1")
+                 right = TRUE,
+                 infoBox(
+                   title = "A"
                  )
                )
              )
-           )),
+            )
+  ),
   tabPanel("Taks", icon = icon("list"),
            navbarPage(
              title = "Tasks",
@@ -26,12 +30,7 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody(
-                                     fluidRow(
-                                       valueBox(20, "Number", icon = icon("list")
-                                       )
-                                     )
-                                   )
+                                   dashboardBody()
                                  )),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
@@ -39,7 +38,11 @@ ui <- navbarPage(
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody(
                                      fluidRow(
-                                       textOutput("Hello")
+                                       box(
+                                         selectInput('sex', 'Select Sex', c("M","F")),
+                                         sliderInput("year", "Select Year", min = 1880, max = 2017, value = 1900),
+                                         plotOutput("Plot1")
+                                       )
                                      )
                                    )
                                  ))
