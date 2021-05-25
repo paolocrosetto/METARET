@@ -13,10 +13,9 @@ ui <- navbarPage(
             dashboardPage(
              dashboardHeader(disable = TRUE),
              dashboardSidebar(disable = TRUE),
-             dashboardBody(
-                 )
-                 )
-               ),
+             dashboardBody()
+            )
+  ),
   tabPanel("Taks", icon = icon("list"),
            navbarPage(
              title = "Tasks",
@@ -25,7 +24,29 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     fluidRow(
+                                       box(title = "What is Holt and Laury experimentation ?",
+                                           status = "primary",
+                                           solidHeader = TRUE,
+                                           attachmentBlock(
+                                             image = "",
+                                             title = "Article's link",
+                                             href = "https://www.aeaweb.org/articles?id=10.1257/000282802762024700",
+                                             "Link toward the article's Google Scholar Page"
+                                           )),
+                                       box(title = "How to get the data from the experimentation ?",
+                                           status = "warning",
+                                           solidHeader = TRUE,
+                                           attachmentBlock(
+                                             image = "",
+                                             title = "Get access to the Holt and Laury data base",
+                                             href = "https://google.com",
+                                             "Link toward the data used for the experimentation"
+                                           ))
+                                       
+                                     )
+                                   )
                                  )),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
