@@ -3,6 +3,7 @@ library(shiny)
 library(tidyverse)
 library(shinipsum)
 library(babynames)
+library(shinydashboardPlus)
 
 
 ui <- navbarPage(
@@ -13,15 +14,9 @@ ui <- navbarPage(
              dashboardHeader(disable = TRUE),
              dashboardSidebar(disable = TRUE),
              dashboardBody(
-               fluidRow(
-                 right = TRUE,
-                 infoBox(
-                   title = "A"
                  )
-               )
-             )
-            )
-  ),
+                 )
+               ),
   tabPanel("Taks", icon = icon("list"),
            navbarPage(
              title = "Tasks",
@@ -37,15 +32,24 @@ ui <- navbarPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody(
-                                     fluidRow(
-                                       box(
-                                         selectInput('sex', 'Select Sex', c("M","F")),
-                                         sliderInput("year", "Select Year", min = 1880, max = 2017, value = 1900),
-                                         plotOutput("Plot1")
-                                       )
-                                     )
+                                     box(title = "Name trend over year",
+                                         solidHeader = TRUE,
+                                         status = "primary",
+                                         textInput("name", "Enter your Name", "David"),
+                                         plotOutput("trend")),
+                                     box(title = "Top 10 Names",
+                                         solidHeader = TRUE,
+                                         status = "primary",
+                                         selectInput("sex","Select Sex", choices = c("M","F"),selected = "F"),
+                                         sliderInput("year","Select Year", min = 1900, max = 2010, value = 1900),
+                                         plotOutput("plot_top_10_names")),
+                                     box(title = "Table Top 10",
+                                         solidHeader = TRUE,
+                                         status = "primary",
+                                         DT::DTOutput("table_top_10_names"))
                                    )
-                                 ))
+                                  )
+                        )
              ),
              navbarMenu("Binswanger, Eckel and Grossmann",
                         tabPanel("Presentation", icon = icon("th"),
