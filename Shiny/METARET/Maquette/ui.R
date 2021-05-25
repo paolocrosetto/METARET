@@ -13,7 +13,21 @@ ui <- navbarPage(
             dashboardPage(
              dashboardHeader(disable = TRUE),
              dashboardSidebar(disable = TRUE),
-             dashboardBody()
+             dashboardBody(
+               box(title = "Contributed papers",
+                   solidHeader = TRUE,
+                   status = "primary",
+                   attachmentBlock(
+                     image = "",
+                     title = "The Bomb Risk Elicitation Task",
+                     href = "https://link.springer.com/article/10.1007/s11166-013-9170-z"
+                   ),
+                   attachmentBlock(
+                     image = "",
+                     title = "A Theoretical and Experimental Appraisal of Four Risk ELicitation Methods",
+                     href = "https://link.springer.com/article/10.1007/s10683-015-9457-9"
+                   ))
+             )
             )
   ),
   tabPanel("Taks", icon = icon("list"),
@@ -36,7 +50,7 @@ ui <- navbarPage(
                                              "Link toward the article's Google Scholar Page"
                                            )),
                                        box(title = "How to get the data from the experimentation ?",
-                                           status = "warning",
+                                           status = "success",
                                            solidHeader = TRUE,
                                            attachmentBlock(
                                              image = "",
@@ -105,7 +119,26 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "What is Bomb Risk Elicitation Task?",
+                                       status = "primary",
+                                       solidHeader = TRUE,
+                                       attachmentBlock(
+                                         title = "Article's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the article page"
+                                       )),
+                                   box(title = "How could I get the data?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       attachmentBlock(
+                                         title = "Get the data here",
+                                         image = "",
+                                         href = "http://www.google.com",
+                                         "Link toward the data base"
+                                       ))
+                                 )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
                                 dashboardPage(
