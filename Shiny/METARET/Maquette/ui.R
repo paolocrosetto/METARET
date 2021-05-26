@@ -4,6 +4,7 @@ library(tidyverse)
 library(shinipsum)
 library(babynames)
 library(shinydashboardPlus)
+library(markdown)
 
 
 ui <- navbarPage(
@@ -14,6 +15,8 @@ ui <- navbarPage(
              dashboardHeader(disable = TRUE),
              dashboardSidebar(disable = TRUE),
              dashboardBody(
+               box(title = "essayons", background = "green",
+               includeMarkdown("include.md")),
                box(title = "Contributed papers",
                    solidHeader = TRUE,
                    status = "primary",
@@ -58,7 +61,6 @@ ui <- navbarPage(
                                              href = "https://google.com",
                                              "Link toward the data used for the experimentation"
                                            ))
-                                       
                                      )
                                    )
                                  )),
@@ -81,7 +83,8 @@ ui <- navbarPage(
                                      box(title = "Table Top 10",
                                          solidHeader = TRUE,
                                          status = "primary",
-                                         DT::DTOutput("table_top_10_names"))
+                                         DT::DTOutput("table_top_10_names"), 
+                                         width = 12)
                                    )
                                   )
                         )
