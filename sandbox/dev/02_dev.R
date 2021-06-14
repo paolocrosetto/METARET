@@ -44,7 +44,7 @@ usethis::use_test( "app" )
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("golex")
+usethis::use_vignette("sandbox")
 devtools::build_vignettes()
 
 ## Code Coverage----
