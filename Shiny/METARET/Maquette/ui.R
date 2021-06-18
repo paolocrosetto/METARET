@@ -37,7 +37,7 @@ ui <- navbarPage(
              )
             )
   ),
-  tabPanel("Taks", icon = icon("list"),
+  tabPanel("Tasks", icon = icon("list"),
            navbarPage(
              title = "Tasks",
              navbarMenu("Holt and Laury",
@@ -95,8 +95,7 @@ ui <- navbarPage(
                                          width = 12)
                                    )
                                   )
-                        )
-             ),
+                        ),
              navbarMenu("Binswanger, Eckel and Grossmann",
                         tabPanel("Presentation", icon = icon("th"),
                                   dashboardPage(
@@ -184,7 +183,7 @@ ui <- navbarPage(
                                  dashboardSidebar(disable = TRUE),
                                  dashboardBody()
                                )))
-           ),
+           )),
   tabPanel("Questionnaires", icon = icon("pencil"),
            navbarPage(
              title = "Questionnaires:",
