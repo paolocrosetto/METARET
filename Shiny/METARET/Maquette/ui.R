@@ -26,7 +26,11 @@ ui <- navbarPage(
                      image = "",
                      title = "A Theoretical and Experimental Appraisal of Four Risk ELicitation Methods",
                      href = "https://link.springer.com/article/10.1007/s10683-015-9457-9"
-                   ))
+                   )),
+               box(title = "Aim of the project",
+                   solidHeader = TRUE,
+                   status = "warning",
+                   "Insert Markdown here")
              )
             )
   ),
@@ -57,7 +61,8 @@ ui <- navbarPage(
                                              title = "Get access to the Holt and Laury data base",
                                              href = "https://google.com",
                                              "Link toward the data used for the experimentation"
-                                           ))
+                                           )),
+                                       valueBox("x", "Sample size", icon = icon("user"))
                                        
                                      )
                                    )
