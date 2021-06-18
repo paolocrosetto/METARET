@@ -79,14 +79,8 @@ ui <- navbarPage(
                                      box(title = "Name trend over year",
                                          solidHeader = TRUE,
                                          status = "primary",
-                                         textInput("name", "Enter your Name", "David"),
-                                         plotOutput("trend")),
-                                     box(title = "Top 10 Names",
-                                         solidHeader = TRUE,
-                                         status = "primary",
-                                         selectInput("sex","Select Sex", choices = c("M","F"),selected = "F"),
-                                         sliderInput("year","Select Year", min = 1900, max = 2010, value = 1900),
-                                         plotOutput("plot_top_10_names")),
+                                         width = 12,
+                                         plotOutput("density_HL")),
                                      box(title = "Table Top 10",
                                          solidHeader = TRUE,
                                          status = "primary",
@@ -106,7 +100,13 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     box(title = "nom a changer",
+                                         solidHeader = TRUE,
+                                         status = "primary",
+                                         width = 12,
+                                         plotOutput("density_EG"))
+                                   )
                                  ))
            ),
            navbarMenu("Investment Game", icon = icon("dollar"),
