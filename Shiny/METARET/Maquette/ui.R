@@ -4,6 +4,7 @@ library(tidyverse)
 library(shinipsum)
 library(babynames)
 library(shinydashboardPlus)
+library(markdown)
 
 
 ui <- navbarPage(
@@ -14,6 +15,8 @@ ui <- navbarPage(
              dashboardHeader(disable = TRUE),
              dashboardSidebar(disable = TRUE),
              dashboardBody(
+               box(title = "essayons", background = "green",
+               includeMarkdown("include.md")),
                box(title = "Contributed papers",
                    solidHeader = TRUE,
                    status = "primary",
@@ -61,12 +64,14 @@ ui <- navbarPage(
                                              title = "Get access to the Holt and Laury data base",
                                              href = "https://google.com",
                                              "Link toward the data used for the experimentation"
+
                                            )),
                                        valueBox("x", "Sample size", icon = icon("user"))
-                                       
+                                           ))
+
                                      )
                                    )
-                                 )),
+                                 ),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
@@ -86,7 +91,8 @@ ui <- navbarPage(
                                      box(title = "Table Top 10",
                                          solidHeader = TRUE,
                                          status = "primary",
-                                         DT::DTOutput("table_top_10_names"))
+                                         DT::DTOutput("table_top_10_names"), 
+                                         width = 12)
                                    )
                                   )
                         )
@@ -178,7 +184,7 @@ ui <- navbarPage(
                                  dashboardSidebar(disable = TRUE),
                                  dashboardBody()
                                )))
-           )),
+           ),
   tabPanel("Questionnaires", icon = icon("pencil"),
            navbarPage(
              title = "Questionnaires:",
