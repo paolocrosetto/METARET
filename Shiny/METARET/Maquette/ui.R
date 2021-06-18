@@ -70,8 +70,7 @@ ui <- navbarPage(
                                            ))
 
                                      )
-                                   )
-                                 ),
+                                   ),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
@@ -95,7 +94,7 @@ ui <- navbarPage(
                                          width = 12)
                                    )
                                   )
-                        ),
+                        )),
              navbarMenu("Binswanger, Eckel and Grossmann",
                         tabPanel("Presentation", icon = icon("th"),
                                   dashboardPage(
