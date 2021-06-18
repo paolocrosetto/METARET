@@ -1,0 +1,54 @@
+---
+title: "New measues to elicit risk attitudes of farmers"
+author: "Paolo Crosetto"
+date: "FAST Kick-off Meeting 3-4 Juin 2021"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: img/logo.png
+  beamer_presentation:
+    incremental: yes
+  pdf_document:
+    keep_tex: yes
+subtitle: Task 1.2.2 Risk aversion and pesticide use
+---
+
+## What? 
+
+> **Accurate measure of the risk aversion of farmers**. 
+
+### Why? 
+
+- pesticides -> **lower variance** of returns from farming
+
+- pesticides applied **before** pests arrive
+
+- if farming is a lottery, pesticides reduce its volatility
+
+- the higher the risk aversion, the higher the pesticide use
+
+## What can we learn? 
+
+> with a precise risk aversion measure...
+
+1. estimation of **subjective costs** to farmers of cutting or eliminating pesticides; 
+2. amount of pesticides that could be cut by **imposing the risk-neutral** pesticide use;
+3. potential adjustment of **policy** to individual (or sector) risk attitudes.
+
+## How? 
+
+> State of the art in risk literature is **bad**
+
+- low external validity
+- low correlation with questionnaires & field behavior
+
+> Aim: **developing new risk elicitation measure**
+
+- takes into account **noise** & **cognitive abilities**
+- takes into account risk **perception**
+
+- theory and lab experiments in progress (ANR RETRISK)
+- **FAST: application to the field and farmers**
+
+
+
