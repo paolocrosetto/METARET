@@ -76,7 +76,7 @@ ui <- navbarPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody(
-                                     box(title = "Name trend over year",
+                                     box(title = "Holt and Laury",
                                          solidHeader = TRUE,
                                          status = "primary",
                                          width = 12,
@@ -101,7 +101,7 @@ ui <- navbarPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
                                    dashboardBody(
-                                     box(title = "nom a changer",
+                                     box(title = "Binswanger, Eckel and Grossmannr",
                                          solidHeader = TRUE,
                                          status = "primary",
                                          width = 12,
@@ -120,7 +120,13 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "Investment Game",
+                                       solidHeader = TRUE,
+                                       status = "primary",
+                                       width = 12,
+                                       plotOutput("density_IG"))
+                                 )
                                ))
            ),
            navbarMenu("Bomb Risk Elicitation Task", icon = icon("bomb"),
@@ -153,7 +159,13 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "Bomb Elicitation Risk",
+                                       solidHeader = TRUE,
+                                       status = "primary",
+                                       width = 12,
+                                       plotOutput("density_BRET"))
+                                 )
                                ))
            ),
            navbarMenu("Balloon Analog Risk Task",
@@ -167,7 +179,13 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "Balloon Analog Risk",
+                                       solidHeader = TRUE,
+                                       status = "primary",
+                                       width = 12,
+                                       plotOutput("density_BART"))
+                                 )
                                ))),
            navbarMenu("Certainty equivalent price list",
                       tabPanel("Presentation", icon = icon("th"),
@@ -180,7 +198,13 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "Certainty equivalent price list",
+                                       solidHeader = TRUE,
+                                       status = "primary",
+                                       width = 12,
+                                       plotOutput("density_CEPL"))
+                                 )
                                )))
            )),
   tabPanel("Questionnaires", icon = icon("pencil"),

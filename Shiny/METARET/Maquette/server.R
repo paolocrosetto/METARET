@@ -98,6 +98,22 @@ server <- function(input, output, session) {
     plotDensity("EG")
   })
   
+  output$density_IG <- renderPlot({
+    plotDensity("IG")
+  })
+  
+  output$density_BRET <- renderPlot({
+    plotDensity("BRET")
+  })
+  
+  output$density_BART <- renderPlot({
+    plotDensity("BART")
+  })
+  
+  output$density_CEPL <- renderPlot({
+    plotDensity("CPEL")
+  })
+  
   output$plot_top_10_names <- renderPlot({
     top_10_names <- babynames %>%
       filter(sex == input$sex) %>%
