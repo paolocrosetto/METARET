@@ -81,11 +81,6 @@ ui <- navbarPage(
                                          status = "primary",
                                          width = 12,
                                          plotOutput("density_HL")),
-                                     box(title = "Table Top 10",
-                                         solidHeader = TRUE,
-                                         status = "primary",
-                                         DT::DTOutput("table_top_10_names"), 
-                                         width = 12)
                                    )
                                   )
                         )),
@@ -94,7 +89,18 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     box(title = "What is Bomb Risk Elicitation Task?",
+                                         status = "success",
+                                         solidHeader = TRUE,
+                                         width = 6,
+                                         attachmentBlock(
+                                           title = "Article's link",
+                                           image = "",
+                                           href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                           "Link toward the article page"
+                                         )),
+                                   )
                                  )),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
@@ -114,7 +120,18 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "What is Bomb Risk Elicitation Task?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Article's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the article page"
+                                       )),
+                                 )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
                                 dashboardPage(
@@ -215,7 +232,18 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "What is Bomb Risk Elicitation Task?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Article's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the article page"
+                                       ))
+                                 )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
                                 dashboardPage(
