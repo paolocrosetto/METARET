@@ -131,6 +131,16 @@ ui <- navbarPage(
                                          href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
                                          "Link toward the article page"
                                        )),
+                                   box(title = "How to get access to the data?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Data's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the database"
+                                       ))
                                  )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
