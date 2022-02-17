@@ -2,10 +2,11 @@
 title: "New measues to elicit risk attitudes of farmers"
 author: "Paolo Crosetto"
 date: "FAST Kick-off Meeting 3-4 Juin 2021"
-subtitle: Task 1.2.2 Risk aversion and pesticide use
-output: 
+output:
+  ioslides_presentation: default
   powerpoint_presentation:
     reference_doc: styles/template.pptx
+subtitle: Task 1.2.2 Risk aversion and pesticide use
 ---
 
 
