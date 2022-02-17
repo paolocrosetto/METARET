@@ -81,11 +81,6 @@ ui <- navbarPage(
                                          status = "primary",
                                          width = 12,
                                          plotOutput("density_HL")),
-                                     box(title = "Table Top 10",
-                                         solidHeader = TRUE,
-                                         status = "primary",
-                                         DT::DTOutput("table_top_10_names"), 
-                                         width = 12)
                                    )
                                   )
                         )),
@@ -94,7 +89,18 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     box(title = "What is Bomb Risk Elicitation Task?",
+                                         status = "success",
+                                         solidHeader = TRUE,
+                                         width = 6,
+                                         attachmentBlock(
+                                           title = "Article's link",
+                                           image = "",
+                                           href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                           "Link toward the article page"
+                                         )),
+                                   )
                                  )),
                         tabPanel("Analysis", icon = icon("line-chart"),
                                   dashboardPage(
@@ -114,7 +120,28 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "What is Bomb Risk Elicitation Task?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Article's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the article page"
+                                       )),
+                                   box(title = "How to get access to the data?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Data's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the database"
+                                       ))
+                                 )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
                                 dashboardPage(
@@ -136,8 +163,9 @@ ui <- navbarPage(
                                  dashboardSidebar(disable = TRUE),
                                  dashboardBody(
                                    box(title = "What is Bomb Risk Elicitation Task?",
-                                       status = "primary",
+                                       status = "success",
                                        solidHeader = TRUE,
+                                       width = 6,
                                        attachmentBlock(
                                          title = "Article's link",
                                          image = "",
@@ -147,6 +175,7 @@ ui <- navbarPage(
                                    box(title = "How could I get the data?",
                                        status = "success",
                                        solidHeader = TRUE,
+                                       width = 6,
                                        attachmentBlock(
                                          title = "Get the data here",
                                          image = "",
@@ -173,7 +202,28 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "What is Ballon Analog Risk Task?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Article's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the article page"
+                                       )),
+                                   box(title = "How could I get the data?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Ballon's data",
+                                         image = "",
+                                         href = "http://www.google.com",
+                                         "Link toward the data base"
+                                       ))
+                                 )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
                                 dashboardPage(
@@ -192,7 +242,18 @@ ui <- navbarPage(
                                 dashboardPage(
                                  dashboardHeader(disable = TRUE),
                                  dashboardSidebar(disable = TRUE),
-                                 dashboardBody()
+                                 dashboardBody(
+                                   box(title = "What is Bomb Risk Elicitation Task?",
+                                       status = "success",
+                                       solidHeader = TRUE,
+                                       width = 6,
+                                       attachmentBlock(
+                                         title = "Article's link",
+                                         image = "",
+                                         href = "https://link.springer.com/article/10.1007/s11166-013-9170-z",
+                                         "Link toward the article page"
+                                       ))
+                                 )
                                )),
                       tabPanel("Analysis", icon = icon("line-chart"),
                                 dashboardPage(
@@ -215,7 +276,13 @@ ui <- navbarPage(
                                   dashboardPage(
                                    dashboardHeader(disable = TRUE),
                                    dashboardSidebar(disable = TRUE),
-                                   dashboardBody()
+                                   dashboardBody(
+                                     box(title = "SOEP",
+                                         solidHeader = TRUE,
+                                         status = "primary",
+                                         width = 12,
+                                         plotOutput("quest_soep"))
+                                   )
                                  )),
                         tabPanel("Results", icon = icon("pencil"),
                                   dashboardPage(
