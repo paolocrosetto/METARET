@@ -1,0 +1,20 @@
+ 
+Increasing experimental evidence points to the fact that the behavioral measures we use to elicit risk attitudes fail us. 
+Risk elicitation tasks (RETs), at least in the way they are typically implemented in behavioral economics and psychology, 
+1. correlate poorly with self-reported risk attitudes, real-world risk behaviors, and among themselves;
+2. introduce distinct measurement errors and behavioral biases, and 
+3. are not robust to sit-resit exercises. 
+
+Why do RETs show poor correlation with self-reported measures, real-world risk behavior, and one
+another? In psychometrics terms, why do they show so little predictive validity?
+Despite the large number of studies comparing risk elicitation procedures, the extent to which
+current RETs are able to capture self-reported or out-of-the-lab behavior is still partly unknown.
+Since each study can cover only a limited subset of tasks and self-reported or real-world behaviors,
+the map of the cross-correlations across tasks and behavior is far from being complete.
+
+Luckily, the data to create such a map already exists. Experimental economists have been routinely
+eliciting risk attitudes for over three decades. In this talk I will present the early results of a 
+comprehensive meta-analysis of the internal and external validity of RETs, as well as promising new paths opened by recent research. 
+The ongoing effort, code and presentations can be found at
+https://github.com/paolocrosetto/METARET and all data can be explored interactively at
+https://paolocrosetto.shinyapps.io/METARET/.
