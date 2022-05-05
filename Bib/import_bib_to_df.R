@@ -13,17 +13,6 @@ bibdf <- bibdf %>%
   rename(bibkey = bibtexkey)
 
 
-## deleteme after all problems solved
-key <- df %>% 
-  select(bibkey) %>% 
-  distinct()
-
-keybib <- bibdf %>% 
-  select(bibkey) %>% 
-  distinct()
-
-key %>% anti_join(keybib)
-
 # export to csv
 
 
