@@ -70,8 +70,8 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
 
     output$table_papers_name <- renderDataTable(
       filter(df, task == input$Tasks) %>% 
-        select(bibkey, author, title, year, journal, doi_2) %>% 
-        unique() %>% as.data.frame(row.names = 1:nrow(.)))  
+        group_by(author, title, year, journal, doi_2) %>% 
+        summarise(sample=n()))  
     
     output$table_papers_link <- renderDataTable(
       filter(df, task == input$Tasks) %>% 
@@ -115,7 +115,10 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
               axis.text = element_blank(),
               axis.ticks = element_blank(),
               strip.text = element_blank(), 
-              legend.key.size = unit(1.5, 'cm')) 
+              legend.key.size = unit(1.5, 'cm')) +
+        scale_fill_continuous(
+          limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
+        scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0,  na.value = NA)
     }, height = 700, width = 900 )
     
     ## Questionnaires page
@@ -158,7 +161,12 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
       plotDensity2(input$Questionnaires, data)
     })
     
+    output$table_papers_name_quest <- renderDataTable(
+      df %>% filter(df[input$Questionnaires] != 'Na') %>%
+      group_by(author, title, year, journal, doi_2) %>% summarise(sample=n()))
+    
     ## Second tab questionnaires page
+    
     
     observe({
       updateCheckboxGroupInput(session, "amongquest", NULL,choices=questionchoice)
@@ -183,16 +191,50 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
               axis.text = element_blank(),
               axis.ticks = element_blank(),
               strip.text = element_blank(), 
-              legend.key.size = unit(1.5, 'cm')) 
+              legend.key.size = unit(1.5, 'cm')) +
+        scale_fill_continuous(
+          limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
+        scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0, na.value = NA)
+      }, height = 700, width = 900 )
+    
+    ## Tasks and questionnaire page
+    observe({
+      updateCheckboxGroupInput(session, "amongcorrs_1", NULL,choices=mychoices)
+    })
+    
+    observe({
+      updateCheckboxGroupInput(session, "amongquest_1", NULL,choices=questionchoice)
+    })
+    
+    output$corr_quest_task <- renderPlot({  
+      data <- df %>%
+        filter(r > -1.5 & r < 2.5) %>% 
+        distinct(subject, task, .keep_all= TRUE) %>%
+        select(task, r, subject, input$amongquest_1)  %>% 
+        pivot_wider(c(subject, input$amongquest_1), names_from = 'task', values_from = "r") %>% 
+        select(-c(subject, EG_loss)) %>% 
+        select(input$amongcorrs_1, input$amongquest_1) %>% 
+        cor(use = "pairwise.complete.obs") %>% 
+        as.data.frame() %>%
+        select(input$amongquest_1) %>%
+        t %>%
+        as.data.frame() %>%
+        select(-(input$amongquest_1)) %>%
+        t %>%
+        t
+      
+      corrplot(data, method = 'color', 
+               col.lim=c(min(data, na.rm = T), 
+               max(data, na.rm = T)),
+               addCoef.col = 'black',
+               tl.col = 'black',  
+               col = COL2('PiYG', 20), 
+               na.label = "  ", tl.srt = 0)
       }, height = 700, width = 900 )
     
     ## Explore page 
     
       ## First tab explore page
-    output$table_papers_name_quest <- renderDataTable(
-      df %>% filter(df[input$Questionnaires] != 'Na') %>%
-        select(author, title, year, journal, doi_2) %>% 
-        unique() %>% as.data.frame(row.names = 1:nrow(.)))  
     
     output$page1 <- DT::renderDataTable({df %>% 
         select('subject', 'paper', 

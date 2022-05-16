@@ -15,11 +15,12 @@ plotDensity <- function(task, data) {
                  width = 0.25,
                  outlier.alpha = 0,
                  alpha = 0) +
-    geom_jitter(aes(r,0), height = 0.1, color = 'purple', size = 0.1) +
+    geom_jitter(aes(r,0), height = 0.1, color = 'purple', size = 0.1, alpha = 0.3) +
     geom_vline(xintercept = 1, color = 'red', linetype = 'dashed', show.legend = F) +
     labs(x = "Risk aversion parameter CRRA",
          y = "Density",
-         title = paste0("Distribution of ", data$task[[1]], " task")) + 
+         title = paste0("Distribution of ", data$task[[1]], " task")) +
+    theme_bw() + 
     theme(
       panel.background = element_rect(fill = "white"), 
       panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
