@@ -13,6 +13,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
+        tags$style(type="text/css",
+                   ".shiny-output-error { visibility: hidden; }",
+                   ".shiny-output-error:before { visibility: hidden; }"
+        ),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
         tabItem("tab_homepage", 
@@ -64,7 +68,11 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     list(menu = "Across tasks", content = list(
                       
                       ## Multiple checkbox for the tasks selection
-                      column(3, multiple_checkbox("id_selectInput", 
+                      column(3, 
+                             h5(),
+                             actionButton("selectalltaskdist","Select/Deselect all"),
+                             h5(), 
+                             multiple_checkbox("id_selectInput", 
                                   label = HTML('<B><FONT size="3">Choose RETs to display density distributions</FONT></B><br><br>'), 
                                   multiple = TRUE,
                                   choices = mychoices, 
@@ -73,11 +81,14 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                   )),
                       
                       ## Plot with many distributions 
-                      column(12, style = "height: 100vh;", plotOutput("lotteries_comp")))),
+                      column(12, h5(), style = "height: 100vh;", plotOutput("lotteries_comp")))),
                     ## Third tab of tasks page 
                     list(menu = "Among tasks", content = list(
                       ## Select box for correlation among tasks 
-                      column(3,  multiple_checkbox("amongcorrs", 
+                      column(3, 
+                             actionButton("selectalltaskcorrs","Select/Deselect all"),
+                             h5(), 
+                             multiple_checkbox("amongcorrs", 
                                                    label = HTML('<B><FONT size="3">Choose RETs to display correlations</FONT></B><br><br>'), 
                                                    multiple = TRUE,
                                                    choices = mychoices, 
@@ -105,6 +116,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     box(plotOutput("questionnaires"), width = 12),
                     
                     # Select box for the plot
+                    
                     box(selectInput("Questionnaires", "Questionnaires:",
                                     questionchoice), width = 3),
                     
@@ -128,7 +140,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   list(menu = "Correlations", content = list( 
                     
                     ## Select box for correlation among questions 
-                    column(3,  multiple_checkbox("amongquest", 
+                    column(4,  
+                           actionButton("selectallcorrquest","Select/Deselect all"),
+                           h5(), h5(),
+                           multiple_checkbox("amongquest", 
                                       label = HTML('<B><FONT size="3">Choose types of questions to display correlations</FONT></B><br><br>'), 
                                       multiple = TRUE,
                                       choices = questionchoice, 
@@ -136,20 +151,24 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                       selected = c("soep", "dohealth", 'dogamble'))),
                     
                     ## Plot correlations among questions 
-                    column(12, style = "height: 100vh;", plotOutput("corr_quest")))))
+                    column(11, style = "height: 100vh;", plotOutput("corr_quest")))))
                  )),
         
         ## Tasks and questionnaire page
         tabItem("tab_lotteries_and_questionnaires", 
-                column(3,  multiple_checkbox("amongcorrs_1", 
+                column(4, actionButton("selectalltasks","Select/Deselect all"),
+                       
+                       h5(), h5(),
+                       multiple_checkbox("amongcorrs_1", 
                                              label = HTML('<B><FONT size="3">Select RET types</FONT></B><br><br>'), 
                                              multiple = TRUE,
                                              choices = mychoices, 
                                              position = 'inline',
                                              selected = c("HL", "EG")),
                        h5(), h5(),
+                       actionButton("selectallquest","Select/Deselect all"),
+                       h5(), h5(),
                        multiple_checkbox("amongquest_1", 
-                                        
                                         label = HTML('<B><FONT size="3">Select question types</FONT></B><br><br>'), 
                                         multiple = TRUE,
                                         choices = questionchoice, 

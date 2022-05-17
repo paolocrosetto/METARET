@@ -14,6 +14,13 @@ bibs <- bibdf %>% select(bibkey, author, title, year, journal, doi_2)
 df <- read.csv("df_mod.csv", sep = ";")
 df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
 
+## Function to create links in the table
+createLink <- function(val) {
+  sprintf('<a href="http://dx.doi.org/%s" target="_blank" class="btn btn-primary">Click</a>',val)
+}
+
+
+
 ## Server function 
   server <- function(input, output, session){
     
@@ -68,17 +75,28 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
       plotDensity(input$Tasks, data)
     })
 
-    output$table_papers_name <- renderDataTable(
-      filter(df, task == input$Tasks) %>% 
+    output$table_papers_name <- renderDataTable({
+      table = filter(df, task == input$Tasks) %>% 
         group_by(author, title, year, journal, doi_2) %>% 
-        summarise(sample=n()))  
-    
-    output$table_papers_link <- renderDataTable(
-      filter(df, task == input$Tasks) %>% 
-        select('link') %>% drop_na() %>%
-        unique() %>% as.data.frame(row.names = 1:nrow(.)) %>% lapply(as.character))
+        summarise(sample=n())
+      table$link <- createLink(table$doi_2)
+      table = table %>% select(-doi_2)
+      return(table)}, escape = FALSE)
     
       ## Second tab Tasks page 
+    
+    observe({
+      if(input$selectalltaskdist == 0) return(NULL) 
+      else if (input$selectalltaskdist%%2 == 0)
+      {
+        updateCheckboxGroupInput(session,"id_selectInput",choices=mychoices, selected = mychoices)
+      }
+      else
+      {
+        updateCheckboxGroupInput(session,"id_selectInput",choices=mychoices, selected=list())
+      }
+    })
+    
     observe({
       updateCheckboxGroupInput(session, "id_selectInput", NULL,choices=mychoices)
     })
@@ -91,6 +109,19 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
     
     
     ## Third tab tasks page 
+    
+    observe({
+      if(input$selectalltaskcorrs == 0) return(NULL) 
+      else if (input$selectalltaskcorrs%%2 == 0)
+      {
+        updateCheckboxGroupInput(session,"amongcorrs",choices=mychoices, selected = mychoices)
+      }
+      else
+      {
+        updateCheckboxGroupInput(session,"amongcorrs",choices=mychoices, selected=list())
+      }
+    })
+    
     observe({
       updateCheckboxGroupInput(session, "amongcorrs", NULL,choices=mychoices)
     })
@@ -107,7 +138,7 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
         lotri(geom_point(alpha = 0.5)) +
         lotri(geom_smooth(method = "lm", size = 0.4, alpha = 0.6)) +
         utri_heatmap() +
-        utri_corrtext() +
+        utri_corrtext(corr_size = FALSE, size = 6) +
         dia_names(y_pos = 0.15, size = 4) +
         dia_histogram(lower = 0.3, fill = "grey80", color = 1) +
         scale_fill_corr() +
@@ -115,6 +146,7 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
               axis.text = element_blank(),
               axis.ticks = element_blank(),
               strip.text = element_blank(), 
+              legend.title=element_blank(),
               legend.key.size = unit(1.5, 'cm')) +
         scale_fill_continuous(
           limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
@@ -161,12 +193,26 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
       plotDensity2(input$Questionnaires, data)
     })
     
-    output$table_papers_name_quest <- renderDataTable(
-      df %>% filter(df[input$Questionnaires] != 'Na') %>%
-      group_by(author, title, year, journal, doi_2) %>% summarise(sample=n()))
+    output$table_papers_name_quest <- renderDataTable({
+      table = df %>% filter(df[input$Questionnaires] != 'Na') %>%
+      group_by(author, title, year, journal, doi_2) %>% summarise(sample=n())
+      table$link <- createLink(table$doi_2)
+      table = table %>% select(-doi_2)
+      return(table)}, escape = FALSE)
     
     ## Second tab questionnaires page
     
+    observe({
+      if(input$selectallcorrquest == 0) return(NULL) 
+      else if (input$selectallcorrquest%%2 == 0)
+      {
+        updateCheckboxGroupInput(session,"amongquest",choices=questionchoice, selected = questionchoice)
+      }
+      else
+      {
+        updateCheckboxGroupInput(session,"amongquest",choices=questionchoice, selected=list())
+      }
+    })
     
     observe({
       updateCheckboxGroupInput(session, "amongquest", NULL,choices=questionchoice)
@@ -183,7 +229,7 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
         lotri(geom_point(alpha = 0.5)) +
         lotri(geom_smooth(method = "lm", size = 0.4, alpha = 0.6)) +
         utri_heatmap() +
-        utri_corrtext() +
+        utri_corrtext(corr_size = FALSE, size = 6) +
         dia_names(y_pos = 0.15, size = 4) +
         dia_histogram(lower = 0.3, fill = "grey80", color = 1) +
         scale_fill_corr() +
@@ -191,6 +237,7 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
               axis.text = element_blank(),
               axis.ticks = element_blank(),
               strip.text = element_blank(), 
+              legend.title=element_blank(),
               legend.key.size = unit(1.5, 'cm')) +
         scale_fill_continuous(
           limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
@@ -198,13 +245,31 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
       }, height = 700, width = 900 )
     
     ## Tasks and questionnaire page
-    observe({
-      updateCheckboxGroupInput(session, "amongcorrs_1", NULL,choices=mychoices)
-    })
     
     observe({
-      updateCheckboxGroupInput(session, "amongquest_1", NULL,choices=questionchoice)
+      if(input$selectalltasks == 0) return(NULL) 
+      else if (input$selectalltasks%%2 == 0)
+      {
+        updateCheckboxGroupInput(session,"amongcorrs_1",choices=mychoices, selected = mychoices)
+      }
+      else
+      {
+        updateCheckboxGroupInput(session,"amongcorrs_1",choices=mychoices, selected=list())
+      }
     })
+    
+      observe({
+        if(input$selectallquest == 0) return(NULL) 
+        else if (input$selectallquest%%2 == 0)
+        {
+          updateCheckboxGroupInput(session,"amongquest_1",choices=questionchoice, selected = questionchoice)
+        }
+        else
+        {
+          updateCheckboxGroupInput(session,"amongquest_1",choices=questionchoice, selected=list())
+        }
+      })
+
     
     output$corr_quest_task <- renderPlot({  
       data <- df %>%
@@ -229,7 +294,9 @@ df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
                addCoef.col = 'black',
                tl.col = 'black',  
                col = COL2('PiYG', 20), 
-               na.label = "  ", tl.srt = 0)
+               na.label = "  ", tl.srt = 0, number.cex = 1.6, 
+               cl.cex = 1.2, 
+               tl.cex = 1.6)
       }, height = 700, width = 900 )
     
     ## Explore page 

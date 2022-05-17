@@ -19,6 +19,8 @@ library(dplyr)
 library(bib2df) 
 source("flat_violin.R")
 library(corrmorant)
+library(corrplot)
+library(circlize)
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",
