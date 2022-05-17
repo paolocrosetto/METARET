@@ -153,6 +153,15 @@ createLink <- function(val) {
         scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0,  na.value = NA)
     }, height = 700, width = 900 )
     
+    
+    ## Fourth tab tasks page 
+    output$everytask <- renderPlot({
+      data <- df %>% filter(task == input$selectedtask) %>% 
+        filter(r > -1.5 & r < 2.5) 
+      source("function_each_type_of_task.R")
+      task_variability_plot(input$selectedtask, data)
+    }, height = 900, width = 800)
+    
     ## Questionnaires page
       ## First tab questionnaires page
     output$task_num <- renderValueBox({ 

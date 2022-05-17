@@ -14,8 +14,8 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
         )),
       dashboardBody(
         tags$style(type="text/css",
-                   ".shiny-output-error { visibility: hidden; }",
-                   ".shiny-output-error:before { visibility: hidden; }"
+                 ".shiny-output-error { visibility: hidden; }",
+                 ".shiny-output-error:before { visibility: hidden; }"
         ),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
@@ -65,7 +65,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                               dataTableOutput('table_papers_name')))),
                     
                     ## Second tab of tasks page
-                    list(menu = "Across tasks", content = list(
+                    list(menu = "Distribution comparison", content = list(
                       
                       ## Multiple checkbox for the tasks selection
                       column(3, 
@@ -83,7 +83,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                       ## Plot with many distributions 
                       column(12, h5(), style = "height: 100vh;", plotOutput("lotteries_comp")))),
                     ## Third tab of tasks page 
-                    list(menu = "Among tasks", content = list(
+                    list(menu = "Correlations", content = list(
                       ## Select box for correlation among tasks 
                       column(3, 
                              actionButton("selectalltaskcorrs","Select/Deselect all"),
@@ -96,8 +96,19 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                                    selected = c("HL", "EG", 'BART'))),
                       
                       ## Plot correlations among tasks 
-                      column(12, style = "height: 100vh;", plotOutput("corr_tasks")))))
-                  )),
+                      column(12, style = "height: 100vh;", plotOutput("corr_tasks")))),
+                    
+                    ## Fourth tab for task page
+                    
+                    list(menu = 'Across papers comparison', content = list(
+                      ## Plot with possibility to chose one type of task
+                             column(12, style = "height: 100vh;", plotOutput("everytask")),
+
+                             ## Select box for the plot 
+                             column(3, box(selectInput("selectedtask", "Tasks:",
+                                             mychoices)))))
+                    ))
+                  ),
         
         ## Questionnaires page  
         tabItem("tab_questionnaires", 
