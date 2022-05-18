@@ -7,8 +7,9 @@ task_variability_plot <- function(selectedtask, data) {
   }
   
   data %>% 
+    filter(r > -1.5 & r < 2.5) %>% 
     group_by(paper)  %>%          # grouping variables
-    summarize(m = mean(r),          # calculating mean price
+    summarize(m = mean(r),          # calculating mean 
               s = sem(r)) %>%    # calculating standard error
     ggplot(aes(m, reorder(paper,m), group = paper)) + 
     geom_point(color = 'red', size = 3) +                      # adding data points
@@ -23,7 +24,7 @@ task_variability_plot <- function(selectedtask, data) {
     scale_color_brewer(palette = "Set1") + theme_bw() +
     #eliminates background, gridlines, and chart border
     theme(
-      text = element_text(size=20),
+      text = element_text(size=15),
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),

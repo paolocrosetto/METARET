@@ -1,6 +1,9 @@
 ## packages for the project
 source("libraries.R")
 
+### function to create linebreaks for the page Q+T
+linebreaks <- function(n){HTML(strrep(br(), n))}
+
 ## user interface function
 ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
       dashboardSidebar(    
@@ -9,8 +12,8 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("Tasks", tabName = "tab_lotteries", icon = icon("trophy")),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
           menuItem("Tasks and Questionnaires", tabName = "tab_lotteries_and_questionnaires", icon = icon("images")),
-          menuItem("Explore", tabName = "tab_explore", icon = icon("compass")),
-          menuItem("About", tabName = "tab_about", icon = icon("info"))
+          menuItem("Explore", tabName = "tab_explore", icon = icon("compass"))
+          #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
         tags$style(type="text/css",
@@ -24,7 +27,8 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                 fluidRow(
                   valueBoxOutput("contributors", width = 5),
                   valueBoxOutput("lotteries_num", width = 5),
-                  valueBoxOutput("participants_num", width = 5))),
+                  valueBoxOutput("participants_num", width = 5)), 
+                includeMarkdown('info.md')),
         
         ## Tasks page  
         tabItem("tab_lotteries",
@@ -44,9 +48,12 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                           width = 12),
                       
                       ## Select box for the plot 
-                      box(selectInput("Tasks", "Tasks:",
-                                      mychoices), width = 3),
-                      
+                      column(3, box(selectInput("Tasks", "Tasks:",
+                                      mychoices),  width = 3),
+                      h5(),
+                      box(title = "Explanatory note",
+                          solidHeader = TRUE,
+                          includeMarkdown("note_task_tab1.md"), width = 3)),
                       ## Information about tasks
                       box(title = "Information about tasks",
                           solidHeader = TRUE,
@@ -78,14 +85,19 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                   choices = mychoices, 
                                   position = 'inline',
                                   selected = c('HL', 'EG')
-                                  )),
-                      
+                                  ), 
+                             h5(), 
+                             box(title = "Explanatory note",
+                                 solidHeader = TRUE,
+                                 includeMarkdown("infodistributions.md"))
+                            ),
                       ## Plot with many distributions 
-                      column(12, h5(), style = "height: 100vh;", plotOutput("lotteries_comp")))),
+                      column(12, h5(), style = "height: 80vh;", plotOutput("lotteries_comp")))),
+                    
                     ## Third tab of tasks page 
                     list(menu = "Correlations", content = list(
                       ## Select box for correlation among tasks 
-                      column(3, 
+                      column(4, 
                              actionButton("selectalltaskcorrs","Select/Deselect all"),
                              h5(), 
                              multiple_checkbox("amongcorrs", 
@@ -93,20 +105,28 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                                    multiple = TRUE,
                                                    choices = mychoices, 
                                                    position = 'inline',
-                                                   selected = c("HL", "EG", 'BART'))),
-                      
+                                                   selected = c("HL", "EG", 'BART')),
+                      h5(), 
+                      box(title = "Explanatory note",
+                          solidHeader = TRUE,
+                          includeMarkdown("infocorrtasks.md"))
+                      ),
                       ## Plot correlations among tasks 
-                      column(12, style = "height: 100vh;", plotOutput("corr_tasks")))),
+                      column(11, style = "height: 80vh;", plotOutput("corr_tasks")))),
                     
                     ## Fourth tab for task page
                     
                     list(menu = 'Across papers comparison', content = list(
                       ## Plot with possibility to chose one type of task
-                             column(12, style = "height: 100vh;", plotOutput("everytask")),
+                             column(11, style = "height: 80vh;", plotOutput("everytask")),
 
                              ## Select box for the plot 
-                             column(3, box(selectInput("selectedtask", "Tasks:",
-                                             mychoices)))))
+                             column(4, box(selectInput("selectedtask", "Tasks:",
+                                             mychoices)), h5(), 
+                                    box(title = "Explanatory note",
+                                        solidHeader = TRUE,
+                                        includeMarkdown("infotasksevrpaper.md"))
+                                    )))
                     ))
                   ),
         
@@ -128,8 +148,12 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     
                     # Select box for the plot
                     
-                    box(selectInput("Questionnaires", "Questionnaires:",
+                    column(3,box(selectInput("Questionnaires", "Questionnaires:",
                                     questionchoice), width = 3),
+                    h5(),
+                    box(title = "Explanatory note",
+                        solidHeader = TRUE,
+                        includeMarkdown("note_quest_tab1.md"),  width = 3)),
                     
                     ## Information about questions
                     box(title = "Information about questions",
@@ -159,10 +183,14 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                       multiple = TRUE,
                                       choices = questionchoice, 
                                       position = 'inline',
-                                      selected = c("soep", "dohealth", 'dogamble'))),
+                                      selected = c("soep", "dohealth", 'dogamble')),
+                           h5(), 
+                           box(title = "Explanatory note",
+                               solidHeader = TRUE,
+                               includeMarkdown("infocorrquest.md"))),
                     
                     ## Plot correlations among questions 
-                    column(11, style = "height: 100vh;", plotOutput("corr_quest")))))
+                    column(11, style = "height: 80vh;", plotOutput("corr_quest")))))
                  )),
         
         ## Tasks and questionnaire page
@@ -185,9 +213,16 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                         choices = questionchoice, 
                                         position = 'inline',
                                         selected = c("soep", "dohealth", 'dogamble'))),
-                column(12, style = "height: 100vh;", plotOutput("corr_quest_task"))
+            
+                column(12,
+                       style = "height: 80vh;",  
+                       plotOutput("corr_quest_task"),
+                       linebreaks(13),
+                       box(title = "Explanatory note",
+                           solidHeader = TRUE,
+                           includeMarkdown("note_taskquest_tab1.md"))
                
-        ),
+        )),
 
         ## Explore page
         tabItem("tab_explore",
@@ -222,4 +257,5 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                             dataTableOutput("page2")))))
                 )),
         ## About page
-        tabItem("tab_about", includeMarkdown('info.md'))))
+        #tabItem("tab_about", includeMarkdown('info.md'))
+        ))

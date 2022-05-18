@@ -11,20 +11,44 @@ bibdf <- bibdf %>%
 
 ## keep the authors, title, journal, year, DOI
 bibs <- bibdf %>% select(bibkey, author, title, year, journal, doi_2)
-df <- read.csv("df_mod.csv", sep = ";")
-df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE)
+df <- read.csv("DATA/df_mod.csv", sep = ",")
+df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE) 
 
 ## Function to create links in the table
 createLink <- function(val) {
   sprintf('<a href="http://dx.doi.org/%s" target="_blank" class="btn btn-primary">Click</a>',val)
 }
 
-
-
 ## Server function 
   server <- function(input, output, session){
     
     ## Home page 
+    output$contributors <- renderValueBox({ 
+      value_box(
+        "Number of contributors"
+        ,n_distinct(df$paper)
+        ,color = "green")  
+    })
+    
+    output$lotteries_num <- renderValueBox({ 
+      value_box(
+        'Number of tasks',
+        df %>% filter(task != 'quest_only') %>%
+          select(task) %>%
+          n_distinct()
+        ,color = "yellow")  
+    })
+    
+    output$participants_num <- renderValueBox({ 
+      value_box(
+        'Number of participants',
+        n_distinct(df$subject)
+        ,color = "purple")  
+    })
+    
+    ## Tasks page 
+      ## First tab Tasks page 
+    
     output$contributors_lot <- renderValueBox({ 
       value_box(
         "Number of contributors"
@@ -42,31 +66,8 @@ createLink <- function(val) {
     output$num_obs<- renderValueBox({ 
       value_box(
         "Number of observations"
-        ,filter(df, task == input$Tasks) %>% select('name') %>% nrow()
+        ,filter(df, task == input$Tasks) %>% select('subject') %>% nrow()
         ,color = "yellow")  
-    })
-    
-    ## Tasks page 
-      ## First tab Tasks page 
-    output$contributors <- renderValueBox({ 
-      value_box(
-        "Number of contributors"
-        ,n_distinct(df$paper)
-        ,color = "green")  
-    })
-    
-    output$lotteries_num <- renderValueBox({ 
-      value_box(
-        'Number of tasks',
-        n_distinct(df$task)
-        ,color = "yellow")  
-    })
-    
-    output$participants_num <- renderValueBox({ 
-      value_box(
-        'Number of participants',
-        n_distinct(df$subject)
-        ,color = "purple")  
     })
     
     output$lotteries <- renderPlot({
@@ -105,7 +106,7 @@ createLink <- function(val) {
       data <- df %>% filter(task == input$id_selectInput)
       source("plot_many_lotteries.R")
       plotDensity1(input$id_selectInput, data)
-    }, height = 700, width = 900)
+    }, height = 600, width = 900)
     
     
     ## Third tab tasks page 
@@ -132,7 +133,7 @@ createLink <- function(val) {
         distinct(subject,task, .keep_all= TRUE) %>%
         select(task, r, subject) %>% 
         pivot_wider(subject, names_from = 'task', values_from = "r") %>% 
-        select(-c(subject, EG_loss)) %>% 
+        select(-subject) %>% 
         select(input$amongcorrs)
       ggcorrm(data = data) +
         lotri(geom_point(alpha = 0.5)) +
@@ -151,7 +152,7 @@ createLink <- function(val) {
         scale_fill_continuous(
           limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
         scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0,  na.value = NA)
-    }, height = 700, width = 900 )
+    }, height = 600, width = 900 )
     
     
     ## Fourth tab tasks page 
@@ -160,7 +161,7 @@ createLink <- function(val) {
         filter(r > -1.5 & r < 2.5) 
       source("function_each_type_of_task.R")
       task_variability_plot(input$selectedtask, data)
-    }, height = 900, width = 800)
+    }, height = 650, width = 800)
     
     ## Questionnaires page
       ## First tab questionnaires page
@@ -251,7 +252,7 @@ createLink <- function(val) {
         scale_fill_continuous(
           limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
         scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0, na.value = NA)
-      }, height = 700, width = 900 )
+      }, height = 600, width = 900 )
     
     ## Tasks and questionnaire page
     
@@ -286,7 +287,7 @@ createLink <- function(val) {
         distinct(subject, task, .keep_all= TRUE) %>%
         select(task, r, subject, input$amongquest_1)  %>% 
         pivot_wider(c(subject, input$amongquest_1), names_from = 'task', values_from = "r") %>% 
-        select(-c(subject, EG_loss)) %>% 
+        select(-c(subject)) %>% 
         select(input$amongcorrs_1, input$amongquest_1) %>% 
         cor(use = "pairwise.complete.obs") %>% 
         as.data.frame() %>%
@@ -305,8 +306,8 @@ createLink <- function(val) {
                col = COL2('PiYG', 20), 
                na.label = "  ", tl.srt = 0, number.cex = 1.6, 
                cl.cex = 1.2, 
-               tl.cex = 1.6)
-      }, height = 700, width = 900 )
+               tl.cex = 1.2)
+      }, height = 650, width = 900 )
     
     ## Explore page 
     

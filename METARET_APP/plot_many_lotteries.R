@@ -16,7 +16,7 @@ plotDensity1 <- function(tasklist, data) {
     ungroup() %>% 
     mutate(task = reorder(task,r))
   
-  values <- c(rev(brewer.pal(length(levels(data$task)), "Set1")))
+  values <- c(rev(brewer.pal(length(levels(data$task)), "Dark2")))
   names(values) <- levels(data$task)
   
   plot <- data %>% 
