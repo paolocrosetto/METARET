@@ -1,0 +1,8 @@
+c1 - c6 denotes columns 1-6
+
+c1: Subject number (1-24 for session 1; 25-48 for session 2; 49-72 for session 3; 73-96 for session 4)
+c2: Problem number
+c3: Certainty Equivalence or 'Selling Price' (multiplied by 10)
+c4: LotX
+c5: ProbX (multiplied by 10)
+c6: LotY
