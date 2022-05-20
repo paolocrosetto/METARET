@@ -21,6 +21,7 @@ source("flat_violin.R")
 library(corrmorant)
 library(corrplot)
 library(circlize)
+library(effectsize)
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",
@@ -31,6 +32,15 @@ mychoices = c("Holt and Laury" = "HL",
               "Certainty equivalent price list" = "CEPL",
               'Balloon Economic Risk Protocol'='BERP', 
               'Binswanger / Eckel and Grossmann with probability of loss'= 'EG_loss')
+
+mychoicesgender = c("Holt and Laury" = "HL",
+              "Binswanger / Eckel and Grossmann" = "EG",
+              "Investment Game" = "IG",
+              "Bomb Risk Elicitation Task" = "BRET",
+              "Balloon Analog Risk Task" = "BART",
+              #"Certainty equivalent price list" = "CEPL",
+              'Balloon Economic Risk Protocol'='BERP')
+              #'Binswanger / Eckel and Grossmann with probability of loss'= 'EG_loss')
 
 ## list for the question choices 
 questionchoice <- c("SOEP" = "soep",

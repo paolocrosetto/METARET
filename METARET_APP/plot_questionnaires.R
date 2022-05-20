@@ -9,7 +9,7 @@ plotDensity2 <- function(tasklist, data) {
                  outlier.alpha = 0,
                  alpha = 0) +
     geom_jitter(aes(values,0), height = 0.05, color = 'green', size = 0.05) +
-    labs(x = "Choises",
+    labs(x = "Choices",
          y = "Density",
          title = paste0("Distribution of answers on ", data$name[1], " questions")) + 
     theme(
