@@ -17,10 +17,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
-        tags$style(type="text/css",
-                 ".shiny-output-error { visibility: hidden; }",
-                 ".shiny-output-error:before { visibility: hidden; }"
-        ),
+        #tags$style(type="text/css",
+        #         ".shiny-output-error { visibility: hidden; }",
+        #         ".shiny-output-error:before { visibility: hidden; }"
+        #),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
         tabItem("tab_homepage", 
@@ -60,7 +60,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                           solidHeader = TRUE,
                           color = "black", 
                           width = 16,
-                          includeMarkdown("info_tasks.md")),
+                          infoBoxOutput("info_markdown")),
                       
                      ## Contributed papers
                       box(title = "Contributed papers",
@@ -161,7 +161,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                         solidHeader = TRUE,
                         color = "black", 
                         width = 16,
-                        includeMarkdown("questionnaires.md")),
+                        infoBoxOutput("info_markdown_quest")),
                     
                     ## Contributed papers
                     box(title = "Contributed papers",
@@ -228,7 +228,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
         tabItem("demography",
                 tabBox(color = "black", width = 16,
                        tabs = list(
-                         list(menu = "Gender",  content = list(
+                         list(menu = "Gender (Tasks)",  content = list(
                            fluidRow(valueBoxOutput("quant_gend_contr", width = 5),
                                     valueBoxOutput("quant_femmes", width = 5),
                                     valueBoxOutput("quant_hommes", width = 5)),
@@ -245,6 +245,22 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                       includeMarkdown("demography_gender.md")))
                            )
                        ),
+                       list(menu = "Gender (Questions)",  content = list(
+                         fluidRow(valueBoxOutput("quant_gend_contr_q", width = 5),
+                                  valueBoxOutput("quant_femmes_q", width = 5),
+                                  valueBoxOutput("quant_hommes_q", width = 5)),
+                         
+                         box(plotOutput("gender_dist_quest"),
+                             width = 12),
+                         
+                         ## Select box for the plot 
+                         column(3, box(selectInput("genderdist_quest", "Questions:",
+                                                   questionchoice_gender),  width = 3),
+                                h5(), 
+                                box(title = "Explanatory note",
+                                    solidHeader = TRUE,
+                                    includeMarkdown("demography_gender.md")))
+                       )),
                        list(menu = "Age",  content = list(
                          ## Plot with possibility to chose one task
                          box(plotOutput("age_dist"),

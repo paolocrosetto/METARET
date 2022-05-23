@@ -11,7 +11,7 @@ bibdf <- bibdf %>%
 
 ## keep the authors, title, journal, year, DOI
 bibs <- bibdf %>% select(bibkey, author, title, year, journal, doi_2)
-df <- read.csv("DATA/df_mod.csv", sep = ",")
+df <- read.csv("DATA/DATA/df_mod.csv", sep = ",")
 df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE) 
 
 ## Function to create links in the table
@@ -74,6 +74,12 @@ createLink <- function(val) {
       data <- df %>%filter(task == input$Tasks)
       source("plot_lotteries.R")
       plotDensity(input$Tasks, data)
+    })
+    
+    output$info_markdown <- renderInfoBox({
+      source('description.R')
+      df = new_data %>% filter(tasks == input$Tasks) %>% pull(desc) 
+      includeMarkdown(df)
     })
 
     output$table_papers_name <- renderDataTable({
@@ -203,6 +209,12 @@ createLink <- function(val) {
       plotDensity2(input$Questionnaires, data)
     })
     
+    output$info_markdown_quest <- renderInfoBox({
+      source('description_quest.R')
+      df = new_data %>% filter(quest == input$Questionnaires) %>% pull(desc) 
+      includeMarkdown(df)
+    })
+    
     output$table_papers_name_quest <- renderDataTable({
       table = df %>% filter(df[input$Questionnaires] != 'Na') %>%
       group_by(author, title, year, journal, doi_2) %>% summarise(sample=n())
@@ -311,40 +323,93 @@ createLink <- function(val) {
     
     ## Demography page 
     
-    ## Gender tab
+    ## Gender task tab
     
     output$quant_gend_contr<- renderValueBox({ 
       value_box(
         "Number of contributors"
-        ,n_distinct(filter(df, task == input$genderdist) %>% 
+        ,if (input$genderdist == 'all'){
+          n_distinct(df %>% 
                       select(gender,paper) %>% 
-                      drop_na() %>% select(paper))
-        ,color = "blue")  
+                      drop_na() %>% select(paper)) }
+        else {n_distinct(filter(df, task == input$genderdist) %>% 
+                            select(gender,paper) %>% 
+                            drop_na() %>% select(paper))
+          } ,color = "blue") 
     })
     
     output$quant_femmes <- renderValueBox({ 
       value_box(
         "Number of women"
-        ,count(filter(df, task == input$genderdist, gender == '1'))
+        ,if (input$genderdist == 'all'){
+          count(filter(df, gender == '1'))}
+        else {
+          count(filter(df, task == input$genderdist, gender == '1'))
+        }
         ,color = "blue")  
     })
     
     output$quant_hommes <- renderValueBox({ 
       value_box(
         "Number of men"
-        ,count(filter(df, task == input$genderdist, gender == '0'))
+        ,if (input$genderdist == 'all'){
+          count(filter(df, gender == '0'))}
+        else {
+          count(filter(df, task == input$genderdist, gender == '0'))
+        }
         ,color = "blue")  
     })
     
     output$gender_dist <- renderPlot({
+      if (input$genderdist == 'all'){
       data = df %>% 
-        filter(r > -1.5 & r < 2.5) %>% filter(task == input$genderdist)
+        filter(r > -1.5 & r < 2.5)}
+      else {
+        data = df %>% 
+          filter(r > -1.5 & r < 2.5) %>% filter(task == input$genderdist)
+      }
       source("plot_gender_distributions.R")
       plotgender(input$genderdist, data)
     })
     
     observe({
       updateCheckboxGroupInput(session, "genderdist", NULL,choices=mychoicesgender)
+    })
+    
+    ## Gender questions tab
+    
+    output$quant_gend_contr_q<- renderValueBox({ 
+      value_box(
+        "Number of contributors"
+        ,n_distinct(df %>% select(input$genderdist_quest, paper) %>% 
+                           drop_na() %>% select(paper))
+        ,color = "blue") 
+    })
+    
+    output$quant_femmes_q <- renderValueBox({ 
+      value_box(
+        "Number of women"
+        ,
+          count(filter(df, gender == '1') %>% select(input$genderdist_quest)  %>% drop_na())
+        ,color = "blue")  
+    })
+    
+    output$quant_hommes_q <- renderValueBox({ 
+      value_box(
+        "Number of men"
+        ,count(filter(df, gender == '0') %>% select(input$genderdist_quest) %>% drop_na())
+        ,color = "blue")  
+    })
+    
+    output$gender_dist_quest <- renderPlot({
+        data = df %>% 
+          filter(r > -1.5 & r < 2.5) %>% select(gender, input$genderdist_quest)
+      source("plot_gender_distributions_quest.R")
+      plotgender(input$genderdist_quest, data)
+    })
+    
+    observe({
+      updateCheckboxGroupInput(session, "genderdist_quest", NULL,choices=questionchoice_gender)
     })
     
     
