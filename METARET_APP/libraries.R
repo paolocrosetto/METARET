@@ -24,7 +24,7 @@ library(markdown)
 
 
 # remotes::install_github("r-link/corrmorant")
-# library(corrmorant)
+#library(corrmorant)
 
 library(effectsize)
 
