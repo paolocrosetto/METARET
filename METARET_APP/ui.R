@@ -111,10 +111,9 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                       box(title = "Explanatory note",
                           solidHeader = TRUE,
                           includeMarkdown("infocorrtasks.md"))
-                      )
+                      ),
                       ## Plot correlations among tasks 
-                      #column(11, style = "height: 80vh;", plotOutput("corr_tasks"))
-                      )),
+                      column(11, style = "height: 80vh;", plotOutput("corr_tasks")))),
                     
                     ## Fourth tab for task page
                     
@@ -189,11 +188,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                            h5(), 
                            box(title = "Explanatory note",
                                solidHeader = TRUE,
-                               includeMarkdown("infocorrquest.md")))
+                               includeMarkdown("infocorrquest.md"))),
                     
                     ## Plot correlations among questions 
-                    #column(11, style = "height: 80vh;", plotOutput("corr_quest"))
-                    )))
+                    column(11, style = "height: 80vh;", plotOutput("corr_quest")))))
                  )),
         
         ## Tasks and questionnaire page
@@ -231,13 +229,20 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                 tabBox(color = "black", width = 16,
                        tabs = list(
                          list(menu = "Gender",  content = list(
+                           fluidRow(valueBoxOutput("quant_gend_contr", width = 5),
+                                    valueBoxOutput("quant_femmes", width = 5),
+                                    valueBoxOutput("quant_hommes", width = 5)),
                            ## Plot with possibility to chose one task
                            box(plotOutput("gender_dist"),
                                width = 12),
                            
                            ## Select box for the plot 
                            column(3, box(selectInput("genderdist", "Tasks:",
-                                                     mychoicesgender),  width = 3))
+                                                     mychoicesgender),  width = 3),
+                                  h5(), 
+                                  box(title = "Explanatory note",
+                                      solidHeader = TRUE,
+                                      includeMarkdown("demography_gender.md")))
                            )
                        ),
                        list(menu = "Age",  content = list(
@@ -246,12 +251,16 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                              width = 12),
                          
                          ## Select box for the plot 
-                         column(3, multiple_checkbox("agedist", 
+                         column(3, h5(), h5(),
+                                actionButton("selectallage","Select/Deselect all"),
+                                h5(), h5(),
+                                multiple_checkbox("agedist", 
                                                      label = HTML('<B><FONT size="3">Select RET types</FONT></B><br><br>'), 
                                                      multiple = TRUE,
                                                      choices = mychoicesgender, 
                                                      position = 'inline',
-                                                     selected = c("IG", "EG", 'HL')))
+                                                     selected = c("IG", "EG", 'HL'))
+                                )
                        )))
                        )),
         ## Explore page

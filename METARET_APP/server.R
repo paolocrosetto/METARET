@@ -11,7 +11,7 @@ bibdf <- bibdf %>%
 
 ## keep the authors, title, journal, year, DOI
 bibs <- bibdf %>% select(bibkey, author, title, year, journal, doi_2)
-df <- read.csv("DATA/df_mod.csv", sep = ",")
+df <- read.csv("DATA/DATA/df_mod.csv", sep = ",")
 df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE) 
 
 ## Function to create links in the table
@@ -127,32 +127,32 @@ createLink <- function(val) {
       updateCheckboxGroupInput(session, "amongcorrs", NULL,choices=mychoices)
     })
 
-    # output$corr_tasks <- renderPlot({ 
-    # data <- df %>% 
-    #     filter(r > -1.5 & r < 2.5) %>% 
-    #     distinct(subject,task, .keep_all= TRUE) %>%
-    #     select(task, r, subject) %>% 
-    #     pivot_wider(subject, names_from = 'task', values_from = "r") %>% 
-    #     select(-subject) %>% 
-    #     select(input$amongcorrs)
-    #   ggcorrm(data = data) +
-    #     lotri(geom_point(alpha = 0.5)) +
-    #     lotri(geom_smooth(method = "lm", size = 0.4, alpha = 0.6)) +
-    #     utri_heatmap() +
-    #     utri_corrtext(corr_size = FALSE, size = 6) +
-    #     dia_names(y_pos = 0.15, size = 4) +
-    #     dia_histogram(lower = 0.3, fill = "grey80", color = 1) +
-    #     scale_fill_corr() +
-    #     theme(text = element_text(size=20),
-    #           axis.text = element_blank(),
-    #           axis.ticks = element_blank(),
-    #           strip.text = element_blank(), 
-    #           legend.title=element_blank(),
-    #           legend.key.size = unit(1.5, 'cm')) +
-    #     scale_fill_continuous(
-    #       limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
-    #     scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0,  na.value = NA)
-    # }, height = 600, width = 900 )
+    output$corr_tasks <- renderPlot({ 
+    data <- df %>% 
+        filter(r > -1.5 & r < 2.5) %>% 
+        distinct(subject,task, .keep_all= TRUE) %>%
+        select(task, r, subject) %>% 
+        pivot_wider(subject, names_from = 'task', values_from = "r") %>% 
+        select(-subject) %>% 
+        select(input$amongcorrs)
+      ggcorrm(data = data) +
+        lotri(geom_point(alpha = 0.5)) +
+        lotri(geom_smooth(method = "lm", size = 0.4, alpha = 0.6)) +
+        utri_heatmap() +
+        utri_corrtext(corr_size = FALSE, size = 6) +
+        dia_names(y_pos = 0.15, size = 4) +
+        dia_histogram(lower = 0.3, fill = "grey80", color = 1) +
+        scale_fill_corr() +
+        theme(text = element_text(size=20),
+              axis.text = element_blank(),
+              axis.ticks = element_blank(),
+              strip.text = element_blank(), 
+              legend.title=element_blank(),
+              legend.key.size = unit(1.5, 'cm')) +
+        scale_fill_continuous(
+          limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
+        scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0,  na.value = NA)
+    }, height = 600, width = 900 )
     
     
     ## Fourth tab tasks page 
@@ -229,30 +229,30 @@ createLink <- function(val) {
     })
     
     
-    # output$corr_quest <- renderPlot({ 
-    #   data = df %>% 
-    #     select(starts_with('soep'), starts_with('do'), -doi_2) %>%
-    #     filter(df$soep != 'Na') %>% 
-    #     select(input$amongquest)
-    #   
-    #   ggcorrm(data = data) +
-    #     lotri(geom_point(alpha = 0.5)) +
-    #     lotri(geom_smooth(method = "lm", size = 0.4, alpha = 0.6)) +
-    #     utri_heatmap() +
-    #     utri_corrtext(corr_size = FALSE, size = 6) +
-    #     dia_names(y_pos = 0.15, size = 4) +
-    #     dia_histogram(lower = 0.3, fill = "grey80", color = 1) +
-    #     scale_fill_corr() +
-    #     theme(text = element_text(size=20),
-    #           axis.text = element_blank(),
-    #           axis.ticks = element_blank(),
-    #           strip.text = element_blank(), 
-    #           legend.title=element_blank(),
-    #           legend.key.size = unit(1.5, 'cm')) +
-    #     scale_fill_continuous(
-    #       limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
-    #     scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0, na.value = NA)
-    #   }, height = 600, width = 900 )
+    output$corr_quest <- renderPlot({ 
+      data = df %>% 
+        select(starts_with('soep'), starts_with('do'), -doi_2) %>%
+        filter(df$soep != 'Na') %>% 
+        select(input$amongquest)
+      
+      ggcorrm(data = data) +
+        lotri(geom_point(alpha = 0.5)) +
+        lotri(geom_smooth(method = "lm", size = 0.4, alpha = 0.6)) +
+        utri_heatmap() +
+        utri_corrtext(corr_size = FALSE, size = 6) +
+        dia_names(y_pos = 0.15, size = 4) +
+        dia_histogram(lower = 0.3, fill = "grey80", color = 1) +
+        scale_fill_corr() +
+        theme(text = element_text(size=20),
+              axis.text = element_blank(),
+              axis.ticks = element_blank(),
+              strip.text = element_blank(), 
+              legend.title=element_blank(),
+              legend.key.size = unit(1.5, 'cm')) +
+        scale_fill_continuous(
+          limits = c(min(cor(data, use = 'pairwise.complete.obs'), na.rm = T), 1)) + 
+        scale_fill_gradient2(low = "#ea97a3", high = "#36a338", mid = 'white', midpoint = .0, na.value = NA)
+      }, height = 600, width = 900 )
     
     ## Tasks and questionnaire page
     
@@ -313,6 +313,29 @@ createLink <- function(val) {
     
     ## Gender tab
     
+    output$quant_gend_contr<- renderValueBox({ 
+      value_box(
+        "Number of contributors"
+        ,n_distinct(filter(df, task == input$genderdist) %>% 
+                      select(gender,paper) %>% 
+                      drop_na() %>% select(paper))
+        ,color = "blue")  
+    })
+    
+    output$quant_femmes <- renderValueBox({ 
+      value_box(
+        "Number of women"
+        ,count(filter(df, task == input$genderdist, gender == '1'))
+        ,color = "blue")  
+    })
+    
+    output$quant_hommes <- renderValueBox({ 
+      value_box(
+        "Number of men"
+        ,count(filter(df, task == input$genderdist, gender == '0'))
+        ,color = "blue")  
+    })
+    
     output$gender_dist <- renderPlot({
       data = df %>% 
         filter(r > -1.5 & r < 2.5) %>% filter(task == input$genderdist)
@@ -324,6 +347,7 @@ createLink <- function(val) {
       updateCheckboxGroupInput(session, "genderdist", NULL,choices=mychoicesgender)
     })
     
+    
     ## Age tab
     
     output$age_dist <- renderPlot({
@@ -332,6 +356,19 @@ createLink <- function(val) {
       source("plot_age_distributions.R")
       plotage(input$agedist, data)
     })
+    
+    observe({
+      if(input$selectallage == 0) return(NULL) 
+      else if (input$selectallage%%2 == 0)
+      {
+        updateCheckboxGroupInput(session,"agedist",choices=mychoices, selected = mychoices)
+      }
+      else
+      {
+        updateCheckboxGroupInput(session,"agedist",choices=mychoices, selected=list())
+      }
+    })
+    
     
     observe({
       updateCheckboxGroupInput(session, "agedist", NULL,choices=mychoices)
