@@ -11,7 +11,7 @@ bibdf <- bibdf %>%
 
 ## keep the authors, title, journal, year, DOI
 bibs <- bibdf %>% select(bibkey, author, title, year, journal, doi_2)
-df <- read.csv("DATA/df_mod.csv", sep = ",")
+df <- read.csv("DATA/DATA/df_mod.csv", sep = ",")
 df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE) 
 
 ## Function to create links in the table
@@ -308,6 +308,34 @@ createLink <- function(val) {
                cl.cex = 1.2, 
                tl.cex = 1.2)
       }, height = 650, width = 900 )
+    
+    ## Demography page 
+    
+    ## Gender tab
+    
+    output$gender_dist <- renderPlot({
+      data = df %>% 
+        filter(r > -1.5 & r < 2.5) %>% filter(task == input$genderdist)
+      source("plot_gender_distributions.R")
+      plotgender(input$genderdist, data)
+    })
+    
+    observe({
+      updateCheckboxGroupInput(session, "genderdist", NULL,choices=mychoicesgender)
+    })
+    
+    ## Age tab
+    
+    output$age_dist <- renderPlot({
+      data = df %>% 
+        filter(r > -1.5 & r < 2.5) %>% filter(task == input$agedist)
+      source("plot_age_distributions.R")
+      plotage(input$agedist, data)
+    })
+    
+    observe({
+      updateCheckboxGroupInput(session, "agedist", NULL,choices=mychoices)
+    })
     
     ## Explore page 
     

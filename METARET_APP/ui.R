@@ -12,6 +12,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("Tasks", tabName = "tab_lotteries", icon = icon("trophy")),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
           menuItem("Tasks and Questionnaires", tabName = "tab_lotteries_and_questionnaires", icon = icon("images")),
+          menuItem("Demography", tabName = 'demography', icon = icon("user")),
           menuItem("Explore", tabName = "tab_explore", icon = icon("compass"))
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
@@ -225,7 +226,34 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                            includeMarkdown("note_taskquest_tab1.md"))
                
         )),
-
+        
+        tabItem("demography",
+                tabBox(color = "black", width = 16,
+                       tabs = list(
+                         list(menu = "Gender",  content = list(
+                           ## Plot with possibility to chose one task
+                           box(plotOutput("gender_dist"),
+                               width = 12),
+                           
+                           ## Select box for the plot 
+                           column(3, box(selectInput("genderdist", "Tasks:",
+                                                     mychoicesgender),  width = 3))
+                           )
+                       ),
+                       list(menu = "Age",  content = list(
+                         ## Plot with possibility to chose one task
+                         box(plotOutput("age_dist"),
+                             width = 12),
+                         
+                         ## Select box for the plot 
+                         column(3, multiple_checkbox("agedist", 
+                                                     label = HTML('<B><FONT size="3">Select RET types</FONT></B><br><br>'), 
+                                                     multiple = TRUE,
+                                                     choices = mychoicesgender, 
+                                                     position = 'inline',
+                                                     selected = c("IG", "EG", 'HL')))
+                       )))
+                       )),
         ## Explore page
         tabItem("tab_explore",
                 tabBox(color = "black", width = 16,
