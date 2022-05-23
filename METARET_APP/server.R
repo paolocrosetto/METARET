@@ -11,7 +11,7 @@ bibdf <- bibdf %>%
 
 ## keep the authors, title, journal, year, DOI
 bibs <- bibdf %>% select(bibkey, author, title, year, journal, doi_2)
-df <- read.csv("DATA/DATA/df_mod.csv", sep = ",")
+df <- read.csv("DATA/df_mod.csv", sep = ",")
 df <- merge(x=df, y=bibs, by="bibkey", all.x=TRUE) 
 
 ## Function to create links in the table
