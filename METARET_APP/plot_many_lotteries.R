@@ -3,7 +3,7 @@ source("flat_violin.R")
 # density by task 
 plotDensity1 <- function(tasklist, data) {
   
-  data <- df %>% 
+  data <- data %>% 
     filter(r > -1.5 & r < 2.5) %>% 
     group_by(task) %>% 
     mutate(m = mean(r, na.rm = T),

@@ -18,9 +18,14 @@ library(RColorBrewer)   ## colors
 library(dplyr)    
 library(bib2df) 
 source("flat_violin.R")
-library(corrmorant)
 library(corrplot)
 library(circlize)
+library(markdown)
+
+
+# remotes::install_github("r-link/corrmorant")
+# library(corrmorant)
+
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",

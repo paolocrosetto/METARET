@@ -110,9 +110,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                       box(title = "Explanatory note",
                           solidHeader = TRUE,
                           includeMarkdown("infocorrtasks.md"))
-                      ),
+                      )
                       ## Plot correlations among tasks 
-                      column(11, style = "height: 80vh;", plotOutput("corr_tasks")))),
+                      #column(11, style = "height: 80vh;", plotOutput("corr_tasks"))
+                      )),
                     
                     ## Fourth tab for task page
                     
@@ -187,10 +188,11 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                            h5(), 
                            box(title = "Explanatory note",
                                solidHeader = TRUE,
-                               includeMarkdown("infocorrquest.md"))),
+                               includeMarkdown("infocorrquest.md")))
                     
                     ## Plot correlations among questions 
-                    column(11, style = "height: 80vh;", plotOutput("corr_quest")))))
+                    #column(11, style = "height: 80vh;", plotOutput("corr_quest"))
+                    )))
                  )),
         
         ## Tasks and questionnaire page
