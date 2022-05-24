@@ -4,7 +4,7 @@
 #### Journal of Risk and Uncertainty, 53(2-3), 107–136.
 #### https://doi.org/10.1007/s11166-016-9247-6
 
-#### cleaning data to be used for the meta-anlaysis
+#### cleaning data to be used for the meta-analysis
 
 #### libraries
 library(tidyverse)
@@ -13,7 +13,7 @@ library(broom)
 
 
 #### getting the data
-df <- readxl::read_excel("Data/Csermely_Rabas_JRU/original_data/Risk Results.xlsx") %>% as_factor()
+df <- readxl::read_excel("Data1/Csermely_Rabas_JRU/original_data/Risk Results.xlsx") %>% as_factor()
 
 ## selecting the needed variables
 ## we select only:
@@ -21,43 +21,33 @@ df <- readxl::read_excel("Data/Csermely_Rabas_JRU/original_data/Risk Results.xls
 ## 2. any treatment or differences in the task
 ## 3. answers to questionnaires
 df <- df %>% 
-  select(subject, gender, age, treatment, perc, pump, eg, cgptotal, safechoices, inconsistent, soep, starts_with("do")) %>% 
-  select(-dominated)
+  select(method, cluster, cat, gender, age, crra, repeated) 
 
-# gathering and renaming each different chocie variable 'choice'
-df <- df %>% 
-  gather(key, choice, -subject, -gender, -age, -inconsistent, -soep, -starts_with("do"), -treatment) %>% 
-  filter(!is.na(choice))
+## Filter appropriate methods 
+df = df %>% filter(method %in% c("hlp", "eg"))
 
-# adding task
+# change gender for 1 - female, 0 - male
 df <- df %>% 
-  mutate(task = case_when(treatment == "bret" ~ "BRET",
-                          treatment == "cgp" ~ "IG",
-                          treatment == "eg" ~ "EG",
-                          treatment == "hl" ~ "HL",
-                          treatment == "balloon" ~ "BART"))
+  mutate(gender = case_when(gender == 2 ~ 1,
+                          gender == 1 ~ 0))
 
-# removing bret as it is duplicate of the one in JRU
+# change names of the methods
 df <- df %>% 
-  filter(treatment != "bret")
+  mutate(task = case_when(method == "eg" ~ "EG",
+                          method == "hlp" ~ "HL")) %>%  select(-method)
 
-# cleaning the "treatment" variable as it is not needed <- a HACK CHANGE THIS LATER
+# rename column names 
 df <- df %>% 
-  mutate(treatment = " ")
+  rename(
+    r = crra,
+    subject = cluster,
+    choice = cat)
 
 # adding paper name and bibkey
+
 df <- df %>% 
-  mutate(bibkey = "Crosetto2016",
-         paper = "Crosetto and Filippin EXEC 2016")
-
-
-# coding choices in HL as number of risky choices
-df <- df %>% 
-  mutate(choice = if_else(task == "HL", 10-choice, choice))
-
-## Computing the CRRA (x^r) coefficient of risk aversion from the task data
-source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+  mutate(bibkey = "Csermely2016",
+         paper = "Csermely and Rabas 2016")
 
 
 
@@ -66,4 +56,4 @@ df <- df %>%
   select(bibkey, paper, task, subject, age, gender, choice, r, everything())
 
 # Writing to file
-df %>% write_csv("Data/Crosetto_Filippin_Experimental_Economics_2016/formatted_dataset.csv")
+df %>% write_csv("Data1/Csermely_Rabas_JRU/original_data/formatted_dataset.csv")
