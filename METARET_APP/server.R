@@ -391,7 +391,7 @@ createLink <- function(val) {
         "Number of women"
         ,
           count(filter(df, gender == '1') %>% select(input$genderdist_quest)  %>% drop_na())
-        ,color = "blue")  
+        ,color = )  
     })
     
     output$quant_hommes_q <- renderValueBox({ 
@@ -414,29 +414,123 @@ createLink <- function(val) {
     
     
     ## Age tab
+    output$quant_contr_a <- renderValueBox({ 
+      value_box(
+        "Nomber of contributors"
+        ,if (input$agedist == 'all'){
+          n_distinct(df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            select(paper, age) %>% 
+            drop_na() %>% select(paper))} 
+        else {
+          n_distinct(df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(task == input$agedist) %>% 
+              select(paper, age) %>% 
+              drop_na() %>% select(paper))
+        }
+        ,color = "blue")  
+    })
+    
+    output$quant_femmes_a <- renderValueBox({ 
+      value_box(
+        "Average age of women"
+        ,if (input$agedist == 'all'){
+         df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(gender == '1') %>% 
+            select(age) %>% 
+            drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)} 
+        else {
+          df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(gender == '1', task == input$agedist) %>% 
+            select(age) %>% 
+            drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)
+        }
+        ,color = "blue")  
+    })
+    
+    output$quant_hommes_a <- renderValueBox({ 
+      value_box(
+        "Average age of men"
+        ,if (input$agedist == 'all'){
+          df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(gender == '0') %>% 
+            select(age) %>% 
+            drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)} 
+        else {
+          df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(gender == '0', task == input$agedist) %>% 
+            select(age) %>% 
+            drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)
+        }
+        ,color = "blue")  
+    })
+    
+    
     
     output$age_dist <- renderPlot({
+      if (input$agedist == 'all'){
       data = df %>% 
-        filter(r > -1.5 & r < 2.5) %>% filter(task == input$agedist)
+        filter(r > -1.5 & r < 2.5) }
+      else {
+        data = df %>% 
+          filter(r > -1.5 & r < 2.5) %>% filter(task == input$agedist) 
+      }
       source("plot_age_distributions.R")
       plotage(input$agedist, data)
     })
-    
+
     observe({
-      if(input$selectallage == 0) return(NULL) 
-      else if (input$selectallage%%2 == 0)
-      {
-        updateCheckboxGroupInput(session,"agedist",choices=mychoices, selected = mychoices)
-      }
-      else
-      {
-        updateCheckboxGroupInput(session,"agedist",choices=mychoices, selected=list())
-      }
+      updateCheckboxGroupInput(session, "agedist", NULL,choices=mychoicesgender)
     })
     
+    ## Age questions tab
+    
+    output$quant_contr_aq <- renderValueBox({ 
+      value_box(
+        "Nomber of contributors"
+        , n_distinct(df %>% 
+                       filter(r > -1.5 & r < 2.5) %>%
+                       select(input$agedist_q, paper, age) %>% 
+                       drop_na() %>% select(paper))
+        ,color = "blue")  
+    })
+    
+    output$quant_femmes_aq <- renderValueBox({ 
+      value_box(
+        "Average age of women"
+        ,df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(gender == '1') %>% 
+            select(age, input$agedist_q) %>% 
+            drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)
+        ,color = "blue")  
+    })
+    
+    output$quant_hommes_aq <- renderValueBox({ 
+      value_box(
+        "Average age of men",
+          df %>% 
+            filter(r > -1.5 & r < 2.5) %>%
+            filter(gender == '0') %>% 
+            select(age, input$agedist_q) %>% 
+            drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)
+        ,color = "blue")  
+    })
+    
+    output$age_dist_quest<- renderPlot({
+        data = df %>% 
+          filter(r > -1.5 & r < 2.5) %>% select(input$agedist_q, choice, age) 
+      source("plot_age_distributions_quest.R")
+      plotage1(input$agedist_q, data)
+    })
     
     observe({
-      updateCheckboxGroupInput(session, "agedist", NULL,choices=mychoices)
+      updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_gender)
     })
     
     ## Explore page 

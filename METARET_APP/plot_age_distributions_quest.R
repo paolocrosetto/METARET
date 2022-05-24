@@ -1,11 +1,11 @@
-plotage <- function(selectedtask, data) {
+plotage1 <- function(selectedquest, data) {
   
   data = data %>% 
          filter(age >= 18) %>% 
-  select(r, age, task) %>% 
+  select(selectedquest, age) %>% 
   drop_na() 
 
-data %>% ggplot(aes(x=age, y=r)) +
+data %>% ggplot(aes(x=age, y=data[[selectedquest]])) +
   geom_jitter(alpha = 0.5, color = '#87b0e8') +
   geom_smooth(method = 'lm') +
   theme_bw() +
@@ -19,5 +19,5 @@ data %>% ggplot(aes(x=age, y=r)) +
     legend.title=element_blank(),
   ) + theme(axis.line = element_line(color = 'black')) + 
   labs(x = "Age of respondents",
-       y = "CRRA")
+       y = "Choice of respondents")
 }

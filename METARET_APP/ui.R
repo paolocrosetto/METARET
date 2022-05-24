@@ -17,10 +17,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
-        #tags$style(type="text/css",
-        #         ".shiny-output-error { visibility: hidden; }",
-        #         ".shiny-output-error:before { visibility: hidden; }"
-        #),
+        tags$style(type="text/css",
+                 ".shiny-output-error { visibility: hidden; }",
+                 ".shiny-output-error:before { visibility: hidden; }"
+        ),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
         tabItem("tab_homepage", 
@@ -261,24 +261,39 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                     solidHeader = TRUE,
                                     includeMarkdown("demography_gender.md")))
                        )),
-                       list(menu = "Age",  content = list(
+                       list(menu = "Age (Tasks)",  content = list(
+                         
+                         fluidRow(valueBoxOutput("quant_contr_a", width = 5),
+                                  valueBoxOutput("quant_femmes_a", width = 5),
+                                  valueBoxOutput("quant_hommes_a", width = 5)),
+                         
                          ## Plot with possibility to chose one task
                          box(plotOutput("age_dist"),
                              width = 12),
                          
                          ## Select box for the plot 
-                         column(3, h5(), h5(),
-                                actionButton("selectallage","Select/Deselect all"),
-                                h5(), h5(),
-                                multiple_checkbox("agedist", 
-                                                     label = HTML('<B><FONT size="3">Select RET types</FONT></B><br><br>'), 
-                                                     multiple = TRUE,
-                                                     choices = mychoicesgender, 
-                                                     position = 'inline',
-                                                     selected = c("IG", "EG", 'HL'))
+                         column(3, 
+                                box(selectInput("agedist", "Tasks:",
+                                                mychoicesgender),  width = 3)
                                 )
+                       )), 
+                       list(menu = "Age (Questions)",  content = list(
+                         fluidRow(valueBoxOutput("quant_contr_aq", width = 5),
+                                  valueBoxOutput("quant_femmes_aq", width = 5),
+                                  valueBoxOutput("quant_hommes_aq", width = 5)),
+                         
+                         ## Plot with possibility to chose one task
+                         box(plotOutput("age_dist_quest"),
+                             width = 12),
+                         
+                         ## Select box for the plot 
+                         column(3, 
+                                box(selectInput("agedist_q", "Questions:",
+                                                questionchoice_gender),  width = 3)
+                         )
                        )))
                        )),
+        
         ## Explore page
         tabItem("tab_explore",
                 tabBox(color = "black", width = 16,
