@@ -23,7 +23,7 @@ df <- df %>%
   select(-male) %>% 
   rename(subject = num_mem)
 
-## this is  abetween-subjects paper. There are several tasks. 
+## this is a between-subjects paper. There are several tasks. 
 ## creating a task variable that takes the name of each of the tasks
 df <- df %>% 
   mutate(task = case_when(!is.na(h_l) ~ "HL",
