@@ -22,6 +22,7 @@ library(corrmorant)
 library(corrplot)
 library(circlize)
 library(effectsize)
+library(markdown)
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",
