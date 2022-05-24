@@ -5,6 +5,7 @@ plotage1 <- function(selectedquest, data) {
   select(selectedquest, age) %>% 
   drop_na() 
 
+
 data %>% ggplot(aes(x=age, y=.data[[selectedquest]])) +
   geom_jitter(alpha = 0.5, color = '#87b0e8') +
   geom_smooth(method = 'lm') +
