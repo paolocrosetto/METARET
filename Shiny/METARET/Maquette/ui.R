@@ -7,19 +7,21 @@ library(shinydashboardPlus)
 library(markdown)
 
 
+  
+  
 ui <- navbarPage(
   theme = shinythemes::shinytheme("superhero"),
-  title = "METARET Data Explorer",
-  tabPanel("HOME", icon = icon("home"),
+  title = "METARET – a Meta Analysis of the External Validity of Risk Elicitation Tasks",
+  tabPanel("Main page", icon = icon("home"),
             dashboardPage(
              dashboardHeader(disable = TRUE),
              dashboardSidebar(disable = TRUE),
              dashboardBody(
-               box(title = "essayons", background = "green",
+               box(title = "Aim of the project", background = "green",
                includeMarkdown("include.md")),
                box(title = "Contributed papers",
                    solidHeader = TRUE,
-                   status = "primary",
+                    status = "primary",
                    attachmentBlock(
                      image = "",
                      title = "The Bomb Risk Elicitation Task",
@@ -32,8 +34,8 @@ ui <- navbarPage(
                    )),
                box(title = "Aim of the project",
                    solidHeader = TRUE,
-                   status = "warning",
-                   "Insert Markdown here")
+                   status = "primary",
+                   ":kn.")
              )
             )
   ),
