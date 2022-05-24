@@ -14,5 +14,5 @@
                Answers: Likert scale from 0 = "not at all willing to take risks" to 
                         10 = "very willing to take risks"
 
-    BRET: Bomb Risk Elicitation Task with 5x5 matrix, 240sec, 0.40 euros per opened box
+    BRET: with 5x5 matrix, 240sec, 0.40 euros per opened box
 	  Values: number of opened boxes
