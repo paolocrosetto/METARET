@@ -8,7 +8,7 @@ plotage <- function(selectedtask, data) {
   summarise(r = mean(r)) 
 
 data %>% ggplot(aes(x=age, y=r, color=task, fill = task)) +
-  geom_smooth(method="auto",
+  geom_smooth(method="lm",
               se=TRUE,
               fullrange=FALSE, 
               level=0.95,
