@@ -38,7 +38,7 @@ plotgender <- function(selectedquest, data) {
       legend.title=element_blank(),
     ) +
     theme(axis.line = element_line(color = 'black')) + 
-    labs(x = "Risk aversion parameter CRRA",
+    labs(x = "Choices of respondents",
          y = "Density",
          title = paste0("Distribution of answers on ", colnames(data)[2], " questionnaire per gender")) +
     annotate(geom="text", x=max(data[[variable]]), hjust = 1.1,
