@@ -1,0 +1,10 @@
+new_data = data.frame(desc = c('soep.md', 'soep_financial.md',
+                               'doall.md', 'dohealth.md',
+                               'dosocial.md', 'doinvest.md',
+                               'dogamble.md', 'doethic.md',
+                               'dorecre.md'), 
+                                  quest = c("soep", 'soep_financial', 
+                                            'doall', 'dohealth',
+                                            'dosocial', 'doinvest',
+                                            'dogamble', 'doethic',
+                                            'dorecre'))
