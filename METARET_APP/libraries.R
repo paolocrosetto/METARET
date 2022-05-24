@@ -18,14 +18,9 @@ library(RColorBrewer)   ## colors
 library(dplyr)    
 library(bib2df) 
 source("flat_violin.R")
+library(corrmorant)
 library(corrplot)
 library(circlize)
-library(markdown)
-
-
-# remotes::install_github("r-link/corrmorant")
-library(corrmorant)
-
 library(effectsize)
 
 ## list for the task choices 
@@ -38,7 +33,8 @@ mychoices = c("Holt and Laury" = "HL",
               'Balloon Economic Risk Protocol'='BERP', 
               'Binswanger / Eckel and Grossmann with probability of loss'= 'EG_loss')
 
-mychoicesgender = c("Holt and Laury" = "HL",
+mychoicesgender = c("All tasks" = "all", 
+                    "Holt and Laury" = "HL",
               "Binswanger / Eckel and Grossmann" = "EG",
               "Investment Game" = "IG",
               "Bomb Risk Elicitation Task" = "BRET",
@@ -57,3 +53,15 @@ questionchoice <- c("SOEP" = "soep",
                     "DOSPERT - gamble" = "dogamble",
                     "DOSPERT - ethic" = "doethic",
                     "DOSPERT - recreation" = "dorecre")
+
+
+questionchoice_gender <- c("SOEP" = "soep",
+                    #"SOEP - financial" = "soep_financial",
+                    "DOSPERT" = "doall",
+                    "DOSPERT - health" = "dohealth",
+                    "DOSPERT - social" = "dosocial",
+                    "DOSPERT - investment" = "doinvest",
+                    "DOSPERT - gamble" = "dogamble",
+                    "DOSPERT - ethic" = "doethic",
+                    "DOSPERT - recreation" = "dorecre")
+
