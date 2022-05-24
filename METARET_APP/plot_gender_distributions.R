@@ -1,9 +1,18 @@
 plotgender <- function(selectedtask, data) {
+  if (selectedtask == 'all'){
+    data = data %>% 
+      select(r, gender) %>% 
+      drop_na() %>%
+      mutate(gender = case_when(gender == 1  ~ "female",
+                                gender == 0 ~ "male"))
+  }
+  else {
   data = data %>% 
-  select(r,gender, task) %>% 
+  select(r, gender, task) %>% 
   drop_na() %>%
   mutate(gender = case_when(gender == 1  ~ "female",
                             gender == 0 ~ "male"))
+  }
 
   mean_effect_df <- data %>%
     group_by(gender) %>%
@@ -12,7 +21,7 @@ plotgender <- function(selectedtask, data) {
   den1 = density(filter(data, gender == 'female')$r)
   
   coh_D = round(cohens_d(filter(data, gender == 'male')$r,
-                         filter(data, gender == 'female')$r)[[1]],2)
+                         filter(data, gender == 'female')$r, hedges_correction == TRUE)[[1]],2)
   
   mean_diff= round(mean(filter(data, gender == 'male')$r) -
                      mean(filter(data, gender == 'female')$r),2)
@@ -39,7 +48,7 @@ plotgender <- function(selectedtask, data) {
     theme(axis.line = element_line(color = 'black')) + 
     labs(x = "Risk aversion parameter CRRA",
          y = "Density",
-         title = paste0("Distribution of ", data$task[[1]], " task per gender")) +
+         title = paste0("Distribution of ", if (selectedtask == 'all'){"all tasks"} else {paste0(data$task[[1]], ' task')}, " per gender")) +
     annotate(geom="text", x=max(data$r), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
              fontface = "bold", 
