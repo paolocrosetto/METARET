@@ -20,4 +20,4 @@ data=df %>% mutate(subject = paste0(bibkey, '_', subject))
 
 
 ## save the df to the shiny director for deployment
-data %>% write_csv("DATA/df_mod.csv")
+data %>% write_csv("METARET_APP/DATA/df_mod.csv")
