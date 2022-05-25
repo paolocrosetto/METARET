@@ -1,4 +1,4 @@
-#### Charness et al, Do Measures of Risk Attitude in the Laboratory Predict Behavior under Risk in and outside of the Laboratory?, WP 2019
+##### Charness et al, Do Measures of Risk Attitude in the Laboratory Predict Behavior under Risk in and outside of the Laboratory?, WP 2019
 
 #### cleaning data to be used for the meta-nalaysis
 
@@ -17,19 +17,19 @@ df <- read_csv("Data/Charness_et_al_2019/original_dataset.csv")
 ## 2. any treatment or differences in the task
 ## 3. answers to questionnaires
 df <- df %>% 
-  select(-X1, -realestate, -insurance, -self_emp, -deductible, -inv_ris, -valsavings, -starts_with("P1"),
+  select(-...1, -realestate, -insurance, -self_emp, -deductible, -inv_ris, -valsavings, -starts_with("P1"),
          -ins_g, -mor_g, -income) %>% 
   mutate(gender = abs(male-1)) %>% 
   select(-male) %>% 
   rename(subject = num_mem)
 
-## this is a between-subjects paper. There are several tasks. 
+## this is  abetween-subjects paper. There are several tasks. 
 ## creating a task variable that takes the name of each of the tasks
 df <- df %>% 
   mutate(task = case_when(!is.na(h_l) ~ "HL",
                           !is.na(g_p) ~ "IG",
                           !is.na(ta_1) ~ "TA",
-                          !is.na(do_1) ~ "soep",
+                          !is.na(do_1) ~ "quest_only",
                           !is.na(e_g)  ~ "EG"))
 
 ## deleting iconsistents in HL

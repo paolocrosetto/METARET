@@ -214,5 +214,39 @@ get_r <- function(bibkey, task, choice) {
     }
   }
   
+  if (bibkey == "Csermely2016") {
+    if (task == "EG") {
+      if (choice == 1) { out <- -0.95 } 
+      if (choice == 2) { out <- runif(1, min = -0.95, max = -0.49)}
+      if (choice == 3) { out <- runif(1, min = -0.49, max = -0.15)}
+      if (choice == 4) { out <- runif(1, min = -0.15, max = 0.15)}
+      if (choice == 5) { out <- runif(1, min = 0.15, max = 0.41)}
+      if (choice == 6) { out <- runif(1, min = 0.41, max = 0.68)}
+      if (choice == 7) { out <- runif(1, min = 0.68, max = 0.97)}
+      if (choice == 8) { out <- runif(1, min = 0.97, max = 1.37)}
+      if (choice == 9) { out <- 1.37}
+    }
+    if (task == "HL") {
+      if (choice == 10) { out <- 2.71 }
+      if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
+      if (choice == 8) { out <- runif(1, min = 1.49, max = 1.95) }
+      if (choice == 7) { out <- runif(1, min = 1.15, max = 1.49) }
+      if (choice == 6) { out <- runif(1, min = 0.85, max = 1.15) }
+      if (choice == 5) { out <- runif(1, min = 0.59, max = 0.85) }
+      if (choice == 4) { out <- runif(1, min = 0.32, max = 0.59) }
+      if (choice == 3) { out <- runif(1, min = 0.03, max = 0.32) }
+      if (choice == 2) { out <- runif(1, min = -0.37, max = 0.03) }
+      if (choice == 1) { out <- -0.37 }
+      if (choice == 0) { out <- -0.37 }
+    }
+  }
+  
+  if (bibkey == "Huber2019") {
+    if (task == "BRET") {
+      if (choice == 25) { out <- 10 }
+      if (choice != 25) { out <- choice/(25-choice) }
+    }
+  }
+  
   out
 }

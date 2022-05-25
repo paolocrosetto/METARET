@@ -213,6 +213,12 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 0) { out <- -0.37 }
     }
   }
+  if (bibkey == "Huber2019") {
+    if (task == "BRET") {
+      if (choice == 25) { out <- 10 }
+      if (choice != 25) { out <- choice/(25-choice) }
+    }
+  }
   
   out
 }

@@ -11,8 +11,8 @@ library(broom)
 
 
 #### getting the data
-df <- read_csv("Data1/Fairley_et_al_JOEP_2018/DataFiles/BERPdata.csv") %>% as_factor()
-quest <- read_csv("Data1/Fairley_et_al_JOEP_2018/DataFiles/Questionnaire.csv") %>% as_factor()
+df <- read_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/BERPdata.csv") %>% as_factor()
+quest <- read_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/Questionnaire.csv") %>% as_factor()
 
 ## selecting the needed variables
 ## we select only:
@@ -65,4 +65,4 @@ results <- results %>%
   select(bibkey, paper, task, subject, age, gender, choice, r)
 
 # Writing to file
-results %>% write_csv("Data1/Fairley_et_al_JOEP_2018/DataFiles/formatted_dataset.csv")
+results %>% write_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/formatted_dataset.csv")

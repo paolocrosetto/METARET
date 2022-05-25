@@ -23,25 +23,27 @@ df <- readxl::read_excel("Data/HUber_et_al_2019/Huber_etal_2019_RiskMeasures.xls
 
 df <- df %>% pivot_longer(BRET, names_to = 'task', values_to = 'choice')
 
-df <- df %>% mutate(r = choice/(100-choice))
 # rename column names 
 df <- df %>% 
   rename(
-    r = crra,
-    subject = cluster,
-    choice = cat)
+    soep = RiskType1,
+    soep_financial = RiskType2,
+    subject = SubjectID)
 
 # adding paper name and bibkey
 
 df <- df %>% 
-  mutate(bibkey = "Csermely2016",
-         paper = "Csermely and Rabas 2016")
+  mutate(bibkey = "Huber2019",
+         paper = "Huber, Palan and Zeisberger 2019")
 
+## Computing the CRRA (x^r) coefficient of risk aversion from the task data
+source("Data/generate_r.R")
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 
 # Order of variables
 df <- df %>% 
-  select(bibkey, paper, task, subject, age, gender, choice, r, everything())
+  select(bibkey, paper, task, subject, choice, r, everything())
 
 # Writing to file
-df %>% write_csv("Data/Csermely_Rabas_JRU/original_data/formatted_dataset.csv")
+df %>% write_csv("Data/HUber_et_al_2019/formatted_dataset.csv")
