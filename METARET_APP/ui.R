@@ -17,10 +17,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
-        #tags$style(type="text/css",
-        #         ".shiny-output-error { visibility: hidden; }",
-        #         ".shiny-output-error:before { visibility: hidden; }"
-        #),
+        tags$style(type="text/css",
+                 ".shiny-output-error { visibility: hidden; }",
+                 ".shiny-output-error:before { visibility: hidden; }"
+        ),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
         tabItem("tab_homepage", 
@@ -187,7 +187,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                            multiple_checkbox("amongquest", 
                                       label = HTML('<B><FONT size="3">Choose types of questions to display correlations</FONT></B><br><br>'), 
                                       multiple = TRUE,
-                                      choices = questionchoice, 
+                                      choices = questionchoice_gender, 
                                       position = 'inline',
                                       selected = c("soep", "dohealth", 'dogamble')),
                            h5(), 

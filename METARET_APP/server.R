@@ -206,8 +206,7 @@ createLink <- function(val) {
 
     output$questionnaires <- renderPlot({
       data <- df %>% select(subject, starts_with('soep'), 
-                            starts_with('do'),
-                            'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
+                            starts_with('do'),'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
         select(-doi_2) %>%
         pivot_longer(-subject, values_to = 'values', names_to = 'name') %>%
         filter(name == input$Questionnaires) %>% drop_na()
@@ -249,7 +248,8 @@ createLink <- function(val) {
     
     output$corr_quest <- renderPlot({ 
       data = df %>% 
-        select(starts_with('soep'), starts_with('do'), -doi_2) %>%
+        select(starts_with('soep'), starts_with('do'),  -doi_2,
+               'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>%
         filter(df$soep != 'Na') %>% 
         select(input$amongquest)
       
@@ -565,14 +565,15 @@ createLink <- function(val) {
     ## Second tab explore page
     output$page2 <- DT::renderDataTable({df %>% 
         select('subject', 'paper', 'task',
-               starts_with('soep'), starts_with("do"), -doi_2) %>%
+               starts_with('soep'), starts_with("do"), -doi_2,
+               'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>%
         filter((soep != 'Na') | (dosocial != 'Na') | (dohealth != 'Na')) %>% 
         pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
         drop_na()})
     
     data <- df %>% 
       select('subject', 'paper', 'task',
-             starts_with('soep'), starts_with("do"), -doi_2) %>%
+             starts_with('soep'), starts_with("do"), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', -doi_2) %>%
       filter((soep != 'Na') | (dosocial != 'Na') | (dohealth != 'Na')) %>% 
       pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
       drop_na()
