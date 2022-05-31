@@ -311,6 +311,15 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   ## First tab with tasks 
                   list(menu = "Tasks",  content = c(fluidPage(
                     
+                    h5(), h5(),
+                    
+                    ## info tooltip
+                    box(title = "Explanatory note",
+                        color = "black", 
+                        solidHeader = TRUE,
+                        includeMarkdown("info_download_task.md")),
+                    
+                    
                     ## Download button code 
                     h5(), h5(),
                     downloadButton('downloadData', 'Download all task data',  
@@ -324,6 +333,14 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   
                   ## Second tab with tasks 
                   list(menu = "Questionnaires", content = c(fluidPage(
+                    
+                    h5(), h5(),
+                    
+                    ## info tooltip
+                    box(title = "Explanatory note",
+                        color = "black", 
+                        solidHeader = TRUE,
+                        includeMarkdown("info_download_quest.md")),
                     
                     ## Download button code 
                     h5(), h5(),
