@@ -12,7 +12,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("Tasks", tabName = "tab_lotteries", icon = icon("chart pie")),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
           menuItem("Correlations", tabName = "tab_lotteries_and_questionnaires", icon = icon("sync alternate")),
-          menuItem("Demograpics", tabName = 'demography', icon = icon("user")),
+          menuItem("Demographics", tabName = 'demography', icon = icon("user")),
           menuItem("Download", tabName = "tab_explore", icon = icon("compass"))
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
