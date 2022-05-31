@@ -74,7 +74,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                               dataTableOutput('table_papers_name')))),
                     
                     ## Second tab of tasks page
-                    list(menu = "Distribution comparison", content = list(
+                    list(menu = "Across-task, between-subject comparison", content = list(
                       
                       ## Multiple checkbox for the tasks selection
                       column(3, 
@@ -98,7 +98,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                       column(12, h5(), style = "height: 80vh;", plotOutput("lotteries_comp")))),
                     
                     ## Third tab of tasks page 
-                    list(menu = "Correlations", content = list(
+                    list(menu = "Across-task, within-subject correlations", content = list(
                       ## Select box for correlation among tasks 
                       column(4, 
                              actionButton("selectalltaskcorrs","Select/Deselect all"),
@@ -120,7 +120,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     
                     ## Fourth tab for task page
                     
-                    list(menu = 'Across papers comparison', content = list(
+                    list(menu = 'Within-task, across-paper comparison', content = list(
                       ## Plot with possibility to chose one type of task
                              column(11, style = "height: 80vh;", plotOutput("everytask")),
 
