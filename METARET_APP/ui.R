@@ -12,7 +12,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("Tasks", tabName = "tab_lotteries", icon = icon("chart pie")),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
           menuItem("Correlations", tabName = "tab_lotteries_and_questionnaires", icon = icon("sync alternate")),
-          menuItem("Demograpics", tabName = 'demography', icon = icon("user")),
+          menuItem("Demographics", tabName = 'demography', icon = icon("user")),
           menuItem("Download", tabName = "tab_explore", icon = icon("compass"))
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
@@ -29,7 +29,22 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   valueBoxOutput("contributors", width = 5),
                   valueBoxOutput("lotteries_num", width = 5),
                   valueBoxOutput("participants_num", width = 5)), 
-                includeMarkdown('info.md')),
+                fluidRow(
+                  box(title = "Our project",
+                      color = "black", 
+                      solidHeader = TRUE,
+                      includeMarkdown("info_detail.md"), width = 15)),
+                fluidRow(
+                  box(title = "Future developments",
+                      color = "black", 
+                      solidHeader = TRUE,
+                      includeMarkdown("info_future.md"), width = 15)),
+                fluidRow(
+                  box(title = "Contribute",
+                      color = "black", 
+                      solidHeader = TRUE,
+                      includeMarkdown("info_contribute.md"), width = 15))
+                ),
         
         ## Tasks page  
         tabItem("tab_lotteries",
@@ -311,6 +326,15 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   ## First tab with tasks 
                   list(menu = "Tasks",  content = c(fluidPage(
                     
+                    h5(), h5(),
+                    
+                    ## info tooltip
+                    box(title = "Explanatory note",
+                        color = "black", 
+                        solidHeader = TRUE,
+                        includeMarkdown("info_download_task.md")),
+                    
+                    
                     ## Download button code 
                     h5(), h5(),
                     downloadButton('downloadData', 'Download all task data',  
@@ -324,6 +348,14 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   
                   ## Second tab with tasks 
                   list(menu = "Questionnaires", content = c(fluidPage(
+                    
+                    h5(), h5(),
+                    
+                    ## info tooltip
+                    box(title = "Explanatory note",
+                        color = "black", 
+                        solidHeader = TRUE,
+                        includeMarkdown("info_download_quest.md")),
                     
                     ## Download button code 
                     h5(), h5(),
