@@ -19,6 +19,15 @@ createLink <- function(val) {
   sprintf('<a href="http://dx.doi.org/%s" target="_blank" class="btn btn-primary">Click</a>',val)
 }
 
+
+## Names of the graphics function
+
+colnames_given_pattern <- function(.data, pattern){
+  
+  suppressWarnings(names(.data)[stringr::str_detect(.data, pattern)])
+  
+}
+
 ## Server function 
   server <- function(input, output, session){
     
@@ -195,12 +204,11 @@ createLink <- function(val) {
     output$quest_num <- renderValueBox({ 
       value_box(
         "Number of participants"
-        , n_distinct(df %>% select(subject, task, starts_with('soep'),
+        , count(df %>% select(subject, starts_with('soep'),
                                    starts_with('do'),
                                    'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
-                       select(-doi_2) %>%
-                       pivot_longer(-c(subject, task), values_to = 'values', names_to = 'name') %>%
-                       filter(name == input$Questionnaires) %>% drop_na() %>% select(subject))
+                       select(-doi_2) %>% select(input$Questionnaires) %>% drop_na()
+                       )
         ,color = "green")  
     })
 
@@ -397,7 +405,7 @@ createLink <- function(val) {
         "Number of women"
         ,
           count(filter(df, gender == '1') %>% select(input$genderdist_quest)  %>% drop_na())
-        ,color = )  
+        ,color =  "blue")  
     })
     
     output$quant_hommes_q <- renderValueBox({ 
@@ -415,7 +423,7 @@ createLink <- function(val) {
     })
     
     observe({
-      updateCheckboxGroupInput(session, "genderdist_quest", NULL,choices=questionchoice_gender)
+      updateCheckboxGroupInput(session, "genderdist_quest", NULL,choices=questionchoice_gendertab)
     })
     
     
@@ -536,7 +544,7 @@ createLink <- function(val) {
     })
     
     observe({
-      updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_gender)
+      updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_gendertab)
     })
     
     ## Explore page 
@@ -567,14 +575,12 @@ createLink <- function(val) {
         select('subject', 'paper', 'task',
                starts_with('soep'), starts_with("do"), -doi_2,
                'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>%
-        filter((soep != 'Na') | (dosocial != 'Na') | (dohealth != 'Na')) %>% 
         pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
         drop_na()})
     
     data <- df %>% 
       select('subject', 'paper', 'task',
              starts_with('soep'), starts_with("do"), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', -doi_2) %>%
-      filter((soep != 'Na') | (dosocial != 'Na') | (dohealth != 'Na')) %>% 
       pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
       drop_na()
     

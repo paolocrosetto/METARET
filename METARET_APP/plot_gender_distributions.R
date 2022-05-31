@@ -38,7 +38,7 @@ plotgender <- function(selectedtask, data) {
                                           color = gender), size=0.5) + theme_bw() +
     #eliminates background, gridlines, and chart border
     theme(
-      text = element_text(size=20),
+      text = element_text(size=15),
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
@@ -48,7 +48,7 @@ plotgender <- function(selectedtask, data) {
     theme(axis.line = element_line(color = 'black')) + 
     labs(x = "Risk aversion parameter CRRA",
          y = "Density",
-         title = paste0("Distribution of elicited risk attitudes using ", if (selectedtask == 'all'){"all tasks"} else {paste0(data$task[[1]], ' task')}, ", by gender")) +
+         title = paste0("Distribution of elicited risk attitudes using ", if (selectedtask == 'all'){"all tasks"} else {paste0(colnames_given_pattern(mychoicesgender, data$task[[1]]), ' task')}, ", by gender")) +
     annotate(geom="text", x=max(data$r), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
              fontface = "bold", 

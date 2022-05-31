@@ -278,7 +278,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                          
                          ## Select box for the plot 
                          column(3, box(selectInput("genderdist_quest", "Questions:",
-                                                   questionchoice_gender),  width = 3),
+                                                   questionchoice_gendertab),  width = 3),
                                 h5(), 
                                 box(title = "Explanatory note",
                                     color = "black", 
@@ -313,7 +313,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                          ## Select box for the plot 
                          column(3, 
                                 box(selectInput("agedist_q", "Questions:",
-                                                questionchoice_gender),  width = 3)
+                                                questionchoice_gendertab),  width = 3)
                          )
                        )))
                        )),

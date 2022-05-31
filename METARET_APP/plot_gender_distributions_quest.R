@@ -30,7 +30,7 @@ plotgender <- function(selectedquest, data) {
                                           color = gender), size=0.5) + theme_bw() +
     #eliminates background, gridlines, and chart border
     theme(
-      text = element_text(size=20),
+      text = element_text(size=15),
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
@@ -40,7 +40,7 @@ plotgender <- function(selectedquest, data) {
     theme(axis.line = element_line(color = 'black')) + 
     labs(x = "Choices of respondents",
          y = "Density",
-         title = paste0("Distribution of answers to the ", colnames(data)[2], " questionnaire, by gender")) +
+         title = paste0("Distribution of answers to the ", colnames_given_pattern(questionchoice_gendertab, colnames(data)[2]), " questionnaire, by gender")) +
     annotate(geom="text", x=max(data[[variable]]), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
              fontface = "bold", 
