@@ -84,7 +84,7 @@ createLink <- function(val) {
 
     output$table_papers_name <- renderDataTable({
       table = filter(df, task == input$Tasks) %>% 
-        group_by(author, title, year, journal, doi_2) %>% 
+        group_by(bibkey, author, title, year, journal, doi_2) %>% 
         summarise(sample=n())
       table$link <- createLink(table$doi_2)
       table = table %>% select(-doi_2)
