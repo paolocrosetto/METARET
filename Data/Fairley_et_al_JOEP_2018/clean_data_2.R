@@ -11,8 +11,8 @@ library(broom)
 
 
 #### getting the data
-df <- read_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/BERPdata.csv") %>% as_factor()
-quest <- read_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/Questionnaire.csv") %>% as_factor()
+df <- read_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/results_with_questionnaires.csv") %>% as_factor()
+
 
 ## selecting the needed variables
 ## we select only:
@@ -20,39 +20,37 @@ quest <- read_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/Questionnaire.csv") %>
 ## 2. any treatment or differences in the task
 ## 3. answers to questionnaires
 
-df %>% select(-firstcash) 
-
-## choosing age, gender, ethical, as well as financial, health/safety, social
-## and recreational risks
-quest <- quest %>% 
-  select(What.is.your.age., What.is.your.gender., What.is.your.subject.ID.,
-         ) 
+df = df %>% select(-firstcash, -MRI) 
+df$AuditS.ASscore
 # rename column names 
 df <- df %>% 
   rename(
     'BART' = 'Alone',
     'BERP' = 'BeliefBalloon',
-    'subject' = 'Participant')
-
-quest <- quest %>% 
-  rename(
+    'subject' = 'Participant',
     'age' = 'What.is.your.age.',
     'gender' = 'What.is.your.gender.',
-    'subject' = 'What.is.your.subject.ID.')
+    'race' = 'Which.best.describes.your.race.',
+    'etnicity' = 'Which.best.describes.your.ethnicity.',
+    'educ_level' = 'Which.best.describes.your.formal.education.',
+    'CDCrisk' = 'CDCrisk.CDCscore',
+    'Druguse' = 'Druguse.Drugstotal_A',
+    'BIS' = 'BIS.BISscore',
+    'BSSS' = 'BSSS.BSSSscore',
+    'AuditS' = 'AuditS.ASscore')
 
 # create a column of tasks and choices
 df <- df %>% pivot_longer(c(BART, BERP), names_to = 'task', values_to = 'choice')
 
-results<-merge(x=df, y=quest, by= 'subject', all.x=TRUE)
 
 # change gender for 1 - female, 0 - male
-results <- results %>% 
+df <- df %>% 
   mutate(gender = case_when(gender == 2 ~ 1,
                             gender == 1 ~ 0))
 
 # adding paper name and bibkey
 
-results <- results %>% 
+results <- df %>% 
   mutate(bibkey = "Fairley2019",
          paper = "Fairley and Parelman 2019")
 
@@ -62,7 +60,7 @@ results <- results %>% mutate(r = choice/(MaxBalloonSize-choice))
 
 # Order of variables
 results <- results %>% 
-  select(bibkey, paper, task, subject, age, gender, choice, r)
+  select(bibkey, paper, task, subject, age, gender, choice, r, everything())
 
 # Writing to file
 results %>% write_csv("Data/Fairley_et_al_JOEP_2018/DataFiles/formatted_dataset.csv")

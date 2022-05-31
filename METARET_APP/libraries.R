@@ -53,7 +53,11 @@ questionchoice <- c("SOEP" = "soep",
                     "DOSPERT - investment" = "doinvest",
                     "DOSPERT - gamble" = "dogamble",
                     "DOSPERT - ethic" = "doethic",
-                    "DOSPERT - recreation" = "dorecre")
+                    "DOSPERT - recreation" = "dorecre", 
+                    "Barratt impulsiveness scale" = 'BIS',
+                    "Brief Sensation seeking scale" = 'BSSS',
+                    'Alcohol Use DIsorders Test' = 'AuditS',
+                    'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
 
 questionchoice_gender <- c("SOEP" = "soep",
@@ -64,5 +68,10 @@ questionchoice_gender <- c("SOEP" = "soep",
                     "DOSPERT - investment" = "doinvest",
                     "DOSPERT - gamble" = "dogamble",
                     "DOSPERT - ethic" = "doethic",
-                    "DOSPERT - recreation" = "dorecre")
+                    "DOSPERT - recreation" = "dorecre",
+                    "Barratt impulsiveness scale" = 'BIS',
+                    "Brief Sensation seeking scale" = 'BSSS',
+                    'Alcohol Use DIsorders Test' = 'AuditS',
+                    'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
+
 

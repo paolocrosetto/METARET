@@ -84,7 +84,7 @@ createLink <- function(val) {
 
     output$table_papers_name <- renderDataTable({
       table = filter(df, task == input$Tasks) %>% 
-        group_by(bibkey, author, title, year, journal, doi_2) %>% 
+        group_by(author, title, year, journal, doi_2) %>% 
         summarise(sample=n())
       table$link <- createLink(table$doi_2)
       table = table %>% select(-doi_2)
@@ -174,7 +174,8 @@ createLink <- function(val) {
     output$task_num <- renderValueBox({ 
       value_box(
         "Number of tasks"
-        , n_distinct(df %>% select(subject, task, starts_with('soep'), starts_with('do')) %>% 
+        , n_distinct(df %>% select(subject, task, starts_with('soep'), starts_with('do'),
+                                   'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
                        select(-doi_2) %>%
                        pivot_longer(-c(subject, task), values_to = 'values', names_to = 'name') %>%
                        filter(name == input$Questionnaires) %>% drop_na() %>% select(task))
@@ -183,7 +184,8 @@ createLink <- function(val) {
     output$paper_num <- renderValueBox({ 
       value_box(
         "Number of contributors"
-        , n_distinct(df %>% select(subject, bibkey, starts_with('soep'), starts_with('do')) %>% 
+        , n_distinct(df %>% select(subject, bibkey, starts_with('soep'), starts_with('do'),
+                                   'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
                        select(-doi_2) %>%
                        pivot_longer(-c(subject, bibkey), values_to = 'values', names_to = 'name') %>%
                        filter(name == input$Questionnaires) %>% drop_na() %>% select(bibkey))
@@ -193,7 +195,9 @@ createLink <- function(val) {
     output$quest_num <- renderValueBox({ 
       value_box(
         "Number of participants"
-        , n_distinct(df %>% select(subject, task, starts_with('soep'), starts_with('do')) %>% 
+        , n_distinct(df %>% select(subject, task, starts_with('soep'),
+                                   starts_with('do'),
+                                   'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
                        select(-doi_2) %>%
                        pivot_longer(-c(subject, task), values_to = 'values', names_to = 'name') %>%
                        filter(name == input$Questionnaires) %>% drop_na() %>% select(subject))
@@ -201,7 +205,9 @@ createLink <- function(val) {
     })
 
     output$questionnaires <- renderPlot({
-      data <- df %>% select(subject, starts_with('soep'), starts_with('do')) %>% 
+      data <- df %>% select(subject, starts_with('soep'), 
+                            starts_with('do'),
+                            'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
         select(-doi_2) %>%
         pivot_longer(-subject, values_to = 'values', names_to = 'name') %>%
         filter(name == input$Questionnaires) %>% drop_na()
