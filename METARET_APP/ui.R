@@ -8,12 +8,12 @@ linebreaks <- function(n){HTML(strrep(br(), n))}
 ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
       dashboardSidebar(    
         sidebarMenu(
-          menuItem("Home page ", tabName = "tab_homepage", icon = icon("home")),
-          menuItem("Tasks", tabName = "tab_lotteries", icon = icon("trophy")),
+          menuItem("Overview", tabName = "tab_homepage", icon = icon("home")),
+          menuItem("Tasks", tabName = "tab_lotteries", icon = icon("chart pie")),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
-          menuItem("Tasks and Questionnaires", tabName = "tab_lotteries_and_questionnaires", icon = icon("images")),
-          menuItem("Demography", tabName = 'demography', icon = icon("user")),
-          menuItem("Explore", tabName = "tab_explore", icon = icon("compass"))
+          menuItem("Correlations", tabName = "tab_lotteries_and_questionnaires", icon = icon("sync alternate")),
+          menuItem("Demograpics", tabName = 'demography', icon = icon("user")),
+          menuItem("Download", tabName = "tab_explore", icon = icon("compass"))
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
@@ -228,7 +228,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
         tabItem("demography",
                 tabBox(color = "black", width = 16,
                        tabs = list(
-                         list(menu = "Gender (Tasks)",  content = list(
+                         list(menu = "Gender differences by task",  content = list(
                            fluidRow(valueBoxOutput("quant_gend_contr", width = 5),
                                     valueBoxOutput("quant_femmes", width = 5),
                                     valueBoxOutput("quant_hommes", width = 5)),
@@ -245,7 +245,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                       includeMarkdown("demography_gender.md")))
                            )
                        ),
-                       list(menu = "Gender (Questions)",  content = list(
+                       list(menu = "Gender differences by questionnaire",  content = list(
                          fluidRow(valueBoxOutput("quant_gend_contr_q", width = 5),
                                   valueBoxOutput("quant_femmes_q", width = 5),
                                   valueBoxOutput("quant_hommes_q", width = 5)),
@@ -261,7 +261,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                     solidHeader = TRUE,
                                     includeMarkdown("demography_gender.md")))
                        )),
-                       list(menu = "Age (Tasks)",  content = list(
+                       list(menu = "Age gradient by task",  content = list(
                          
                          fluidRow(valueBoxOutput("quant_contr_a", width = 5),
                                   valueBoxOutput("quant_femmes_a", width = 5),
@@ -277,7 +277,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                                 mychoicesgender),  width = 3)
                                 )
                        )), 
-                       list(menu = "Age (Questions)",  content = list(
+                       list(menu = "Age gradient by questionaire",  content = list(
                          fluidRow(valueBoxOutput("quant_contr_aq", width = 5),
                                   valueBoxOutput("quant_femmes_aq", width = 5),
                                   valueBoxOutput("quant_hommes_aq", width = 5)),
@@ -304,7 +304,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     
                     ## Download button code 
                     h5(), h5(),
-                    downloadButton('downloadData', 'Download',  
+                    downloadButton('downloadData', 'Download all task data',  
                                    style="color: #fff; background-color: green; border-color: Black; padding: 5px 14px 5px 14px;margin: 5px 5px 5px 5px; ",
                                    icon = shiny::icon('download')),
                     h5()),
@@ -318,7 +318,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     
                     ## Download button code 
                     h5(), h5(),
-                    downloadButton('downloadData2', 'Download',  
+                    downloadButton('downloadData2', 'Download all questionanire data',  
                                    style="color: #fff; background-color: green; border-color: Black; padding: 5px 14px 5px 14px;margin: 5px 5px 5px 5px; ",
                                    icon = shiny::icon('download')),
                     h5()),
