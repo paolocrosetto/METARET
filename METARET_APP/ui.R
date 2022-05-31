@@ -29,7 +29,22 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                   valueBoxOutput("contributors", width = 5),
                   valueBoxOutput("lotteries_num", width = 5),
                   valueBoxOutput("participants_num", width = 5)), 
-                includeMarkdown('info.md')),
+                fluidRow(
+                  box(title = "Our project",
+                      color = "black", 
+                      solidHeader = TRUE,
+                      includeMarkdown("info_detail.md"), width = 15)),
+                fluidRow(
+                  box(title = "Future developments",
+                      color = "black", 
+                      solidHeader = TRUE,
+                      includeMarkdown("info_future.md"), width = 15)),
+                fluidRow(
+                  box(title = "Contribute",
+                      color = "black", 
+                      solidHeader = TRUE,
+                      includeMarkdown("info_contribute.md"), width = 15))
+                ),
         
         ## Tasks page  
         tabItem("tab_lotteries",
