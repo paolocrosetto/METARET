@@ -34,14 +34,14 @@ colnames_given_pattern <- function(.data, pattern){
     ## Home page 
     output$contributors <- renderValueBox({ 
       value_box(
-        "Number of contributors"
+        "Contributed papers"
         ,n_distinct(df$paper)
         ,color = "green")  
     })
     
     output$lotteries_num <- renderValueBox({ 
       value_box(
-        'Number of tasks',
+        'Tasks',
         df %>% filter(task != 'quest_only') %>%
           select(task) %>%
           n_distinct()
@@ -50,7 +50,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$participants_num <- renderValueBox({ 
       value_box(
-        'Number of participants',
+        'Participants',
         n_distinct(df$subject)
         ,color = "purple")  
     })
@@ -60,21 +60,21 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$contributors_lot <- renderValueBox({ 
       value_box(
-        "Number of contributors"
+        "Contributed papers"
         ,n_distinct(filter(df, task == input$Tasks) %>% select(paper))
         ,color = "green")  
     })
     
     output$participants_num_lot <- renderValueBox({ 
       value_box(
-        'Number of participants',
+        'Participants',
         n_distinct(filter(df, task == input$Tasks) %>% select(subject))
         ,color = "purple")  
     })
     
     output$num_obs<- renderValueBox({ 
       value_box(
-        "Number of observations"
+        "Observations"
         ,filter(df, task == input$Tasks) %>% select('subject') %>% nrow()
         ,color = "yellow")  
     })
@@ -182,7 +182,7 @@ colnames_given_pattern <- function(.data, pattern){
       ## First tab questionnaires page
     output$task_num <- renderValueBox({ 
       value_box(
-        "Number of tasks"
+        "Tasks"
         , n_distinct(df %>% select(subject, task, starts_with('soep'), starts_with('do'),
                                    'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
                        select(-doi_2) %>%
@@ -192,7 +192,7 @@ colnames_given_pattern <- function(.data, pattern){
     })
     output$paper_num <- renderValueBox({ 
       value_box(
-        "Number of contributors"
+        "Contributed papers"
         , n_distinct(df %>% select(subject, bibkey, starts_with('soep'), starts_with('do'),
                                    'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
                        select(-doi_2) %>%
@@ -203,7 +203,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quest_num <- renderValueBox({ 
       value_box(
-        "Number of participants"
+        "Participants"
         , count(df %>% select(subject, starts_with('soep'),
                                    starts_with('do'),
                                    'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
@@ -341,7 +341,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_gend_contr<- renderValueBox({ 
       value_box(
-        "Number of contributors"
+        "Contributed papers"
         ,if (input$genderdist == 'all'){
           n_distinct(df %>% 
                       select(gender,paper) %>% 
@@ -354,7 +354,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_femmes <- renderValueBox({ 
       value_box(
-        "Number of women"
+        "Women"
         ,if (input$genderdist == 'all'){
           count(filter(df, gender == '1'))}
         else {
@@ -365,7 +365,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_hommes <- renderValueBox({ 
       value_box(
-        "Number of men"
+        "Men"
         ,if (input$genderdist == 'all'){
           count(filter(df, gender == '0'))}
         else {
@@ -394,7 +394,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_gend_contr_q<- renderValueBox({ 
       value_box(
-        "Number of contributors"
+        "Contributed papers"
         ,n_distinct(df %>% select(input$genderdist_quest, paper) %>% 
                            drop_na() %>% select(paper))
         ,color = "blue") 
@@ -402,7 +402,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_femmes_q <- renderValueBox({ 
       value_box(
-        "Number of women"
+        "Women"
         ,
           count(filter(df, gender == '1') %>% select(input$genderdist_quest)  %>% drop_na())
         ,color =  "blue")  
@@ -410,7 +410,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_hommes_q <- renderValueBox({ 
       value_box(
-        "Number of men"
+        "Men"
         ,count(filter(df, gender == '0') %>% select(input$genderdist_quest) %>% drop_na())
         ,color = "blue")  
     })
@@ -430,7 +430,7 @@ colnames_given_pattern <- function(.data, pattern){
     ## Age tab
     output$quant_contr_a <- renderValueBox({ 
       value_box(
-        "Nomber of contributors"
+        "Contributed papers"
         ,if (input$agedist == 'all'){
           n_distinct(df %>% 
             filter(r > -1.5 & r < 2.5) %>%
@@ -506,7 +506,7 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$quant_contr_aq <- renderValueBox({ 
       value_box(
-        "Nomber of contributors"
+        "Contributed papers"
         , n_distinct(df %>% 
                        filter(r > -1.5 & r < 2.5) %>%
                        select(input$agedist_q, paper, age) %>% 
