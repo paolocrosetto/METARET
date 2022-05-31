@@ -19,7 +19,7 @@ plotDensity <- function(task, data) {
     geom_vline(xintercept = 1, color = 'red', linetype = 'dashed', show.legend = F) +
     labs(x = "Risk aversion parameter CRRA",
          y = "Density",
-         title = paste0("Distribution of ", data$task[[1]], " task")) +
+         title = paste0("Distribution of elicited risk attitudes for the ", data$task[[1]], " task")) +
     theme_bw() + 
     theme(
       panel.background = element_rect(fill = "white"), 
