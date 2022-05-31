@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 # METARET: A META analysis of Risk Elicitation Tasks
 
 ## Aim and scope
