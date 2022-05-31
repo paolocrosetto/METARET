@@ -48,7 +48,7 @@ plotgender <- function(selectedtask, data) {
     theme(axis.line = element_line(color = 'black')) + 
     labs(x = "Risk aversion parameter CRRA",
          y = "Density",
-         title = paste0("Distribution of ", if (selectedtask == 'all'){"all tasks"} else {paste0(data$task[[1]], ' task')}, " per gender")) +
+         title = paste0("Distribution of elicited risk attitudes using ", if (selectedtask == 'all'){"all tasks"} else {paste0(data$task[[1]], ' task')}, ", by gender")) +
     annotate(geom="text", x=max(data$r), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
              fontface = "bold", 

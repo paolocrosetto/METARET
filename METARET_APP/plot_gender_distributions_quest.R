@@ -40,7 +40,7 @@ plotgender <- function(selectedquest, data) {
     theme(axis.line = element_line(color = 'black')) + 
     labs(x = "Choices of respondents",
          y = "Density",
-         title = paste0("Distribution of answers on ", colnames(data)[2], " questionnaire per gender")) +
+         title = paste0("Distribution of answers to the ", colnames(data)[2], " questionnaire, by gender")) +
     annotate(geom="text", x=max(data[[variable]]), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
              fontface = "bold", 
