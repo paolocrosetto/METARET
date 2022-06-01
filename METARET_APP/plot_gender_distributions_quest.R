@@ -1,3 +1,9 @@
+colnames_given_pattern <- function(.data, pattern){
+  
+  suppressWarnings(names(.data)[stringr::str_detect(.data, pattern)])
+  
+}
+
 plotgender <- function(selectedquest, data) {
   variable = selectedquest
   data = data %>% 

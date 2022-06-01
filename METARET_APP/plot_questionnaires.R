@@ -1,3 +1,9 @@
+colnames_given_pattern <- function(.data, pattern){
+  
+  suppressWarnings(names(.data)[stringr::str_detect(.data, pattern)])
+  
+}
+
 plotDensity2 <- function(tasklist, data) {
   data %>% 
     ggplot(aes(x = values)) +
