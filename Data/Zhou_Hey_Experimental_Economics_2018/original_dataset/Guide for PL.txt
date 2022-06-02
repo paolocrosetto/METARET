@@ -1,0 +1,14 @@
+c1: Subject number (1-24 for session 1; 25-48 for session 2; 49-72 for session 3; 73-96 for session 4)
+c2: Problem number
+c3: outcome 1 of the lottery
+c4: probability of outcome 1 of the lottery (multiplied by 10)
+c5: outcome 2 of the lottery
+c6: amount of the certainty (multiplied by 10)
+c7: switch point. The first line is in which problem choosing left(lottery)
+    the second line is in which problem switch from left to right (certainty)
+    
+P.S. every two lines denotes one problem
+     The first line is before switch
+     The second line is after switch
+     If the first line is -2, it means always right
+     If the first line is -1, it means always left

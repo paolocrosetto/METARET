@@ -1,0 +1,8 @@
+c1: Subject number (1-24 for session 1; 25-48 for session 2; 49-72 for session 3; 73-96 for session 4)
+c2: Problem number
+c3: Allocation in Red
+c4: Allocation in Yellow
+c5: Probability of Red (multiplied by 10)
+c6: Exchange Rate of Red (multiplied by 100)
+c7: Exchange Rate of Yellow (multiplied by 100)
+c8: Endowment

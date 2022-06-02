@@ -1,0 +1,25 @@
+    
+
+File "Data for study I.csv"
+=======================
+
+- col:		color manipulation (0 = gray, 1 = red)
+- age: 	age of respondents (in years)
+- sex: 	sex of respondents (1 = male, 2 = female)
+- KT:  	Kahneman & Tversky dilemmas (0 = non-risky choice, 1 = risky choice)
+- cb:  	number of errors in color test (0 = proper color vision)
+
+
+
+
+File "Data for study II.csv"
+=======================
+
+- age:	age of respondents (in years)
+- sex:        sex of respondents (1 = male, 2 = female)
+- BARTpX:  number of pumps for balloon X
+- BARTeX:  did balloon X explode? (0 = no, 1 = yes)
+- cb:         number of errors in color test (0 = proper color vision)
+
+Note: Balloons 1 to 15 were in blue and balloons 16 to 30 in red; balloons were presented in random order.
+

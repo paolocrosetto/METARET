@@ -1,0 +1,18 @@
+
+    Codebook:
+    ---------
+
+    RiskType1: Question (SOEP): "How do you see yourself: Are you generally a person
+                                 who is fully prepared to take risks or do you try to
+                                 avoid risks?"
+               Answers: Likert scale from 0 = "not at all willing to take risks" to 
+                        10 = "very willing to take risks"
+
+    RiskType2: Question: "People can behave differently in different situations.
+                          How would you rate your willingness to take risks in financial 
+			  matters?"
+               Answers: Likert scale from 0 = "not at all willing to take risks" to 
+                        10 = "very willing to take risks"
+
+    BRET: with 5x5 matrix, 240sec, 0.40 euros per opened box
+	  Values: number of opened boxes
