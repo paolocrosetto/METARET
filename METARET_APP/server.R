@@ -19,13 +19,9 @@ createLink <- function(val) {
   sprintf('<a href="http://dx.doi.org/%s" target="_blank" class="btn btn-primary">Click</a>',val)
 }
 
-
 ## Names of the graphics function
-
 colnames_given_pattern <- function(.data, pattern){
-  
   suppressWarnings(names(.data)[stringr::str_detect(.data, pattern)])
-  
 }
 
 ## Server function 
