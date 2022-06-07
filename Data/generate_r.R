@@ -249,6 +249,61 @@ get_r <- function(bibkey, task, choice) {
       if (choice != 25) { out <- choice/(25-choice) }
     }
   }
-  
+  if (bibkey == "Brunner2014" | bibkey == "Dursch2012" | bibkey == "Proto2018" | bibkey == "Kirchkamp2021" | bibkey == "Roth2016" | bibkey == "Dursch2017") {
+    if (task == "HL") {
+      if (choice == 10) { out <- 2.71 }
+      if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
+      if (choice == 8) { out <- runif(1, min = 1.49, max = 1.95) }
+      if (choice == 7) { out <- runif(1, min = 1.15, max = 1.49) }
+      if (choice == 6) { out <- runif(1, min = 0.85, max = 1.15) }
+      if (choice == 5) { out <- runif(1, min = 0.59, max = 0.85) }
+      if (choice == 4) { out <- runif(1, min = 0.32, max = 0.59) }
+      if (choice == 3) { out <- runif(1, min = 0.03, max = 0.32) }
+      if (choice == 2) { out <- runif(1, min = -0.37, max = 0.03) }
+      if (choice == 1) { out <- -0.37 }
+      if (choice == 0) { out <- -0.37 }
+    }
+    if (task == "EG") {
+      if (choice == 1) { out <- -0.09 } 
+      if (choice == 2) { out <- runif(1, min = -0.09, max = 0.51)}
+      if (choice == 3) { out <- runif(1, min = 0.51, max = 1.11)}
+      if (choice == 4) { out <- 1.11}
+    }
+  }
+    if (bibkey == "Apesteguia2020"){
+    if (task == "EG") {
+      if (choice == 1) { out <- -4 } 
+      if (choice == 2) { out <- runif(1, min = -4, max = 0.66)}
+      if (choice == 3) { out <- runif(1, min = 0.66, max = 1.49)}
+      if (choice == 4) { out <- 1.49}
+    }
+    }
+  if (bibkey == "Kersting2019"){
+    if (task == "EG") {
+      if (choice == 1) { out <- -2.32 } 
+      if (choice == 2) { out <- runif(1, min = -2.32, max = -0.11)}
+      if (choice == 3) { out <- runif(1, min = -0.11, max = 0.33)}
+      if (choice == 4) {out <- runif(1, min = 0.33, max = 0.53)}
+      if (choice == 5) { out <- runif(1, min = 0.53, max = 0.64) } 
+      if (choice == 6) { out <- runif(1, min = 0.64, max = 0.71)}
+      if (choice == 7) { out <- runif(1, min = 0.71, max = 0.77)}
+      if (choice == 8) { out <- runif(1, min = 0.77, max = 0.81)}
+      if (choice == 9) { out <- runif(1, min = 0.81, max = 0.9)}
+      if (choice == 10) { out <- runif(1, min = 0.9, max = 1)}
+      if (choice == 11) { out <- 1}
+    }
+  }
+  if (bibkey == "Schmidt2019"){
+    if (task == "EG") {
+      if (choice == 1) { out <- -2.94 } 
+      if (choice == 2) { out <- runif(1, min = -2.94, max = -0.32)}
+      if (choice == 3) { out <- runif(1, min = -0.32, max = 0.19)}
+      if (choice == 4) {out <- runif(1, min = 0.19, max = 0.43)}
+      if (choice == 5) { out <- runif(1, min = 0.43, max = 0.56) } 
+      if (choice == 6) { out <- runif(1, min = 0.56, max = 0.66)}
+      if (choice == 7) { out <- runif(1, min = 0.66, max = 1)}
+      if (choice == 8) { out <- 1}
+    }
+  }
   out
 }
