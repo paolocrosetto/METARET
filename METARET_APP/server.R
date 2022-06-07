@@ -93,9 +93,14 @@ colnames_given_pattern <- function(.data, pattern){
 
     output$table_papers_name <- renderDataTable({
       table = filter(df, task == input$Tasks) %>% 
-        group_by(author, title, year, journal, doi_2) %>% 
+        group_by(bibkey, author, title, year, journal, doi_2) %>% 
         summarise(sample=n())
-      table$link <- createLink(table$doi_2)
+      table$link <- ""
+      for (i in 1:nrow(table)){
+        if (is.na(table$doi_2[i]) == FALSE){
+          table$link[i] <- createLink(table$doi_2[i])
+        }
+      }
       table = table %>% select(-doi_2)
       return(table)}, escape = FALSE)
     
@@ -231,7 +236,13 @@ colnames_given_pattern <- function(.data, pattern){
     output$table_papers_name_quest <- renderDataTable({
       table = df %>% filter(df[input$Questionnaires] != 'Na') %>%
       group_by(author, title, year, journal, doi_2) %>% summarise(sample=n())
-      table$link <- createLink(table$doi_2)
+      table$link <- ""
+      for (i in 1:nrow(table)){
+        if (is.na(table$doi_2[i]) == FALSE){
+          table$link[i] <- createLink(table$doi_2[i])
+        }
+      }
+      #table$link <- createLink(table$doi_2)
       table = table %>% select(-doi_2)
       return(table)}, escape = FALSE)
     
