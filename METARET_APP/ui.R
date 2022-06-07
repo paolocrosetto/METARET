@@ -232,7 +232,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                        multiple_checkbox("amongquest_1", 
                                         label = HTML('<B><FONT size="3">Select question types</FONT></B><br><br>'), 
                                         multiple = TRUE,
-                                        choices = questionchoice, 
+                                        choices = questionchoice_cor, 
                                         position = 'inline',
                                         selected = c("soep", "dohealth", 'dogamble'))),
             
@@ -278,7 +278,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                          
                          ## Select box for the plot 
                          column(3, box(selectInput("genderdist_quest", "Questions:",
-                                                   questionchoice_gendertab),  width = 3),
+                                                   questionchoice_gender),  width = 3),
                                 h5(), 
                                 box(title = "Explanatory note",
                                     color = "black", 
@@ -313,7 +313,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                          ## Select box for the plot 
                          column(3, 
                                 box(selectInput("agedist_q", "Questions:",
-                                                questionchoice_gendertab),  width = 3)
+                                                questionchoice_agetab),  width = 3)
                          )
                        )))
                        )),

@@ -305,11 +305,11 @@ colnames_given_pattern <- function(.data, pattern){
         if(input$selectallquest == 0) return(NULL) 
         else if (input$selectallquest%%2 == 0)
         {
-          updateCheckboxGroupInput(session,"amongquest_1",choices=questionchoice, selected = questionchoice)
+          updateCheckboxGroupInput(session,"amongquest_1",choices=questionchoice_cor, selected = questionchoice_cor)
         }
         else
         {
-          updateCheckboxGroupInput(session,"amongquest_1",choices=questionchoice, selected=list())
+          updateCheckboxGroupInput(session,"amongquest_1",choices=questionchoice_cor, selected=list())
         }
       })
 
@@ -424,13 +424,13 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$gender_dist_quest <- renderPlot({
         data = df %>% 
-          filter(r > -1.5 & r < 2.5) %>% select(gender, input$genderdist_quest)
+          filter(r > -1.5 & r < 2.5) %>% select(gender, input$questionchoice_gender)
       source("plot_gender_distributions_quest.R")
       plotgender(input$genderdist_quest, data)
     })
     
     observe({
-      updateCheckboxGroupInput(session, "genderdist_quest", NULL,choices=questionchoice_gendertab)
+      updateCheckboxGroupInput(session, "genderdist_quest", NULL,choices=questionchoice_gender)
     })
     
     
@@ -551,7 +551,7 @@ colnames_given_pattern <- function(.data, pattern){
     })
     
     observe({
-      updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_gendertab)
+      updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_agetab)
     })
     
     ## Explore page 

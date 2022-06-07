@@ -66,7 +66,7 @@ get_r <- function(bibkey, task, choice) {
     
     if (task == "IG") {
       if (choice == 4) { out <- 1  }
-      if (choice != 4) { out <- (log(4-choice) - log(8+3*choice) + log(3))/(log(4-choice) +log(2) - log(8+3*choice))  }
+      if (choice != 4) { out <- (log(4-choice) - log(4+3*choice) + log(3))/(log(4-choice) +log(2) - log(4+3*choice))  }
     }
     
   }

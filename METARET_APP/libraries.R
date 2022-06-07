@@ -47,6 +47,8 @@ mychoicesgender = c("All tasks" = "all",
 ## list for the question choices 
 questionchoice <- c("SOEP" = "soep",
                     "SOEP - financial" = "soep_financial",
+                    "SOEP - patience" = "soep_patience",
+                    "SOEP - impulsive" = "soep_impulsive",
                     "DOSPERT" = "doall",
                     "DOSPERT - health" = "dohealth",
                     "DOSPERT - social" = "dosocial",
@@ -60,8 +62,10 @@ questionchoice <- c("SOEP" = "soep",
                     'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
 ## list for the question choices 
-questionchoice_gendertab <- c("SOEP" = "soep",
-                    #"SOEP - financial" = "soep_financial",
+questionchoice_cor <- c("SOEP" = "soep",
+                    "SOEP - financial" = "soep_financial",
+                    #"SOEP - patience" = "soep_patience",
+                    #"SOEP - impulsive" = "soep_impulsive",
                     "DOSPERT" = "doall",
                     "DOSPERT - health" = "dohealth",
                     "DOSPERT - social" = "dosocial",
@@ -74,11 +78,28 @@ questionchoice_gendertab <- c("SOEP" = "soep",
                     'Alcohol Use DIsorders Test' = 'AuditS',
                     'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
+## list for the question choices 
+questionchoice_agetab <- c("SOEP" = "soep",
+                    #"SOEP - financial" = "soep_financial",
+                    #"SOEP - patience" = "soep_patience",
+                    #"SOEP - impulsive" = "soep_impulsive",
+                    "DOSPERT" = "doall",
+                    "DOSPERT - health" = "dohealth",
+                    "DOSPERT - social" = "dosocial",
+                    "DOSPERT - investment" = "doinvest",
+                    "DOSPERT - gamble" = "dogamble",
+                    "DOSPERT - ethic" = "doethic",
+                    "DOSPERT - recreation" = "dorecre", 
+                    "Barratt impulsiveness scale" = 'BIS',
+                    "Brief Sensation seeking scale" = 'BSSS',
+                    'Alcohol Use DIsorders Test' = 'AuditS',
+                    'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
-
-
+## correlation tab
 questionchoice_gender <- c("SOEP" = "soep",
                     "SOEP - financial" = "soep_financial",
+                    "SOEP - patience" = "soep_patience",
+                    "SOEP - impulsive" = "soep_impulsive",
                     "DOSPERT" = "doall",
                     "DOSPERT - health" = "dohealth",
                     "DOSPERT - social" = "dosocial",

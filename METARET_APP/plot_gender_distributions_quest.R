@@ -6,7 +6,7 @@ colnames_given_pattern <- function(.data, pattern){
 
 plotgender <- function(selectedquest, data) {
   variable = selectedquest
-  data = data %>% 
+  data = df %>% select(gender, variable) %>%
   drop_na() %>%
   mutate(gender = case_when(gender == 1  ~ "female",
                             gender == 0 ~ "male"))
@@ -46,7 +46,7 @@ plotgender <- function(selectedquest, data) {
     theme(axis.line = element_line(color = 'black')) + 
     labs(x = "Choices of respondents",
          y = "Density",
-         title = paste0("Distribution of answers to the ", colnames_given_pattern(questionchoice_gendertab, colnames(data)[2]), " questionnaire, by gender")) +
+         title = paste0("Distribution of answers to the ", colnames_given_pattern(questionchoice_gender, colnames(data)[2]), " questionnaire, by gender")) +
     annotate(geom="text", x=max(data[[variable]]), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
              fontface = "bold", 
