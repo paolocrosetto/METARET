@@ -14,17 +14,17 @@ library(broom)
 
 #### getting the data
 df <- readxl::read_excel("Data/Csermely_Rabas_JRU/original_data/Risk Results.xlsx") %>% as_factor()
-max(df$crra)
+
 ## selecting the needed variables
 ## we select only:
 ## 1. the result of the task
 ## 2. any treatment or differences in the task
 ## 3. answers to questionnaires
 df <- df %>% 
-  select(method, cluster, cat, gender, age, crra, repeated) 
+  select(method, cluster, cat, gender, age, crra, repeated, `has CE`) 
 
 ## Filter appropriate methods and without repetitions 
-df = df %>% filter(method %in% c("hlp", "eg"), repeated == 0)
+df = df %>% filter(method %in% c("hlp", "eg", 'cea'), repeated == 0)
 
 # change gender for 1 - female, 0 - male
 df <- df %>% 
@@ -34,7 +34,9 @@ df <- df %>%
 # change names of the methods
 df <- df %>% 
   mutate(task = case_when(method == "eg" ~ "EG",
-                          method == "hlp" ~ "HL")) %>% select(-method, -crra, -repeated)
+                          method == "hlp" ~ "HL",
+                          method == 'cea' ~ 'CEPL')) %>% 
+  select(-method, -crra, -repeated, -`has CE`)
 
 # rename column names 
 df <- df %>% 

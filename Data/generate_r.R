@@ -1,6 +1,12 @@
 ## function that translates choices into each different task
 ## into an 'r' risk parameter of a CRRA x utility funtion
 
+### Comment calculer les bornes? 
+
+## https://economics.stackexchange.com/questions/33003/how-to-calculate-crra-bounds-from-holt-and-laury-2002-type-lottery
+## https://www.wolframalpha.com/input?i=1.11369
+## ex. 16 ^ r * 0.5 + 72 ^  r * 0.5 = 0 ^ r * 0.5 + 84 ^ r * 0.5
+
 get_r <- function(bibkey, task, choice) {
   
   if (bibkey == "Charness2019") {
@@ -241,6 +247,19 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 1) { out <- -0.37 }
       if (choice == 0) { out <- -0.37 }
     }
+    ###Bruner, D.M. (2009) design 
+    if (task == "CEPL") {
+      if (choice == 1) { out <- 1.74 } 
+      if (choice == 2) { out <- 1.74 } 
+      if (choice == 3) { out <- runif(1, min = 1.32, max = 1.74)}
+      if (choice == 4) { out <- runif(1, min = 1, max = 1.32)}
+      if (choice == 5) { out <- runif(1, min = 0.74, max = 1)}
+      if (choice == 6) { out <- runif(1, min = 0.52, max = 0.74)}
+      if (choice == 7) { out <- runif(1, min = 0.32, max = 0.52)}
+      if (choice == 8) { out <- runif(1, min = 0, max = 0.32)}
+      if (choice == 9) { out <- runif(1, min = 0, max = 0.32)}
+    }
+    
   }
   
   if (bibkey == "Huber2019") {

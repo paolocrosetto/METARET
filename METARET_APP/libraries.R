@@ -40,7 +40,7 @@ mychoicesgender = c("All tasks" = "all",
               "Investment Game" = "IG",
               "Bomb Risk Elicitation Task" = "BRET",
               "Balloon Analog Risk Task" = "BART",
-              #"Certainty equivalent price list" = "CEPL",
+              "Certainty equivalent price list" = "CEPL",
               'Balloon Economic Risk Protocol'='BERP')
               #'Binswanger / Eckel and Grossmann with probability of loss'= 'EG_loss')
 
