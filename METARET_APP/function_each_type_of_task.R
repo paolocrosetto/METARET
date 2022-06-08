@@ -8,6 +8,8 @@ task_variability_plot <- function(selectedtask, data) {
   
   data %>% 
     filter(r > -1.5 & r < 2.5) %>% 
+    select(r, paper) %>%
+    drop_na() %>%
     group_by(paper)  %>%          # grouping variables
     summarize(m = mean(r),          # calculating mean 
               s = sem(r)) %>%    # calculating standard error
