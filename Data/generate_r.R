@@ -324,7 +324,7 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 8) { out <- 1}
     }
   }
-  if (bibkey == "DrichoutisNayga2022"){
+  if (bibkey == "DrichoutisNayga2022" | bibkey == "DrichoutisNayga2013"){
     if (task == "HL") {
       if (choice == 10) { out <- 2.71 }
       if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
@@ -351,6 +351,16 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 1) { out <- runif(1, min = -0.02, max = 0.1)}
       if (choice == 0) { out <- -0.02 }
     }
-  }  
+  } 
+  if (bibkey == "Brañas-Garza2021"){
+    if (task == "HL") {
+      if (choice == 5) { out <- 2.60}
+      if (choice == 4) { out <- runif(1, min = 1.11 , max = 2.60)}
+      if (choice == 3) { out <- runif(1, min = 0.84 , max = 1.11)}
+      if (choice == 2) { out <- runif(1, min = 0.64, max = 0.84)}
+      if (choice == 1) { out <- runif(1, min = -0.21, max = 0.64)}
+      if (choice == 0) { out <- -0.21 }
+    }
+  } 
   out
 }
