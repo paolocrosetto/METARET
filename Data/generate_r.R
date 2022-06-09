@@ -362,5 +362,11 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 0) { out <- -0.21 }
     }
   } 
-  out
-}
+  if (bibkey == "Costa-Gomes2022"){
+    if (task == "BRET") {
+      if (choice == 25) { out <- 10 }
+      if (choice != 25) { out <- choice/(25-choice) }
+    }
+  } 
+out
+} 
