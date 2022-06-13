@@ -1,7 +1,7 @@
 #### Pedroni et al. "The Risk Elicitation Puzzle", Nature Human Behaviour 2017
 #### Frey et al. "Risk preference shares the psychometric structure of major psychological traits", Science Advances 2017
 
-#### cleaning data to be used for the meta-nalaysis
+#### cleaning data to be used for the meta-anlaysis
 
 #### libraries
 library(tidyverse)
@@ -71,15 +71,19 @@ df <- df %>%
          paper = "Frey et al Science Advances 2017",
          treatment = "")
 
+df$country = 'Austria'
+df$city = "Innsbruck"
+df$longitude = "11.398020"
+df$lattitude = "47.269001"
 
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
-
-
 # Order of variables
+df <- df %>% 
+  select(bibkey, paper, task, subject, choice, r, everything())
 
 # Writing to file
 df %>% write_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/formatted_dataset.csv")

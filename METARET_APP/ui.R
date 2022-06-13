@@ -13,13 +13,15 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
           menuItem("Correlations", tabName = "tab_lotteries_and_questionnaires", icon = icon("sync alternate")),
           menuItem("Demographics", tabName = 'demography', icon = icon("user")),
-          menuItem("Download", tabName = "tab_explore", icon = icon("compass"))
+          menuItem("Download", tabName = "tab_download", icon = icon("download")),
+          menuItem('Explore', tabName = "tab_explore", icon = icon("compass"))
+          
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
       dashboardBody(
         tags$style(type="text/css",
                  ".shiny-output-error { visibility: hidden; }",
-                 ".shiny-output-error:before { visibility: hidden; }"
+               ".shiny-output-error:before { visibility: hidden; }"
         ),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
@@ -319,7 +321,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                        )),
         
         ## Explore page
-        tabItem("tab_explore",
+        tabItem("tab_download",
                 tabBox(color = "black", width = 16,
                   tabs = list(
                   
@@ -369,4 +371,17 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                 )),
         ## About page
         #tabItem("tab_about", includeMarkdown('info.md'))
+        
+        ## Explore page
+        tabItem("tab_explore",
+                tabBox(color = "black", width = 16,
+                       tabs = list(
+                         
+                         ## First tab with tasks 
+                         list(menu = "Risk propensity map", 
+                              content = 
+                                tmapOutput("map_crra", 
+                                           width = "100%", 
+                                           height = 700)))
+                       ))
         ))

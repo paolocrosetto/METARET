@@ -1,4 +1,5 @@
-#### Holzmeister, F. & Stefan, M. (2019). The risk elicitation puzzle revisited: Across-methods (In)consistency?
+#### Nielsen, Kirby
+##  Dynamic risk preferences under realized and paper outcomes
 
 #### cleaning data to be used for the meta-nalaysis
 
@@ -23,17 +24,20 @@ df <- df %>%
   mutate(choice = choice*4) %>% 
   mutate(treatment = as.character(treatment)) %>% 
   mutate(treatment = if_else(treatment == 1, "low stakes", "high stakes"))
-
-## Computing the CRRA (x^r) coefficient of risk aversion from the task data
-df <- df %>% 
-  mutate(r = choice/(100-choice)) %>% 
-  mutate(r = if_else(r == Inf, 99, r))
   
 # Adding task, paper and bibtex handles
 df <- df %>% 
   mutate(task = "BRET",
          paper = "Nielsen, JEBO 2019",
          bibkey = "Nielsen2019")
+
+source("Data/generate_r.R")
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+
+df$country = 'United States'
+df$city = ""
+df$longitude = ""
+df$lattitude = ""
 
 # Order of variables
 df <- df %>% 

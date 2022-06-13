@@ -17,7 +17,10 @@ df = df %>% filter(task != 'quest_only' | is.na(task) == TRUE) %>%
 
 data=df %>% mutate(subject = paste0(bibkey, '_', subject)) %>% 
   select(bibkey, paper, task, subject, age, gender, choice, r, starts_with('soep'),
-                starts_with('do'), 'BIS', 'BSSS', 'AuditS', 'CDCrisk')
+                starts_with('do'), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', country, city,
+         longitude, lattitude)
+
+data %>% filter(task == 'EG')
 
 ## save the df to the shiny director for deployment
 data %>% write_csv("METARET_APP/DATA/df_mod.csv")

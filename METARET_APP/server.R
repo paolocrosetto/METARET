@@ -89,7 +89,7 @@ colnames_given_pattern <- function(.data, pattern){
 
     output$table_papers_name <- renderDataTable({
       table = filter(df, task == input$Tasks) %>% 
-        group_by(author, title, year, journal, doi_2) %>% 
+        group_by(bibkey, author, title, year, journal, doi_2) %>% 
         summarise(sample=n())
       table$link <- ""
       for (i in 1:nrow(table)){
@@ -554,9 +554,9 @@ colnames_given_pattern <- function(.data, pattern){
       updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_agetab)
     })
     
-    ## Explore page 
+    ## Download page 
     
-      ## First tab explore page
+      ## First tab download page
     
     output$page1 <- DT::renderDataTable({df %>% 
         select('subject', 'paper', 
@@ -577,7 +577,7 @@ colnames_given_pattern <- function(.data, pattern){
       }
     )
     
-    ## Second tab explore page
+    ## Second tab download page
     output$page2 <- DT::renderDataTable({df %>% 
         select('subject', 'paper', 'task',
                starts_with('soep'), starts_with("do"), -doi_2,
@@ -599,4 +599,26 @@ colnames_given_pattern <- function(.data, pattern){
         write.csv(data, file)
       }
     )
+    ## Explore tab
+    ## map with crra 
+    data("World")
+    countries = df %>% group_by(country) %>%
+      summarise(CRRA = mean(r),
+                Observartions = n()) %>% 
+      rename(name=country) 
+    new_tab = left_join(World, countries, by = "name") 
+    
+    output$map_crra <- renderTmap({
+      tmap_mode("view") 
+      tm_shape(new_tab) +
+        tm_fill('CRRA', 
+                title = "Risk propensity",
+                breaks = c(0, 0.2, 0.4, 0.6, Inf),
+                textNA = "No data yet",
+                popup.vars = c("CRRA","Observartions")
+        ) + tm_borders()  + 
+        tm_basemap(leaflet::providers$Stamen.Watercolor) +
+        tm_view(set.view = c(25, 40, 2))
+    })
+    
 }
