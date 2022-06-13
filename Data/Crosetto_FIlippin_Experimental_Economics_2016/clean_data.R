@@ -60,6 +60,7 @@ df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 # Order of variables
 df <- df %>% 
   select(bibkey, paper, task, subject, age, gender, choice, r, everything())
-
+df$country = 'Germany'
+df$city = 'Jena'
 # Writing to file
 df %>% write_csv("Data/Crosetto_Filippin_Experimental_Economics_2016/formatted_dataset.csv")

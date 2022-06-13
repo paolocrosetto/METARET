@@ -50,6 +50,6 @@ df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 # Order of variables
 df <- df %>% 
   select(bibkey, paper, task, subject, gender, choice, r)
-
+df$country = 'Israel'
 # Writing to file
 df %>% write_csv("Data/Eyal/formatted_dataset.csv")

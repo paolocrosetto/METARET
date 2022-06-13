@@ -48,7 +48,7 @@ df <- df %>%
 source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
-
+df$country = "Austria"
 # generate a numeric subect variable
 df <- df %>% 
   mutate(subject = as.numeric(factor(pid, levels=unique(pid))),

@@ -1,5 +1,5 @@
-#### Charness et al, Do Measures of Risk Attitude in the Laboratory Predict Behavior under Risk in and outside of the Laboratory?, WP 2019
-
+#### Red Color and Risk-Taking Behavior in Online Environments
+## Timo Gnambs
 #### cleaning data to be used for the meta-nalaysis
 
 #### libraries
@@ -46,6 +46,7 @@ df <- df %>%
          bibkey = "Gnambs2015",
          paper = "Gnambs et al PONE 2015")
 
+df$country = 'Germany'
 # Order of variables
 df <- df %>% 
   select(bibkey, paper, task, subject, age, gender, choice, r, everything())

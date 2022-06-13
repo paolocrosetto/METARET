@@ -40,7 +40,7 @@ mutate(bibkey = "Huber2019",
 source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
-
+df$country = 'Austria'
 # Order of variables
 df <- df %>% 
   select(bibkey, paper, task, subject, choice, r, everything())

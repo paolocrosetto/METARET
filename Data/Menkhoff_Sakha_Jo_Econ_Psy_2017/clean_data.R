@@ -1,6 +1,6 @@
 #### Menkhoff and Sakha, Estimating Risky Behavior with Multiple-Item Risk Measures, Jo Econ Psy 2017
 
-#### cleaning data to be used for the meta-nalaysis
+#### cleaning data to be used for the meta-analysis
 
 #### libraries
 library(tidyverse)

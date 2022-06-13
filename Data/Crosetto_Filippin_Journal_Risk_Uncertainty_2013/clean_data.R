@@ -40,5 +40,7 @@ df <- df %>%
 df <- df %>% 
   select(bibkey, paper, task, subject, age, gender, choice, r, everything())
 
+df$country = 'Germany'
+df$city = 'Jena'
 # Writing to file
 df %>% write_csv("Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/formatted_dataset.csv")

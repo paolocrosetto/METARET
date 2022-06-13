@@ -55,7 +55,8 @@ df <- df %>%
 source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
-
+df$country = 'Austria'
+df$city = 'Vienna'
 # Order of variables
 df <- df %>% 
   select(bibkey, paper, task, subject, age, gender, choice, r, everything())
