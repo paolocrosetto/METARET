@@ -19,8 +19,14 @@ plotDensity2 <- function(tasklist, data) {
          y = "Density",
          title = paste0("Distribution of answers for the ", colnames_given_pattern(questionchoice, data$name[1]), " questionnaire")) + 
     theme(
+      text = element_text(size=15),
+      plot.background = element_blank(),
       panel.background = element_rect(fill = "white"), 
-      panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                      colour = "grey"), text=element_text(size=15)
-    ) 
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank()
+    ) +
+    
+    #draws x and y axis line
+    theme(axis.line = element_line(color = 'black'))
 }

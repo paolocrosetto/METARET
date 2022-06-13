@@ -1,3 +1,5 @@
+library(dplyr)
+
 colnames_given_pattern <- function(.data, pattern){
   
   suppressWarnings(names(.data)[stringr::str_detect(.data, pattern)])
@@ -6,8 +8,7 @@ colnames_given_pattern <- function(.data, pattern){
 
 plotgender <- function(selectedquest, data) {
   variable = selectedquest
-  data = df %>% select(gender, variable) %>%
-  drop_na() %>%
+  data = data %>%
   mutate(gender = case_when(gender == 1  ~ "female",
                             gender == 0 ~ "male"))
 

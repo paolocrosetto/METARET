@@ -122,7 +122,7 @@ colnames_given_pattern <- function(.data, pattern){
       data <- df %>% filter(task == input$id_selectInput)
       source("plot_many_lotteries.R")
       plotDensity1(input$id_selectInput, data)
-    }, height = 600, width = 900)
+    }, height = 700, width = 900)
     
     
     ## Third tab tasks page 
@@ -424,7 +424,8 @@ colnames_given_pattern <- function(.data, pattern){
     
     output$gender_dist_quest <- renderPlot({
         data = df %>% 
-          filter(r > -1.5 & r < 2.5) %>% select(gender, input$questionchoice_gender)
+          filter(r > -1.5 & r < 2.5) %>% 
+          select(gender, input$genderdist_quest) %>% drop_na()
       source("plot_gender_distributions_quest.R")
       plotgender(input$genderdist_quest, data)
     })

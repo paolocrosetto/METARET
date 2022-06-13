@@ -16,7 +16,7 @@ plotDensity1 <- function(tasklist, data) {
     ungroup() %>% 
     mutate(task = reorder(task,r))
   
-  values <- c(rev(brewer.pal(length(levels(data$task)), "Dark2")))
+  values = c(brewer.pal(8,"Dark2"), '#632d00')[1:length(levels(data$task))]
   names(values) <- levels(data$task)
   
   plot <- data %>% 
@@ -43,11 +43,17 @@ plotDensity1 <- function(tasklist, data) {
     geom_hline(yintercept = 1, color = 'red', linetype = 'dashed', show.legend = F)+
     labs(y = "Risk aversion parameter CRRA",
          x = "")+
-    theme(legend.title = element_blank(),
-          legend.position = "none",
-          panel.background = element_rect(fill = "white"), 
-          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                          colour = "grey"), text=element_text(size=20))+
+    theme(
+      text = element_text(size=15),
+      plot.background = element_blank(),
+      panel.background = element_rect(fill = "white"), 
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank()
+    ) +
+    
+    #draws x and y axis line
+    theme(axis.line = element_line(color = 'black')) +
     coord_flip() 
   
   plot %+% droplevels(data[data$task %in% tasklist,]) +

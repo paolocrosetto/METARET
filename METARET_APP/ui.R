@@ -18,10 +18,10 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
-      dashboardBody(
+        dashboardBody(
         tags$style(type="text/css",
-                 ".shiny-output-error { visibility: hidden; }",
-               ".shiny-output-error:before { visibility: hidden; }"
+                ".shiny-output-error { visibility: hidden; }",
+             ".shiny-output-error:before { visibility: hidden; }"
         ),
         tags$head(tags$style(HTML(".small-box {height: 50px}"))),
         ### Home page 
@@ -361,7 +361,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                     
                     ## Download button code 
                     h5(), h5(),
-                    downloadButton('downloadData2', 'Download all questionanire data',  
+                    downloadButton('downloadData2', 'Download all questionnaire data',  
                                    style="color: #fff; background-color: green; border-color: Black; padding: 5px 14px 5px 14px;margin: 5px 5px 5px 5px; ",
                                    icon = shiny::icon('download')),
                     h5()),

@@ -30,8 +30,14 @@ plotDensity <- function(task, data) {
          title = paste0("Distribution of elicited risk attitudes for the ", colnames_given_pattern(mychoices, data$task[[1]]), " task")) +
     theme_bw() + 
     theme(
-      panel.background = element_rect(fill = "white"), 
-      panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                      colour = "grey"), text=element_text(size=13)
-    ) 
+      text = element_text(size=15),
+      plot.background = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank()
+    ) +
+    
+    #draws x and y axis line
+    theme(axis.line = element_line(color = 'black'))
+  
 }
