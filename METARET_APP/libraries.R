@@ -27,6 +27,7 @@ library(dplyr)
 library(tmap)    # for static and interactive maps
 library(ggplot2) # tidyverse data visualization package
 library(rbokeh)
+library(leaflet)
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",

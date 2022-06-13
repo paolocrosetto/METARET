@@ -611,16 +611,18 @@ colnames_given_pattern <- function(.data, pattern){
     Mypal <- c('#4dcb00','#e2cb00','#ee9663','#ee4128')
     output$map_crra <- renderTmap({
       tmap_mode("view") 
-      tm_shape(new_tab) +
+      map = tm_shape(new_tab) +
         tm_fill('CRRA', 
                 title = "Risk propensity",
                 breaks = c(-0.3, 0, 0.2, 0.4, 0.6, 0.8, 1, Inf),
                 textNA = "No data yet",
-                popup.vars = c("CRRA","Observartions"),
+                popup.vars = c("CRRA", "Observartions"),
                 palette = Mypal
-        ) + tm_borders()  + 
+        ) + tm_borders() + 
         tm_basemap(leaflet::providers$Stamen.Watercolor) +
-        tm_view(set.view = c(25, 40, 2))
+        tm_view(set.view = c(25, 40, 2), set.zoom.limits = c(2,7), 
+                set.bounds = c(-90, -180, 90, 180))
+      map
     })
     
 }
