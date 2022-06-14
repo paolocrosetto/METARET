@@ -391,19 +391,18 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 1) { out <- -0.37 }
       if (choice == 0) { out <- -0.37 }
     }
-    if (task == "EG_loss") {
-      if (choice == 1) { out <- -0.25 }
-      if (choice == 2) { out <- runif(1, min = -0.25, max = 0.60)}
-      if (choice == 3) { out <- runif(1, min = 0.60, max = 0.82)}
-      if (choice == 4) { out <- runif(1, min = 0.82, max = 1)}
-      if (choice == 5) { out <- 1}
-      if (choice == 6) { out <- 1}
-    } 
   }
   if (bibkey == "Nielsen2019"){
     if (task == "BRET") {
       if (choice == 100) { out <- 10 }
       if (choice != 100) { out <- choice/(100-choice) }
+    }
+  }
+  if (bibkey == "Dannenberg2022"){
+    if (task == "IG") {
+      if (choice == 1000) { out <- 1  }
+      if (choice == 0) { out <- -1  }
+      if (choice != 1000 & choice != 0) { out <- log(-2 * choice / (choice - 1000)) / (log(choice) - log(333.333333333333 - 0.333333333333333*choice)) }
     }
   }
 out
