@@ -18,8 +18,9 @@ library(readxl)
 id <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/participants/participants.csv")
 
 id <- id %>% 
-  select(subject = partid, gender = sex, age) %>% 
-  mutate(gender = if_else(gender == "female", 1, 0))
+  select(subject = partid, gender = sex, age, country = location) %>% 
+  mutate(gender = if_else(gender == "female", 1, 0)) %>% 
+  mutate(country = if_else(country == "Basel", "Switzerland", "Germany"))
 
 # BART: adjusted pump by subject
 bart <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/bart/bart.csv")
@@ -59,7 +60,7 @@ df <- left_join(df, hl, by = "subject")
 
 ## gathering
 df <- df %>% 
-  gather(task, choice, -subject, -gender, -age, -soep, -doall, -dogamble, -doinvest, -dohealth)
+  gather(task, choice, -subject, -gender, -age, -soep, -doall, -dogamble, -doinvest, -dohealth, -country)
 
 ## 
 df <- df %>% 
@@ -71,11 +72,11 @@ df <- df %>%
          paper = "Frey et al Science Advances 2017",
          treatment = "")
 
-df$country = 'Austria'
-df$city = "Innsbruck"
-df$longitude = "11.398020"
-df$lattitude = "47.269001"
-
+## better qualify the location
+df <- df %>% 
+  mutate(city = if_else(country == "Germany", "Berlin", "Basel"),
+         longitude = if_else(country == "Germany", 13.404954, 7.588576),
+         latitude = if_else(country == "Germany", 52.520008, 47.449601))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
