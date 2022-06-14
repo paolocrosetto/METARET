@@ -180,7 +180,7 @@ get_r <- function(bibkey, task, choice) {
         if (choice == 5) { out <- runif(1, min = 0.07, max = 1) }
         if (choice == 4) { out <- runif(1, min = -1, max = 0.07) }
         if (choice == 3) { out <- runif(1, min = -2.93, max = -1) }
-        if (choice == 2) { out <- runif(1, min = -2.93) }
+        if (choice == 2) { out <- -2.93 }
         if (choice == 1) { out <- -2.93 }
       }
     }
@@ -404,6 +404,20 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 0) { out <- -1  }
       if (choice != 1000 & choice != 0) { out <- log(-2 * choice / (choice - 1000)) / (log(choice) - log(333.333333333333 - 0.333333333333333*choice)) }
     }
+  }
+  if (bibkey == "Shachat2021"){
+    if (task == "CEPL") {
+      if (choice == 10) { out <- 7.96 }
+      if (choice == 9) { out <- 7.96 }
+      if (choice == 8) { out <- runif(1, min = 3.71, max = 7.96) }
+      if (choice == 7) { out <- runif(1, min = 2.06, max = 3.71) }
+      if (choice == 6) { out <- runif(1, min = 1, max = 2.06) }
+      if (choice == 5) { out <- runif(1, min = 0.07, max = 1) }
+      if (choice == 4) { out <- runif(1, min = -1, max = 0.07) }
+      if (choice == 3) { out <- runif(1, min = -2.93, max = -1) }
+      if (choice == 2) { out <- -2.93}
+      if (choice == 1) { out <- -2.93 }
+      }
   }
 out
 } 
