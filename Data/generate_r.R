@@ -191,7 +191,7 @@ get_r <- function(bibkey, task, choice) {
     }
     
     if (task == "HL"){
-      if (choice == 10) { out <- 2.71   }
+      if (choice == 10) { out <- 2.71 }
       if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
       if (choice == 8) { out <- runif(1, min = 1.49, max = 1.95) }
       if (choice == 7) { out <- runif(1, min = 1.15, max = 1.49) }
@@ -419,5 +419,43 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 1) { out <- -2.93 }
       }
   }
+  if (bibkey == "Buser2021"){
+    if (task == "IG") {
+      if (choice == 20) { out <- 1  }
+      if (choice == 0) { out <- -1  }
+      if (choice != 20 & choice != 0) { out <- log(-2 * choice / (choice - 20)) / (log(choice) - log(8.00000032000001 - 0.400000016000001*choice)) }
+    }
+  }
+
+  if (bibkey == "Kessel2021"){
+    if (task == "IG") {
+      if (choice == 10) { out <- 1  }
+      if (choice == 0) { out <- -1  }
+      if (choice != 10 & choice != 0) { out <- log(-2 * choice / (choice - 10)) / (log(choice) - log(4.00000016000001 - 0.400000016000001*choice)) }
+    }
+  }
+  if (bibkey == "Veldhuizen2022"){
+    if (task == "EG") {
+      if (choice == 1) { out <- -2.46 } 
+      if (choice == 2) { out <- runif(1, min = -2.46, max = -0.16)}
+      if (choice == 3) { out <- runif(1, min = -0.16, max = 0.29)}
+      if (choice == 4) {out <- runif(1, min = 0.29, max = 0.5)}
+      if (choice == 5) { out <- runif(1, min = 0.5, max = 1)} 
+      if (choice == 6) { out <- 1 } 
+    }
+    if (task == "HL") {
+      if (choice == 10) { out <- 2.75 }
+      if (choice == 9) { out <- runif(1, min = 1.97, max = 2.75) }
+      if (choice == 8) { out <- runif(1, min = 1.49, max = 1.97) }
+      if (choice == 7) { out <- runif(1, min = 1.12, max = 1.49) }
+      if (choice == 6) { out <- runif(1, min = 0.81, max = 1.12) }
+      if (choice == 5) { out <- runif(1, min = 0.51, max = 0.81) }
+      if (choice == 4) { out <- runif(1, min = 0.21, max = 0.51) }
+      if (choice == 3) { out <- runif(1, min = -0.13, max = 0.21) }
+      if (choice == 2) { out <- runif(1, min = -0.61, max = -0.13) }
+      if (choice == 1) { out <- -0.61 }
+      if (choice == 0) { out <- -0.61 }
+    }
+} 
 out
 } 

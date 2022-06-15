@@ -71,7 +71,7 @@ colnames_given_pattern <- function(.data, pattern){
     output$num_obs<- renderValueBox({ 
       value_box(
         "Observations"
-        ,filter(df, task == input$Tasks) %>% select('subject') %>% nrow()
+        ,filter(df, task == input$Tasks) %>% select(subject) %>% nrow()
         ,color = "yellow")  
     })
     
@@ -208,7 +208,7 @@ colnames_given_pattern <- function(.data, pattern){
         , count(df %>% select(subject, starts_with('soep'),
                                    starts_with('do'),
                                    'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>% 
-                       select(-doi_2) %>% select(input$Questionnaires) %>% drop_na()
+                       select(-doi_2) %>% distinct() %>% select(input$Questionnaires) %>% drop_na()
                        )
         ,color = "green")  
     })
@@ -230,8 +230,11 @@ colnames_given_pattern <- function(.data, pattern){
     })
     
     output$table_papers_name_quest <- renderDataTable({
-      table = df %>% filter(df[input$Questionnaires] != 'Na') %>%
-      group_by(author, title, year, journal, doi_2) %>% summarise(sample=n())
+      table = df %>% filter(df[input$Questionnaires] != 'Na') %>% 
+        select(subject, author, title, year, journal, doi_2) %>%
+        distinct() %>%
+      group_by(author, title, year, journal, doi_2) %>% 
+      summarise(sample=n())
       table$link <- ""
       for (i in 1:nrow(table)){
         if (is.na(table$doi_2[i]) == FALSE){
