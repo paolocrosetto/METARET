@@ -1,0 +1,79 @@
+---
+title: Rapport de stage
+authors: 
+- name: Fait par Golovanova Elizaveta
+  affiliation: BDA, Université Grenoble Alpes 
+  
+lang: fr
+preamble:
+    - \usepackage[french]{babel}
+    - \usepackage[intoc, french]{nomencl}
+
+# to produce blinded version set to 1
+blinded: 0
+
+
+# bibliography: bibliography.bib @Campbell02 @Schubert13 [@Chi81]
+output: 
+  rticles::asa_article:
+    latex_engine: xelatex
+
+---
+\newpage
+\tableofcontents 
+\newpage
+
+# Introduction
+
+Ce rapport est consacré à l'analyse du passage de stage dans le cadre de la formation dans la Master M1, parcours Business et analyse de données, faculté d'économie à l'Université Grenoble Alpes. La première partie de ce rapport décrira le processus de recherche de mon stage, l'évolution de mon CV et de ma lettre de motivation, et comment ma candidature s'etait diffusée à diverses organisations. La deuxième partie du rapport parlera de l'organisation où j'ai effectué mon stage, notamment ses principales activités, le nombre d'employés, les principaux concurrents. La troisième partie est réservée à la description du projet auquel j'ai participé, c'est-à-dire son objectif global et mon rôle dans sa réalisation. Dans la quatrième partie, ma mission principale sera décrite en détail. Dans la cinquième partie finale, les résultats de mon stage seront résumés.
+
+\section{Recherche de stage}
+\label{sec:first}
+
+Dans cette section, je décrirai comment mon CV et ma lettre de motivation ont évolutionné en fonction de l'expérience de recherche d'un stage. Au départ, j'ai rédigé un CV qui ne contenait que des faits nus sur ma formation, mon expérience de travail et mes compétences. Par exemple, je n'ai pas décrit mes tâches dans des emplois antérieurs, ni précisé les matières que j'ai suivies pendant mes études. Au fil du temps, je me suis rendu compte que ces détails sont importants pour se démarquer des autres candidats. J'ai réfléchi plus attentivement à mes avantages, listé mes réalisations au travail, les sujets que j'ai étudiés. J'ai également ajouté à mon CV mes qualités personnelles que les recruteurs recherchaient pour le poste d'analyste de données.
+
+J'ai aussi initialement rédigé une lettre de motivation individuellement pour chaque poste, en précisant le nom de l'entreprise, le nom du recruteur, pour que la lettre ait l'air personnelle. Cependant, cela a pris beaucoup de temps et n'a donné aucun résultat attendu. Comme le processus de candidature en France est bureaucratiquement compliqué, avec le temps, j'ai décidé de simplifier ma lettre de motivation et de la rendre universelle. 
+
+Je tiens également à souligner la participation de l'université aux modifications qui ont eu lieu. Avec l'aide de Sylvian Houset, les fautes de frappe et les formulations inexactes ont été corrigées dans mon CV et ma lettre de motivation.
+
+Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recevoir des offres d'emploi, mais elles ne me convenaient pas pour poursuivre le processus de formation. J'ai parcouru plusieurs entretiens et noté les entreprises où je pourrais essayer d'obtenir un emploi après la fin de ma formation. En parallèle, j'ai diffusé activement mon CV aux entreprises de Grenoble et son approximité, y compris les offres envoyées par les responsables de notre master, et me renseigne également sur les postes disponibles parmi les professeurs de mon université. Au total, j'ai postulé ma candidature au plus de 70 endroits pour toute la recherche. Finalement, j'ai trouvé un stage dans un laboratoire GAEL avec mon professeur d'informatique Paolo Crosetto. Ayant déjà 4 ans d'expérience dans le domaine scientifique en Russie et en cherchant la possibilité de poursuivre mon activité dans le niveau mondial, je étais convaincue que ce stage s'intègre parfaitement dans mon projet professionnel. 
+
+\section{Présentation de la structure de stage}
+\label{sec:second}
+
+Dans cette partie je decrirai l'entreprise où j'ai effectué un stage. Lorganisme qui m'a accueilli est l’Institut National de Recherche pour l’Agriculture, l’alimentation et l’environnement (INRAE). J'ai effectué un stage dans un des laboratoires affiliés à cet organisme, à savoir au laboratoire d'économie appliquée à Grenoble (GAEL). Il est composé d'une quarantaine de chercheurs auxquels s'ajoutent des post-doctorants, des doctorants et des personnels d'encadrement. Comme le concurrent principal du GAEL le laboratoire scientifique de Grenoble Ecole de Management peut être considéré.
+
+\section{Missions effectuées pendant le stage}
+\label{sec:third}
+
+La thème de mon stage est "Méta-analyse de la validité externe des tâches d'élicitation des risques". Ma mission principale était de collecter une importante base de données d'élicitation de risque et de créer un site web basé sur celle-ci. Pour y parvenir, j'ai dû effectuer plusieurs tâches différentes. Tout d'abord, j'ai lu de nombreux articles scientifiques différents basés sur des expériences en laboratoire, et également traiter ces données afin d'obtenir un tableau unifié pour toutes les expériences. Ensuite, sur la base des données reçues, je les ai visualisées en utilisant le langage de programmation R et le package Shiny. 
+
+Les expériences en laboratoire impliquent l'exécution de certaines tâches visant à identifier l'attitude du répondant face au risque. La tâche peut être donnée explicitement sous la forme d'une question directe, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » et indirectement sous la forme d'une tâche, par exemple, où le répondant est invité à choisir entre des options de loterie plus et moins risquées. 
+
+La visualisation sur le site comprenait la conception de la structure du site, ainsi que son contenu. Par exemple, construire des distributions pour le paramètre d'aversion relative constante du risque (CRRA)[^1] pour chaque élément ou chaque type de question, calculer également des corrélations, creation des cartes géographiques, des tableaux avec des sources de données, etc. 
+
+[^1]: https://en.wikipedia.org/wiki/Risk_aversion
+
+L'objectif global de ce projet est d'apporter plusieurs améliorations dans le domaine de l'identification des risques, c'est-à-dire de mieux comprendre l'état actuel de la validité externe des mesures d'identification des risques (par méta-analyse).
+L'un des objectifs principaux du projet est de rendre l'accès libre aux informations traitées au cours de l'étude, open source, sous une forme bien perceptive, en ligne, avec traduction en quatre langues (DE, FR, IT, SE) et une base de données en constante augmentation.
+
+\section{Développement d’un site web consacré d'analyse de risque}
+\label{sec:fourth}
+
+Plan : 
+\begin{itemize}
+\item  *Revue de la littérature* sur l'élicitation de risque, y compris des articles avec des tâches d'élicitation de risque, des questionnaires
+
+\item  *Problématique économique* : Est-il possible d'améliorer le pouvoir prédictif des tâches liées à l'elicitation de risque ?
+
+\item *Méthodologie* : explication du contenu de la site web
+
+\item *Résultats* : La partie d'analyse des données que nous n'avons pas encore commencée
+
+\item *Limitations et difficultées*
+
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:fifth}
+
