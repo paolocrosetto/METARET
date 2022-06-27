@@ -1,0 +1,180 @@
+id,treatment,age,gamma,RA_all,RA,crtscore,courses,sesion,male,T_B,T_H,T_R,a1,a2,a3,a4,a5,consistency2,pay
+1,Hyp,23,1,3,3,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,0,0,1,0
+2,1out10,20,1,1,1,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,1,0,0,1,0,0,0,0,1,1
+4,Hyp,20,1,3,3,1,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,0,0,1,0
+6,1out10,22,1,4,4,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,1,0,0,1,1,1,1,0,1,1
+11,Hyp,20,1,4,4,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,1,1,0,1,0
+13,Real,19,1,2,2,1,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,0,0,0,1,2
+15,Hyp,20,1,2,2,1,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,1,0,0,0,1,0
+16,Hyp,20,1,2,2,2,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,0,0,0,1,0
+17,1out10,20,1,2,2,1,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,1,0,0,0,1,1
+26,1out10,20,1,4,4,2,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,1,1,1,0,1,1
+27,1out10,21,1,2,2,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,0,0,0,1,1
+28,Real,20,1,3,3,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,0,1,1,1,1,0,0,1,2
+33,Real,20,1,2,2,1,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,0,0,0,1,2
+34,Hyp,20,1,4,4,0,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,1,0,1,0
+35,Hyp,21,1,4,4,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,1,1,0,1,0
+41,1out10,19,0,2,,0,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",Sí,1,0,0,1,0,0,1,0,.67000002,1
+42,Real,23,1,2,2,2,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,0,1,1,1,0,0,0,1,2
+43,Hyp,20,1,3,3,0,1 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,1,0,0,1,0
+45,1out10,20,1,2,2,1,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,1,0,0,1,1,0,0,0,1,1
+49,1out10,32,1,4,4,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,1,0,0,1,1,1,1,0,1,1
+50,Real,21,1,3,3,1,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,1,0,0,1,2
+52,Hyp,24,1,3,3,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,0,0,1,0
+53,Hyp,22,,0,0,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,,,,,,,0
+55,Hyp,26,1,2,2,1,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,0,0,0,1,0
+58,1out10,20,1,3,3,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,1,0,0,1,1,1,0,0,1,1
+62,Hyp,,1,4,4,0,,,,0,1,0,1,1,1,1,0,1,0
+64,Real,21,0,2,,1,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,0,0,0,1,.5,2
+65,Hyp,21,1,2,2,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,0,0,0,1,0
+67,Hyp,20,1,4,4,2,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,1,0,1,0
+70,1out10,21,1,4,4,0,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,1,0,0,1,1,1,1,0,1,1
+72,Real,19,1,4,4,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,1,1,0,1,2
+75,Real,20,1,3,3,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,0,1,1,1,1,0,0,1,2
+79,Hyp,22,0,3,,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,0,1,0,.82999998,0
+80,1out10,24,1,4,4,0,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,1,0,0,1,1,1,1,0,1,1
+82,Hyp,22,1,4,4,0,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,1,0,1,0
+84,Real,21,1,4,4,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,0,1,2
+85,Hyp,20,1,3,3,2,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,0,0,1,0
+87,1out10,20,1,1,1,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,1,0,0,1,0,0,0,0,1,1
+89,Real,21,1,3,3,1,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,0,1,1,1,1,0,0,1,2
+95,Real,19,1,4,4,2,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,1,1,0,1,2
+97,1out10,19,1,4,4,1,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,1,1,1,0,1,1
+98,Real,22,1,3,3,0,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",Sí,0,0,1,1,1,1,0,0,1,2
+102,1out10,21,1,4,4,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,1,0,0,1,1,1,1,0,1,1
+103,1out10,21,1,2,2,2,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,1,0,0,1,1,0,0,0,1,1
+104,Hyp,18,1,2,2,2,1 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,0,0,0,1,0
+107,1out10,23,1,1,1,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,0,0,0,0,1,1
+108,Real,25,0,3,,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",Sí,0,0,1,1,0,1,1,0,.67000002,2
+109,Hyp,19,1,3,3,1,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,0,0,1,0
+112,Hyp,23,1,4,4,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,1,0,1,0
+114,Hyp,27,1,2,2,1,Máster Universitario,"22 de abril de 2019, sesión 14:30, aula 01",No,0,1,0,1,1,0,0,0,1,0
+118,Real,20,1,3,3,1,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,1,0,0,1,2
+124,Real,19,1,4,4,2,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,0,1,2
+126,Hyp,21,1,0,0,2,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,0,0,0,0,0,1,0
+129,Hyp,18,0,2,,1,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,0,1,0,0,.82999998,0
+131,1out10,21,1,2,2,2,2 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,1,0,0,1,1,0,0,0,1,1
+135,Hyp,22,1,4,4,1,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,1,0,1,1,1,1,0,1,0
+137,Real,20,0,2,,2,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,0,1,0,0,.82999998,2
+148,1out10,22,1,1,1,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,0,0,0,0,1,1
+150,Real,22,1,4,4,2,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,0,1,1,1,1,1,0,1,2
+158,1out10,20,1,3,3,1,2 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,1,0,0,1,1,1,0,0,1,1
+167,1out10,20,1,2,2,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,1,0,0,1,1,0,0,0,1,1
+171,1out10,20,1,4,4,0,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,1,1,0,1,1
+176,Hyp,21,1,5,5,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,0,1,0,1,1,1,1,1,1,0
+178,Real,21,1,2,2,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,0,1,1,1,0,0,0,1,2
+179,Hyp,22,1,4,4,0,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,1,0,1,1,1,1,0,1,0
+181,1out10,20,0,3,,1,1 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,1,0,0,1,0,1,1,0,.67000002,1
+182,Real,21,1,3,3,2,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",No,0,0,1,1,1,1,0,0,1,2
+186,Hyp,23,0,3,,0,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,0,1,0,.82999998,0
+187,Hyp,22,1,4,4,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,1,1,0,1,0
+189,Hyp,24,1,2,2,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,1,0,0,0,1,0
+190,Hyp,21,1,2,2,1,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,0,1,0,1,1,0,0,0,1,0
+192,Hyp,22,1,3,3,0,Máster Universitario,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,1,0,0,1,0
+198,1out10,24,1,1,1,0,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,1,0,0,1,0,0,0,0,1,1
+202,Real,23,1,4,4,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,1,0,1,2
+212,Hyp,19,1,3,3,1,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,1,1,0,0,1,0
+218,1out10,24,0,3,,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,0,1,1,0,.67000002,1
+219,Hyp,26,1,1,1,2,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,1,0,1,0,0,0,0,1,0
+220,Real,24,1,3,3,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,0,0,1,2
+221,1out10,19,1,2,2,1,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,0,0,0,1,1
+225,1out10,24,1,3,3,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,1,0,0,1,1
+226,1out10,22,1,0,0,1,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,0,0,0,0,0,1,1
+230,Real,18,1,3,3,0,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,0,0,1,2
+231,Real,19,1,2,2,2,1 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,0,0,0,1,2
+233,1out10,19,1,2,2,2,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,1,0,0,0,1,1
+239,Real,22,1,5,5,0,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,1,1,1,2
+241,Real,25,0,1,,1,Máster Universitario,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,0,0,0,0,1,0,2
+242,Real,26,0,2,,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,0,1,0,0,.82999998,2
+246,1out10,21,1,2,2,1,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,0,0,0,1,1
+248,Hyp,25,1,3,3,2,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,1,1,0,0,1,0
+250,1out10,19,1,3,3,1,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,1,0,0,1,1
+251,1out10,22,0,2,,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,0,1,0,1,0,.5,1
+253,Real,18,1,1,1,0,1 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,0,0,1,1,0,0,0,0,1,2
+256,Real,20,0,3,,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,0,1,0,.82999998,2
+257,Real,23,1,4,4,1,4 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,0,0,1,1,1,1,1,0,1,2
+265,Hyp,23,1,1,1,1,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,0,0,0,0,1,0
+266,Real,22,1,2,2,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,0,0,0,1,2
+270,Real,23,1,2,2,0,Máster Universitario,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,0,0,0,1,2
+272,Real,21,0,4,,2,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,0,1,1,.5,2
+275,1out10,21,1,2,2,1,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,0,0,0,1,1
+276,Hyp,23,1,3,3,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,1,0,0,1,0
+278,Real,22,1,4,4,0,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,0,1,2
+279,1out10,22,1,1,1,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,0,0,0,0,1,1
+280,Real,22,1,3,3,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,0,0,1,2
+281,Real,20,0,2,,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,0,1,0,0,.82999998,2
+282,Real,21,1,3,3,0,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,0,0,1,2
+283,Real,21,1,2,2,0,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,0,0,0,1,2
+288,Real,20,1,2,2,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,0,0,0,1,2
+293,Real,22,1,4,4,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,0,1,2
+294,1out10,21,1,5,5,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,1,1,1,1,1
+296,Real,40,1,4,4,1,Máster Universitario,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,0,1,2
+300,Hyp,19,1,0,0,0,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,0,0,0,0,0,1,0
+302,Real,21,1,0,0,1,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,0,0,0,0,0,1,2
+303,1out10,23,0,3,,0,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,0,1,0,1,.5,1
+306,Hyp,26,0,3,,1,Máster Universitario,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,0,1,1,0,.67000002,0
+313,1out10,21,1,2,2,1,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,0,0,0,1,1
+314,Hyp,21,1,4,4,2,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,1,1,1,0,1,0
+316,1out10,20,1,1,1,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,0,0,0,0,1,1
+319,1out10,29,1,1,1,0,1 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,0,0,0,0,1,1
+320,Hyp,40,1,3,3,2,Máster Universitario,"23 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,1,1,0,0,1,0
+322,Real,21,1,5,5,2,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,1,1,2
+334,1out10,21,1,0,0,2,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,0,0,0,0,0,1,1
+336,1out10,22,1,2,2,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,1,0,0,0,1,1
+338,Real,18,0,3,,0,1 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,0,1,1,1,0,.5,2
+344,1out10,19,1,4,4,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,1,1,1,0,1,1
+347,Real,21,1,2,2,2,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,0,0,0,1,2
+349,Real,26,1,3,3,0,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,0,0,1,2
+350,1out10,21,0,2,,2,4 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,0,1,0,0,.82999998,1
+357,Real,20,0,1,,0,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 01",Sí,0,0,1,0,0,1,0,0,.5,2
+363,Real,19,0,4,,0,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,0,1,.75,2
+364,Real,20,1,4,4,0,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",No,0,0,1,1,1,1,1,0,1,2
+365,Real,18,1,4,4,0,1 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,0,1,1,1,1,1,0,1,2
+366,Real,23,1,4,4,2,3 de Grado,"22 de abril de 2019, sesión 14:30, aula 01",Sí,0,0,1,1,1,1,1,0,1,2
+367,Real,25,1,3,3,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,0,0,1,2
+371,Real,20,1,3,3,0,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,0,1,1,1,1,0,0,1,2
+373,Real,25,1,3,3,2,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,0,0,1,2
+377,1out10,20,1,3,3,0,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,1,1,0,0,1,1
+378,Hyp,19,1,3,3,1,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,1,0,0,1,0
+379,Hyp,19,1,5,5,1,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,1,1,1,1,0
+380,Hyp,20,0,3,,0,2 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,0,0,1,.67000002,0
+382,Hyp,21,1,2,2,1,4 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",Sí,0,1,0,1,1,0,0,0,1,0
+383,Hyp,22,1,1,1,2,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,0,1,0,1,0,0,0,0,1,0
+389,1out10,23,1,1,1,0,3 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",Sí,1,0,0,1,0,0,0,0,1,1
+391,Real,20,1,4,4,2,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,1,0,1,2
+392,1out10,19,1,1,1,2,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,0,0,0,0,1,1
+393,Real,19,1,3,3,2,2 de Grado,"23 de abril de 2019, sesión 13:30, aula 03",No,0,0,1,1,1,1,0,0,1,2
+395,1out10,20,1,1,1,1,3 de Grado,"22 de abril de 2019, sesión 13:30, aula 03",No,1,0,0,1,0,0,0,0,1,1
+405,1out10,27,0,3,,0,3 de Grado,UPO,No,1,0,0,1,1,0,1,0,.82999998,1
+406,1out10,25,1,1,1,0,4 de Grado,UPO,Sí,1,0,0,1,0,0,0,0,1,1
+407,Hyp,23,1,3,3,1,4 de Grado,UPO,No,0,1,0,1,1,1,0,0,1,0
+408,Hyp,26,1,4,4,0,4 de Grado,UPO,No,0,1,0,1,1,1,1,0,1,0
+409,Hyp,22,0,2,,1,4 de Grado,UPO,No,0,1,0,1,0,1,0,0,.82999998,0
+412,Hyp,22,1,4,4,0,4 de Grado,UPO,Sí,0,1,0,1,1,1,1,0,1,0
+415,Real,32,1,1,1,0,4 de Grado,UPO,No,0,0,1,1,0,0,0,0,1,2
+416,Hyp,25,0,2,,0,4 de Grado,UPO,No,0,1,0,0,1,0,0,1,.33000001,0
+419,Real,22,1,3,3,0,2 de Grado,UPO,Sí,0,0,1,1,1,1,0,0,1,2
+420,1out10,23,1,2,2,1,2 de Grado,UPO,No,1,0,0,1,1,0,0,0,1,1
+424,Hyp,18,1,3,3,0,1 de Grado,UPO,Sí,0,1,0,1,1,1,0,0,1,0
+425,1out10,23,1,2,2,0,1 de Grado,UPO,No,1,0,0,1,1,0,0,0,1,1
+427,Hyp,18,1,2,2,0,1 de Grado,UPO,No,0,1,0,1,1,0,0,0,1,0
+429,Real,19,1,1,1,1,1 de Grado,UPO,No,0,0,1,1,0,0,0,0,1,2
+431,Hyp,18,1,4,4,0,1 de Grado,UPO,No,0,1,0,1,1,1,1,0,1,0
+433,1out10,20,1,2,2,0,2 de Grado,UPO,No,1,0,0,1,1,0,0,0,1,1
+434,1out10,24,1,3,3,1,2 de Grado,UPO,Sí,1,0,0,1,1,1,0,0,1,1
+436,Hyp,18,1,4,4,1,1 de Grado,UPO,No,0,1,0,1,1,1,1,0,1,0
+441,1out10,19,0,3,,0,1 de Grado,UPO,Sí,1,0,0,0,1,1,1,0,.5,1
+442,Hyp,18,1,2,2,0,1 de Grado,UPO,Sí,0,1,0,1,1,0,0,0,1,0
+443,1out10,20,1,1,1,0,2 de Grado,UPO,Sí,1,0,0,1,0,0,0,0,1,1
+444,Hyp,20,1,1,1,0,3 de Grado,UPO,Sí,0,1,0,1,0,0,0,0,1,0
+447,Hyp,21,1,3,3,0,3 de Grado,UPO,Sí,0,1,0,1,1,1,0,0,1,0
+452,1out10,19,1,4,4,1,1 de Grado,UPO,No,1,0,0,1,1,1,1,0,1,1
+453,Real,18,1,2,2,1,1 de Grado,UPO,No,0,0,1,1,1,0,0,0,1,2
+455,1out10,19,1,2,2,2,1 de Grado,UPO,No,1,0,0,1,1,0,0,0,1,1
+460,Real,21,1,2,2,0,4 de Grado,UPO,Sí,0,0,1,1,1,0,0,0,1,2
+461,Hyp,21,1,1,1,0,3 de Grado,UPO,Sí,0,1,0,1,0,0,0,0,1,0
+465,Hyp,22,1,3,3,0,3 de Grado,UPO,Sí,0,1,0,1,1,1,0,0,1,0
+469,Hyp,18,1,3,3,0,1 de Grado,UPO,Sí,0,1,0,1,1,1,0,0,1,0
+472,Hyp,29,0,3,,0,2 de Grado,UPO,Sí,0,1,0,1,1,0,1,0,.82999998,0
+478,1out10,19,1,4,4,0,1 de Grado,UPO,No,1,0,0,1,1,1,1,0,1,1
+479,Hyp,19,1,3,3,0,1 de Grado,UPO,No,0,1,0,1,1,1,0,0,1,0

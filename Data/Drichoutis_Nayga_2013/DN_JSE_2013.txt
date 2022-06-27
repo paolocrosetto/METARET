@@ -1,0 +1,10 @@
+Subject: id
+nchoice: number of choice:
+choices: 1=right lottery, 0=left lottery
+gender: 1=male
+age: subject's age
+hsize: household size
+educ: education level
+Vprize: Amount for Lottery A1, A2, B1, B2
+RowProbA: Probability of A1 and B1
+ra: 1=risk preference choices, 0=time preference choices

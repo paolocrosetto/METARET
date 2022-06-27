@@ -1,0 +1,361 @@
+bg.village,unique.id,age,female,education,sufficient.money,a1,a2,a3,a4,a5,consistency,RA,T.R,T.B,T.H,risktime,enumerator.code,RA.all
+Dorayi,10305,42,MALE,Primary three,YES,1,1,1,1,1,1,5,1,0,0,13,103,5
+Ja'en,13302,28,FEMALE,Primary six,YES,1,1,0,0,0,1,2,0,1,0,70,133,2
+Gidan Maharba,14404,40,MALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,14,144,5
+Ja'en,13002,60,MALE,SS 3,NO,1,1,1,1,0,1,4,1,0,0,11,130,4
+Dorayi,11401,45,FEMALE,No Education,NO,1,1,1,1,0,1,4,0,1,0,335,114,4
+Dorayi,11802,40,FEMALE,No Education,NO,0,0,0,0,0,1,0,0,1,0,79,118,0
+Ja'en,13402,40,MALE,SS 3,YES,1,1,0,0,0,1,2,1,0,0,98,134,2
+Gidan Maharba,13801,42,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,0,0,1,14,138,3
+Dorayi,10103,55,MALE,No Education,YES,1,1,0,0,0,1,2,0,1,0,11,101,2
+Dorayi,10203,29,FEMALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,8,102,5
+Dorayi,10803,66,MALE,Primary: Two,YES,1,1,1,1,1,1,5,1,0,0,13,108,5
+Dorayi,11601,50,MALE,SS 3,YES,0,0,0,0,0,1,0,0,0,1,94,116,0
+Dorayi,11405,32,MALE,Primary six,YES,0,0,0,0,1,0,,0,0,1,73,114,1
+Dorayi,10104,26,FEMALE,Primary five,YES,1,1,1,0,0,1,3,1,0,0,17,101,3
+Ja'en,12601,39,FEMALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,1,0,0,90,126,5
+Dorayi,11702,35,MALE,No Education,YES,1,1,0,0,0,1,2,0,0,1,14,117,2
+Ja'en,12307,40,FEMALE,SS 3,YES,1,0,0,0,0,1,1,0,0,1,15,123,1
+Ja'en,13303,31,FEMALE,Post-secondary: incomplete,YES,1,1,1,0,0,1,3,0,1,0,114,133,3
+Ja'en,12003,38,FEMALE,SS 3,NO,1,1,1,0,0,1,3,1,0,0,12,120,3
+Ja'en,13404,42,FEMALE,SS 3,YES,1,1,1,1,1,1,5,1,0,0,84,134,5
+Gidan Maharba,14403,63,MALE,Postgraduate,YES,1,1,1,1,1,1,5,0,1,0,15,144,5
+Gidan Maharba,13807,30,MALE,JSS 2,YES,1,1,1,1,1,1,5,0,1,0,32,138,5
+Dorayi,11501,64,MALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,184,115,3
+Dorayi,10604,46,MALE,SS 3,YES,0,0,0,0,0,1,0,0,1,0,124,106,0
+Ja'en,13006,50,MALE,Primary six,NO,1,1,1,1,0,1,4,0,1,0,15,130,4
+Dorayi,10403,33,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,16,104,3
+Ja'en,12902,25,FEMALE,No Education,YES,1,1,1,0,0,1,3,0,1,0,120,129,3
+Gidan Maharba,14008,29,FEMALE,SS 3,YES,1,1,1,1,1,1,5,1,0,0,161,140,5
+Dorayi,11701,50,MALE,No Education,YES,1,1,1,0,0,1,3,0,1,0,65,117,3
+Dorayi,11204,45,MALE,No Education,YES,1,1,1,1,0,1,4,0,0,1,21,112,4
+Dorayi,10201,39,FEMALE,SS 3,YES,0,0,0,0,0,1,0,0,1,0,8,102,0
+Dorayi,11406,35,FEMALE,Primary six,YES,1,1,1,1,0,1,4,0,1,0,18,114,4
+Ja'en,13003,40,MALE,No Education,YES,1,1,1,1,0,1,4,0,0,1,9,130,4
+Ja'en,12908,30,FEMALE,No Education,YES,1,1,1,1,1,1,5,1,0,0,116,129,5
+Ja'en,12506,43,MALE,No Education,YES,1,0,0,0,0,1,1,0,1,0,14,125,1
+Ja'en,12407,38,MALE,Post-secondary: complete,YES,1,1,1,1,0,1,4,1,0,0,10,124,4
+Dorayi,11603,43,FEMALE,SS 3,YES,0,0,0,0,0,1,0,0,1,0,78,116,0
+Gidan Maharba,14306,45,FEMALE,No Education,YES,0,0,0,0,0,1,0,1,0,0,13,143,0
+Dorayi,11505,35,FEMALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,9,115,5
+Gidan Maharba,14204,35,MALE,SS 3,YES,1,1,1,0,0,1,3,1,0,0,11,142,3
+Ja'en,12005,45,MALE,SS 3,NO,1,1,1,0,0,1,3,1,0,0,14,120,3
+Dorayi,11004,50,MALE,SS 3,YES,1,1,1,0,0,1,3,1,0,0,15,110,3
+Ja'en,12401,35,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,149,124,5
+Gidan Maharba,13908,33,MALE,No Education,NO,0,0,0,0,0,1,0,0,0,1,131,139,0
+Ja'en,13108,32,FEMALE,Primary six,YES,1,1,1,1,1,1,5,1,0,0,11,131,5
+Gidan Maharba,13802,34,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,0,0,1,48,138,5
+Dorayi,10906,37,FEMALE,JSS 3,YES,0,0,0,1,1,0,,0,1,0,33,109,2
+Dorayi,11703,56,MALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,13,117,3
+Ja'en,12505,43,MALE,SS 3,YES,1,0,0,0,0,1,1,0,1,0,14,125,1
+Ja'en,12201,28,FEMALE,SS 1,YES,1,1,1,1,0,1,4,0,0,1,12,122,4
+Ja'en,12306,32,FEMALE,SS 3,YES,1,0,0,0,0,1,1,0,0,1,11,123,1
+Dorayi,10503,38,FEMALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,39,105,5
+Dorayi,11005,40,FEMALE,No Education,NO,1,1,1,1,1,1,5,1,0,0,13,110,5
+Gidan Maharba,14401,25,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,1,0,0,19,144,5
+Gidan Maharba,14407,39,FEMALE,Postgraduate,YES,1,1,1,1,1,1,5,1,0,0,10,144,5
+Ja'en,12107,41,MALE,Postgraduate,NO,1,1,1,1,0,1,4,0,0,1,12,121,4
+Gidan Maharba,13708,30,FEMALE,SS 3,YES,0,0,0,0,0,1,0,0,0,1,62,137,0
+Dorayi,11806,23,FEMALE,No Education,NO,0,0,0,0,0,1,0,0,0,1,92,118,0
+Ja'en,13403,49,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,11,134,5
+Dorayi,11705,56,MALE,No Education,YES,1,0,0,0,0,1,1,1,0,0,10,117,1
+Ja'en,13206,31,FEMALE,Post-secondary: incomplete,YES,1,1,1,0,0,1,3,0,1,0,16,132,3
+Dorayi,11805,33,FEMALE,SS 3,YES,1,0,0,0,0,1,1,1,0,0,94,118,1
+Dorayi,10108,34,FEMALE,JSS 3,YES,1,1,0,0,0,1,2,1,0,0,10,101,2
+Gidan Maharba,14202,53,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,0,1,0,155,142,2
+Dorayi,11408,32,FEMALE,JSS 3,YES,1,1,0,0,1,0,,1,0,0,94,114,3
+Dorayi,11303,40,MALE,No Education,NO,1,1,1,1,0,1,4,1,0,0,10,113,4
+Gidan Maharba,14206,32,MALE,SS 3,YES,1,1,0,0,0,1,2,0,0,1,24,142,2
+Ja'en,12907,67,FEMALE,No Education,NO,1,1,1,0,0,1,3,0,1,0,15,129,3
+Ja'en,11901,40,MALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,0,1,0,10,119,5
+Dorayi,11307,36,MALE,SS 3,YES,1,0,0,0,0,1,1,0,1,0,120,113,1
+Dorayi,10706,34,MALE,Post-secondary: complete,YES,1,0,0,0,0,1,1,0,0,1,145,107,1
+Dorayi,10303,40,FEMALE,Pre-Primary/Kindergarten/Nursery,NO,1,1,1,1,1,1,5,0,0,1,78,103,5
+Dorayi,11507,60,MALE,SS 3,YES,0,1,0,1,1,0,,1,0,0,9,115,3
+Ja'en,12503,35,FEMALE,JSS 3,YES,1,1,1,0,0,1,3,0,1,0,18,125,3
+Dorayi,11103,45,MALE,SS 3,NO,1,1,0,0,0,1,2,0,0,1,10,111,2
+Dorayi,10603,45,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,0,1,0,45,106,5
+Ja'en,13603,37,MALE,No Education,NO,1,0,0,0,0,1,1,0,1,0,17,136,1
+Dorayi,11102,40,MALE,SS 3,NO,1,1,0,0,0,1,2,0,1,0,10,111,2
+Ja'en,13201,25,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,47,132,3
+Dorayi,10805,53,MALE,Primary: One,YES,1,1,1,1,1,1,5,0,1,0,7,108,5
+Dorayi,11503,35,MALE,No Education,YES,0,0,0,0,0,1,0,1,0,0,118,115,0
+Dorayi,10506,30,FEMALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,0,0,1,92,105,5
+Gidan Maharba,13808,39,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,1,0,0,94,138,2
+Dorayi,10202,40,MALE,SS 3,YES,0,0,0,0,0,1,0,1,0,0,6,102,0
+Ja'en,12103,37,MALE,Postgraduate,NO,1,1,1,0,0,1,3,0,1,0,11,121,3
+Gidan Maharba,13902,38,MALE,JSS 3,YES,1,1,0,0,0,1,2,1,0,0,138,139,2
+Ja'en,12808,31,FEMALE,JSS 3,NO,1,1,0,0,0,1,2,1,0,0,119,128,2
+Ja'en,12906,61,MALE,Postgraduate,YES,1,1,1,0,0,1,3,1,0,0,62,129,3
+Gidan Maharba,14004,51,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,0,1,0,183,140,5
+Ja'en,12706,50,FEMALE,No Education,YES,1,0,0,0,0,1,1,0,0,1,30,127,1
+Dorayi,10505,43,FEMALE,Primary six,YES,1,1,1,1,1,1,5,1,0,0,86,105,5
+Dorayi,10707,46,MALE,Primary six,YES,1,0,0,0,0,1,1,1,0,0,56,107,1
+Ja'en,13004,35,MALE,SS 3,YES,1,1,1,1,0,1,4,0,0,1,19,130,4
+Ja'en,12008,51,MALE,SS 3,NO,1,1,0,0,0,1,2,0,1,0,16,120,2
+Ja'en,12105,44,MALE,Postgraduate,YES,1,1,1,1,0,1,4,0,0,1,43,121,4
+Dorayi,10902,37,MALE,JSS 3,YES,0,0,1,1,1,0,,1,0,0,146,109,3
+Dorayi,10404,40,MALE,Post-secondary: incomplete,YES,1,1,1,0,0,1,3,0,0,1,14,104,3
+Ja'en,12704,45,MALE,SS 3,YES,1,0,0,0,0,1,1,1,0,0,81,127,1
+Dorayi,11008,31,FEMALE,JSS 2,YES,1,1,1,1,1,1,5,0,0,1,11,110,5
+Dorayi,10301,39,FEMALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,249,103,5
+Ja'en,12104,40,MALE,Postgraduate,YES,1,1,1,0,0,1,3,1,0,0,12,121,3
+Ja'en,12108,59,MALE,SS 3,YES,1,1,1,0,0,1,3,1,0,0,12,121,3
+Dorayi,10708,28,FEMALE,No Education,YES,1,0,0,0,0,1,1,0,1,0,47,107,1
+Ja'en,12905,38,FEMALE,No Education,YES,1,1,1,0,0,1,3,0,0,1,18,129,3
+Dorayi,11205,67,MALE,SS 3,NO,1,1,0,0,0,1,2,0,0,1,23,112,2
+Ja'en,13103,42,FEMALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,8,131,3
+Ja'en,12406,45,MALE,Postgraduate,YES,1,1,0,0,0,1,2,0,0,1,11,124,2
+Ja'en,13508,32,FEMALE,JSS 2,YES,1,1,1,0,0,1,3,0,0,1,13,135,3
+Dorayi,10608,40,MALE,SS 3,YES,1,1,1,1,1,1,5,1,0,0,27,106,5
+Ja'en,12901,27,FEMALE,No Education,YES,1,1,1,1,0,1,4,1,0,0,276,129,4
+Ja'en,13604,30,FEMALE,SS 3,YES,1,0,0,0,0,1,1,1,0,0,22,136,1
+Dorayi,11707,43,MALE,SS 3,YES,1,1,0,0,0,1,2,0,1,0,9,117,2
+Ja'en,12305,23,FEMALE,SS 3,YES,1,0,0,0,0,1,1,1,0,0,12,123,1
+Dorayi,11607,29,FEMALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,1,0,0,133,116,5
+Ja'en,13304,46,MALE,Post-secondary: complete,NO,1,1,1,0,0,1,3,0,1,0,79,133,3
+Gidan Maharba,14302,43,MALE,JSS 3,YES,1,1,0,0,0,1,2,1,0,0,17,143,2
+Gidan Maharba,14501,27,FEMALE,Primary six,YES,1,1,1,1,1,1,5,0,1,0,457,145,5
+Gidan Maharba,14508,29,FEMALE,SS 3,YES,1,1,1,1,0,1,4,0,0,1,14,145,4
+Ja'en,13005,40,MALE,SS 3,NO,1,1,1,1,0,1,4,0,0,1,16,130,4
+Dorayi,10701,30,MALE,No Education,YES,1,0,0,0,0,1,1,0,0,1,79,107,1
+Gidan Maharba,13806,35,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,19,138,5
+Gidan Maharba,13705,40,MALE,No Education,YES,1,1,1,0,0,1,3,0,0,1,183,137,3
+Ja'en,12508,40,FEMALE,Vocational complete,YES,1,1,0,0,0,1,2,0,0,1,11,125,2
+Dorayi,10903,40,FEMALE,No Education,YES,0,0,0,0,1,0,,0,1,0,23,109,1
+Ja'en,12206,65,MALE,Post-secondary: complete,YES,1,1,1,1,0,1,4,0,1,0,13,122,4
+Ja'en,12804,35,FEMALE,No Education,YES,1,1,1,1,0,1,4,0,0,1,136,128,4
+Gidan Maharba,13804,40,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,5,138,5
+Ja'en,13401,35,FEMALE,SS 3,YES,1,1,0,0,0,1,2,0,0,1,112,134,2
+Dorayi,11106,60,MALE,No Education,NO,1,1,1,0,0,1,3,1,0,0,9,111,3
+Gidan Maharba,14105,42,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,10,141,3
+Ja'en,12204,30,FEMALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,11,122,3
+Ja'en,12106,53,MALE,Postgraduate,YES,1,1,1,1,1,1,5,0,0,1,13,121,5
+Gidan Maharba,13901,40,MALE,No Education,NO,1,1,1,1,1,1,5,0,1,0,156,139,5
+Dorayi,10401,35,FEMALE,Primary three,YES,1,1,1,0,0,1,3,1,0,0,249,104,3
+Ja'en,13101,60,MALE,No Education,NO,1,1,1,1,0,1,4,1,0,0,209,131,4
+Dorayi,10504,30,FEMALE,Post-secondary: incomplete,YES,1,1,1,1,0,1,4,0,1,0,96,105,4
+Ja'en,12101,39,MALE,Postgraduate,YES,1,1,1,0,0,1,3,0,1,0,12,121,3
+Dorayi,10306,28,FEMALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,64,103,5
+Ja'en,12207,30,FEMALE,SS 3,YES,1,1,1,1,0,1,4,0,0,1,9,122,4
+Ja'en,12303,40,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,0,0,1,20,123,2
+Gidan Maharba,14107,65,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,8,141,3
+Ja'en,12507,35,FEMALE,SS 3,YES,1,1,0,0,0,1,2,0,1,0,10,125,2
+Dorayi,11108,60,MALE,No Education,NO,1,1,1,0,0,1,3,0,0,1,14,111,3
+Ja'en,11902,30,FEMALE,No Education,NO,1,1,0,0,0,1,2,1,0,0,8,119,2
+Dorayi,10607,37,MALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,0,1,0,62,106,5
+Ja'en,12705,32,FEMALE,SS 3,YES,1,1,0,0,0,1,2,0,1,0,13,127,2
+Dorayi,10106,25,FEMALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,0,0,1,11,101,2
+Ja'en,13505,40,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,9,135,3
+Dorayi,11003,40,FEMALE,Primary five,NO,1,1,1,1,0,1,4,1,0,0,13,110,4
+Ja'en,13107,40,MALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,19,131,3
+Ja'en,13608,50,MALE,SS 3,YES,0,0,0,0,0,1,0,1,0,0,11,136,0
+Gidan Maharba,13803,50,MALE,Postgraduate,YES,0,0,0,0,0,1,0,0,0,1,17,138,0
+Gidan Maharba,14402,35,MALE,Postgraduate,YES,1,1,1,1,1,1,5,0,0,1,99,144,5
+Ja'en,12603,53,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,0,1,0,12,126,3
+Ja'en,12807,25,FEMALE,Post-secondary: incomplete,YES,1,1,0,0,0,1,2,1,0,0,118,128,2
+Gidan Maharba,14104,40,MALE,SS 3,NO,1,1,1,1,0,1,4,1,0,0,9,141,4
+Dorayi,10702,51,MALE,Primary six,YES,1,0,0,0,0,1,1,0,0,1,32,107,1
+Dorayi,10101,43,FEMALE,Primary six,NO,1,1,1,0,0,1,3,0,1,0,12,101,3
+Ja'en,12803,35,FEMALE,No Education,NO,1,1,1,1,0,1,4,1,0,0,112,128,4
+Ja'en,13406,32,FEMALE,SS 3,YES,1,1,0,0,0,1,2,1,0,0,24,134,2
+Dorayi,10804,36,MALE,Primary: One,YES,1,1,1,1,1,1,5,1,0,0,13,108,5
+Dorayi,10806,50,MALE,Primary four,YES,1,1,1,1,1,1,5,1,0,0,13,108,5
+Dorayi,10801,58,MALE,JSS 1,YES,1,1,1,0,0,1,3,0,1,0,21,108,3
+Dorayi,11306,40,MALE,Primary six,YES,1,1,1,0,0,1,3,0,1,0,79,113,3
+Gidan Maharba,14408,30,FEMALE,JSS 3,YES,1,1,1,1,1,1,5,0,1,0,10,144,5
+Ja'en,12805,40,FEMALE,JSS 3,NO,1,1,1,1,0,1,4,0,0,1,14,128,4
+Dorayi,10507,35,FEMALE,No Education,YES,1,1,1,1,1,1,5,1,0,0,65,105,5
+Gidan Maharba,13907,35,MALE,SS 3,YES,0,0,0,0,0,1,0,1,0,0,39,139,0
+Gidan Maharba,13703,40,MALE,SS 3,YES,1,1,1,1,0,1,4,1,0,0,154,137,4
+Dorayi,10107,65,MALE,No Education,NO,1,1,0,0,0,1,2,1,0,0,10,101,2
+Dorayi,10606,43,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,62,106,5
+Ja'en,13606,50,FEMALE,No Education,NO,1,1,0,0,0,1,2,0,1,0,12,136,2
+Ja'en,13205,25,FEMALE,SS 3,YES,1,1,1,0,0,1,3,1,0,0,11,132,3
+Dorayi,10508,40,FEMALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,14,105,5
+Ja'en,13501,63,MALE,Postgraduate,YES,1,1,1,1,0,1,4,1,0,0,291,135,4
+Dorayi,10407,56,MALE,No Education,YES,1,1,1,0,0,1,3,0,0,1,12,104,3
+Gidan Maharba,14503,34,FEMALE,Primary six,YES,1,1,1,1,0,1,4,0,1,0,248,145,4
+Gidan Maharba,14502,70,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,296,145,3
+Dorayi,11305,51,MALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,10,113,3
+Dorayi,10704,47,MALE,Primary six,YES,1,0,0,0,0,1,1,0,1,0,64,107,1
+Dorayi,11606,37,FEMALE,Primary six,YES,0,0,0,0,0,1,0,0,1,0,60,116,0
+Ja'en,12708,35,FEMALE,Primary six,YES,1,1,0,0,0,1,2,0,0,1,28,127,2
+Dorayi,11107,50,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,12,111,3
+Gidan Maharba,14203,40,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,0,1,0,30,142,2
+Ja'en,13503,45,FEMALE,SS 3,NO,1,1,1,1,0,1,4,0,1,0,207,135,4
+Ja'en,13507,50,FEMALE,No Education,YES,1,1,1,1,0,1,4,0,1,0,11,135,4
+Dorayi,10105,32,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,9,101,3
+Gidan Maharba,14102,43,MALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,11,141,3
+Ja'en,13008,45,FEMALE,SS 3,NO,1,1,1,1,0,1,4,1,0,0,13,130,4
+Ja'en,12903,39,MALE,No Education,YES,1,1,1,0,0,1,3,0,1,0,11,129,3
+Ja'en,13607,35,FEMALE,Primary six,YES,0,0,0,0,0,1,0,0,1,0,10,136,0
+Ja'en,12102,52,MALE,Postgraduate,NO,1,1,1,1,0,1,4,1,0,0,22,121,4
+Dorayi,10206,25,FEMALE,No Education,YES,1,1,1,1,1,1,5,1,0,0,14,102,5
+Dorayi,11605,37,FEMALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,97,116,5
+Ja'en,12202,35,MALE,Primary four,YES,1,1,1,1,0,1,4,0,0,1,43,122,4
+Dorayi,11002,30,FEMALE,No Education,YES,1,1,1,1,1,1,5,0,1,0,34,110,5
+Gidan Maharba,13704,35,MALE,Post-secondary: complete,YES,0,0,0,0,0,1,0,0,1,0,76,137,0
+Dorayi,11502,45,MALE,JSS 1,YES,0,0,1,0,1,0,,0,0,1,177,115,2
+Dorayi,11808,30,FEMALE,No Education,YES,1,0,0,0,0,1,1,0,0,1,87,118,1
+Ja'en,13307,27,FEMALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,0,0,1,95,133,3
+Ja'en,12806,40,FEMALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,0,1,0,23,128,3
+Ja'en,12301,30,FEMALE,SS 3,YES,1,0,0,0,0,1,1,0,1,0,11,123,1
+Dorayi,10904,30,FEMALE,SS 3,YES,0,0,0,0,1,0,,0,0,1,21,109,1
+Dorayi,11704,46,MALE,SS 3,YES,1,1,0,0,0,1,2,1,0,0,11,117,2
+Dorayi,11207,60,MALE,Post-secondary: complete,YES,1,1,1,1,0,1,4,0,1,0,17,112,4
+Gidan Maharba,14201,40,MALE,Post-secondary: complete,NO,1,1,0,0,0,1,2,0,1,0,153,142,2
+Ja'en,12007,47,MALE,Primary six,NO,1,1,0,0,0,1,2,0,1,0,11,120,2
+Gidan Maharba,14406,30,MALE,No Education,YES,1,1,1,1,1,1,5,0,1,0,17,144,5
+Ja'en,12607,50,MALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,7,126,5
+Gidan Maharba,13906,46,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,1,0,0,53,139,5
+Ja'en,12004,48,FEMALE,No Education,NO,1,1,0,0,0,1,2,1,0,0,23,120,2
+Ja'en,12502,40,MALE,Post-secondary: incomplete,YES,1,1,0,0,0,1,2,0,1,0,14,125,2
+Ja'en,12208,40,MALE,Primary six,YES,1,1,1,1,0,1,4,0,1,0,9,122,4
+Dorayi,11105,54,MALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,18,111,3
+Ja'en,13007,50,MALE,No Education,NO,1,1,1,1,0,1,4,0,0,1,10,130,4
+Ja'en,12404,50,FEMALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,12,124,5
+Ja'en,13502,58,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,15,135,3
+Gidan Maharba,14307,50,MALE,Post-secondary: complete,YES,0,0,0,0,0,1,0,0,1,0,18,143,0
+Ja'en,12702,33,FEMALE,SS 3,NO,1,0,0,0,0,1,1,1,0,0,72,127,1
+Dorayi,11104,47,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,1,0,0,12,111,2
+Dorayi,11804,40,FEMALE,No Education,NO,1,1,0,0,0,1,2,0,0,1,97,118,2
+Dorayi,11403,38,FEMALE,JSS 3,YES,1,1,1,1,0,1,4,0,1,0,38,114,4
+Ja'en,13106,50,MALE,No Education,YES,1,1,1,1,0,1,4,0,0,1,9,131,4
+Ja'en,13405,45,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,0,0,1,21,134,2
+Dorayi,11308,45,MALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,12,113,3
+Gidan Maharba,13707,40,FEMALE,No Education,YES,0,0,0,0,0,1,0,0,0,1,94,137,0
+Ja'en,12304,39,MALE,SS 3,YES,1,0,0,0,0,1,1,1,0,0,15,123,1
+Dorayi,10405,45,MALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,10,104,3
+Ja'en,11905,45,MALE,No Education,YES,1,1,1,1,1,1,5,0,1,0,175,119,5
+Ja'en,11908,45,MALE,No Education,NO,1,1,1,1,1,1,5,0,1,0,11,119,5
+Ja'en,12205,70,MALE,Primary six,YES,1,1,1,1,0,1,4,0,0,1,9,122,4
+Ja'en,12605,40,MALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,98,126,5
+Ja'en,13504,32,FEMALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,0,1,0,12,135,2
+Gidan Maharba,13706,30,FEMALE,SS 3,NO,1,0,0,0,0,1,1,0,1,0,150,137,1
+Dorayi,10705,42,MALE,Post-secondary: complete,YES,1,0,0,0,0,1,1,1,0,0,57,107,1
+Dorayi,10102,29,MALE,Post-secondary: complete,YES,1,0,0,0,0,1,1,0,0,1,222,101,1
+Ja'en,12006,58,MALE,No Education,NO,1,1,1,0,0,1,3,0,0,1,7,120,3
+Ja'en,12504,42,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,13,125,3
+Dorayi,10908,45,MALE,SS 3,YES,0,0,0,1,1,0,,0,1,0,18,109,2
+Ja'en,13408,30,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,14,134,3
+Ja'en,12408,50,FEMALE,No Education,YES,1,1,1,1,0,1,4,1,0,0,9,124,4
+Dorayi,10402,30,FEMALE,Primary four,YES,1,1,1,1,0,1,4,0,1,0,120,104,4
+Dorayi,11407,42,FEMALE,SS 3,YES,1,1,1,1,0,1,4,1,0,0,49,114,4
+Gidan Maharba,14301,37,MALE,SS 3,YES,1,0,0,0,0,1,1,0,1,0,168,143,1
+Ja'en,12604,24,FEMALE,SS 3,YES,1,1,1,1,1,1,5,1,0,0,66,126,5
+Ja'en,12602,45,FEMALE,SS 3,YES,1,1,1,1,1,1,5,1,0,0,20,126,5
+Gidan Maharba,14303,38,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,0,0,1,14,143,5
+Dorayi,11706,45,MALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,10,117,5
+Dorayi,11007,45,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,10,110,5
+Dorayi,11402,41,MALE,Primary six,YES,1,1,1,0,0,1,3,0,0,1,39,114,3
+Dorayi,11203,60,FEMALE,No Education,YES,1,1,1,1,0,1,4,0,1,0,52,112,4
+Ja'en,12002,36,FEMALE,JSS 3,NO,1,1,0,0,0,1,2,1,0,0,27,120,2
+Ja'en,12606,54,MALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,0,1,0,38,126,5
+Gidan Maharba,14405,28,MALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,0,1,0,12,144,5
+Ja'en,13601,56,MALE,Post-secondary: complete,YES,1,1,0,0,0,1,2,1,0,0,115,136,2
+Ja'en,11906,30,FEMALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,10,119,5
+Ja'en,11904,55,MALE,SS 3,YES,0,0,0,0,0,1,0,0,0,1,10,119,0
+Dorayi,11504,55,MALE,No Education,YES,1,1,0,0,1,0,,0,1,0,12,115,3
+Dorayi,10502,28,FEMALE,No Education,YES,1,1,1,1,0,1,4,0,0,1,63,105,4
+Gidan Maharba,14504,27,FEMALE,SS 3,YES,1,1,0,0,0,1,2,0,0,1,165,145,2
+Dorayi,10307,32,FEMALE,Primary: Two,YES,1,1,1,1,1,1,5,0,1,0,63,103,5
+Ja'en,13602,25,FEMALE,SS 3,YES,1,0,0,0,0,1,1,1,0,0,16,136,1
+Ja'en,12402,76,MALE,Post-secondary: complete,NO,1,1,1,1,0,1,4,0,0,1,11,124,4
+Gidan Maharba,13805,43,MALE,SS 2,YES,1,1,1,1,1,1,5,1,0,0,45,138,5
+Dorayi,10605,55,MALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,19,106,5
+Ja'en,13308,75,FEMALE,No Education,NO,1,1,1,1,0,1,4,0,1,0,18,133,4
+Ja'en,13001,60,MALE,SS 3,YES,1,1,1,1,0,1,4,0,0,1,27,130,4
+Dorayi,10408,40,MALE,JSS 1,NO,1,1,1,0,0,1,3,0,0,1,9,104,3
+Dorayi,11506,68,MALE,No Education,YES,1,1,0,0,1,0,,0,1,0,12,115,3
+Ja'en,13506,34,FEMALE,Primary six,YES,1,1,1,0,0,1,3,0,1,0,8,135,3
+Ja'en,13605,40,MALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,26,136,3
+Dorayi,10308,40,MALE,Primary: Two,YES,1,1,1,1,1,1,5,0,0,1,43,103,5
+Ja'en,12403,67,MALE,Postgraduate,YES,1,1,1,1,0,1,4,1,0,0,16,124,4
+Gidan Maharba,13701,34,MALE,No Education,YES,0,0,0,0,0,1,0,1,0,0,97,137,0
+Gidan Maharba,14305,58,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,1,0,0,94,143,5
+Ja'en,12302,32,FEMALE,Post-secondary: complete,YES,1,0,0,0,0,1,1,0,1,0,11,123,1
+Ja'en,12701,35,FEMALE,SS 3,NO,1,0,0,0,0,1,1,1,0,0,77,127,1
+Gidan Maharba,13903,47,MALE,Post-secondary: incomplete,YES,1,1,1,1,1,1,5,1,0,0,114,139,5
+Dorayi,11206,34,FEMALE,Primary three,YES,1,1,1,1,0,1,4,1,0,0,19,112,4
+Gidan Maharba,14207,33,MALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,9,142,3
+Ja'en,13202,50,MALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,13,132,3
+Gidan Maharba,14101,33,MALE,Postgraduate,YES,1,1,1,1,0,1,4,1,0,0,156,141,4
+Ja'en,13204,45,MALE,SS 3,YES,1,1,1,0,0,1,3,1,0,0,10,132,3
+Ja'en,13203,32,MALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,8,132,3
+Ja'en,12904,47,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,0,0,1,138,129,5
+Dorayi,11602,35,MALE,Postgraduate,YES,1,1,0,0,0,1,2,0,0,1,155,116,2
+Ja'en,12801,45,MALE,Post-secondary: complete,NO,1,1,1,0,0,1,3,0,1,0,57,128,3
+Dorayi,10501,50,MALE,No Education,NO,1,1,1,1,1,1,5,0,1,0,146,105,5
+Dorayi,10601,39,MALE,SS 3,YES,0,0,0,0,0,1,0,0,1,0,240,106,0
+Dorayi,11302,60,MALE,Post-secondary: complete,NO,1,1,1,0,0,1,3,0,0,1,190,113,3
+Gidan Maharba,14003,41,FEMALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,299,140,5
+Dorayi,11708,31,FEMALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,0,1,0,10,117,3
+Dorayi,11404,35,MALE,SS 3,YES,1,1,1,0,0,1,3,0,0,1,65,114,3
+Ja'en,13207,32,FEMALE,Primary six,YES,1,1,1,0,0,1,3,1,0,0,27,132,3
+Ja'en,13104,50,MALE,No Education,NO,1,1,0,0,0,1,2,1,0,0,25,131,2
+Dorayi,10302,29,MALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,179,103,5
+Gidan Maharba,14007,30,FEMALE,JSS 3,YES,1,1,1,1,1,1,5,0,0,1,183,140,5
+Gidan Maharba,14505,30,FEMALE,Primary six,YES,1,1,1,0,0,1,3,0,1,0,179,145,3
+Ja'en,12203,41,MALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,9,122,3
+Gidan Maharba,14304,55,MALE,No Education,YES,1,1,0,0,0,1,2,0,1,0,37,143,2
+Dorayi,10807,65,MALE,Primary four,YES,0,0,0,0,0,1,0,0,1,0,10,108,0
+Ja'en,13301,26,FEMALE,Primary three,YES,1,0,0,0,0,1,1,0,0,1,114,133,1
+Ja'en,12001,41,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,11,120,3
+Dorayi,11208,55,MALE,SS 3,NO,1,1,1,1,0,1,4,0,0,1,29,112,4
+Dorayi,11006,32,FEMALE,No Education,NO,1,1,0,0,0,1,2,0,0,1,13,110,2
+Dorayi,11801,30,FEMALE,Primary six,NO,1,1,0,0,0,1,2,0,0,1,127,118,2
+Dorayi,10907,31,FEMALE,SS 1,YES,0,0,0,1,1,0,,0,1,0,18,109,2
+Gidan Maharba,14205,43,MALE,Post-secondary: complete,YES,1,1,1,1,0,1,4,1,0,0,12,142,4
+Ja'en,13208,35,FEMALE,SS 3,YES,1,1,1,0,0,1,3,0,1,0,14,132,3
+Ja'en,12405,40,FEMALE,SS 3,YES,1,1,1,1,0,1,4,1,0,0,10,124,4
+Gidan Maharba,14103,40,MALE,SS 3,YES,1,1,1,0,0,1,3,1,0,0,13,141,3
+Dorayi,10208,45,MALE,No Education,YES,1,1,1,1,1,1,5,1,0,0,9,102,5
+Dorayi,10808,49,MALE,Primary: Two,YES,1,1,1,1,1,1,5,1,0,0,9,108,5
+Gidan Maharba,14507,33,FEMALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,1,0,0,140,145,3
+Dorayi,11101,50,MALE,SS 3,YES,1,1,0,0,0,1,2,0,1,0,14,111,2
+Ja'en,12703,33,FEMALE,JSS 3,YES,1,0,0,0,0,1,1,0,1,0,48,127,1
+Gidan Maharba,14002,45,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,328,140,5
+Ja'en,12608,40,FEMALE,Primary six,YES,1,1,1,1,1,1,5,0,1,0,21,126,5
+Ja'en,13105,50,MALE,Primary six,NO,1,1,1,0,0,1,3,0,1,0,16,131,3
+Dorayi,11202,70,FEMALE,No Education,NO,1,1,1,1,0,1,4,0,1,0,25,112,4
+Dorayi,11001,40,FEMALE,No Education,YES,1,1,0,0,0,1,2,0,0,1,25,110,2
+Dorayi,10901,50,MALE,No Education,NO,0,0,0,0,0,1,0,0,0,1,23,109,0
+Gidan Maharba,14005,38,MALE,Post-secondary: complete,YES,1,1,1,1,1,1,5,0,0,1,134,140,5
+Dorayi,10406,42,FEMALE,JSS 3,YES,1,1,1,0,0,1,3,0,1,0,12,104,3
+Dorayi,10703,47,MALE,Post-secondary: complete,YES,1,1,1,0,0,1,3,0,1,0,122,107,3
+Gidan Maharba,14106,38,MALE,Primary six,YES,1,1,1,0,0,1,3,1,0,0,12,141,3
+Gidan Maharba,13904,38,MALE,SS 3,NO,0,0,0,0,0,1,0,0,0,1,68,139,0
+Ja'en,13305,25,FEMALE,SS 3,YES,1,0,0,0,0,1,1,0,0,1,60,133,1
+Ja'en,12707,28,FEMALE,SS 3,YES,1,1,0,0,0,1,2,0,1,0,13,127,2
+Dorayi,10205,35,MALE,SS 3,YES,1,1,1,1,1,1,5,0,0,1,16,102,5
+Dorayi,11201,60,MALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,19,112,3
+Dorayi,11608,35,FEMALE,JSS 3,YES,1,1,1,0,0,1,3,0,1,0,118,116,3
+Dorayi,11304,60,MALE,No Education,NO,0,0,0,0,0,1,0,1,0,0,145,113,0
+Gidan Maharba,14208,46,MALE,SS 3,YES,1,1,0,0,0,1,2,0,0,1,12,142,2
+Dorayi,11604,38,FEMALE,Primary six,YES,1,1,0,0,0,1,2,0,0,1,146,116,2
+Gidan Maharba,13702,40,MALE,SS 3,YES,0,0,0,0,0,1,0,0,1,0,74,137,0
+Ja'en,13407,45,FEMALE,No Education,YES,1,1,1,0,0,1,3,1,0,0,10,134,3
+Ja'en,11907,45,FEMALE,No Education,YES,1,1,1,1,1,1,5,1,0,0,35,119,5
+Ja'en,13102,30,MALE,No Education,NO,1,1,1,0,0,1,3,1,0,0,25,131,3
+Dorayi,11301,55,MALE,No Education,YES,1,1,1,0,0,1,3,0,1,0,1,113,3
+Dorayi,10304,52,MALE,Primary three,YES,1,1,1,1,1,1,5,1,0,0,86,103,5
+Gidan Maharba,14108,45,MALE,SS 3,NO,1,1,1,0,0,1,3,0,1,0,9,141,3
+Ja'en,12501,50,MALE,Postgraduate,YES,0,0,0,0,0,1,0,0,1,0,17,125,0
+Dorayi,10207,45,MALE,No Education,YES,1,1,1,1,1,1,5,0,0,1,17,102,5
+Dorayi,10204,23,FEMALE,SS 3,YES,1,1,1,1,1,1,5,1,0,0,11,102,5
+Dorayi,10602,57,MALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,213,106,5
+Gidan Maharba,14001,46,MALE,SS 3,YES,1,1,1,1,1,1,5,0,1,0,477,140,5
+Dorayi,10802,43,MALE,Primary: One,YES,1,1,1,1,0,1,4,1,0,0,15,108,4
+Ja'en,12802,45,MALE,No Education,NO,1,1,1,1,0,1,4,0,0,1,14,128,4
+Dorayi,10905,34,FEMALE,JSS 3,YES,0,0,0,1,1,0,,0,1,0,24,109,2
+Dorayi,11807,35,FEMALE,No Education,NO,0,0,0,0,0,1,0,1,0,0,357,118,0
+Ja'en,12308,34,MALE,Post-secondary: complete,YES,1,0,0,0,0,1,1,0,0,1,16,123,1
+Ja'en,11903,50,MALE,SS 3,YES,1,1,0,0,0,1,2,1,0,0,8,119,2
+Gidan Maharba,14308,52,MALE,SS 3,YES,1,0,0,0,0,1,1,0,1,0,19,143,1
+Dorayi,11803,40,FEMALE,Primary: Two,YES,1,1,1,0,0,1,3,0,1,0,84,118,3
+Dorayi,11508,44,MALE,No Education,YES,0,0,0,0,0,1,0,1,0,0,18,115,0
+Ja'en,13306,30,FEMALE,No Education,YES,1,1,1,1,0,1,4,0,0,1,127,133,4
+Gidan Maharba,14006,30,FEMALE,JSS 2,YES,1,1,1,1,1,1,5,0,0,1,184,140,5
+Gidan Maharba,14506,40,MALE,SS 3,YES,1,1,0,0,0,1,2,0,1,0,136,145,2
+Gidan Maharba,13905,42,MALE,SS 3,NO,0,0,0,0,0,1,0,0,1,0,43,139,0
