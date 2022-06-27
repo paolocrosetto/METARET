@@ -1,0 +1,11 @@
+gen lnallcases=log(allcases)
+gen lnalldeaths=log(alldeaths)
+
+gen datecases2=mdy(1,30,2019) in 1
+replace datecases2=datecases2[_n-1]+1.3 if allcases!=. & _n>1
+format datecases2 %d
+twoway histogram date if nchoice==1 & date<mdy(5,30,2019), ytitle(Frequency of responses) color("28 144 153%60") lcolor("28 144 153%90") barw(0.7) discrete freq tlabel(29jan2019 15feb2019 01mar2019 15mar2019 01apr2019 15apr2019 01may2019 15may2019 29may2019, format(%tdmd) angle(70)) xtitle(Responses by date) ylabel(0(5)34) || scatter lnallcases datecases2 if date<mdy(5,30,2019), recast(line) lcolor(white%0) yaxis(2) ytitle(" ", axis(2)) ylabel(8.006 "3000" 6.9 "1000" 6.2146 "500" 5.164786 "175" 4.6051 "100" 3.912 "50" 2.302 "10", axis(2) nogextend) legend(rows(1) position(6) order(1 "Subject participation")) ytitle("Cases/deaths", axis(2)) name(wave19, replace) // title(2019 wave, position(12) margin(b=8))
+*graph export "../paper/images/2019wave.png", as(png) width(6000) replace
+
+twoway histogram date if nchoice==1 & date>=mdy(1,29,2020), ytitle(Frequency of responses) color("28 144 153%60") lcolor("28 144 153%90") barw(0.7) discrete freq tlabel(29jan2020 15feb2020 01mar2020 15mar2020 01apr2020 15apr2020 01may2020 15may2020 28may2020, format(%tdmd) angle(70)) tmlabel(26feb2020 12mar2020 23mar2020 27apr2020 4may2020, format(%tdmd) angle(70) labcolor(red)) tline(26feb2020 12mar2020 23mar2020 27apr2020 4may2020, lcolor(red) ) xtitle(Responses by date) ylabel(0(5)34) || scatter lnallcases datecases, recast(line) yaxis(2) lcolor("218 165 32%80") lwidth(thick) || scatter lnalldeaths datecases, recast(line) yaxis(2) lcolor("170 56 30%80") lwidth(thick) ylabel(8.006 "3000" 6.9 "1000" 6.2146 "500" 5.164786 "175" 4.6051 "100" 3.912 "50" 2.302 "10", axis(2) nogextend) legend(rows(1) position(6) order(1 "Subject participation" 2 "Cases" 3 "Deaths")) ytitle("Cases/deaths", axis(2)) ttext(36 26feb2020 "1st case" 36 11mar2020 "1st death" 36 24mar2020 "Curfew" "enactment" 36 26apr2020 "Curfew  " "relaxation   " "anounced  " 36 05may2020 "  Curfew " "   relaxation" "  starts", placement(12) size(vsmall))  name(wave20, replace) title(" ", position(12) ) 
+*graph export "../paper/images/2020waves.png", as(png) width(6000) replace

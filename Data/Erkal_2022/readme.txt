@@ -1,0 +1,3 @@
+Erkal, Gangadharan, and Koh (2022, Exp Econ): The original supplementary file is too big to send via email, so I am only attaching the .zip file with the datasets only. You can access the full set of files here: https://github.com/boonhankoh/EGK-effort_luck.git. There are 2 experiments in that paper. In both experiments, we ran a Gneezy and Potters investment task as an additional task in the survey. The parameters are exactly the same as the EER paper (#1). The relevant variables are: RGInvest (for Exp 1 data) and risk_invest (for Exp 2 data). Attachments: 1 x PDF paper; 1 x supplementary.zip.
+
+ 
