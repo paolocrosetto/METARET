@@ -1,0 +1,48 @@
+="Summary statistics (DIST), mechB , Part 1, p != 0.5"
+
+
+="Distance of reported belief from 0.5",="0.24"
+="",="(0.01)"
+
+="Observations",="240"
+
+="Summary statistics (NAD), mechB , Part 1, p != 0.5"
+
+
+="Negative absolute difference between belief and prior",="-0.10"
+="",="(0.01)"
+
+="Observations",="240"
+
+="Summary statistics (DIST), mechQ , Part 1, p != 0.5"
+
+
+="Distance of reported belief from 0.5",="0.22"
+="",="(0.01)"
+
+="Observations",="240"
+
+="Summary statistics (NAD), mechQ , Part 1, p != 0.5"
+
+
+="Negative absolute difference between belief and prior",="-0.13"
+="",="(0.01)"
+
+="Observations",="240"
+
+="Summary statistics (DIST), mechB , Part 1, p = 0.5"
+
+
+="Distance of reported belief from 0.5",="0.04"
+="",="(0.01)"
+
+="Observations",="60"
+
+="Summary statistics (DIST), mechQ , Part 1, p = 0.5"
+
+
+="Distance of reported belief from 0.5",="0.02"
+="",="(0.01)"
+
+="Observations",="60"
+

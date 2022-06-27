@@ -1,0 +1,234 @@
+ 
+
+L'allegato Proposition Lettre à Me Steinmann 150622_PC.odt è stato aggiunto.Conversazione aperta. 3 messaggi. 1 messaggio non letto.
+
+Vai ai contenuti
+Utilizzo di Gmail con gli screen reader
+2 di 62
+Dataset meta-analysis risk preferences
+Posta in arrivo
+
+Jens Rommel <jens.rommel@slu.se>
+Allegati
+13 giu 2022, 22:03 (2 giorni fa)
+a me
+
+Dear Paolo,
+
+
+I have just read your call for risk preferences data sharing on the ESA list. I have recently shared some data with psychologists at Uppsala University (see attachment and some communication below). It's rather messy unfortunately, but I would put in some additional documentation effort if this is something that could be useful for your database. 
+
+
+These are data used for: 
+
+
+Rommel, J., Hermann, D., Müller, M., & Mußhoff, O. (2017). Comprehension in risk elicitation experiments. Applied Economics Letters, 24(9), 627-634.
+
+
+Rommel, J., Hermann, D., Müller, M., & Mußhoff, O. (2019). Contextual framing and monetary incentives in field experiments on risk preferences: evidence from German farmers. Journal of Agricultural Economics, 70(2), 408-425.
+
+
+
+Just let me know whether the data are generally interesting. Then, I can look into better documentation maybe (ideally with some involvement of the research assistant you mention.
+
+
+
+Kind regards,
+
+Jens
+
+
+From: Jens Rommel
+Sent: Monday, February 14, 2022 10:55 AM
+To: Philip Millroth
+Subject: Re: Inquiry about dataset for meta-analysis
+ 
+Hi,
+
+I now realize how much I have learned in terms of data documentation over the past years. This is pretty wild in terms of transparency and documentation. I am reconstructing this now from old Dropbox folders, and begin to realize how quick data gets lost and how intransparent this is.
+
+
+Sorry for the chaos. Anyway, I'll try:
+
+- I am attaching a code file (Variablenbez.) which should help you to interpret the variables. 
+
+- dsp_1 to dsp_4 are the numeracy questions. We have used these to calculate a numeracy score (can't find the exact calculations, but it looks like a simple sum/points for each correct answer to any of the four questions). 
+
+
+These scores are part of the other dataset I am attaching: "Datensatz_final_June 2016" (I have removed emails from this file, else it's the same). The variable is called NUM_SKILLS. I am assuming it's just a sum of scores per question. In the code it looks like we have scaled it to a max of 100 --> replace num_skills = num_skills/10.79 
+
+- f2 is year of birth, f1 is gender --> 2 = female
+- f8 is education --> Bildungsabschluß (degree): 0= keinen (none); 1=Haupt (German "Hauptschule", typically 9 years);2= Real (German "Realschule", typically 10years); 3= Abi (German "Gymnasium", typically 13 years at the time, but sometimes 12); 4=Berufsausb (German vocational training); 5= Meister (Germany professional training); 6 Studium (university studies); 7= Promotion (PhD); 8= sonstiges (other)
+
+
+
+- The HLLs are the Holt and Laury lotteries; the Ls are something different. The data were collected by the Göttingen co-authors, and it's a bit of a black box for me as well. You could reach out to Daniel Hermann for details if you need more info on this (https://www.uni-goettingen.de/de/354243.html). 
+
+
+
+- I DO remember that Daniel collected data for another project as part of the same survey. And I am almost certain that it's the data for this paper: https://www.tandfonline.com/doi/full/10.1080/13504851.2015.1128072 It's also 146 observations. So, in short, with 99% certainty the HLLs are the risk attitudes, the Ls are time preferences (not used by us, but used by Daniel for his other paper). 
+
+
+Full article: Anchoring effects in experimental discount rate elicitation
+www.tandfonline.com
+Discount rates are often elicited using incentivized or hypothetical multiple price lists. We conduct two multiple price lists according to Coller and Williams (Experimental Economics 2: 107–127, 1...
+
+
+
+Again, sorry for this. Although I feel slightly ashamed by this, I also realize that I have improved a lot with respect to data and code documentation over the past years. And this would not happen again with projects I am leading now. At least there is some hope.
+
+
+
+Best wishes,
+
+Jens
+
+From: Philip Millroth <philip.millroth@psyk.uu.se>
+Sent: Monday, February 14, 2022 10:02 AM
+To: Jens Rommel
+Subject: SV: Inquiry about dataset for meta-analysis
+ 
+Hi Jens, 
+
+I understand Mattias reached out and booked you for our seminar series, looking forward to that! 
+
+However, my reason for reaching out now is related to the numeracy meta-analysis; I need some help understanding the datafile you sent:
+
+
+More specifically:
+
+I thought the design was a 2x2 between-subjects design, but it seems all participants have responses for four different holt-and laury variants (HLL1, HLL2, L1, L2), could you help me understand that? 
+
+Which columns are Age, Gender, Numeracy, Education? 
+
+Best,
+
+Philip
+
+________________________________________________
+Dr. Philip Millroth
+
+Researcher
+
+Department of Psychology
+
+Uppsala University, Sweden
+
+https://www.researchgate.net/profile/Philip_Millroth
+
+
+Research group and affiliations:
+
+www.psyk.uu.se/emil
+
+1644234407440
+www.ki.se/cns
+
+Från: Jens Rommel <jens.rommel@slu.se>
+Skickat: den 6 oktober 2021 15:42:44
+Till: Philip Millroth
+Ämne: Re: Inquiry about dataset for meta-analysis
+ 
+Hi,
+
+I am attaching the original Excel file and screenshots of the survey instrument (in German). It's most likely not fully self-explanatory, but I am happy to help with the interpretation if needed. It feels like you have some German-speakers in your team, but let me know if anything is unclear or needs more context.
+
+Best wishes,
+
+Jens  
+
+From: Philip Millroth <philip.millroth@psyk.uu.se>
+Sent: Wednesday, October 6, 2021 2:12 PM
+To: Jens Rommel
+Subject: Inquiry about dataset for meta-analysis
+ 
+Dear Dr. Rommel,
+
+ 
+
+My colleagues (Dr. Thorsten Pachur and Dr. Veronika Zilker) and I are currently working on a meta-analysis examining how numeracy shapes decision-making under risk, specifically assessing how the parameters in Cumulative Prospect Theory are affected by levels of numeracy (the pre-registration protocol is available here: https://osf.io/kpj3y/). You stand cited as an author on one or more of the articles deemed relevant (the list of relevant studies is available here: https://osf.io/93z5r/), more specifically:
+
+ 
+
+
+Rommel, J., Hermann, D., Müller, M., & Mußhoff, O. (2017). Comprehension in risk elicitation experiments. Applied Economics Letters, 24(9), 627-634.
+ 
+
+We are now at the stage of the project where we reach out for the raw data for relevant studies, the above-mentioned included. Thus, we would greatly appreciate it if you could make the data for the above-mentioned study available to us (either by e-mail or uploading to OSF or similar). In the next stage, we will conduct computational modeling on the collected datasets.
+
+ 
+
+We understand that you may lack time, funding, or organizational resources to support essential data sharing tasks (e.g. transferring data to an electronic format, drafting data sharing agreement), but we ask you to please let us know if there is anything we can do from our end to facilitate the process. 
+
+Thank you in advance,
+
+ 
+
+/Philip 
+
+
+
+________________________________________________
+Dr. Philip Millroth
+
+Researcher
+
+Department of Psychology
+
+Uppsala University, Sweden
+
+https://www.researchgate.net/profile/Philip_Millroth
+
+
+
+
+
+
+
+
+När du har kontakt med oss på Uppsala universitet med e-post så innebär det att vi behandlar dina personuppgifter. För att läsa mer om hur vi gör det kan du läsa här: http://www.uu.se/om-uu/dataskydd-personuppgifter/
+
+E-mailing Uppsala University means that we will process your personal data. For more information on how this is performed, please read here: http://www.uu.se/en/about-uu/data-protection-policy
+---
+När du skickar e-post till SLU så innebär detta att SLU behandlar dina personuppgifter. För att läsa mer om hur detta går till, klicka här
+E-mailing SLU will result in SLU processing your personal data. For more information on how this is done, click here
+
+---
+När du skickar e-post till SLU så innebär detta att SLU behandlar dina personuppgifter. För att läsa mer om hur detta går till, klicka här
+E-mailing SLU will result in SLU processing your personal data. For more information on how this is done, click here
+
+...
+
+[Messaggio troncato]  Visualizza intero messaggio
+3 allegati
+
+Paolo Crosetto
+12:07 (2 ore fa)
+Lieber Jens, thanks for this. I have read through the correspondence and I think I can work my way around this. I speak German. as for your remarks for data tra
+
+Jens Rommel
+13:11 (1 ora fa)
+a me
+
+Hi,
+
+
+No that should be all. We have collected more (and hopefully better organized) data for another paper, but this is still in the review process. I ll let you know if the paper gets published. 
+
+
+Best wishes,
+
+Jens
+
+
+
+From: Paolo Crosetto <paolo.crosetto@gmail.com>
+Sent: Wednesday, June 15, 2022 12:07 PM
+To: Jens Rommel
+Subject: Re: Dataset meta-analysis risk preferences
+ 
+CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+...
+
+[Messaggio troncato]  Visualizza intero messaggio
+Great, thanks!Great!Great, thanks for the update.

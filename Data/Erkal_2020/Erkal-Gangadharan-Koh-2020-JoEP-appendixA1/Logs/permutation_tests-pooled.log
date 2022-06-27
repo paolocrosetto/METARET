@@ -1,0 +1,217 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\BoonHan\Dropbox\University\Research\Projects\Beliefs-BSR_QSR\STATA\1804-BSR_QSR\Paper\Logs\permutation_tests-pooled.log
+  log type:  text
+ opened on:  21 Aug 2020, 16:10:04
+
+. 
+. set seed 1234
+
+. program drop _all
+
+. program CompareMeanDist, rclass
+  1. summarize Dist if Treat==1
+  2. scalar Mean1 = r(mean)
+  3. summarize Dist if Treat==2
+  4. scalar Mean2 = r(mean)
+  5. return scalar DiffMean = Mean2-Mean1
+  6. end
+
+. program CompareMeanError, rclass
+  1. summarize Error if Treat==1
+  2. scalar Mean1 = r(mean)
+  3. summarize Error if Treat==2
+  4. scalar Mean2 = r(mean)
+  5. return scalar DiffMean = Mean2-Mean1
+  6. end
+
+. 
+. // Prior = Not 0.50
+. use "Data\belief_elicitation-paper-long.dta", clear
+
+. keep if PriorDist!=0
+(240 observations deleted)
+
+. display "******************************"
+******************************
+
+. display "Prior = Not 0.50"
+Prior = Not 0.50
+
+. display "******************************"
+******************************
+
+. 
+. egen IDTemp=group(ID mechB)
+
+. order IDTemp, first
+
+. collapse (mean) ID RiskPref Dist Error mechB mechQ orderBQ orderQB Exp, by(IDTemp)
+
+. gen Treat=.
+(240 missing values generated)
+
+. 
+. display "Note: DiffMean = Mean(Treat=2) - Mean(Treat=1)"
+Note: DiffMean = Mean(Treat=2) - Mean(Treat=1)
+
+. 
+.         * mech-B vs. mech-Q (Part 1 & 2)
+.         
+.         set seed 1234
+
+.         local r=500000 // paper uses 500000 reps
+
+.         preserve
+
+.         replace Treat=.
+(0 real changes made)
+
+.         display "Part 1:"
+Part 1:
+
+.         replace Treat=1 if mechB==1
+(120 real changes made)
+
+.         replace Treat=2 if mechQ==1
+(120 real changes made)
+
+.         display "DIST"
+DIST
+
+.         permute Treat Diff12=r(DiffMean), reps(`r') nodrop nodots nowarn: CompareMeanDist
+
+Monte Carlo permutation results           Number of observations  =         240
+                                          Number of permutations  =     500,000
+
+      command:  CompareMeanDist
+       Diff12:  r(DiffMean)
+  permute var:  Treat
+
+-------------------------------------------------------------------------------
+             |                                               Monte Carlo error
+             |                                              -------------------
+           T |    T(obs)       Test       c       n      p  SE(p)   [95% CI(p)]
+-------------+-----------------------------------------------------------------
+      Diff12 |    -.0055      lower  169325  500000  .3387  .0007  .3373  .3400
+             |                upper  331237  500000  .6625  .0007  .6612  .6638
+             |            two-sided                  .6773  .0007  .6760  .6786
+-------------------------------------------------------------------------------
+Note: For lower one-sided test, c = #{T <= T(obs)} and p = p_lower = c/n.
+Note: For upper one-sided test, c = #{T >= T(obs)} and p = p_upper = c/n.
+Note: For two-sided test, p = 2*min(p_lower, p_upper); SE and CI approximate.
+
+.         display "NAD"
+NAD
+
+.         permute Treat Diff12=r(DiffMean), reps(`r') nodrop nodots nowarn: CompareMeanError
+
+Monte Carlo permutation results           Number of observations  =         240
+                                          Number of permutations  =     500,000
+
+      command:  CompareMeanError
+       Diff12:  r(DiffMean)
+  permute var:  Treat
+
+-------------------------------------------------------------------------------
+             |                                               Monte Carlo error
+             |                                              -------------------
+           T |    T(obs)       Test       c       n      p  SE(p)   [95% CI(p)]
+-------------+-----------------------------------------------------------------
+      Diff12 | -.0244167      lower    9212  500000  .0184  .0002  .0181  .0188
+             |                upper  490872  500000  .9817  .0002  .9814  .9821
+             |            two-sided                  .0368  .0003  .0363  .0374
+-------------------------------------------------------------------------------
+Note: For lower one-sided test, c = #{T <= T(obs)} and p = p_lower = c/n.
+Note: For upper one-sided test, c = #{T >= T(obs)} and p = p_upper = c/n.
+Note: For two-sided test, p = 2*min(p_lower, p_upper); SE and CI approximate.
+
+.         replace Treat=.
+(240 real changes made, 240 to missing)
+
+.         restore
+
+.         
+. 
+. // Prior = 0.50
+. use "Data\belief_elicitation-paper-long.dta", clear
+
+. keep if PriorDist==0
+(960 observations deleted)
+
+. display "******************************"
+******************************
+
+. display "Prior = 0.50"
+Prior = 0.50
+
+. display "******************************"
+******************************
+
+. 
+. egen IDTemp=group(ID mechB)
+
+. order IDTemp, first
+
+. collapse (mean) ID RiskPref Dist Error mechB mechQ orderBQ orderQB Exp, by(IDTemp)
+
+. gen Treat=.
+(240 missing values generated)
+
+. 
+. display "Note: DiffMean = Mean(Treat=2) - Mean(Treat=1)"
+Note: DiffMean = Mean(Treat=2) - Mean(Treat=1)
+
+. 
+.         * mech-B vs. mech-Q (Part 1 & 2)
+.         
+.         set seed 1234
+
+.         local r=500000 // paper uses 500000 reps
+
+.         preserve
+
+.         replace Treat=.
+(0 real changes made)
+
+.         display "Part 1"
+Part 1
+
+.         replace Treat=1 if mechB==1
+(120 real changes made)
+
+.         replace Treat=2 if mechQ==1
+(120 real changes made)
+
+.         display "DIST"
+DIST
+
+.         permute Treat Diff12=r(DiffMean), reps(`r') nodrop nodots nowarn: CompareMeanDist
+
+Monte Carlo permutation results           Number of observations  =         240
+                                          Number of permutations  =     500,000
+
+      command:  CompareMeanDist
+       Diff12:  r(DiffMean)
+  permute var:  Treat
+
+-------------------------------------------------------------------------------
+             |                                               Monte Carlo error
+             |                                              -------------------
+           T |    T(obs)       Test       c       n      p  SE(p)   [95% CI(p)]
+-------------+-----------------------------------------------------------------
+      Diff12 |     -.011      lower   58748  500000  .1175  .0005  .1166  .1184
+             |                upper  443082  500000  .8862  .0004  .8853  .8870
+             |            two-sided                  .2350  .0006  .2338  .2362
+-------------------------------------------------------------------------------
+Note: For lower one-sided test, c = #{T <= T(obs)} and p = p_lower = c/n.
+Note: For upper one-sided test, c = #{T >= T(obs)} and p = p_upper = c/n.
+Note: For two-sided test, p = 2*min(p_lower, p_upper); SE and CI approximate.
+
+.         replace Treat=.
+(240 real changes made, 240 to missing)
+
+.         restore
+
+.         
+. capture log close _all

@@ -1,0 +1,35 @@
+		(1)	(2)	(3)	(4)	(5)
+		DIST	NAD	DIST	NAD	DIST
+		Part 1	Part 1	Part 1	Part 1	Part 1
+VARIABLES	LABELS	p != 0.5	p != 0.5	p != 0.5	p != 0.5	p = 0.5
+						
+1.mechQ	=1 if QSR = 1, mech-Q	-0.023	-0.033*	-0.014	-0.028	-0.019
+		(0.016)	(0.014)	(0.022)	(0.020)	(0.013)
+25.PriorDist	Distance of prior from 0.5 = 25			-0.100***	0.050***	
+				(0.009)	(0.012)	
+0b.mechQ#25o.PriorDist				0.000	0.000	
+				(0.000)	(0.000)	
+1.mechQ#25.PriorDist				-0.017	-0.011	
+				(0.020)	(0.020)	
+surveyAge	Survey: Age (years)	-0.001	0.000	-0.001	0.000	-0.001
+		(0.002)	(0.002)	(0.002)	(0.002)	(0.002)
+1.surveyFemale	Survey: =1 if female = 1	0.032	0.015	0.032	0.015	0.004
+		(0.016)	(0.015)	(0.016)	(0.015)	(0.016)
+1.surveyEconomics	Survey: =1 if Economics major = 1	0.045*	0.040*	0.045*	0.040*	0.023
+		(0.020)	(0.016)	(0.020)	(0.016)	(0.032)
+1.surveyPG	Survey: =1 if postgraduate student = 1	-0.002	-0.022	-0.002	-0.022	0.012
+		(0.023)	(0.021)	(0.023)	(0.021)	(0.027)
+1.surveyBirthAus	Survey: =1 if born in Australia = 1	-0.046**	-0.023	-0.046**	-0.023	-0.036*
+		(0.016)	(0.015)	(0.016)	(0.015)	(0.017)
+surveyPastExp	Survey: # past experiments participated	-0.028**	-0.017*	-0.028**	-0.017*	-0.010
+		(0.008)	(0.008)	(0.008)	(0.008)	(0.006)
+1.surveyMathStudy	Survey: =1 if studied probability/statistics = 1	0.044*	0.021	0.044*	0.021	0.004
+		(0.020)	(0.022)	(0.020)	(0.022)	(0.018)
+Constant	Constant	0.255***	-0.114*	0.300***	-0.138**	0.093
+		(0.044)	(0.045)	(0.044)	(0.046)	(0.072)
+						
+Observations		480	480	480	480	120
+R-squared		0.099	0.070	0.278	0.112	0.118
+Control for round		Y	Y	Y	Y	Y
+Robust standard errors in parentheses						
+*** p<0.001, ** p<0.01, * p<0.05						

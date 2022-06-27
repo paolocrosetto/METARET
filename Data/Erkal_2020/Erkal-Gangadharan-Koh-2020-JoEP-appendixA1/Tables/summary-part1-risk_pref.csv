@@ -1,0 +1,144 @@
+="Summary statistics (DIST), mechB , Part 1, p != 0.5, RiskPref = 1"
+
+
+="Distance of reported belief from 0.5",="0.25"
+="",="(0.01)"
+
+="Observations",="152"
+
+="Summary statistics (NAD), mechB , Part 1, p != 0.5, RiskPref = 1"
+
+
+="Negative absolute difference between belief and prior",="-0.09"
+="",="(0.01)"
+
+="Observations",="152"
+
+="Summary statistics (DIST), mechB , Part 1, p != 0.5, RiskPref = 2"
+
+
+="Distance of reported belief from 0.5",="0.23"
+="",="(0.02)"
+
+="Observations",="60"
+
+="Summary statistics (NAD), mechB , Part 1, p != 0.5, RiskPref = 2"
+
+
+="Negative absolute difference between belief and prior",="-0.12"
+="",="(0.01)"
+
+="Observations",="60"
+
+="Summary statistics (DIST), mechB , Part 1, p != 0.5, RiskPref = 3"
+
+
+="Distance of reported belief from 0.5",="0.21"
+="",="(0.02)"
+
+="Observations",="28"
+
+="Summary statistics (NAD), mechB , Part 1, p != 0.5, RiskPref = 3"
+
+
+="Negative absolute difference between belief and prior",="-0.11"
+="",="(0.02)"
+
+="Observations",="28"
+
+="Summary statistics (DIST), mechQ , Part 1, p != 0.5, RiskPref = 1"
+
+
+="Distance of reported belief from 0.5",="0.19"
+="",="(0.01)"
+
+="Observations",="136"
+
+="Summary statistics (NAD), mechQ , Part 1, p != 0.5, RiskPref = 1"
+
+
+="Negative absolute difference between belief and prior",="-0.15"
+="",="(0.01)"
+
+="Observations",="136"
+
+="Summary statistics (DIST), mechQ , Part 1, p != 0.5, RiskPref = 2"
+
+
+="Distance of reported belief from 0.5",="0.26"
+="",="(0.02)"
+
+="Observations",="64"
+
+="Summary statistics (NAD), mechQ , Part 1, p != 0.5, RiskPref = 2"
+
+
+="Negative absolute difference between belief and prior",="-0.10"
+="",="(0.01)"
+
+="Observations",="64"
+
+="Summary statistics (DIST), mechQ , Part 1, p != 0.5, RiskPref = 3"
+
+
+="Distance of reported belief from 0.5",="0.29"
+="",="(0.02)"
+
+="Observations",="40"
+
+="Summary statistics (NAD), mechQ , Part 1, p != 0.5, RiskPref = 3"
+
+
+="Negative absolute difference between belief and prior",="-0.11"
+="",="(0.01)"
+
+="Observations",="40"
+
+="Summary statistics (DIST), mechB , Part 1, p = 0.5, RiskPref = 1"
+
+
+="Distance of reported belief from 0.5",="0.04"
+="",="(0.02)"
+
+="Observations",="38"
+
+="Summary statistics (DIST), mechB , Part 1, p = 0.5, RiskPref = 2"
+
+
+="Distance of reported belief from 0.5",="0.04"
+="",="(0.02)"
+
+="Observations",="15"
+
+="Summary statistics (DIST), mechB , Part 1, p = 0.5, RiskPref = 3"
+
+
+="Distance of reported belief from 0.5",="0.00"
+="",="(0.00)"
+
+="Observations",="7"
+
+="Summary statistics (DIST), mechQ , Part 1, p = 0.5, RiskPref = 1"
+
+
+="Distance of reported belief from 0.5",="0.02"
+="",="(0.01)"
+
+="Observations",="34"
+
+="Summary statistics (DIST), mechQ , Part 1, p = 0.5, RiskPref = 2"
+
+
+="Distance of reported belief from 0.5",="0.02"
+="",="(0.01)"
+
+="Observations",="16"
+
+="Summary statistics (DIST), mechQ , Part 1, p = 0.5, RiskPref = 3"
+
+
+="Distance of reported belief from 0.5",="0.01"
+="",="(0.01)"
+
+="Observations",="10"
+

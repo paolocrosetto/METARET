@@ -1,0 +1,405 @@
+*
+*
+* Analysis Holt and Laury Framing vs. Money COMPREHENSION Letters Paper
+*
+* Jens Rommel, Malte Müller, Daniel Hermann, Oliver Mußhoff
+*
+* This Version: 8 July 2016
+*
+* NEW NOTATION (Interaction effects)
+*
+*
+
+* import data
+
+insheet using "C:\Users\jensrommel\Dropbox\__zalf\Malte Framing vs. Payoffs\Datensatz\Stata\Datensatz_final_June 2016.csv", delimiter(";")
+* insheet using "D:\Eigene Dateien\Dokumente\Dropbox\Dropbox\__zalf\Malte Framing vs. Payoffs\Datensatz\Stata\Datensatz_final_June 2016.csv", delimiter(";")
+
+
+* drop Daniel's data
+
+drop  l1_1 l1_2 l1_3 l1_4 l1_5 l1_6 l1_7 l1_8 l1_9 l1_10 l1_11 l2_1 l2_2 l2_3 l2_4 l2_5 l2_6 l2_7 l2_8 l2_9 l2_10  l2_11
+
+* drop EMAILS, AMAZON, WEITERE BEFRAGUNGEN
+
+drop f27 f28 f29
+
+* generate number of risky choices for each of the two HLLs
+
+gen RISKY_NEUTRAL =  hll1_1 +  hll1_2 +  hll1_3 +  hll1_4 +  hll1_5 +  hll1_6 +  hll1_7 +  hll1_8 +  hll1_9 +  hll1_10
+gen RISKY_AGRI =  hll2_1 +  hll2_2 +  hll2_3 +  hll2_4 +  hll2_5 +  hll2_6 +  hll2_7 +  hll2_8 +  hll2_9 +  hll2_10
+
+* do some recoding and add variable names
+
+replace num_skills = num_skills/10.79
+
+replace f1 = f1 - 1
+rename f1 FEMALE
+
+rename f2 YEAROFBIRTH
+
+replace f4 = "0" if f4 =="-"
+destring f4, replace
+rename f4 NUMBEROFKIDS
+
+gen HASCHILDREN = 0
+replace HASCHILDREN = 1 if NUMBEROFKIDS != 0
+
+rename f5 HHDSIZE
+
+rename f6 HEIGHT
+replace HEIGHT = . if HEIGHT > 250
+
+rename f7 INCOME
+
+rename f8 EDUCATION
+gen UNIVDEGREE = 0
+replace UNIVDEGREE = 1 if EDUCATION == 6 | EDUCATION == 7
+
+rename f9 FARMTYPE
+gen MARKTFRUCHT = 0
+replace MARKTFRUCHT = 1 if FARMTYPE == 3
+
+rename f10a OWNLAND
+rename f10b LEASEDLAND
+generate TOTALLAND = OWNLAND + LEASEDLAND
+
+rename f10c LIVESTOCKUNITS
+
+rename f11 STOCKS
+
+rename f12 SMOKES
+
+rename f13 SPORTS
+
+rename f14 FARMBUSINESSKNOWLEDGE
+
+gen NUMB_INSURANCE = f15 + f16 + f17 + f18
+
+rename f15 HAILINSURANCE
+rename f16 HARVESTINSURANCE
+rename f17 INDEXINSURANCE
+rename f18 FUTURES
+
+rename f19 RISK_GENERAL
+rename f20 RISK_DRIVING
+rename f21 RISK_INVESTMENT
+rename f22 RISK_HOLIDAYS_SPORTS
+rename f23 RISK_CAREER
+rename f24 RISK_HEALTH
+rename f25 RISK_TRUST_STRANGERS
+rename f26 RISK_FARM_MANAGEMENT
+
+rename geld TREAT_MONETARY
+replace variante = variante - 1
+rename variante NEUTRALFRAMINGFIRST
+
+rename vhll1 UNDERSTAND_NEUTRAL
+rename vhll2 UNDERSTAND_AGRI
+
+* start initial explorative analysis
+
+* compare risky choices by treatments
+
+bysort TREAT_MONETARY: sum RISKY_NEUTRAL RISKY_AGRI
+
+* compare correlation by treatments
+
+bysort TREAT_MONETARY: pwcorr RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_DRIVING RISK_INVESTMENT RISK_HOLIDAYS_SPORTS RISK_CAREER RISK_HEALTH RISK_TRUST_STRANGERS RISK_FARM_MANAGEMENT, sig
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_DRIVING RISK_INVESTMENT RISK_HOLIDAYS_SPORTS RISK_CAREER RISK_HEALTH RISK_TRUST_STRANGERS RISK_FARM_MANAGEMENT, matrix listwise
+esttab using corrtable.rtf, unstack not noobs compress replace plain
+
+preserve
+
+keep if TREAT_MONETARY == 0
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_DRIVING RISK_INVESTMENT RISK_HOLIDAYS_SPORTS RISK_CAREER RISK_HEALTH RISK_TRUST_STRANGERS RISK_FARM_MANAGEMENT, matrix listwise
+esttab using corrtable_non_mon.rtf, unstack not noobs compress replace plain
+
+restore 
+
+preserve
+
+keep if TREAT_MONETARY == 1
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_DRIVING RISK_INVESTMENT RISK_HOLIDAYS_SPORTS RISK_CAREER RISK_HEALTH RISK_TRUST_STRANGERS RISK_FARM_MANAGEMENT, matrix listwise
+esttab using corrtable_mon.rtf, unstack not noobs compress replace plain
+
+restore 
+
+* does self-asseessed understanding differ by framing/paying
+
+bysort TREAT_MONETARY: sum UNDERSTAND_NEUTRAL UNDERSTAND_AGRI
+
+* compare differences in Framing by Money Treatment
+
+gen FRAMING_DIFF = RISKY_NEUTRAL - RISKY_AGRI
+ttest FRAMING_DIFF, by(TREAT_MONETARY) unpaired
+
+* look at correlations including REAL risk-reduction measures
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_FARM_MANAGEMENT NUMB_INSURANCE, matrix listwise
+esttab using corrtable_2.rtf, unstack not noobs compress replace
+
+preserve
+
+keep if TREAT_MONETARY == 0
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_FARM_MANAGEMENT NUMB_INSURANCE, matrix listwise
+esttab using corrtable_2_non_mon.rtf, unstack not noobs compress replace
+
+restore 
+
+preserve
+
+keep if TREAT_MONETARY == 1
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_FARM_MANAGEMENT NUMB_INSURANCE, matrix listwise
+esttab using corrtable_2_mon.rtf, unstack not noobs compress replace
+
+restore 
+
+*
+*
+* further analysis Sept 2015
+*
+*
+
+* generate PCA index insurance
+
+pca HAILINSURANCE HARVESTINSURANCE INDEXINSURANCE FUTURES
+predict INSURANCEINDEX, score
+
+* look at correlations including an INDEX of REAL risk-reduction measures
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_FARM_MANAGEMENT INSURANCEINDEX, matrix listwise
+esttab using corrtable_2.rtf, unstack not noobs compress replace
+
+preserve
+
+keep if TREAT_MONETARY == 0
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_FARM_MANAGEMENT INSURANCEINDEX, matrix listwise
+esttab using corrtable_2_non_mon.rtf, unstack not noobs compress replace
+
+restore 
+
+preserve
+
+keep if TREAT_MONETARY == 1
+
+estpost correlate RISKY_NEUTRAL RISKY_AGRI RISK_GENERAL RISK_FARM_MANAGEMENT INSURANCEINDEX, matrix listwise
+esttab using corrtable_2_mon.rtf, unstack not noobs compress replace
+
+restore 
+
+* test between-subjects framing effect
+
+* gen first decision vars for number of risky choices/comprehension
+
+generate FIRSTHLL = .
+replace FIRSTHLL = RISKY_NEUTRAL if NEUTRALFRAMINGFIRST == 1
+replace FIRSTHLL = RISKY_AGRI if NEUTRALFRAMINGFIRST != 1
+
+generate COMPREHENSIONFIRSTHLL = .
+replace COMPREHENSIONFIRSTHLL = UNDERSTAND_NEUTRAL if NEUTRALFRAMINGFIRST == 1
+replace COMPREHENSIONFIRSTHLL = UNDERSTAND_AGRI if NEUTRALFRAMINGFIRST != 1
+
+gen TREATFRAME = 0
+replace TREATFRAME = 1 if NEUTRALFRAMINGFIRST != 1
+
+ttest FIRSTHLL, by (TREATFRAME)
+ranksum FIRSTHLL, by (TREATFRAME)
+
+bysort TREATFRAME TREAT_MONETARY: sum FIRSTHLL COMPREHENSIONFIRSTHLL 
+
+gen str30 TREATMENT = "."
+
+replace TREATMENT = "NOPAY_NOFRAME" if TREATFRAME == 0 & TREAT_MONETARY == 0
+replace TREATMENT = "NOPAY_FRAME" if TREATFRAME == 1 & TREAT_MONETARY == 0
+replace TREATMENT = "PAY_FRAME" if TREATFRAME == 1 & TREAT_MONETARY == 1
+replace TREATMENT = "PAY_NOFRAME" if TREATFRAME == 0 & TREAT_MONETARY == 1
+
+generate ABSTRACTINSTR = 0
+replace ABSTRACTINSTR = 1 if TREATFRAME == 0
+
+generate INCENTIVESxABSTRACT = ABSTRACTINSTR * TREAT_MONETARY 
+
+tab TREATMENT, gen (treatdummy)
+
+rename treatdummy1 NOINCENT_FRAME
+rename treatdummy2 NOINCENT_NOFRAME
+rename treatdummy3 INCENT_FRAME
+rename treatdummy4 INCENT_NOFRAME
+
+global TREATMACRO NOINCENT_NOFRAME INCENT_FRAME NOINCENT_FRAME
+
+bysort TREATMENT: pwcorr RISK_GENERAL RISK_FARM_MANAGEMENT INSURANCEINDEX FIRSTHLL, sig
+
+
+*** ANALYSIS FOR PAPER
+
+* CHECK FOR INCONSISTENT CHOICES (ONLY FIRST LOTTERY)
+
+bysort TREATMENT: sum inconsist_hll1
+
+kwallis inconsist_hll1, by (TREATMENT)
+prtest inconsist_hll1, by (TREAT_MONETARY)
+prtest inconsist_hll1, by (NEUTRALFRAMINGFIRST)
+
+* CHECK FOR TIME NEEDED
+
+bysort TREATMENT: sum zeit_hll1, detail
+
+kwallis zeit_hll1, by (TREATMENT)
+ranksum zeit_hll1, by (TREAT_MONETARY)
+ranksum zeit_hll1, by (NEUTRALFRAMINGFIRST)
+
+* CHECK FOR COMPREHENSIONFIRSTHLL 
+
+bysort TREATMENT: sum COMPREHENSIONFIRSTHLL
+
+kwallis COMPREHENSIONFIRSTHLL, by (TREATMENT)
+ranksum COMPREHENSIONFIRSTHLL, by (TREAT_MONETARY)
+ranksum COMPREHENSIONFIRSTHLL, by (NEUTRALFRAMINGFIRST)
+
+* REGRESSIONS FOR PAPER 
+
+gen AGE = 2015 - YEAROFBIRTH
+
+gen FRAMED = NEUTRALFRAMINGFIRST * -1 + 1
+
+tab INCOME, gen (INCDUMMY)
+global INCOMECATS INCDUMMY2 INCDUMMY3 INCDUMMY4
+
+gen num_skillsxFRAME = num_skills * FRAMED
+gen UNIVDEGREExFRAME = UNIVDEGREE * FRAMED
+
+* INCONSIST
+
+logit inconsist_hll1 $TREATMACRO
+
+est store inconsist1
+
+logit inconsist_hll1 $TREATMACRO num_skills UNIVDEGREE
+
+est store inconsist2
+
+logit inconsist_hll1 $TREATMACRO num_skills UNIVDEGREE AGE FEMALE $INCOMECATS TOTALLAND
+
+est store inconsist3
+
+mfx
+est store mfx1
+
+
+* TIME SPENT
+
+tnbreg zeit_hll1 $TREATMACRO, ll(0)
+
+est store time1
+
+tnbreg zeit_hll1 $TREATMACRO num_skills UNIVDEGREE, ll(0)
+
+est store time2
+
+tnbreg zeit_hll1 $TREATMACRO num_skills UNIVDEGREE AGE FEMALE $INCOMECATS TOTALLAND, ll(0)
+
+est store time3
+
+mfx
+est store mfx3
+
+* SELF_ASSESS
+
+ologit COMPREHENSIONFIRSTHLL $TREATMACRO
+
+est store compr1
+
+ologit COMPREHENSIONFIRSTHLL $TREATMACRO num_skills UNIVDEGREE
+
+est store compr2
+
+ologit COMPREHENSIONFIRSTHLL $TREATMACRO num_skills UNIVDEGREE AGE FEMALE $INCOMECATS TOTALLAND
+
+est store compr3
+
+mfx
+est store mfx2
+
+* CREATE REG TABLE
+
+esttab inconsist1 inconsist2 inconsist3 compr1 compr2 compr3 time1 time2 time3 using regtable.rtf, star(* 0.10 ** 0.05 *** 0.01) onecell nogaps scalars("r2_p" "chi2") replace b(%10.2f) se
+esttab mfx1 mfx2 mfx3 using margeff.rtf, cells("b(fmt(4)) Xmfx_se_dydx (fmt(4))") margin style(fixed) replace b(%10.4f)
+
+* Correlation Coefficients Paper
+
+pwcorr  inconsist_hll1 COMPREHENSIONFIRSTHLL zeit_hll1, sig
+
+* Appendix
+
+estpost sum num_skills UNIVDEGREE AGE FEMALE $INCOMECATS INCDUMMY5 TOTALLAND
+esttab using summstats.rtf, cells("count(fmt(0)) mean(fmt(2)) sd(fmt(2)) min(fmt(2)) max(fmt(2))") nogaps compress replace
+
+bysort TREATMENT: sum num_skills UNIVDEGREE AGE FEMALE $INCOMECATS TOTALLAND, detail
+
+kwallis num_skills, by(TREATMENT)
+kwallis UNIVDEGREE, by(TREATMENT)
+kwallis AGE, by(TREATMENT)
+kwallis FEMALE, by(TREATMENT)
+kwallis INCDUMMY1, by(TREATMENT)
+kwallis INCDUMMY2, by(TREATMENT)
+kwallis INCDUMMY3, by(TREATMENT)
+kwallis INCDUMMY4, by(TREATMENT)
+kwallis INCDUMMY5, by(TREATMENT)
+kwallis TOTALLAND, by(TREATMENT)
+
+* INCONSIST FOR APPENDIX WITH LOGIT
+
+reg inconsist_hll1 $TREATMACRO
+
+est store inconsist1
+
+predict pr1
+sum pr1
+
+reg inconsist_hll1 $TREATMACRO num_skills UNIVDEGREE
+
+est store inconsist2
+
+predict pr2
+sum pr2
+
+reg inconsist_hll1 $TREATMACRO num_skills UNIVDEGREE AGE FEMALE INCDUMMY2 INCDUMMY3 INCDUMMY4 TOTALLAND
+
+predict pr3
+sum pr3
+
+est store inconsist3
+
+logit inconsist_hll1 $TREATMACRO
+
+est store inconsist4
+
+logit inconsist_hll1 $TREATMACRO num_skills UNIVDEGREE
+
+est store inconsist5
+
+logit inconsist_hll1 $TREATMACRO num_skills UNIVDEGREE AGE FEMALE INCDUMMY2 INCDUMMY3 INCDUMMY4 TOTALLAND
+
+est store inconsist6
+
+
+* CREATE REG TABLE
+
+esttab inconsist1 inconsist2 inconsist3 inconsist4 inconsist5 inconsist6 using regtable2.rtf, star(* 0.10 ** 0.05 *** 0.01) r2 onecell nogaps scalars("r2_a" "r2_p" "ll" "chi2" "F") replace b(%10.4f) se
+
+* Additional Measures after R&R AEL
+
+gen morethanoneswitch = 0
+replace morethanoneswitch = 1 if switches_hll1 > 1
+
+tabulate TREATMENT inconsist_hll1, exact
+tabulate TREATMENT row_10_inconsistent_hll1, exact
+tabulate TREATMENT morethanoneswitch, exact
