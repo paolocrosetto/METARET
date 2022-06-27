@@ -472,5 +472,26 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 0) { out <- -0.37 }
     } 
   } 
+  
+  if (bibkey == "Erkal2018" | bibkey == "Erkal2022"){
+    if (task == "IG") {
+      if (choice == 50) { out <- 1  }
+      if (choice == 0) { out <- -1  }
+      if (choice != 50 & choice != 0) { out <- log(-2 * choice / (choice - 50)) / (log(choice) - log(16.6666666666667 - 0.333333333333333 *choice)) }
+    }
+  }
+  if (bibkey == "Erkal2020"){
+  if (task == "CEPL") {
+    if (choice == 1) { out <- 3.32 }
+    if (choice == 2) { out <- runif(1, min = 2.32, max = 3.32) }
+    if (choice == 3) { out <- runif(1, min = 1.74, max = 2.32) }
+    if (choice == 4) { out <- runif(1, min = 1.32, max = 1.74) }
+    if (choice == 5) { out <- runif(1, min = 1, max = 1.32) }
+    if (choice == 6) { out <- runif(1, min = 0.74, max = 1) }
+    if (choice == 7) { out <- runif(1, min = 0.51, max = 0.74) }
+    if (choice == 8) { out <- runif(1, min = 0.32, max = 0.51) }
+    if (choice == 9) { out <- runif(1, min = 0.15, max = 0.32)  }
+  }
+}
 out
 } 

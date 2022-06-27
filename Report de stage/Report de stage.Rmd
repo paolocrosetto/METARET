@@ -12,7 +12,7 @@ preamble:
 # to produce blinded version set to 1
 blinded: 0
 
-
+bibliography: bibliography.bib
 # bibliography: bibliography.bib @Campbell02 @Schubert13 [@Chi81]
 output: 
   rticles::asa_article:
@@ -25,7 +25,7 @@ output:
 
 # Introduction
 
-Ce rapport est consacré à l'analyse du déroulement de stage dans le cadre de la formation en Master 1, parcours Business et analyse de données, Faculté d'Economie de l'Université Grenoble Alpes. La première partie de ce rapport décrira le processus de recherche de mon stage, l'évolution de mon CV et de ma lettre de motivation, et comment ma candidature s'etait diffusée à diverses organisations. La deuxième partie du rapport parlera de l'organisation où j'ai effectué mon stage, notamment ses principales activités, le nombre d'employés, les principaux concurrents. La troisième partie est réservée à la description du projet auquel j'ai participé, c'est-à-dire son objectif global et mon rôle dans sa réalisation. Dans la quatrième partie, ma mission principale sera décrite en détail. Dans la cinquième partie finale, les résultats de mon stage seront résumés.
+Ce rapport est consacré à l'analyse du déroulement de stage dans le cadre de la formation en Master 1, parcours Business et analyse de données, Faculté d'Economie de l'Université Grenoble Alpes. La première partie de ce rapport décrira le processus de recherche de mon stage, l'évolution de mon CV et de ma lettre de motivation, et comment ma candidature s'etait diffusée à diverses organisations. La deuxième partie du rapport parlera de l'organisation où j'ai effectué mon stage, notamment ses principales activités, le nombre d'employés. La troisième partie est réservée à la description du projet auquel j'ai participé, c'est-à-dire son objectif global et mon rôle dans sa réalisation. Dans la quatrième partie, ma mission principale sera décrite en détail. Dans la cinquième partie finale, les résultats de mon stage seront résumés.
 
 \section{Recherche de stage}
 \label{sec:first}
@@ -36,7 +36,7 @@ J'ai aussi initialement rédigé une lettre de motivation individuellement pour 
 
 Je tiens également à souligner la participation de l'université aux modifications qui ont eu lieu. Avec l'aide de Sylvian Houset, les fautes de frappe et les formulations inexactes ont été corrigées dans mon CV et ma lettre de motivation.
 
-Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recevoir des offres d'emploi, mais elles ne me convenaient pas pour poursuivre le processus de formation. J'ai parcouru plusieurs entretiens et noté les entreprises où je pourrais essayer d'obtenir un emploi après la fin de ma formation. En parallèle, j'ai diffusé activement mon CV aux entreprises de Grenoble et ses environs, y compris les offres envoyées par les responsables de notre master, et je me suis renseignée également sur les postes disponibles parmi les professeurs de mon université. Au total, j'ai postulé à plus de 70 endroits pour toute la recherche. Finalement, j'ai trouvé un stage dans le laboratoire GAEL avec mon professeur d'informatique Paolo Crosetto.
+Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recevoir des offres d'emploi, mais elles ne me convenaient pas pour poursuivre le processus de formation. J'ai parcouru plusieurs entretiens et noté les entreprises où je pourrais essayer d'obtenir un emploi après la fin de ma formation. En parallèle, j'ai diffusé activement mon CV aux entreprises de Grenoble et ses environs, y compris les offres envoyées par les responsables de notre master, et je me suis renseignée également sur les postes disponibles parmi les professeurs de mon université. Au total, j'ai postulé à plus de 70 endroits pour toute la recherche. Finalement, j'ai trouvé un stage dans le laboratoire GAEL avec Paolo Crosetto qui a été chargé du cours d'analyse de données en R que j'ai suivi.
 <!-- hey je ne suis pas prof d'informatique! vaudrait mieux dire que j'ai été chargé du cours d'analyse de données en R; mon intitulé de poste est "Directeur de Recherche INRAE"--> Ayant déjà 4 ans d'expérience dans le domaine scientifique en Russie et en cherchant la possibilité de poursuivre mon activité dans le niveau mondial, j'étais convaincue que ce stage s'intègre parfaitement dans mon projet professionnel. 
 
 \section{Présentation de la structure de stage}
@@ -44,18 +44,17 @@ Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recev
 
 <!-- j'ai supprimé la phrase "dans cette phase, je vais.... " en général, ces phrases sont inutiles car le titre de la section déjà dit tout, c'est mieux de ne pas l'écrire -->
 L'organisme qui m'a accueilli est l’Institut National de Recherche pour l’Agriculture, l’alimentation et l’Environnement (INRAE). J'ai effectué un stage dans un des laboratoires affiliés à cet organisme, à savoir au laboratoire d'économie appliquée à Grenoble (GAEL). Il est composé d'une quarantaine de chercheurs auxquels s'ajoutent des post-doctorants, des doctorants et du personnel administratif et d'appui à la recherche. 
-Comme le concurrent principal du GAEL le laboratoire scientifique de Grenoble Ecole de Management peut être considéré. <!-- ???? on n'est pas "concurrents", la recherche ne marche pas comme ça :-)  on en reparle à l'occasion. -->
+<!-- Comme le concurrent principal du GAEL le laboratoire scientifique de Grenoble Ecole de Management peut être considéré.  ???? on n'est pas "concurrents", la recherche ne marche pas comme ça :-)  on en reparle à l'occasion. -->
 
 \section{Missions effectuées pendant le stage}
 \label{sec:third}
 
-La thème de mon stage est "Méta-analyse de la validité externe des tâches d'élicitation des risques". Ma mission principale était 
+La thème de mon stage était "Méta-analyse de la validité externe des tâches d'élicitation des risques". Ma mission principale était 
 <!-- attention tu passes souvent de l'imparfait au présent et vice versa; choisit si tu parles du stage au passé ou au présent, et stick to that. -->
 de collecter une importante base de données d'élicitation de risque et de créer un site web basé sur celle-ci. Pour y parvenir, j'ai dû effectuer plusieurs tâches différentes. Tout d'abord, j'ai lu de nombreux articles scientifiques différents basés sur des expériences en laboratoire. Puis, j'ai traité ces données afin d'obtenir une base de données unifiée et uniformisée pour toutes les expériences. Ensuite, sur la base des données reçues, je les ai visualisées en utilisant le langage de programmation R et le package Shiny. 
-
 <!-- Là il faudrait dire que le projet pré-existait à ton stage; d'où ça vient; qu'un site existait déjà mais il était à refaire. -->
 
-Les expériences en laboratoire impliquent l'exécution de certaines tâches visant à identifier l'attitude du répondant face au risque. La tâche peut être donnée explicitement sous la forme d'une question directe, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » et indirectement sous la forme d'une tâche, par exemple, où le répondant est invité à choisir entre des options de loterie plus et moins risquées. 
+Les expériences en laboratoire impliquent l'exécution de certaines tâches visant à identifier l'attitude du répondant face au risque. La tâche peut être donnée explicitement sous la forme d'une question directe, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » (@SOEP2007) et indirectement sous la forme d'une loterie, par exemple, où le répondant est invité à choisir entre deux options plus et moins risquées (@Holt2002). 
 
 <!-- Là il faudrait étoffer un peu plus ce que c'est que les attitudes face au risque, le fait qu'il y a plusieurs tâches, leurs différences, et l'enjeu principal du projet. Pourquoi on le fait? Il faudrait également au passage ajouter des citations aux articles prinicpaux. -->
 
@@ -63,8 +62,10 @@ La visualisation sur le site comprenait la conception de la structure du site, a
 
 [^1]: https://en.wikipedia.org/wiki/Risk_aversion
 
-L'objectif global de ce projet est d'apporter plusieurs améliorations dans le domaine de l'identification des risques, c'est-à-dire de mieux comprendre l'état actuel de la validité externe des mesures d'identification des risques (par méta-analyse).
-L'un des objectifs principaux du projet est de rendre l'accès libre aux informations traitées au cours de l'étude, open source, sous une forme bien perceptive <!-- qu'est-ce que "bien perceptive" veut dire? comprend pas -->, en ligne, avec traduction en quatre langues (DE, FR, IT, SE) <!-- ??? je n'en sais rien de cette traduction, c'est juste que des collègues de 4 pays participent (peutetre)... non ce n'est pas prévu --> et une base de données en constante augmentation.
+L'objectif global de ce projet est d'apporter plusieurs améliorations dans le domaine de l'identification des risques, c'est-à-dire de mieux comprendre l'état actuel de la validité externe des mesures d'identification des risques (par méta-analyse). L'un des objectifs principaux du projet est de rendre l'accès libre aux informations traitées au cours de l'étude, open source, en ligne et une base de données en constante augmentation. 
+
+Il est à noter, que le projet pré-existait à mon stage, il a été lancé en 2019 sous la direction de Paolo Crosetto. Au début de mon stage, une version brute du site était prête, mais elle devait être entièrement repensée. Lors de la creation d'un nouveau site, j'ai pris quelques idées conceptuelles de la version originale. 
+
 
 \section{Développement d’un site web consacré d'analyse de risque}
 \label{sec:fourth}
@@ -80,8 +81,6 @@ Plan :
 \item *Résultats* : La partie d'analyse des données que nous n'avons pas encore commencée
 
 \item *Limitations et difficultées*
-
-<!-- le plan est très bien! bravo -->
 
 \end{itemize}
 

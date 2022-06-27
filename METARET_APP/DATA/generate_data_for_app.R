@@ -20,8 +20,6 @@ data=df %>% mutate(subject = paste0(bibkey, '_', subject)) %>%
                 starts_with('do'), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', country, city,
          longitude, lattitude)
 
-data %>% filter(task == 'EG')
-
 ## save the df to the shiny director for deployment
 data %>% write_csv("METARET_APP/DATA/df_mod.csv")
 
