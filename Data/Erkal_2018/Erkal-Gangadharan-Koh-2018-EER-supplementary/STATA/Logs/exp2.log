@@ -1,0 +1,160 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  logexp2
+       log:  C:\Users\BoonHan\Dropbox\Uni - Research\Own Research\Real-Effort Tasks\Drafts\EER_Accepted_Version\STATA\Logs\exp2.log
+  log type:  text
+ opened on:  29 Oct 2017, 22:49:54
+
+. 
+. * Fisher's exact *
+. tab Treatment Participate0 if TreatB==1 | TreatED==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+         B |         2         52 |        54 
+        ED |         9         41 |        50 
+-----------+----------------------+----------
+     Total |        11         93 |       104 
+
+           Fisher's exact =                 0.025
+   1-sided Fisher's exact =                 0.019
+
+. tab Treatment Participate0 if TreatB==1 | TreatP==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+         B |         2         52 |        54 
+         P |        26         30 |        56 
+-----------+----------------------+----------
+     Total |        28         82 |       110 
+
+           Fisher's exact =                 0.000
+   1-sided Fisher's exact =                 0.000
+
+. tab Treatment Participate0 if TreatB==1 | TreatA1A2==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+         B |         2         52 |        54 
+      A1A2 |        33         20 |        53 
+-----------+----------------------+----------
+     Total |        35         72 |       107 
+
+           Fisher's exact =                 0.000
+   1-sided Fisher's exact =                 0.000
+
+. 
+. * Kolmogorov-Smirnoff test *
+. ksmirnov EffortMin if TreatB==1 | TreatED==1, by(Treatment) exact
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ B:                  0.0415    0.915
+ ED:                -0.4378    0.000
+ Combined K-S:       0.4378    0.000      0.000
+
+Note: Ties exist in combined dataset;
+      there are 39 unique values out of 104 observations.
+
+. ksmirnov EffortMin if TreatB==1 | TreatP==1, by(Treatment) exact
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ B:                  0.0000    1.000
+ P:                 -0.8730    0.000
+ Combined K-S:       0.8730    0.000     -0.000
+
+Note: Ties exist in combined dataset;
+      there are 34 unique values out of 110 observations.
+
+. ksmirnov EffortMin if TreatB==1 | TreatA1A2==1, by(Treatment) exact
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ B:                  0.0000    1.000
+ A1A2:              -0.9256    0.000
+ Combined K-S:       0.9256    0.000     -0.000
+
+Note: Ties exist in combined dataset;
+      there are 29 unique values out of 107 observations.
+
+. 
+. * Wilcoxon rank-sum test *
+. ranksum EffortMin0 if TreatB==1 | TreatED==1, by(Treatment)
+
+Two-sample Wilcoxon rank-sum (Mann-Whitney) test
+
+   Treatment |      obs    rank sum    expected
+-------------+---------------------------------
+           B |       52        2900        2444
+          ED |       41        1471        1927
+-------------+---------------------------------
+    combined |       93        4371        4371
+
+unadjusted variance    16700.67
+adjustment for ties      -62.92
+                     ----------
+adjusted variance      16637.75
+
+Ho: Effort~0(Treatm~t==B) = Effort~0(Treatm~t==ED)
+             z =   3.535
+    Prob > |z| =   0.0004
+
+. ranksum EffortMin0 if TreatB==1 | TreatP==1, by(Treatment)
+
+Two-sample Wilcoxon rank-sum (Mann-Whitney) test
+
+   Treatment |      obs    rank sum    expected
+-------------+---------------------------------
+           B |       52        2895        2158
+           P |       30         508        1245
+-------------+---------------------------------
+    combined |       82        3403        3403
+
+unadjusted variance    10790.00
+adjustment for ties      -30.06
+                     ----------
+adjusted variance      10759.94
+
+Ho: Effort~0(Treatm~t==B) = Effort~0(Treatm~t==P)
+             z =   7.105
+    Prob > |z| =   0.0000
+
+. ranksum EffortMin0 if TreatB==1 | TreatA1A2==1, by(Treatment)
+
+Two-sample Wilcoxon rank-sum (Mann-Whitney) test
+
+   Treatment |      obs    rank sum    expected
+-------------+---------------------------------
+           B |       52      2400.5        1898
+        A1A2 |       20       227.5         730
+-------------+---------------------------------
+    combined |       72        2628        2628
+
+unadjusted variance     6326.67
+adjustment for ties      -44.35
+                     ----------
+adjusted variance       6282.32
+
+Ho: Effort~0(Treatm~t==B) = Effort~0(Treatm~t==A1A2)
+             z =   6.340
+    Prob > |z| =   0.0000
+
+. 
+. log close logexp2
+      name:  logexp2
+       log:  C:\Users\BoonHan\Dropbox\Uni - Research\Own Research\Real-Effort Tasks\Drafts\EER_Accepted_Version\STATA\Logs\exp2.log
+  log type:  text
+ closed on:  29 Oct 2017, 22:49:54
+-----------------------------------------------------------------------------------------------------------------------------------------------------------

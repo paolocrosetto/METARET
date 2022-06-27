@@ -1,0 +1,147 @@
+clear
+** load dataset in file "finalrisky.dta"
+
+******* VARIABLE DEFINITIONS *******
+
+*x: value of X
+*c: value of C
+*riskyonleft: equals 1 if risky option was on left part of screen; equals 0 if risky option was on right part of screen
+*risky: equals 1 if subject chose risky lottery; equals 0 if subject chose certain option
+*rt: response time (seconds)
+*trial: trial #
+*subj: subjectID (1 to 150)
+*highfirst: equals 1 if first condition was high volatility condition; equals 0 if first condition was low volatility condition
+*high: equals 1 if trial belongs to high volatility condition; equals 0 if trial belongs to low volatility condition
+*match: equals 1 if common trial; equals 0 if non-common trial
+*afteradapt: equals 1 if trial is after the initial 30-trial adaptation period in each condition; equals 0 otherwise
+*highx: high * x
+*highc: high * c
+
+
+
+
+
+
+*drop subject 148 who exhibits no variation in choice in 1st condition
+drop if subj==148
+
+*create flag for fast RTs
+gen RTflag=1 if rt<0.5
+replace RTflag=0 if RTflag!=1
+
+*drop if non-common trial
+drop if match==0 
+
+
+
+
+
+
+*********************
+* STATISTICAL TESTS *
+*********************
+
+*Average risk taking in first condition
+reg risky if trial<301, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Average response time in first condition
+reg rt if trial<301, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Amount of data excluded when moving from unrestricted to restricted sample
+mean RTflag 
+
+
+
+
+
+
+*********************
+*       Table I     *
+*********************
+
+**Column 1
+mixed risky high x c highx highc if trial<301 || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 2
+mixed risky high x c highx highc if trial<301 & RTflag==0 || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 3
+mixed risky high x c highx highc if RTflag==0 || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 4
+mixed risky high x c highx highc if RTflag==0 & !(trial>300 & trial<451) || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 5
+mixed risky high x c highx highc if RTflag==0 & highfirst==0 & !(trial>300 & trial<451) || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 6
+mixed risky high x c highx highc if RTflag==0 & highfirst==1 & !(trial>300 & trial<451) || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+
+
+
+
+
+***Within subject test of difference in mean RT across conditions**** 
+
+mean rt if RTflag==0 & high==1, vce(cluster subj)
+mean rt if RTflag==0 & high==0, vce(cluster subj)
+mixed rt high if RTflag==0 ||subj:, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) 
+
+
+
+
+
+
+*************************************************
+*      Table D.2 on logistic regressions        *
+*************************************************
+
+**Column 1
+logit risky high x c highx highc if trial<301, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 2
+logit risky high x c highx highc if trial<301 & RTflag==0, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 3
+logit risky high x c highx highc if RTflag==0, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 4
+logit risky high x c highx highc if RTflag==0 & !(trial>300 & trial<451), vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 5
+logit risky high x c highx highc if RTflag==0 & highfirst==0 & !(trial>300 & trial<451), vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 6
+logit risky high x c highx highc if RTflag==0 & highfirst==1 & !(trial>300 & trial<451), vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+
+
+
+
+
+**********************************************************
+*     Table D.4 on adaptation dynamics (Section V.A)     *
+**********************************************************
+
+*keep only trials 31-300 (trials 1-30 dropped above when dropping non-common trials)
+drop if trial>300
+
+gen secondpart=1 if trial>165
+replace secondpart=0 if trial<166
+
+*generate the interaction vars with secondpart
+gen secondx=secondpart*x
+gen secondc=secondpart*c
+gen secondhigh=secondpart*high
+gen secondhighx=secondhigh*x
+gen secondhighc=secondhigh*c
+
+**Column 1
+mixed risky high x c highx highc if trial<166 & RTflag==0 || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 2
+mixed risky high x c highx highc if trial>165 & RTflag==0 || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 3
+mixed risky high x c highx highc secondpart secondx secondc secondhigh secondhighx secondhighc if RTflag==0 || subj: x c, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)

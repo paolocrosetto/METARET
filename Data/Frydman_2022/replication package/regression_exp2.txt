@@ -1,0 +1,64 @@
+clear
+** load dataset in file "final200.dta"
+
+******* VARIABLE DEFINITIONS *******
+
+*subj: subjectID (1 to 200)
+*trial: trial #
+*x: value of X
+*c: value of C
+*riskyonleft: equals 1 if risky option was on left part of screen; equals 0 if risky option was on right part of screen
+*risky: equals 1 if subject chose risky lottery; equals 0 if subject chose certain option
+*rt: response time (seconds)
+*bonus: randomly selected bonus amount
+*cond: equals 1 if trial belongs to "increasing" condition; equals 0 if trial belongs to "decreasing" condition
+*quiz1: answer to Quiz Question 1 (values "1" or "2"; "1" is correct answer)
+*quiz2: answer to Quiz Question 2 (values "1" or "2"; "1" is correct answer)
+*match: equals 1 if common trial; equals 0 if non-common trial
+*variationflag: equals 1 if subject is to be excluded based on insufficient variation in choice on non-common trials (exclusion criteria are listed in the pre-registration document); equals 0 otherwise
+*xcond: x * cond
+*correctquiz: equals 1 if subject passed quiz; equals 0 if subject failed quiz
+*secondhalf: equals 1 if trial is in second half of condition (after trial 150 in first condition; and after trial 450 in second condition); equals 0 otherwise
+
+
+
+
+
+
+*apply exclusion criteria according to the order specified in the pre-registration document
+
+*drop those subjects who failed quiz (fail=answered at least 1 question incorrectly)
+drop if correctquiz==0
+
+*drop observations where subject exceeded time limit
+drop if risky==999
+
+*drop subjects who exhibit sufficiently small (pre-registered) variation on non-common trials
+drop if variationflag==1
+
+*drop observations where RT<.5
+drop if rt<0.5
+
+*keep only common trials
+drop if match==0
+
+
+
+
+
+
+*********************
+*     Table III     *
+*********************
+
+*Column 1
+ mixed risky cond || subj:, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Column 2
+ mixed risky cond x || subj: x, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Column 3
+ mixed risky cond if ((trial<151) | (trial>300 & trial<451)) || subj:, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Column 4
+ mixed risky cond if ((trial>150 & trial<301) | (trial>450)) || subj:, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)

@@ -1,0 +1,90 @@
+clear
+** load dataset in file "perceptual.dta"
+
+
+******* VARIABLE DEFINITIONS *******
+
+*num: stimulus number
+*correct: equals 1 if correct classification; equals 0 if error
+*rt: response time (seconds)
+*trial: trial #
+*subj: subjectID (1 to 150)
+*highfirst: equals 1 if first condition was high volatility condition; equals 0 if first condition was low volatility condition
+*high: equals 1 if trial belongs to high volatility condition; equals 0 if trial belongs to low volatility condition
+*classify: equals 1 if subject classified number as greater than 65; equals 0 if classified as less than 65
+*distance: |num - 65|
+*highdistance: distance * high
+*lrt: log(rt)
+*diff: num - 65
+*diffhigh: diff * high
+
+
+
+
+
+
+*drop subject 148 who exhibits no variation in 1st condition of risky choice task
+drop if subj==148
+
+*drop adaptation period trials
+drop if trial<61
+drop if trial>400 & trial<461
+
+*drop if not in [56, 74], which are common trials
+drop if num<56 | num>74
+
+
+
+
+
+
+*********************
+* STATISTICAL TESTS *
+*********************
+
+*Average accuracy in first condition
+reg correct if trial<401, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Average response time in first condition
+reg rt if trial<401, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**drop subjects based on guessing strategy (excessively fast response times and chance levels of accuracy
+drop if subj==3
+drop if subj==8
+
+*Between subjects test of mean accuracy in first condition
+mean correct if high==1 & trial<401, vce(cluster subj)
+mean correct if high==0 & trial<401, vce(cluster subj)
+mixed correct high if trial<401 || subj:, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+*Between subjects test of mean RT in first condition
+mean rt if high==1 & trial<401, vce(cluster subj)
+mean rt if high==0 & trial<401, vce(cluster subj)
+mixed rt high if trial<401|| subj:, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+
+
+
+
+
+*********************
+*      Table II     *
+*********************
+
+**Column 1
+melogit classify high diff diffhigh if trial<401 || subj: diff, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 2
+ melogit classify high diff diffhigh if trial<401 & num>59 & num<70 || subj: diff, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 3
+ melogit classify high diff diffhigh if trial<401 & ((num>=56 & num<=59) |  (num>=70 & num<=74)) || subj: diff, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 4
+melogit classify high diff diffhigh || subj: diff, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 5
+ melogit classify high diff diffhigh if num>59 & num<70 || subj: diff, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)
+
+**Column 6
+ melogit classify high diff diffhigh if ((num>=56 & num<=59) |  (num>=70 & num<=74)) || subj: diff, vce(cluster subj) cformat(%9.3f) pformat(%5.3f) sformat(%8.3f)

@@ -1,0 +1,33 @@
+		(1)	(2)	(3)
+		Participate0	EffortMin0	EffortMin0
+VARIABLES	LABELS	OLS	OLS	Quantile
+				
+1.TreatED	=1 if Early Departure treatment = 1	-0.184**	-0.979***	-0.668***
+		(0.084)	(0.255)	(0.196)
+1.TreatP	=1 if Pause treatment = 1	-0.438***	-3.260***	-3.863***
+		(0.078)	(0.268)	(0.206)
+1.TreatA1A2	=1 if A1A2 treatment = 1	-0.596***	-3.778***	-4.111***
+		(0.080)	(0.318)	(0.244)
+RiskInvestPerc	% invested in Risk Task	-0.226**	-0.559	-0.063
+		(0.107)	(0.382)	(0.293)
+Age	Age	0.001	0.016	0.006
+		(0.007)	(0.022)	(0.017)
+1.Female	Female = 1	-0.045	0.268	0.083
+		(0.059)	(0.209)	(0.161)
+1.Economics	Economics major = 1	-0.003	0.040	-0.169
+		(0.092)	(0.331)	(0.254)
+1.ugrad	Undergraduate student = 1	0.038	1.008	0.759
+		(0.189)	(0.691)	(0.530)
+1.pgrad	Graduate student = 1	0.104	1.050	0.651
+		(0.182)	(0.664)	(0.509)
+1.Australian	Australian = 1	-0.150**	0.111	0.000
+		(0.061)	(0.225)	(0.173)
+PrevExperiments	# prev experiments	0.008	0.048	0.000
+		(0.016)	(0.052)	(0.040)
+Constant	Constant	1.091***	2.951***	3.448***
+		(0.281)	(0.957)	(0.733)
+				
+Observations		213	143	143
+R-squared		0.290	0.651	
+Standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.10				

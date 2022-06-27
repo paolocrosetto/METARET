@@ -1,0 +1,108 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  logexp2A
+       log:  C:\Users\BoonHan\Dropbox\Uni - Research\Own Research\Real-Effort Tasks\Drafts\EER_Accepted_Version\STATA\Logs\exp2A.log
+  log type:  text
+ opened on:  29 Oct 2017, 22:49:55
+
+. 
+. * Fisher's exact *
+. tab Treatment Participate0 if TreatB==1 | TreatS==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+         B |         2         52 |        54 
+         S |         3         50 |        53 
+-----------+----------------------+----------
+     Total |         5        102 |       107 
+
+           Fisher's exact =                 0.678
+   1-sided Fisher's exact =                 0.491
+
+. tab Treatment Participate0 if TreatB==1 | Treat20Min==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+         B |         2         52 |        54 
+    20-Min |         4         48 |        52 
+-----------+----------------------+----------
+     Total |         6        100 |       106 
+
+           Fisher's exact =                 0.433
+   1-sided Fisher's exact =                 0.321
+
+. tab Treatment Participate0 if TreatB==1 | TreatEC==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+         B |         2         52 |        54 
+        EC |        35         20 |        55 
+-----------+----------------------+----------
+     Total |        37         72 |       109 
+
+           Fisher's exact =                 0.000
+   1-sided Fisher's exact =                 0.000
+
+. tab Treatment Participate0 if TreatA1A2==1 | TreatEC==1, exact
+
+           |    Contest: =1 if
+           |       Effort>0
+ Treatment |         0          1 |     Total
+-----------+----------------------+----------
+      A1A2 |        33         20 |        53 
+        EC |        35         20 |        55 
+-----------+----------------------+----------
+     Total |        68         40 |       108 
+
+           Fisher's exact =                 1.000
+   1-sided Fisher's exact =                 0.520
+
+. 
+. * Kolmogorov-Smirnoff test *
+. ksmirnov EffortMin if TreatB==1 | Treat20Min==1, by(Treatment) exact
+
+Two-sample Kolmogorov-Smirnov test for equality of distribution functions
+
+ Smaller group       D       P-value      Exact
+ ----------------------------------------------
+ B:                  0.0791    0.718
+ 20-Min:            -0.1432    0.338
+ Combined K-S:       0.1432    0.649      0.580
+
+Note: Ties exist in combined dataset;
+      there are 45 unique values out of 106 observations.
+
+. 
+. * Wilcoxon rank-sum test *
+. ranksum EffortMin0 if TreatB==1 | Treat20Min==1, by(Treatment)
+
+Two-sample Wilcoxon rank-sum (Mann-Whitney) test
+
+   Treatment |      obs    rank sum    expected
+-------------+---------------------------------
+           B |       52      2633.5        2626
+      20-Min |       48      2416.5        2424
+-------------+---------------------------------
+    combined |      100        5050        5050
+
+unadjusted variance    21008.00
+adjustment for ties      -42.36
+                     ----------
+adjusted variance      20965.64
+
+Ho: Effort~0(Treatm~t==B) = Effort~0(Treatm~t==20-Min)
+             z =   0.052
+    Prob > |z| =   0.9587
+
+. 
+. log close logexp2A
+      name:  logexp2A
+       log:  C:\Users\BoonHan\Dropbox\Uni - Research\Own Research\Real-Effort Tasks\Drafts\EER_Accepted_Version\STATA\Logs\exp2A.log
+  log type:  text
+ closed on:  29 Oct 2017, 22:49:55
+-----------------------------------------------------------------------------------------------------------------------------------------------------------

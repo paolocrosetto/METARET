@@ -1,0 +1,18 @@
+id: id number of subject.
+
+risk_gain: row in which subject switches from lottery to sure amount in the Risk attitude elicitation (gain domain), 1-10. 10 indicates no switch. Missing values indicate subjects who switch more than once. 
+
+risk_loss: row in which subject switches from lottery to sure amount in the Risk attitude elicitation (loss domain), 1-10. 10 indicates no switch. Missing values indicate subjects who switch more than once.
+
+age: subject age in years.
+
+gender: 1=male, 0=female.
+
+
+
+
+
+
+
+
+ 
