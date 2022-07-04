@@ -2,7 +2,7 @@ library(sf)
 library(raster)
 library(dplyr)
 library(spData)
-library(spDataLarge)
+#library(spDataLarge)
 library(tmap)    # for static and interactive maps
 library(leaflet) # for interactive maps
 library(ggplot2) # tidyverse data visualization package
