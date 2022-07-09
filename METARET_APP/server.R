@@ -567,16 +567,17 @@ colnames_given_pattern <- function(.data, pattern){
                'task', "age", "gender",
                "choice", "r")})
     
-    data <- df %>% 
-      select('subject', 'paper', 
-             'task', "age", "gender",
-             "choice", "r")
+
     
     output$downloadData <- downloadHandler(
       filename = function() {
         paste("data-", Sys.Date(), ".csv", sep="")
       },
       content = function(file) {
+        data <- df %>% 
+          select('subject', 'paper', 
+                 'task', "age", "gender",
+                 "choice", "r")
         write.csv(data, file)
       }
     )
@@ -589,17 +590,18 @@ colnames_given_pattern <- function(.data, pattern){
         pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
         drop_na()})
     
-    data <- df %>% 
-      select('subject', 'paper', 'task',
-             starts_with('soep'), starts_with("do"), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', -doi_2) %>%
-      pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
-      drop_na()
+    
     
     output$downloadData2 <- downloadHandler(
       filename = function() {
         paste("data-", Sys.Date(), ".csv", sep="")
       },
       content = function(file) {
+        data <- df %>% 
+          select('subject', 'paper', 'task',
+                 starts_with('soep'), starts_with("do"), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', -doi_2) %>%
+          pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
+          drop_na()
         write.csv(data, file)
       }
     )
