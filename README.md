@@ -71,7 +71,7 @@ in due time.
 METARET is composed of:
 
   - a **shiny interactive app**
-    [(here)](https://paolocrosetto.shinyapps.io/METARET/) where the data
+    [(here)](https://paolocrosetto.shinyapps.io/METARET_APP/) where the data
     accumulated so far can be explored and visualised;
   - an **OSF page** [(here)](https://osf.io/h2z56/) where the project is
     being pre-registered;
@@ -122,7 +122,7 @@ further use (upon citation and contact, CC NC-BY-SA):
   - *static .csv files* and analysis scripts (mainly R and Stata), on
     this **github** repository;
   - *dynamically explorable*, on the [shiny
-    app](https://paolocrosetto.shinyapps.io/METARET/).
+    app](https://paolocrosetto.shinyapps.io/METARET_APP/).
 
 If **you do not wish** your raw data to be disclosed but *still want to
 contribute*, let me know. It is possible to include only the computed
@@ -136,7 +136,7 @@ of different utility functions, more measures…)
 METARET will be **developed in public**. As new papers and data sources
 arrive, they will be added to the repository, cleaned, correlations will
 be computed, and results will be fed to the [shiny
-app](https://paolocrosetto.shinyapps.io/METARET/). You will be able to
+app](https://paolocrosetto.shinyapps.io/METARET_APP/). You will be able to
 **track** the active development of the meta-analysis.
 
 ### Presentation
@@ -176,6 +176,6 @@ are the results of correlations between several tasks and:
 
 The plots and analyses are updated for each new contributed paper. An
 interactive version fo the same data is to be found at the [shiny
-app](https://paolocrosetto.shinyapps.io/METARET/)
+app](https://paolocrosetto.shinyapps.io/METARET_APP/)
 
 ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
