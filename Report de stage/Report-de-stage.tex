@@ -150,51 +150,90 @@ doctorants et du personnel administratif et d'appui à la recherche.
 \section{Missions effectuées pendant le stage}
 \label{sec:third}
 
-La thème de mon stage était ``Méta-analyse de la validité externe des
-tâches d'élicitation des risques''. Ma mission principale était de
-collecter une importante base de données d'élicitation de risque et de
-créer un site web basé sur celle-ci. Pour y parvenir, j'ai dû effectuer
-plusieurs tâches différentes. Tout d'abord, j'ai lu de nombreux articles
-scientifiques différents basés sur des expériences en laboratoire. Puis,
-j'ai traité ces données afin d'obtenir une base de données unifiée et
-uniformisée pour toutes les expériences. Ensuite, sur la base des
-données reçues, je les ai visualisées en utilisant le langage de
-programmation R et le package Shiny.
+L'une des principales prémisses de la plupart des modèles
+microéconomiques classiques est la rationalité des individus. Cependant,
+dans le monde réel, on peut observer que les gens, lorsqu'ils sont
+exposés à l'incertitude, essaient de minimiser cette incertitude autant
+que possible. Par exemple, un investisseur peut choisir d'investir son
+argent dans un compte bancaire avec un taux d'intérêt faible mais
+garanti, plutôt que dans des actions, qui peuvent avoir un rendement
+attendu élevé mais également comporter un risque de perte. Cet effet est
+appelé aversion au risque, il caractérise la propension des personnes à
+prendre telle ou telle décision face au risque. L'analyse de l'aversion
+au risque joue un rôle important en économie comportementale, car elle
+permet de mieux comprendre le fonctionnement de l'irrationalité humain.
 
-Les expériences en laboratoire impliquent l'exécution de certaines
-tâches visant à identifier l'attitude du répondant face au risque. La
-tâche peut être donnée explicitement sous la forme d'une question
-directe, par exemple, que «~Comment vous voyez-vous~? Êtes-vous
-généralement une personne totalement prête à prendre des risques ou
-essayez-vous d'éviter de prendre des risques~?~» (\citet{SOEP2007}) et
-indirectement sous la forme d'une loterie, par exemple, où le répondant
-est invité à choisir entre deux options plus et moins risquées
-(\citet{Holt2002}).
+La thème de projet où j'ai participé pendant mon stage était
+``Méta-analyse de la validité externe des tâches d'élicitation des
+risques''. Il vise à rassembler les connaissances existantes dans le
+domaine de l'elicitation des risques, de mieux comprendre l'état actuel
+de la validité externe des mesures qui aident d'identifier des risques
+(par méta-analyse) et donner libre accès à d'autres chercheurs et
+personnes intéressées en ligne et avec une base de données en constante
+augmentation.
 
-La visualisation sur le site comprenait la conception de la structure du
-site, ainsi que son contenu. Par exemple, construire des distributions
-pour le paramètre d'aversion relative constante du risque
-(CRRA)\footnote{\url{https://en.wikipedia.org/wiki/Risk_aversion}} pour
-chaque élément ou chaque type de question, calculer également des
-corrélations, creation de cartes géographiques, de tableaux avec des
-sources de données, etc.
-
-L'objectif global de ce projet est d'apporter plusieurs améliorations
-dans le domaine de l'identification des risques, c'est-à-dire de mieux
-comprendre l'état actuel de la validité externe des mesures
-d'identification des risques (par méta-analyse). L'un des objectifs
-principaux du projet est de rendre l'accès libre aux informations
-traitées au cours de l'étude, open source, en ligne et une base de
-données en constante augmentation.
+L'enjeu principal de ce projet est de repenser les tâches d'élicitation
+des attitudes face au risque. С'est-à-dire qu'au cours d'expériences en
+laboratoire, il est censé effectuer certaines tâches visant à identifier
+l'attitude du répondant face au risque. Une question directe peut être
+posée pour le déterminer, par exemple, que «~Comment vous voyez-vous~?
+Êtes-vous généralement une personne totalement prête à prendre des
+risques ou essayez-vous d'éviter de prendre des risques~?~»
+(\citet{SOEP2007}) ou il peut être la demande d'indiquer la probabilité
+d'être impliqué dans un événement particulier, comme tricher à un examen
+(\citet{Blais2006}). De même il est possible d'estimer les attitudes
+face au risque en utilisant une tâche d'élicitation des risques, par
+exemple, où le répondant est invité à choisir entre deux options plus et
+moins risquées (\citet{Holt2002}) ou à choisir un seul lotterie de la
+liste proposé (\citet{Eckel2002}). Il existe de nombreuses variantes de
+ces tâches, certaines impliquent une composante visuelle pour une
+perception plus facile (\citet{Hunt2005}, \citet{Crosetto2013}). Dans
+quelques tâches, les pertes sont implicites
+(\citet{Menkhoff_Sakha_2017}), dans d'autres seulement les gains
+(\citet{Eckel2002}, \citet{Holt2002}).
 
 Il est à noter, que le projet pré-existait à mon stage, il a été lancé
 en 2019 sous la direction de Paolo Crosetto. Au début de mon stage, une
-version brute du site était prête, mais elle devait être entièrement
-repensée. Lors de la creation d'un nouveau site, j'ai pris quelques
-idées conceptuelles de la version originale.
+version brute du site web avec la base de donnée assez modeste et les
+fonctions limité était prête, mais elle devait être entièrement
+repensée. En outre, lors de la creation d'un nouveau site web, j'ai pris
+quelques idées conceptuelles de la version originale.
+
+Ma mission principale était de redevelopper un site web informatif, bien
+structurisé, techniquement stable et jolie sur logiciel R Studio. Pour y
+parvenir, j'ai dû effectuer plusieurs sous-tâches. Tout d'abord,
+nombreux articles scientifiques différents basés sur des expériences en
+laboratoire ont été lus. Deuxièmement, une demande de données a été
+faite pour enrichir le site auprès de la communauté scientifique en
+suivant deux methodes :
+
+\begin{enumerate}
+\item Paolo a envoyé le mail au ces collegues directement en utilisant la base de contact qu'il avait;
+\item Les messages personnels à diffuser aux auteurs qui Paolo ne connait pas encore ont été composé. Les articles neessaires ont été selectionées par definition des requets pertinentes sur Google Scholar. Les liens sur ces articles et son information principale, tel que les noms d'auters et d'article et l'année de publication ont été collecté en utilisant le parser en Python. Ensuite, la lecture des articles par le site Scihub et extraction des mails par analyseur en Python ont été effectué. 
+\end{enumerate}
+
+Ensuit, il fallait d'alimenter le site web d'une quantité importante de
+base de données d'élicitation de risque qu'on a reçu dans une manière
+unifiée et uniformisée pour toutes les expériences. Principalement ça
+veut dire de faire les calculs nessecaires pour obtenir le paramètre
+d'aversion relative constante du risque (CRRA)\footnote{\url{https://en.wikipedia.org/wiki/Risk_aversion}}
+pour chaque article en utilisant la methodologie speciale qui sera
+precisé dans la partie 5. Il était également nécessaire d'identifier
+sans ambiguïté d'autres variables, telles que le genre, l'age, le pays
+dans lequel l'expérience a été menée, la ville, etc.
+
+Finalement, en ulilisant cette base des données, le site web a été
+recréé avec l'ajout de nouvelles fonctionnalités en utilisant le package
+Shiny. La visualisation sur le site comprenait la conception de la
+structure du site, ainsi que son contenu. Par exemple, construire des
+distributions pour le paramètre CRRA pour chaque élément ou chaque type
+de question, calculer également des corrélations, creation de cartes
+géographiques, de tableaux avec des sources de données, etc.
 
 \section{Développement d’un site web consacré d'analyse de risque}
 \label{sec:fourth}
+
+\subsection{Revue de la littérature}
 
 Plan :
 
@@ -204,6 +243,9 @@ Plan :
 \item  *Problématique économique* : Est-il possible d'améliorer le pouvoir prédictif des tâches liées à l'elicitation de risque ?
 
 \item *Méthodologie* : explication du contenu ua site web
+
+Les expériences en laboratoire impliquent l'exécution de certaines tâches visant à identifier l'attitude du répondant face au risque. La tâche peut être donnée explicitement sous la forme d'une question directe, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » (@SOEP2007) et indirectement sous la forme d'une loterie, par exemple, où le répondant est invité à choisir entre deux options plus et moins risquées (@Holt2002). 
+
 
 \item *Résultats* : La partie d'analyse des données que nous n'avons pas encore commencée
 

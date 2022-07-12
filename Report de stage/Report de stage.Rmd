@@ -36,47 +36,55 @@ J'ai aussi initialement rédigé une lettre de motivation individuellement pour 
 
 Je tiens également à souligner la participation de l'université aux modifications qui ont eu lieu. Avec l'aide de Sylvian Houset, les fautes de frappe et les formulations inexactes ont été corrigées dans mon CV et ma lettre de motivation.
 
-Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recevoir des offres d'emploi, mais elles ne me convenaient pas pour poursuivre le processus de formation. J'ai parcouru plusieurs entretiens et noté les entreprises où je pourrais essayer d'obtenir un emploi après la fin de ma formation. En parallèle, j'ai diffusé activement mon CV aux entreprises de Grenoble et ses environs, y compris les offres envoyées par les responsables de notre master, et je me suis renseignée également sur les postes disponibles parmi les professeurs de mon université. Au total, j'ai postulé à plus de 70 endroits pour toute la recherche. Finalement, j'ai trouvé un stage dans le laboratoire GAEL avec Paolo Crosetto qui a été chargé du cours d'analyse de données en R que j'ai suivi.
-<!-- hey je ne suis pas prof d'informatique! vaudrait mieux dire que j'ai été chargé du cours d'analyse de données en R; mon intitulé de poste est "Directeur de Recherche INRAE"--> Ayant déjà 4 ans d'expérience dans le domaine scientifique en Russie et en cherchant la possibilité de poursuivre mon activité dans le niveau mondial, j'étais convaincue que ce stage s'intègre parfaitement dans mon projet professionnel. 
+Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recevoir des offres d'emploi, mais elles ne me convenaient pas pour poursuivre le processus de formation. J'ai parcouru plusieurs entretiens et noté les entreprises où je pourrais essayer d'obtenir un emploi après la fin de ma formation. En parallèle, j'ai diffusé activement mon CV aux entreprises de Grenoble et ses environs, y compris les offres envoyées par les responsables de notre master, et je me suis renseignée également sur les postes disponibles parmi les professeurs de mon université. Au total, j'ai postulé à plus de 70 endroits pour toute la recherche. Finalement, j'ai trouvé un stage dans le laboratoire GAEL avec Paolo Crosetto qui a été chargé du cours d'analyse de données en R que j'ai suivi. Ayant déjà 4 ans d'expérience dans le domaine scientifique en Russie et en cherchant la possibilité de poursuivre mon activité dans le niveau mondial, j'étais convaincue que ce stage s'intègre parfaitement dans mon projet professionnel. 
 
 \section{Présentation de la structure de stage}
 \label{sec:second}
 
-<!-- j'ai supprimé la phrase "dans cette phase, je vais.... " en général, ces phrases sont inutiles car le titre de la section déjà dit tout, c'est mieux de ne pas l'écrire -->
 L'organisme qui m'a accueilli est l’Institut National de Recherche pour l’Agriculture, l’alimentation et l’Environnement (INRAE). J'ai effectué un stage dans un des laboratoires affiliés à cet organisme, à savoir au laboratoire d'économie appliquée à Grenoble (GAEL). Il est composé d'une quarantaine de chercheurs auxquels s'ajoutent des post-doctorants, des doctorants et du personnel administratif et d'appui à la recherche. 
-<!-- Comme le concurrent principal du GAEL le laboratoire scientifique de Grenoble Ecole de Management peut être considéré.  ???? on n'est pas "concurrents", la recherche ne marche pas comme ça :-)  on en reparle à l'occasion. -->
+
 
 \section{Missions effectuées pendant le stage}
 \label{sec:third}
 
-La thème de mon stage était "Méta-analyse de la validité externe des tâches d'élicitation des risques". Ma mission principale était 
-<!-- attention tu passes souvent de l'imparfait au présent et vice versa; choisit si tu parles du stage au passé ou au présent, et stick to that. -->
-de collecter une importante base de données d'élicitation de risque et de créer un site web basé sur celle-ci. Pour y parvenir, j'ai dû effectuer plusieurs tâches différentes. Tout d'abord, j'ai lu de nombreux articles scientifiques différents basés sur des expériences en laboratoire. Puis, j'ai traité ces données afin d'obtenir une base de données unifiée et uniformisée pour toutes les expériences. Ensuite, sur la base des données reçues, je les ai visualisées en utilisant le langage de programmation R et le package Shiny. 
-<!-- Là il faudrait dire que le projet pré-existait à ton stage; d'où ça vient; qu'un site existait déjà mais il était à refaire. -->
+L'une des principales prémisses de la plupart des modèles microéconomiques classiques est la rationalité des individus. Cependant, dans le monde réel, on peut observer que les gens, lorsqu'ils sont exposés à l'incertitude, essaient de minimiser cette incertitude autant que possible. Par exemple, un investisseur peut choisir d'investir son argent dans un compte bancaire avec un taux d'intérêt faible mais garanti, plutôt que dans des actions, qui peuvent avoir un rendement attendu élevé mais également comporter un risque de perte. Cet effet est appelé aversion au risque, il caractérise la propension des personnes à prendre telle ou telle décision face au risque. L'analyse de l'aversion au risque joue un rôle important en économie comportementale, car elle permet de mieux comprendre le fonctionnement de l'irrationalité humain. 
 
-Les expériences en laboratoire impliquent l'exécution de certaines tâches visant à identifier l'attitude du répondant face au risque. La tâche peut être donnée explicitement sous la forme d'une question directe, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » (@SOEP2007) et indirectement sous la forme d'une loterie, par exemple, où le répondant est invité à choisir entre deux options plus et moins risquées (@Holt2002). 
+La thème de projet où j'ai participé pendant mon stage était "Méta-analyse de la validité externe des tâches d'élicitation des risques". Il vise à rassembler les connaissances existantes dans le domaine de l'elicitation des risques, de mieux comprendre l'état actuel de la validité externe des mesures qui aident d'identifier des risques (par méta-analyse) et donner libre accès à d'autres chercheurs et personnes intéressées en ligne et avec une base de données en constante augmentation.  
 
-<!-- Là il faudrait étoffer un peu plus ce que c'est que les attitudes face au risque, le fait qu'il y a plusieurs tâches, leurs différences, et l'enjeu principal du projet. Pourquoi on le fait? Il faudrait également au passage ajouter des citations aux articles prinicpaux. -->
+L'enjeu principal de ce projet est de repenser les tâches d'élicitation des attitudes face au risque. С'est-à-dire qu'au cours d'expériences en laboratoire, il est censé effectuer certaines tâches visant à identifier l'attitude du répondant face au risque. Une question directe peut être posée pour le déterminer, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » (@SOEP2007) ou il peut être la demande d'indiquer la probabilité d'être impliqué dans un événement particulier, comme tricher à un examen (@Blais2006). De même il est possible d'estimer les attitudes face au risque en utilisant une tâche d'élicitation des risques, par exemple, où le répondant est invité à choisir entre deux options plus et moins risquées (@Holt2002) ou à choisir un seul lotterie de la liste proposé (@Eckel2002). Il existe de nombreuses variantes de ces tâches, certaines impliquent une composante visuelle pour une perception plus facile (@Hunt2005, @Crosetto2013). Dans quelques tâches, les pertes sont implicites (@Menkhoff_Sakha_2017), dans d'autres seulement les gains (@Eckel2002, @Holt2002). Dans certaines tâches, il y a le choix entre deux loteries, dont l'une est plus risquée. D'autres peuvent offrir un choix de loterie à risque et un certain équivalent .
+ 
+Il est à noter, que le projet pré-existait à mon stage, il a été lancé en 2019 sous la direction de Paolo Crosetto. Au début de mon stage, une version brute du site web avec la base de donnée assez modeste et les fonctions limité était prête, mais elle devait être entièrement repensée. En outre, lors de la creation d'un nouveau site web, j'ai pris quelques idées conceptuelles de la version originale. 
 
-La visualisation sur le site comprenait la conception de la structure du site, ainsi que son contenu. Par exemple, construire des distributions pour le paramètre d'aversion relative constante du risque (CRRA)[^1] pour chaque élément ou chaque type de question, calculer également des corrélations, creation de cartes géographiques, de tableaux avec des sources de données, etc. 
+Ma mission principale était de redevelopper un site web informatif, bien structurisé, techniquement stable et jolie sur logiciel R Studio. Pour y parvenir, j'ai dû effectuer plusieurs sous-tâches. Tout d'abord, nombreux articles scientifiques différents basés sur des expériences en laboratoire ont été lus. Deuxièmement, une demande de données a été faite pour enrichir le site auprès de la communauté scientifique en suivant deux methodes : 
+\begin{enumerate}
+\item Paolo a envoyé le mail au ces collegues directement en utilisant la base de contact qu'il avait;
+\item Les messages personnels à diffuser aux auteurs qui Paolo ne connait pas encore ont été composé. Les articles neessaires ont été selectionées par definition des requets pertinentes sur Google Scholar. Les liens sur ces articles et son information principale, tel que les noms d'auters et d'article et l'année de publication ont été collecté en utilisant le parser en Python. Ensuite, la lecture des articles par le site Scihub et extraction des mails par analyseur en Python ont été effectué. 
+\end{enumerate}
+
+Ensuit, il fallait d'alimenter le site web d'une quantité importante de base de données d'élicitation de risque qu'on a reçu dans une manière unifiée et uniformisée pour toutes les expériences. Principalement ça veut dire de faire les calculs nessecaires pour obtenir le paramètre d'aversion relative constante du risque (CRRA)[^1] pour chaque article en utilisant la methodologie speciale qui sera precisé dans la partie 5. Il était également nécessaire d'identifier sans ambiguïté d'autres variables, telles que le genre, l'age, le pays dans lequel l'expérience a été menée, la ville, etc.
 
 [^1]: https://en.wikipedia.org/wiki/Risk_aversion
 
-L'objectif global de ce projet est d'apporter plusieurs améliorations dans le domaine de l'identification des risques, c'est-à-dire de mieux comprendre l'état actuel de la validité externe des mesures d'identification des risques (par méta-analyse). L'un des objectifs principaux du projet est de rendre l'accès libre aux informations traitées au cours de l'étude, open source, en ligne et une base de données en constante augmentation. 
-
-Il est à noter, que le projet pré-existait à mon stage, il a été lancé en 2019 sous la direction de Paolo Crosetto. Au début de mon stage, une version brute du site était prête, mais elle devait être entièrement repensée. Lors de la creation d'un nouveau site, j'ai pris quelques idées conceptuelles de la version originale. 
-
+Finalement, en ulilisant cette base des données, le site web a été recréé avec l'ajout de nouvelles fonctionnalités en utilisant le package Shiny. La visualisation sur le site comprenait la conception de la structure du site, ainsi que son contenu. Par exemple, construire des distributions pour le paramètre CRRA pour chaque élément ou chaque type de question, calculer également des corrélations, creation de cartes géographiques, de tableaux avec des sources de données, etc. 
 
 \section{Développement d’un site web consacré d'analyse de risque}
 \label{sec:fourth}
 
+\subsection{Revue de la littérature}
+
+\subsection{Problématique économique}
+
+La capacité à améliorer le pouvoir prédictif des tâches d'élicitation des risques est déclaré comme la mesure de la réussite du projet. 
+Est-il possible d'améliorer le pouvoir prédictif des tâches liées à l'elicitation de risque ?
+
+
 Plan : 
 \begin{itemize}
-\item  *Revue de la littérature* sur l'élicitation de risque, y compris des articles avec des tâches d'élicitation de risque, des questionnaires
 
 \item  *Problématique économique* : Est-il possible d'améliorer le pouvoir prédictif des tâches liées à l'elicitation de risque ?
 
 \item *Méthodologie* : explication du contenu ua site web
+
 
 \item *Résultats* : La partie d'analyse des données que nous n'avons pas encore commencée
 

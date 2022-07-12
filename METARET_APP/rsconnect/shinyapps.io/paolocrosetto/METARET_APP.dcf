@@ -5,9 +5,9 @@ account: paolocrosetto
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6410006
-bundleId: 5966984
+bundleId: 6068218
 url: https://paolocrosetto.shinyapps.io/METARET_APP/
-when: 1654072548.74642
-lastSyncTime: 1654072548.74647
+when: 1656944531.71199
+lastSyncTime: 1656944531.71204
 asMultiple: FALSE
 asStatic: FALSE
