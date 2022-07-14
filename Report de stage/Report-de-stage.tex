@@ -112,7 +112,7 @@ J'ai aussi initialement rédigé une lettre de motivation individuellement
 pour chaque poste, en précisant le nom de l'entreprise, le nom du
 recruteur, pour que la lettre ait l'air personnelle. Cependant, cela a
 pris beaucoup de temps et n'a donné aucun résultat. Comme le processus
-de candidature en France est administrativement compliqué, avec le
+de candidature en France est bureaucratiquement compliqué, avec le
 temps, j'ai décidé de simplifier ma lettre de motivation et de la rendre
 universelle.
 
@@ -163,9 +163,9 @@ prendre telle ou telle décision face au risque. L'analyse de l'aversion
 au risque joue un rôle important en économie comportementale, car elle
 permet de mieux comprendre le fonctionnement de l'irrationalité humain.
 
-La thème de projet où j'ai participé pendant mon stage était
+La thème du projet où j'ai participé pendant mon stage était
 ``Méta-analyse de la validité externe des tâches d'élicitation des
-risques''. Il vise à rassembler les connaissances existantes dans le
+risques''. Il vise à rassembler les connaissances existantes dans la
 domaine de l'elicitation des risques, de mieux comprendre l'état actuel
 de la validité externe des mesures qui aident d'identifier des risques
 (par méta-analyse) et donner libre accès à d'autres chercheurs et
@@ -182,20 +182,30 @@ risques ou essayez-vous d'éviter de prendre des risques~?~»
 (\citet{SOEP2007}) ou il peut être la demande d'indiquer la probabilité
 d'être impliqué dans un événement particulier, comme tricher à un examen
 (\citet{Blais2006}). De même il est possible d'estimer les attitudes
-face au risque en utilisant une tâche d'élicitation des risques, par
-exemple, où le répondant est invité à choisir entre deux options plus et
-moins risquées (\citet{Holt2002}) ou à choisir un seul lotterie de la
-liste proposé (\citet{Eckel2002}). Il existe de nombreuses variantes de
-ces tâches, certaines impliquent une composante visuelle pour une
-perception plus facile (\citet{Hunt2005}, \citet{Crosetto2013}). Dans
-quelques tâches, les pertes sont implicites
+face au risque en utilisant une tâche d'élicitation des risques (RET),
+par exemple, où le répondant est invité à choisir entre deux options
+plus et moins risquées (\citet{Holt2002}) ou à choisir un seul lotterie
+de la liste proposé (\citet{Eckel2002}). Il existe de nombreuses
+variantes de ces tâches, certaines impliquent une composante visuelle
+pour une perception plus facile (\citet{Hunt2005},
+\citet{Crosetto2013}). Dans quelques tâches, les pertes sont implicites
 (\citet{Menkhoff_Sakha_2017}), dans d'autres seulement les gains
-(\citet{Eckel2002}, \citet{Holt2002}).
+(\citet{Eckel2002}, \citet{Holt2002}). Dans certaines tâches, il y a le
+choix entre deux loteries, dont l'une est plus risquée. D'autres peuvent
+offrir un choix de loterie à risque et un certain équivalent
+(\citet{Menkhoff_Sakha_2017}, \citet{Csermely2014}).
+
+Le fait est que les RET montrent peu de corrélation avec les mesures
+autodéclarées, avec le monde réel et entre eux. En termes
+psychométriques, ils montrent peu de validité prédictive. Ainsi, le
+résultat de l'analyse des données recueillies au cours du projet devrait
+être la creation d'une nouvelle tâche qui résoudrait le problème de la
+faible corrélation.
 
 Il est à noter, que le projet pré-existait à mon stage, il a été lancé
 en 2019 sous la direction de Paolo Crosetto. Au début de mon stage, une
-version brute du site web avec la base de donnée assez modeste et les
-fonctions limité était prête, mais elle devait être entièrement
+version brute du site web avec la base de données modérée et les
+fonctions limités était prête, mais elle devait être entièrement
 repensée. En outre, lors de la creation d'un nouveau site web, j'ai pris
 quelques idées conceptuelles de la version originale.
 
@@ -233,18 +243,90 @@ géographiques, de tableaux avec des sources de données, etc.
 \section{Développement d’un site web consacré d'analyse de risque}
 \label{sec:fourth}
 
-\subsection{Revue de la littérature}
+\subsection{Problématique économique}
+
+Des tentatives pour faire une méta-analyse des résultats de diverses
+expérimentations contenant de tâches d'élicilation du risque ont déjà
+été faites dans la littérature (\citet{CroFil2013b}). Cependant, une
+analyse détaillée des caractéristiques des tâches, ainsi que des
+questions supplémentaires aux répondants sur un large échantillon de
+données, n'ont pas été réalisées auparavant. La problématique économique
+qui décrit une de mes missions est une recherche des caractéristiques de
+la tâche d'élicitation du risque et les questions supplémentaires qui
+expliquaient le mieux l'attitude réelle face au risque.
+
+\subsection{Base de données}
+
+Avant mon stage, la base de données était composée d'environ 55 articles
+contenant 6 types de RET et 9 questions supplémentaires. Examinons de
+plus près les types des tâches. L'une des RET les plus populaires est la
+liste de prix multiple de Holt and Laury (HL, \citet{Holt2002}). Les
+sujets sont confrontés à une série de choix entre des paires de
+loteries, l'option A étant plus sûre que l'option B (Tableau 1).
+L'espérance mathématique est commun à tous les choix, et les paires de
+loterie sont classées par valeur attendue croissante. Les sujets font un
+choix pour chaque paire de loteries et doivent à un moment donné passer
+à l'option risquée. Le point de commutation capte l'aversion au risque
+du sujet. Un sujet neutre au risque devrait commencer par l'option A et
+passer à B à partir du cinquième choix. À la fin de l'expérience, une
+ligne est choisie au hasard pour le paiement, et la loterie choisie est
+jouée pour déterminer le gain. Il convient de noter que si le répondant
+passait de la loterie A à la loterie B, puis vice versa, ces cas étaient
+supprimés de la base de données, car le répondant était considéré comme
+incohérent. De plus, il peut parfois y avoir un nombre de lignes autre
+que 10, par exemple 5 (\citet{Branas_Garza2021}).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=0.3\textheight]{/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/HL.png}
+\caption{La liste de prix multiple de Holt and Laury}
+\end{figure}
+
+Il est à noter, que pour calculer le paramètre CRRA pour chaque tâche la
+fonction d'utilité \(u(x) = x^r\) a été utilisée. Pour chaque moment de
+changement des préférences de la loterie A à la loterie B, il est
+possible de déterminer l'intervalle où tombe la valeur de ce paramètre.
+Par exemple, si le répondant a choisi sur la quatrième ligne la loterie
+B, alors la solution de l'équation
+\(0.4*4^r + 0.6*3.2^r = 0.4*7.7^r + 0.6*0.2^r\) sera le seuil supérieur
+de l'intervalle et la solution de
+\(0.3*4^r + 0.7*3.2^r = 0.3*7.7^r + 0.7*0.2^r\) sera celui de inférieur.
+Lors de la mise à jour du site, pour ce répondant une des valeurs de
+CRRA distribué uniformément est implémentée avec une valeur minimale de
+0.32 et une valeur maximale de 0.59. Comme ça les valeurs appropriées
+ont été calculées pour tous les participants de ce type de tâche.
+
+Dans le point de commutation sur la toute première loterie, seul le
+seuil inférieur est utilisé, et dans le cas de la dixième - seul le
+seuil supérieur. Si le répondant a choisi la loterie sûre tout le temps,
+alors de tels cas ont été exclus.
+
+Une loterie pas peu connue est aussi la sélection de loteries triées de
+Eckel and Grossman (EG, \citet{Eckel2002}). Les sujets choisissent une
+loterie parmi un ensemble de 5 loteries caractérisées par une valeur
+attendue croissante linéairement ainsi qu'un écart type plus grand, avec
+la probabilité de chaque option étant fixée à 50 \% (Tableau 2). Un
+participant neutre au risque devrait choisir la loterie 5, car elle
+donne la valeur attendue la plus élevée.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=0.3\textheight]{/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/EG.png}
+\caption{La sélection de loteries triées de Eckel and Grossman}
+\end{figure}
+
+De manière similaire à la procédure de calcul du CRRA de la tâche
+précédente, pour chaque loterie sélectionnée, les seuils supérieur et
+inférieur de l'intervalle sont calculés. Par exemple, si 3 loterie est
+sélectionné, alors le seuil supérieur sera la solution d'équation
+suivant \(8^r + 2^r = 10^r + 1^r\).
 
 Plan :
 
 \begin{itemize}
-\item  *Revue de la littérature* sur l'élicitation de risque, y compris des articles avec des tâches d'élicitation de risque, des questionnaires
 
-\item  *Problématique économique* : Est-il possible d'améliorer le pouvoir prédictif des tâches liées à l'elicitation de risque ?
 
 \item *Méthodologie* : explication du contenu ua site web
-
-Les expériences en laboratoire impliquent l'exécution de certaines tâches visant à identifier l'attitude du répondant face au risque. La tâche peut être donnée explicitement sous la forme d'une question directe, par exemple, que « Comment vous voyez-vous ? Êtes-vous généralement une personne totalement prête à prendre des risques ou essayez-vous d'éviter de prendre des risques ? » (@SOEP2007) et indirectement sous la forme d'une loterie, par exemple, où le répondant est invité à choisir entre deux options plus et moins risquées (@Holt2002). 
 
 
 \item *Résultats* : La partie d'analyse des données que nous n'avons pas encore commencée
