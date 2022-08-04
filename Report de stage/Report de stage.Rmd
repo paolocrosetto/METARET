@@ -27,10 +27,12 @@ output:
 
 Ce rapport est consacré à l'analyse du déroulement de stage dans le cadre de la formation en Master 1, parcours Business et analyse de données, Faculté d'Economie de l'Université Grenoble Alpes. La première partie de ce rapport décrira le processus de recherche de mon stage, l'évolution de mon CV et de ma lettre de motivation, et comment ma candidature s'etait diffusée à diverses organisations. La deuxième partie du rapport parlera de l'organisation où j'ai effectué mon stage, notamment ses principales activités, le nombre d'employés. La troisième partie est réservée à la description du projet auquel j'ai participé, c'est-à-dire son objectif global et mon rôle dans sa réalisation. Dans la quatrième partie, ma mission principale sera décrite en détail. Dans la cinquième partie finale, les résultats de mon stage seront résumés.
 
-\section{Recherche de stage}
+\section{Recherche de stage et présentation de la structure}
 \label{sec:first}
 
-Dans cette section, je décrirai comment mon CV et ma lettre de motivation ont évoloué en fonction de l'expérience de recherche d'un stage. Au départ, j'ai rédigé un CV qui ne contenait que des faits nus sur ma formation, mon expérience de travail et mes compétences. Par exemple, je n'ai pas décrit mes tâches dans des emplois antérieurs, ni précisé les matières que j'ai suivies pendant mes études. Au fil du temps, je me suis rendu compte que ces détails sont importants pour se démarquer des autres candidats. J'ai réfléchi plus attentivement à mes avantages, listé mes réalisations au travail, les sujets que j'ai étudiés. J'ai également ajouté à mon CV mes qualités personnelles que les recruteurs recherchaient pour le poste d'analyste de données.
+\subsection{Recherche de stage}
+
+Dans cette section, je décrirai comment mon CV et ma lettre de motivation ont évolué en fonction de l'expérience de recherche d'un stage. Au départ, j'ai rédigé un CV qui ne contenait que des faits nus sur ma formation, mon expérience de travail et mes compétences. Par exemple, je n'ai pas décrit mes tâches dans des emplois antérieurs, ni précisé les matières que j'ai suivies pendant mes études. Au fil du temps, je me suis rendu compte que ces détails sont importants pour se démarquer des autres candidats. J'ai réfléchi plus attentivement à mes avantages, listé mes réalisations au travail, les sujets que j'ai étudiés. J'ai également ajouté à mon CV mes qualités personnelles que les recruteurs recherchaient pour le poste d'analyste de données.
 
 J'ai aussi initialement rédigé une lettre de motivation individuellement pour chaque poste, en précisant le nom de l'entreprise, le nom du recruteur, pour que la lettre ait l'air personnelle. Cependant, cela a pris beaucoup de temps et n'a donné aucun résultat. Comme le processus de candidature en France est bureaucratiquement compliqué, avec le temps, j'ai décidé de simplifier ma lettre de motivation et de la rendre universelle. 
 
@@ -38,11 +40,9 @@ Je tiens également à souligner la participation de l'université aux modificat
 
 Après avoir modifié mon CV et ma lettre de motivation, j'ai commencé à recevoir des offres d'emploi, mais elles ne me convenaient pas pour poursuivre le processus de formation. J'ai parcouru plusieurs entretiens et noté les entreprises où je pourrais essayer d'obtenir un emploi après la fin de ma formation. En parallèle, j'ai diffusé activement mon CV aux entreprises de Grenoble et ses environs, y compris les offres envoyées par les responsables de notre master, et je me suis renseignée également sur les postes disponibles parmi les professeurs de mon université. Au total, j'ai postulé à plus de 70 endroits pour toute la recherche. Finalement, j'ai trouvé un stage dans le laboratoire GAEL avec Paolo Crosetto qui a été chargé du cours d'analyse de données en R que j'ai suivi. Ayant déjà 4 ans d'expérience dans le domaine scientifique en Russie et en cherchant la possibilité de poursuivre mon activité dans le niveau mondial, j'étais convaincue que ce stage s'intègre parfaitement dans mon projet professionnel. 
 
-\section{Présentation de la structure de stage}
-\label{sec:second}
+\subsection{Présentation de la structure de stage}
 
 L'organisme qui m'a accueilli est l’Institut National de Recherche pour l’Agriculture, l’alimentation et l’Environnement (INRAE). J'ai effectué un stage dans un des laboratoires affiliés à cet organisme, à savoir au laboratoire d'économie appliquée à Grenoble (GAEL). Il est composé d'une quarantaine de chercheurs auxquels s'ajoutent des post-doctorants, des doctorants et du personnel administratif et d'appui à la recherche. 
-
 
 \section{Missions effectuées pendant le stage}
 \label{sec:third}
@@ -59,7 +59,7 @@ Il est à noter, que le projet pré-existait à mon stage, il a été lancé en 
 
 Ma mission principale était de redevelopper un site web informatif, bien structurisé, techniquement stable et jolie sur logiciel R Studio. Pour y parvenir, j'ai dû effectuer plusieurs sous-tâches. Tout d'abord, nombreux articles scientifiques différents basés sur des expériences en laboratoire ont été lus. Deuxièmement, une demande de données a été faite pour enrichir le site auprès de la communauté scientifique en suivant deux methodes : 
 \begin{enumerate}
-\item Paolo a envoyé le mail au ces collegues directement en utilisant la base de contact qu'il avait;
+\item Paolo a envoyé le mail au ces collègues directement en utilisant la base de contact qu'il avait;
 \item Les messages personnels à diffuser aux auteurs qui Paolo ne connait pas encore ont été composé. Les articles neessaires ont été selectionées par definition des requets pertinentes sur Google Scholar. Les liens sur ces articles et son information principale, tel que les noms d'auters et d'article et l'année de publication ont été collecté en utilisant le parser en Python. Ensuite, la lecture des articles par le site Scihub et extraction des mails par analyseur en Python ont été effectué. 
 \end{enumerate}
 
@@ -69,43 +69,70 @@ Ensuit, il fallait d'alimenter le site web d'une quantité importante de base de
 
 Finalement, en ulilisant cette base des données, le site web a été recréé avec l'ajout de nouvelles fonctionnalités en utilisant le package Shiny. La visualisation sur le site comprenait la conception de la structure du site, ainsi que son contenu. Par exemple, construire des distributions pour le paramètre CRRA pour chaque élément ou chaque type de question, calculer également des corrélations, creation de cartes géographiques, de tableaux avec des sources de données, etc. 
 
-\section{Développement d’un site web consacré d'analyse de risque}
+\section{Développement d’une mission avec problématique économique et analyse}
 \label{sec:fourth}
 
 \subsection{Problématique économique}
 
 Des tentatives pour faire une méta-analyse des résultats de diverses expérimentations contenant de tâches d'élicilation du risque ont déjà été faites dans la littérature (@CroFil2013b). Cependant, une analyse détaillée des caractéristiques des tâches, ainsi que des questions supplémentaires aux répondants sur un large échantillon de données, n'ont pas été réalisées auparavant. La problématique économique qui décrit une de mes missions est une recherche des caractéristiques de la tâche d'élicitation du risque et les questions supplémentaires qui expliquaient le mieux l'attitude réelle face au risque.
 
+\subsection{Types des tâches d'élicitation du risque}
 
-\subsection{Base de données}
-
-Avant mon stage, la base de données était composée d'environ 55 articles contenant 6 types de RET et 9 questions supplémentaires. Examinons de plus près les types des tâches. L'une des RET les plus populaires est la liste de prix multiple de Holt and Laury (HL, @Holt2002). Les sujets sont confrontés à une série de choix entre des paires de loteries, l'option A étant plus sûre que l'option B (Tableau 1). L’espérance mathématique est commun à tous les choix, et les paires de loterie sont classées par valeur attendue croissante. Les sujets font un choix pour chaque paire de loteries et doivent à un moment donné passer à l'option risquée. Le point de commutation capte l'aversion au risque du sujet. Un sujet neutre au risque devrait commencer par l'option A et passer à B à partir du cinquième choix. À la fin de l'expérience, une ligne est choisie au hasard pour le paiement, et la loterie choisie est jouée pour déterminer le gain. Il convient de noter que si le répondant passait de la loterie A à la loterie B, puis vice versa, ces cas étaient supprimés de la base de données, car le répondant était considéré comme incohérent. De plus, il peut parfois y avoir un nombre de lignes autre que 10, par exemple 5 (@Branas_Garza2021).
+Examinons de plus près les types des tâches. L'une des RET les plus populaires est *Multiple price list* de Holt and Laury (HL, @Holt2002). Les sujets sont confrontés à une série de choix entre des paires de loteries, l'option A étant plus sûre que l'option B (Tableau 1). L’espérance mathématique est commun à tous les choix, et les paires de loterie sont classées par valeur attendue croissante. Les sujets font un choix pour chaque paire de loteries et doivent à un moment donné passer à l'option risquée. Le point de commutation capte l'aversion au risque du sujet. Un sujet neutre au risque devrait commencer par l'option A et passer à B à partir du cinquième choix. À la fin de l'expérience, une ligne est choisie au hasard pour le paiement, et la loterie choisie est jouée pour déterminer le gain. Il convient de noter que si le répondant passait de la loterie A à la loterie B, puis vice versa, ces cas étaient supprimés de la base de données, car le répondant était considéré comme incohérent. De plus, il peut parfois y avoir un nombre de lignes autre que 10, par exemple 5 (@Branas_Garza2021).
 
 ![La liste de prix multiple de Holt and Laury](/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/HL.png){ height=30% width=60% }
 
-Il est à noter, que pour calculer le paramètre CRRA pour chaque tâche la fonction d'utilité \(u(x) = x^r\) a été utilisée. Pour chaque moment de changement des préférences de la loterie A à la loterie B, il est possible de déterminer l'intervalle où tombe la valeur de ce paramètre. Par exemple, si le répondant a choisi sur la quatrième ligne la loterie B, alors la solution de l'équation \(0.4*4^r + 0.6*3.2^r = 0.4*7.7^r + 0.6*0.2^r\) sera le seuil supérieur de l'intervalle et la solution de \(0.3*4^r + 0.7*3.2^r = 0.3*7.7^r + 0.7*0.2^r\) sera celui de inférieur. Lors de la mise à jour du site, pour ce répondant une des valeurs de CRRA distribué uniformément est implémentée avec une valeur minimale de 0.32 et une valeur maximale de 0.59. Comme ça les valeurs appropriées ont été calculées pour tous les participants de ce type de tâche. 
+@DrichoutisLusk2016 ont montré que *Multiple price list* largement utilisée introduite par Holt et Laury est probablement plus précise pour obtenir la forme de la fonction de pondération de probabilité, et ils ont construit une liste de prix multiples différente (*Payoff varying task*, PV) qui est probablement plus précise pour obtenir la forme de la fonction d'utilité. Ainsi, en combinant des informations provenant de différentes listes de prix multiples, une meilleure performance prédictive peut être obtenue.
 
-Dans le point de commutation sur la toute première loterie, seul le seuil inférieur est utilisé, et dans le cas de la dixième - seul le seuil supérieur. Si le répondant a choisi la loterie sûre tout le temps, alors de tels cas ont été exclus.
-
-Une loterie pas peu connue est aussi la sélection de loteries triées de Eckel and Grossman (EG, @Eckel2002). Les sujets choisissent une loterie parmi un ensemble de 5 loteries caractérisées par une valeur attendue croissante linéairement ainsi qu'un écart type plus grand, avec la probabilité de chaque option étant fixée à 50 % (Tableau 2). Un participant neutre au risque devrait choisir la loterie 5, car elle donne la valeur attendue la plus élevée.
+Une loterie pas peu connue est aussi *Ordered lottery selection* de Eckel and Grossman (EG, @Eckel2002). Les sujets choisissent une loterie parmi un ensemble de 5 loteries caractérisées par une valeur attendue croissante linéairement ainsi qu'un écart type plus grand, avec la probabilité de chaque option étant fixée à 50 % (Tableau 2). Un participant neutre au risque devrait choisir la loterie 5, car elle donne la valeur attendue la plus élevée. Lors du développement du site, ce format de loterie a également été envisagé, mais avec la possibilité de pertes (EG_loss, @Menkhoff_Sakha_2017).
 
 ![La sélection de loteries triées de Eckel and Grossman ](/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/EG.png){ height=30% width=60% }
 
-De manière similaire à la procédure de calcul du CRRA de la tâche précédente, pour chaque loterie sélectionnée, les seuils supérieur et inférieur de l'intervalle sont calculés. Par exemple, si 3 loterie est sélectionné, alors le seuil supérieur sera la solution d'équation suivant \(8^r + 2^r = 10^r + 1^r\). 
+Le prochain type de tâche s'appelle *The investment game* (IG, @Gneezy1997). Les sujets doivent décider comment répartir une dotation donnée entre un option sûr de le garder et un investissement risqué qui donnera plusieurs fois le montant investi ou zéro avec une probabilité égale. Dans ce cas, un sujet neutre au risque devrait investir toute sa dotation.  
 
-Plan : 
-\begin{itemize}
+La RET suivant est *The bomb risk elicitation task* (BRET). C'est une tâche d'identification visuelle des risques en temps réel présentée par @CroFil2013b. Les sujets se voient proposer un champ avec des boîtes mesurant 10 × 10. Ils sont informés que 99 boîtes sont vides et une seule contient une bombe programmée pour exploser. Pour chaque boîte ouverte, le répondant reçoit de l'argent. Sous le champ se trouvent les boutons "Démarrer" et "Arrêter". A partir du moment où le sujet appuie sur "Démarrer", une boîte est automatiquement collecté chaque seconde, en commençant par le coin supérieur gauche du carré. Mais si une boîte avec une bombe a été ouverte, il ne devient connu qu'après avoir appuyé sur le bouton d'arrêt. Alors, toutes les accumulations sont annulées.
+
+![L'interface BRET après 32 secondes](/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/BRET.png){ height=30% width=60% }
+
+Encore une tâche considérée similaire à BERT est *The Balloon Analogue Risk Task* (BART, @Hunt2005). Dans cette tâche, le participant se voit présenter un ballon et se voit offrir la possibilité de gagner de l'argent en gonflant le ballon en cliquant sur un bouton. Chaque clic provoque le gonflement progressif du ballon et l'ajout d'argent à un compteur jusqu'à un certain seuil, à partir duquel le ballon est surgonflé et explose. Ainsi, chaque pompe confère un plus grand risque, mais aussi une plus grande récompense potentielle. Si le participant choisit d'encaisser avant que le ballon n'explose, il récupère l'argent gagné pour cette piste, mais si le ballon explose, les gains pour cet essai sont perdus. Les participants ne sont pas informés des points d'arrêt des ballons ; l'absence de ces informations permet de tester à la fois les réponses initiales des participants à la tâche et les changements de réponse à mesure qu'ils acquièrent de l'expérience avec les contingences de la tâche.
+
+![L'interface BART après 5 pompes](/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/BART.png){ height=40% width=60% }
+
+Une autre version du *Balloon Analog Risk Task* est le *Balloon Economic Risk Protocol* (BERP). Le BERP est une conception complète, proposée par @Fairley2019 et al. Les sujets observent la distribution des points pop avant la tâche, les croyances sur les points pop sont suscitées et l'attitude face au risque suscitée est corrigée par les croyances énoncées.
+
+Un autre type de tâches RET est *Certainty equivalent method*  (CEPL, @Menkhoff_Sakha_2017, @Csermely2014). Sous cet acronyme on regroupe ici une série de tâches qui se caractérisent par une série de choix entre un certain montant et une loterie. Dans certaines implémentations, c'est le certain montant qui change et la loterie reste la même. Dans d'autres, c'est l'inverse ; et les loteries peuvent changer dans les résultats ou dans la probabilité.
+
+\subsection{Questionnaires}
+
+\subsection{Caractéristiques des RETs}
+
+\subsection{Base de données}
+
+Avant mon stage, la base de données était composée d'environ 55 articles contenant 6 types de RET et 9 questions supplémentaires. Il contenait des données telles que le choix du répondant à la loterie et/ou dans le questionnaire SOEP et/ou DOSPERT, son sexe, son âge, s'ils étaient indiqués dans l'article. Actuellement la base contient 85 articles, le nombre de tâches est passé de 6 à 9 et des données sur d'autres types de questionnaires ont également été ajoutées. De plus, la base de données contient maintenant le pays et la ville de l'expérience, les caractéristiques des tâches sont marquées, telles que la représentation visuelle de la tâche, s'il existe une option sûre dans la tâche, implique-t-elle des pertes etc.
 
 
-\item *Méthodologie* : explication du contenu ua site web
+\subsection{Méthodologie}
+
+Tous les types de RETs decrit ci-dessus aident à classifier les répondants en fonction de leur attitude à l'égard du risque. Dans le cadre du projet, on a supposé que les participants ont la même fonction de préférence pour le risque \(u(x) = x^r\). Ainsi, l'attitude face au risque peut être résumée par le coefficient d'aversion relative au risque r. Considérons la loterie proposée par @Holt2002. Pour chaque moment de changement des préférences de la loterie A à la loterie B, il est possible de déterminer l'intervalle où tombe la valeur de ce paramètre. Par exemple, si le répondant a choisi sur la quatrième ligne la loterie B, alors la solution de l'équation \(0.4*4^r + 0.6*3.2^r = 0.4*7.7^r + 0.6*0.2^r\) sera le seuil supérieur de l'intervalle et la solution de \(0.3*4^r + 0.7*3.2^r = 0.3*7.7^r + 0.7*0.2^r\) sera celui de inférieur. Pour tenir compte d'une éventuelle erreur de mesure, lors de la mise à jour du site, pour ce répondant une des valeurs de CRRA distribué uniformément est implémentée avec une valeur minimale de 0.32 et une valeur maximale de 0.59. Comme ça les valeurs appropriées ont été calculées pour tous les participants de ce type de tâche. Dans le point de commutation sur la toute première loterie, seul le seuil inférieur est utilisé, et dans le cas de la dixième - seul le seuil supérieur. Si le répondant a choisi la loterie sûre tout le temps, alors de tels cas ont été exclus.
+
+De manière similaire il est possible de calculer le parametre r pour *Ordered lottery selection* de Eckel and Grossman. Pour chaque loterie sélectionnée, les seuils supérieur et inférieur de l'intervalle sont calculés. Par exemple, si la loterie 3 est sélectionné, alors le seuil supérieur sera la solution d'équation suivant \(8^r + 2^r = 10^r + 1^r\). 
+
+Considérons un exemple pour montrer comment calculer le r pour *Investment Game* RET. Soit la dotation est de 50, et lors de l'investissement, le montant peut augmenter de 3,5 fois avec une probabilité de 50%, alors:  \((50 - x)^r + 0.5 * (3 * x)^r\). Pour obtenir équation dépendant du choix d'un répondant, il faut maximiser cette fonction et puis la résoudre par rapport à l'appétit pour le risque (r). Le montant de la dotation investie est mis dans l'expression résultante pour chaque répondant.
+
+La formulation du BRET, BART et BERP tâches permet de mesurer l'attitude face au risque du répondant sans recourir à des formules complexes. Ainsi, dans le cas du BRET il suffit de compter le nombre de boîtes ouvertes et de les diviser par le nombre de celles restantes. Ainsi, un répondant neutre au risque ouvrira 50 boîtes.
 
 
-\item *Résultats* : La partie d'analyse des données que nous n'avons pas encore commencée
+\subsection{Analyse des caractéristiques de tâches}
 
-\item *Limitations et difficultées*
+\subsection{Resultats}
 
-\end{itemize}
+\subsection{Limitations et difficultées}
+
+Les lmitations de cette étude comprennent le manque d'intégralité des informations de la base de données pour certaines tâches. C’est à dire, DOSPERT et SOEP n'ont pas été interrogés pour toutes les tâches.Par exemple, l'information d'*Ordered lottery selection* de Eckel and Grossman avec la possibilité de pertes n'a pas pu être utilisé car il ne contient que des données pour les SOEP questionnaires. De plus, d'autres types de questions, comme BIS ou AuditS, n'ont pas été posées lors de certaines RETs. À l'avenir, lorsqu'une quantité suffisante de données expérimentales sera réunie, cette lacune sera comblée.
+
+Parmi les difficultés on peut distinguer la besoin de lire attentivement chaque article afin de trouver les informations nécessaires.
 
 \section{Conclusion}
+
 \label{sec:fifth}
 
