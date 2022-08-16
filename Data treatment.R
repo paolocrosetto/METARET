@@ -24,8 +24,9 @@ df_test$task[df_test$task=="BART" & df_test$bibkey == "Crosetto2016"]<-"BRET"
 ## check how many rows are there
 nrow(df_test)
 
+df_test%>%select(country)%>%group_by(country) %>% summarise(n=n())
 ## What"s a correlation between two questionnaires? It"s quite low though...
-cor(df_test$soep, df_test$doall)
+cor(df_test$r, df_test$soep)
 
 ##########################################
 ## Try to count the y (valeurs ciblées) ##
@@ -39,6 +40,8 @@ df_test$id = 1:nrow(df_test)
 df_test$y_r_SoepScale = (df_test$r - min(df_test$r))/(max(df_test$r) - min(df_test$r)) * (10 - 0) + 0
 
 df_test$y_r_SoepScale = df_test$y_r_SoepScale - 2.542214
+
+cor(df_test$r, df_test$soep)
 
 df_test %>% 
   select(y_r_SoepScale, soep, id, task) %>%
@@ -61,8 +64,10 @@ df_test$y_r_DospertScale = (df_test$r - min(df_test$r))/(max(df_test$r) - min(df
 
 df_test$y_r_DospertScale = df_test$y_r_DospertScale - .83352
 
-plot = df_test %>% 
-  select(y_r_DospertScale, doall, id, country) %>%
+cor(df_test$y_r_DospertScale, df_test$doall)
+
+pldf_test %>% 
+  select(y_r_DospertScale, y_r_SoepScale, id, country) %>%
   pivot_longer(-c(id,country)) %>% 
   ggplot(aes(x = value, fill = name)) + geom_density(alpha = 0.3) + 
   geom_vline(xintercept = 4)
@@ -129,26 +134,26 @@ df_test$stakes = with(df_test,
                                          ifelse(task == 'IG' & bibkey == "Crosetto2016", 4 * 2.5 * 0.5,
                                                 
                                                 ## Frey 0.005 for each pump, Risk neutral = 64 pumps
-                                                ifelse(task == 'BART' & bibkey == "Frey2017", 128 / 2 * 0.005 * 0.5,
+                                                ifelse(task == 'BART' & bibkey == "Frey2017", 128 / 2 * 0.005,
                                                      
                                                         ## €0.05 for each point , Risk neutral = 5 choice
                                                        ifelse(task == 'HL' & bibkey == "Frey2017", (0.5 * 80 + 0.5 * 70) *  0.05 , 0))))))))
 
 
 ## 6. Are there safe options in tasks? 
-df_test$safe_option = with(df_test,
-                               ifelse(task == 'HL', 0, 1))
+
+## Here it's the same with probabilities_change
+## df_test$safe_option = with(df_test,
+##                              ifelse(task == 'BRET' | task == 'BART' | task == 'HL', 0, 1))
 
 ## 7. value of safe option
 
-df_test$value_safe_option = df_test$n_choices = with(df_test,
-               ifelse(task == 'BRET', 0,
-                  ifelse(task == 'EG', 4,
-                     ifelse(task == 'IG', 4,
-                            ifelse(task == 'BART', 0, -1)))))
+df_test$value_safe_option = with(df_test,
+                 ifelse(task == 'EG' | task == 'IG', 4, 0))
 
 df_test$value_safe_option_to_stakes = df_test$value_safe_option / df_test$stakes
 
+unique(df_test$value_safe_option)
 ## 8. Country
 
 df_test %>% group_by(country) %>% summarise(n=n())
@@ -156,6 +161,8 @@ df_test %>% group_by(country) %>% summarise(n=n())
 df_test$germany = with(df_test,
                     ifelse(country == 'Germany', 1, 0))
 
+
+df_test %>% filter(task == 'BART') %>% count()
 ##################################
 ## Simple models trials  ##
 ##################################
@@ -166,12 +173,20 @@ library(glmnet)
 
 df_model =  df_test %>% 
   select(-c(bibkey, task, choice, r, id, soep, doall, y_r_DospertScale, 
-            y_r_SoepScale,  country)) %>%
-  drop_na()
+            y_r_SoepScale,  country, y_gap_Dospert, value_safe_option,
+            outcomes_change, value_safe_option_to_stakes)) %>%
+  drop_na() 
 
-simple.fit = lm(y_gap_Dospert~., data=df_model)
+nrow(df_model)
+
+simple.fit = lm(y_gap_Soep~., data=df_model, )
 summary(simple.fit)
+coeftest(simple.fit, vcov. = vcovHC)
 
+library(skedastic) # тест Уайта, тест Бройша-Пагана
+library(lmtest) # тест Бройша-Пагана
+library(sandwich)
+white_lm(simple.fit)
 
 set.seed(42)
 cv_5 = trainControl(method = "cv", number = 5)

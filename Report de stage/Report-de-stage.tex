@@ -27,8 +27,21 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 
 
+\usepackage{float}
+\floatplacement{figure}{H}
 
 \begin{document}
 
@@ -211,7 +224,7 @@ repensée. En outre, lors de la creation d'un nouveau site web, j'ai pris
 quelques idées conceptuelles de la version originale.
 
 Ma mission principale était de redevelopper un site web informatif, bien
-structurisé, techniquement stable et jolie sur logiciel R Studio. Pour y
+structuré, techniquement stable et jolie sur logiciel R Studio. Pour y
 parvenir, j'ai dû effectuer plusieurs sous-tâches. Tout d'abord,
 nombreux articles scientifiques différents basés sur des expériences en
 laboratoire ont été lus. Deuxièmement, une demande de données a été
@@ -220,25 +233,25 @@ suivant deux methodes :
 
 \begin{enumerate}
 \item Paolo a envoyé le mail au ces collègues directement en utilisant la base de contact qu'il avait;
-\item Les messages personnels à diffuser aux auteurs qui Paolo ne connait pas encore ont été composé. Les articles neessaires ont été selectionées par definition des requets pertinentes sur Google Scholar. Les liens sur ces articles et son information principale, tel que les noms d'auters et d'article et l'année de publication ont été collecté en utilisant le parser en Python. Ensuite, la lecture des articles par le site Scihub et extraction des mails par analyseur en Python ont été effectué. 
+\item Les messages personnels à diffuser aux auteurs qui Paolo ne connait pas encore ont été composé. Les articles nécessaires ont été sélectionnées par définition des requets pertinentes sur Google Scholar. Les liens sur ces articles et son information principale, tel que les noms d'auteurs et d'article et l'année de publication ont été collecté en utilisant le parser en Python. Ensuite, la lecture des articles par le site Scihub et extraction des mails par analyseur en Python ont été effectué. 
 \end{enumerate}
 
 Ensuit, il fallait d'alimenter le site web d'une quantité importante de
 base de données d'élicitation de risque qu'on a reçu dans une manière
 unifiée et uniformisée pour toutes les expériences. Principalement ça
-veut dire de faire les calculs nessecaires pour obtenir le paramètre
+veut dire de faire les calculs nécessaires pour obtenir le paramètre
 d'aversion relative constante du risque (CRRA)\footnote{\url{https://en.wikipedia.org/wiki/Risk_aversion}}
-pour chaque article en utilisant la methodologie speciale qui sera
-precisé dans la partie 5. Il était également nécessaire d'identifier
+pour chaque article en utilisant la méthodologie spéciale qui sera
+précisé dans la partie 5. Il était également nécessaire d'identifier
 sans ambiguïté d'autres variables, telles que le genre, l'age, le pays
 dans lequel l'expérience a été menée, la ville, etc.
 
-Finalement, en ulilisant cette base des données, le site web a été
+Finalement, en utilisant cette base des données, le site web a été
 recréé avec l'ajout de nouvelles fonctionnalités en utilisant le package
 Shiny. La visualisation sur le site comprenait la conception de la
 structure du site, ainsi que son contenu. Par exemple, construire des
 distributions pour le paramètre CRRA pour chaque élément ou chaque type
-de question, calculer également des corrélations, creation de cartes
+de question, calculer également des corrélations, création de cartes
 géographiques, de tableaux avec des sources de données, etc.
 
 \section{Développement d’une mission avec problématique économique et analyse}
@@ -253,28 +266,87 @@ analyse détaillée des caractéristiques des tâches, ainsi que des
 questions supplémentaires aux répondants sur un large échantillon de
 données, n'ont pas été réalisées auparavant. La problématique économique
 qui décrit une de mes missions est une recherche des caractéristiques de
-la tâche d'élicitation du risque et les questions supplémentaires qui
-expliquaient le mieux l'attitude réelle face au risque.
+la tâche d'élicitation du risque qui expliquaient le mieux l'attitude
+réelle face au risque.
+
+\subsection{Base de données}
+
+Actuellement, la base de données du site web contient les résultats
+d'expériences de 85 articles, dont 9 tâches différentes pour éliciter
+des attitudes à l'égard du risque, ainsi que 6 types de questionnaires.
+Au total, 20703 personnes ont participé à ces études. Il convient de
+noter que les variables recueillies auprès des participants peuvent être
+diffèrent d'une étude à l'autre. Par exemple, certains auteurs n'ont pas
+collecté d'informations sur l'âge des répondants. Donc, pour la présente
+étude, une partie des données contenant les informations les plus
+complètes sur les expériences a été sélectionnée. Elle comprenait des
+données provenant de trois expériences de laboratoire
+(\citet{Crosetto2013}, \citet{Crosetto2016}, \citet{Frey2017}),
+totalisant 4211 observations. Ces données contiennent des informations
+sur les réponses à 5 tâches différentes d'identification des risques,
+ainsi que des réponses à 2 types de questionnaires. Pour chaque
+participant, son choix dans la RET et dans les questionnaires, son sexe
+et son âge, ainsi que le pays de l'expérience sont connus. Pour mener
+cette étude, 5 types de tâches ont été sélectionnés, à savoir Holt and
+Laury task (HL), Eckel and Grossman task (EG), Investment game (IG),
+Balloon Analog Risk Task (BART) et The bomb risk elicitation task
+(BRET). Des informations détaillées sur les tâches considéré sont
+décrites dans la subsection ``Types de tâches d'élicitation du risque''.
+Le tableau ci-dessous fournit des statistiques descriptives pour cette
+base de données.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Variables & & n \\
+\midrule
+\endhead
+Genre & Femme & 2519 \\
+& Homme & 1692 \\
+Age & 18-25 & 2321 \\
+& 26-35 & 962 \\
+& 36-44 & 8 \\
+& 45-54 & 5 \\
+& plus que 55 & 3 \\
+Attitude à l'égard du risque & Réticent au risque & 3775 \\
+& Risque neutre & 225 \\
+& Preneur de risques & 211 \\
+Types de taches & HL & 1378 \\
+& IG & 86 \\
+& EG & 88 \\
+& BRET & 1165 \\
+& BART & 1494 \\
+Pays & Germany & 2825 \\
+& Switzerland & 1386 \\
+\bottomrule
+\end{longtable}
+
+Je tiens d'ajouter quelques mots de la modification de la base de
+données initiale. Avant mon stage, elle était composée d'environ 55
+articles contenant 6 types de RET et 2 types de questionnaires. Il
+contenait des données telles que le choix du répondant à la loterie
+et/ou dans le questionnaire SOEP et/ou DOSPERT, son sexe, son âge, s'ils
+étaient indiqués dans l'article. Pendant le stage, des informations sur
+le pays de l'expérience ont été ajoutées pour chacune des 85 articles.
+En travaillant de cette étude, j'ai compilé d'autres variables, décrites
+dans la section ``Caractéristiques des RETs''.
 
 \subsection{Types des tâches d'élicitation du risque}
 
-Examinons de plus près les types des tâches. L'une des RET les plus
-populaires est \emph{Multiple price list} de Holt and Laury (HL,
-\citet{Holt2002}). Les sujets sont confrontés à une série de choix entre
-des paires de loteries, l'option A étant plus sûre que l'option B
-(Tableau 1). L'espérance mathématique est commun à tous les choix, et
-les paires de loterie sont classées par valeur attendue croissante. Les
-sujets font un choix pour chaque paire de loteries et doivent à un
-moment donné passer à l'option risquée. Le point de commutation capte
-l'aversion au risque du sujet. Un sujet neutre au risque devrait
-commencer par l'option A et passer à B à partir du cinquième choix. À la
-fin de l'expérience, une ligne est choisie au hasard pour le paiement,
-et la loterie choisie est jouée pour déterminer le gain. Il convient de
-noter que si le répondant passait de la loterie A à la loterie B, puis
-vice versa, ces cas étaient supprimés de la base de données, car le
-répondant était considéré comme incohérent. De plus, il peut parfois y
-avoir un nombre de lignes autre que 10, par exemple 5
-(\citet{Branas_Garza2021}).
+Examinons de plus près les types des tâches choisi pour cette étude.
+L'une des RET les plus populaires est \emph{Multiple price list} de Holt
+and Laury (HL, \citet{Holt2002}). Les sujets sont confrontés à une série
+de choix entre des paires de loteries, l'option A étant plus sûre que
+l'option B (Tableau 1). Espérance mathématique est commun à tous les
+choix, et les paires de loterie sont classées par valeur attendue
+croissante. Les sujets font un choix pour chaque paire de loteries et
+doivent à un moment donné passer à l'option risquée. Le point de
+commutation capte l'aversion au risque du sujet. Un sujet neutre au
+risque devrait commencer par l'option A et passer à B à partir du
+cinquième choix. À la fin de l'expérience, une ligne est choisie au
+hasard pour le paiement, et la loterie choisie est jouée pour déterminer
+le gain. Il convient de noter que si le répondant passait de la loterie
+A à la loterie B, puis vice versa, ces cas étaient supprimés de la base
+de données, car le répondant était considéré comme incohérent.
 
 \begin{figure}
 \centering
@@ -282,24 +354,13 @@ avoir un nombre de lignes autre que 10, par exemple 5
 \caption{La liste de prix multiple de Holt and Laury}
 \end{figure}
 
-\citet{DrichoutisLusk2016} ont montré que \emph{Multiple price list}
-largement utilisée introduite par Holt et Laury est probablement plus
-précise pour obtenir la forme de la fonction de pondération de
-probabilité, et ils ont construit une liste de prix multiples différente
-(\emph{Payoff varying task}, PV) qui est probablement plus précise pour
-obtenir la forme de la fonction d'utilité. Ainsi, en combinant des
-informations provenant de différentes listes de prix multiples, une
-meilleure performance prédictive peut être obtenue.
-
 Une loterie pas peu connue est aussi \emph{Ordered lottery selection} de
 Eckel and Grossman (EG, \citet{Eckel2002}). Les sujets choisissent une
 loterie parmi un ensemble de 5 loteries caractérisées par une valeur
 attendue croissante linéairement ainsi qu'un écart type plus grand, avec
 la probabilité de chaque option étant fixée à 50 \% (Tableau 2). Un
 participant neutre au risque devrait choisir la loterie 5, car elle
-donne la valeur attendue la plus élevée. Lors du développement du site,
-ce format de loterie a également été envisagé, mais avec la possibilité
-de pertes (EG\_loss, \citet{Menkhoff_Sakha_2017}).
+donne la valeur attendue la plus élevée.
 
 \begin{figure}
 \centering
@@ -309,10 +370,10 @@ de pertes (EG\_loss, \citet{Menkhoff_Sakha_2017}).
 
 Le prochain type de tâche s'appelle \emph{The investment game} (IG,
 \citet{Gneezy1997}). Les sujets doivent décider comment répartir une
-dotation donnée entre un option sûr de le garder et un investissement
+montant disposée entre un option sûr de le garder et un investissement
 risqué qui donnera plusieurs fois le montant investi ou zéro avec une
 probabilité égale. Dans ce cas, un sujet neutre au risque devrait
-investir toute sa dotation.
+investir toute sa montant disposée.
 
 La RET suivant est \emph{The bomb risk elicitation task} (BRET). C'est
 une tâche d'identification visuelle des risques en temps réel présentée
@@ -355,41 +416,6 @@ avec les contingences de la tâche.
 \caption{L'interface BART après 5 pompes}
 \end{figure}
 
-Une autre version du \emph{Balloon Analog Risk Task} est le
-\emph{Balloon Economic Risk Protocol} (BERP). Le BERP est une conception
-complète, proposée par \citet{Fairley2019} et al.~Les sujets observent
-la distribution des points pop avant la tâche, les croyances sur les
-points pop sont suscitées et l'attitude face au risque suscitée est
-corrigée par les croyances énoncées.
-
-Un autre type de tâches RET est \emph{Certainty equivalent method}
-(CEPL, \citet{Menkhoff_Sakha_2017}, \citet{Csermely2014}). Sous cet
-acronyme on regroupe ici une série de tâches qui se caractérisent par
-une série de choix entre un certain montant et une loterie. Dans
-certaines implémentations, c'est le certain montant qui change et la
-loterie reste la même. Dans d'autres, c'est l'inverse ; et les loteries
-peuvent changer dans les résultats ou dans la probabilité.
-
-\subsection{Questionnaires}
-
-\subsection{Caractéristiques des RETs}
-
-\subsection{Base de données}
-
-Avant mon stage, la base de données était composée d'environ 55 articles
-contenant 6 types de RET et 9 questions supplémentaires. Il contenait
-des données telles que le choix du répondant à la loterie et/ou dans le
-questionnaire SOEP et/ou DOSPERT, son sexe, son âge, s'ils étaient
-indiqués dans l'article. Actuellement la base contient 85 articles, le
-nombre de tâches est passé de 6 à 9 et des données sur d'autres types de
-questionnaires ont également été ajoutées. De plus, la base de données
-contient maintenant le pays et la ville de l'expérience, les
-caractéristiques des tâches sont marquées, telles que la représentation
-visuelle de la tâche, s'il existe une option sûre dans la tâche,
-implique-t-elle des pertes etc.
-
-\subsection{Méthodologie}
-
 Tous les types de RETs decrit ci-dessus aident à classifier les
 répondants en fonction de leur attitude à l'égard du risque. Dans le
 cadre du projet, on a supposé que les participants ont la même fonction
@@ -421,27 +447,108 @@ seuil supérieur sera la solution d'équation suivant
 \(8^r + 2^r = 10^r + 1^r\).
 
 Considérons un exemple pour montrer comment calculer le r pour
-\emph{Investment Game} RET. Soit la dotation est de 50, et lors de
-l'investissement, le montant peut augmenter de 3,5 fois avec une
+\emph{Investment Game} RET. Soit la montant disposée est de 50, et lors
+de l'investissement, le montant peut augmenter de 3,5 fois avec une
 probabilité de 50\%, alors: \((50 - x)^r + 0.5 * (3 * x)^r\). Pour
 obtenir équation dépendant du choix d'un répondant, il faut maximiser
 cette fonction et puis la résoudre par rapport à l'appétit pour le
-risque (r). Le montant de la dotation investie est mis dans l'expression
-résultante pour chaque répondant.
+risque (r). Le montant de la montant disposée investie est mis dans
+l'expression résultante pour chaque répondant.
 
-La formulation du BRET, BART et BERP tâches permet de mesurer l'attitude
-face au risque du répondant sans recourir à des formules complexes.
-Ainsi, dans le cas du BRET il suffit de compter le nombre de boîtes
-ouvertes et de les diviser par le nombre de celles restantes. Ainsi, un
-répondant neutre au risque ouvrira 50 boîtes.
+La formulation du BRET et BART tâches permet de mesurer l'attitude face
+au risque du répondant sans recourir à des formules complexes. Ainsi,
+dans le cas du BRET il suffit de compter le nombre de boîtes ouvertes et
+de les diviser par le nombre de celles restantes. Ainsi, un répondant
+neutre au risque ouvrira 50 boîtes.
 
-\subsection{Analyse des caractéristiques de tâches}
+\subsection{Questionnaires}
+
+Dans cette étude, deux types de questionnaires ont été considérés. Le
+premier type est une question sur la volonté de prendre des risques du
+questionnaire SOEP (\citet{SOEP2007}) suivant «~Comment vous
+voyez-vous~? Êtes-vous généralement une personne totalement prête à
+prendre des risques ou essayez-vous d'éviter de prendre des risques~?~»
+La question est répondue sur une échelle de 0 à 10. Le deuxième type est
+le questionnaire DOSPERT. C'est une échelle psychométrique qui évalue la
+prise de risque dans cinq domaines : décisions financières (décomposé
+ensuite en jeux d'argent et investissement), santé/sécurité, décisions
+récréatives, éthiques et sociales, à l'aide de 40 questions au total.
+Les répondants évaluent la probabilité qu'ils s'engagent dans des
+activités à risque spécifiques à leur domaine en utilisant échelle de 1
+à 7. Les réponses à ces questions sont ensuite pondérées par chaque
+domaine et additionnées pour former une seule série agrégée. Pour
+générer une version courte de l'échelle avec des questions qui seraient
+interprétables par un plus large éventail de répondants dans différentes
+cultures, les 40 items de l'échelle originale (\citet{Weber2002}) ont
+été réduits à 30 items (\citet{Blais2006}), ce qui a été utilisé dans le
+rapport actuel.
+
+\subsection{Variables pour l'étude}
+
+Il a été mentionné au-dessus que la base de données contient des données
+sur les répondants, à savoir le sexe, l'âge et le pays de participation
+à l'expérience. Pour répondre au problème posé, il est nécessaire de
+mettre en évidence certaines variables qui permettront de décrire les
+tâches. Et donc, 5 nouvelles variables pas colinéaires entre eux ont été
+inventées : is\_visual, is\_price\_list, probabilities\_change,
+n\_choices et stakes. Ci-dessous il y a un tableau de toutes les
+variables explicatives pour cette étude.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2095}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5238}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2667}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+Nom de variable
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Commentaire
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Valeurs de variable
+\end{minipage} \\
+\midrule
+\endhead
+age & Age de repondant & variable continue \\
+genre & Genre de répondant & 1 - Femme \\
+& & 0 - Homme \\
+is\_visual & La tâche a-t-elle un aspect visuel ? & 1 - BART ou BRET \\
+& & 0 - les autres RETs \\
+is\_price\_list & La tâche contient-elle une liste de loteries~? & 1 -
+HL ou EG \\
+& & 0 - les autres RETs \\
+probabilities\_change & La tâche implique-t-elle des probabilités
+variables~? & 1 - HL, BART ou BRET \\
+& & 0 - les autres RETs \\
+n\_choices & Le nombre d'options dans la tâche & 100 - BRET \\
+& & 128 - BART \\
+& & 5 - EG \\
+& & 10 - HL \\
+& & 40 - IG \\
+stakes & Rémunération de la neutralité au risque & 2.5 - BRET,
+\citet{Crosetto2013} \\
+& & 5 - BRET, \citet{Crosetto2016} \\
+& & 0.32 - BART \\
+& & 6 - EG \\
+& & 3.6 - HL, \citet{Crosetto2016} \\
+& & 3.75 - HL, \citet{Frey2017} \\
+& & 5 - IG \\
+& & 0 - les autres RETs \\
+germany & Si le pays d'expérimentation est l'Allemagne & 1 - Germany \\
+& & 0 - Switzerland \\
+& & \\
+\bottomrule
+\end{longtable}
+
+Les données pour toutes les variables ont été tirées des articles
+respectifs. Variable stakes a été calculée manuellement.
+
+\subsection{Méthodologie}
 
 \subsection{Resultats}
 
 \subsection{Limitations et difficultées}
 
-Les lmitations de cette étude comprennent le manque d'intégralité des
+Les limitations de cette étude comprennent le manque d'intégralité des
 informations de la base de données pour certaines tâches. C'est à dire,
 DOSPERT et SOEP n'ont pas été interrogés pour toutes les tâches.Par
 exemple, l'information d'\emph{Ordered lottery selection} de Eckel and
