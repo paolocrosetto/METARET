@@ -41,7 +41,7 @@
 
 
 \usepackage{float}
-\floatplacement{figure}{H}
+\floatplacement{figure}{!htb}
 
 \begin{document}
 
@@ -292,8 +292,10 @@ Laury task (HL), Eckel and Grossman task (EG), Investment game (IG),
 Balloon Analog Risk Task (BART) et The bomb risk elicitation task
 (BRET). Des informations détaillées sur les tâches considéré sont
 décrites dans la subsection ``Types de tâches d'élicitation du risque''.
-Le tableau ci-dessous fournit des statistiques descriptives pour cette
+Le tableau 1 ci-dessous fournit des statistiques descriptives pour cette
 base de données.
+
+Tableau 1: Statistiques descriptives de la base de données
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -336,7 +338,7 @@ Examinons de plus près les types des tâches choisi pour cette étude.
 L'une des RET les plus populaires est \emph{Multiple price list} de Holt
 and Laury (HL, \citet{Holt2002}). Les sujets sont confrontés à une série
 de choix entre des paires de loteries, l'option A étant plus sûre que
-l'option B (Tableau 1). Espérance mathématique est commun à tous les
+l'option B (Tableau 2). Espérance mathématique est commun à tous les
 choix, et les paires de loterie sont classées par valeur attendue
 croissante. Les sujets font un choix pour chaque paire de loteries et
 doivent à un moment donné passer à l'option risquée. Le point de
@@ -348,32 +350,30 @@ le gain. Il convient de noter que si le répondant passait de la loterie
 A à la loterie B, puis vice versa, ces cas étaient supprimés de la base
 de données, car le répondant était considéré comme incohérent.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.6\textwidth,height=0.3\textheight]{/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/HL.png}
-\caption{La liste de prix multiple de Holt and Laury}
-\end{figure}
+Tableau 2: La liste de prix multiple de Holt and Laury
+
+\hfil \includegraphics[width=0.6\textwidth,height=0.3\textheight]{/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/HL.png}
+\hfil
 
 Une loterie pas peu connue est aussi \emph{Ordered lottery selection} de
 Eckel and Grossman (EG, \citet{Eckel2002}). Les sujets choisissent une
 loterie parmi un ensemble de 5 loteries caractérisées par une valeur
 attendue croissante linéairement ainsi qu'un écart type plus grand, avec
-la probabilité de chaque option étant fixée à 50 \% (Tableau 2). Un
+la probabilité de chaque option étant fixée à 50 \% (Tableau 3). Un
 participant neutre au risque devrait choisir la loterie 5, car elle
 donne la valeur attendue la plus élevée.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.6\textwidth,height=0.3\textheight]{/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/EG.png}
-\caption{La sélection de loteries triées de Eckel and Grossman}
-\end{figure}
+Tableau 3 : La sélection de loteries triées de Eckel and Grossman
+
+\hfil \includegraphics[width=0.6\textwidth,height=0.3\textheight]{/Users/elizavetagolovanova/Dropbox/METARET/METARET_github/Report de stage/EG.png}
+\hfil
 
 Le prochain type de tâche s'appelle \emph{The investment game} (IG,
 \citet{Gneezy1997}). Les sujets doivent décider comment répartir une
-montant disposée entre un option sûr de le garder et un investissement
+montant disponible entre un option sûr de le garder et un investissement
 risqué qui donnera plusieurs fois le montant investi ou zéro avec une
 probabilité égale. Dans ce cas, un sujet neutre au risque devrait
-investir toute sa montant disposée.
+investir toute sa montant disponible.
 
 La RET suivant est \emph{The bomb risk elicitation task} (BRET). C'est
 une tâche d'identification visuelle des risques en temps réel présentée
@@ -447,12 +447,12 @@ seuil supérieur sera la solution d'équation suivant
 \(8^r + 2^r = 10^r + 1^r\).
 
 Considérons un exemple pour montrer comment calculer le r pour
-\emph{Investment Game} RET. Soit la montant disposée est de 50, et lors
-de l'investissement, le montant peut augmenter de 3,5 fois avec une
+\emph{Investment Game} RET. Soit la montant disponible est de 50, et
+lors de l'investissement, le montant peut augmenter de 3,5 fois avec une
 probabilité de 50\%, alors: \((50 - x)^r + 0.5 * (3 * x)^r\). Pour
 obtenir équation dépendant du choix d'un répondant, il faut maximiser
 cette fonction et puis la résoudre par rapport à l'appétit pour le
-risque (r). Le montant de la montant disposée investie est mis dans
+risque (r). Le montant de la montant disponible investie est mis dans
 l'expression résultante pour chaque répondant.
 
 La formulation du BRET et BART tâches permet de mesurer l'attitude face
@@ -494,6 +494,8 @@ inventées : is\_visual, is\_price\_list, probabilities\_change,
 n\_choices et stakes. Ci-dessous il y a un tableau de toutes les
 variables explicatives pour cette étude.
 
+Tableau 4 : Les variables explicatives
+
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2095}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5238}}
@@ -527,22 +529,114 @@ n\_choices & Le nombre d'options dans la tâche & 100 - BRET \\
 stakes & Rémunération de la neutralité au risque & 2.5 - BRET,
 \citet{Crosetto2013} \\
 & & 5 - BRET, \citet{Crosetto2016} \\
-& & 0.32 - BART \\
+& & 3.2 - BART \\
 & & 6 - EG \\
-& & 3.6 - HL, \citet{Crosetto2016} \\
-& & 3.75 - HL, \citet{Frey2017} \\
+& & 4.86 - HL, \citet{Crosetto2016} \\
+& & 5.82 - HL, \citet{Frey2017} \\
 & & 5 - IG \\
-& & 0 - les autres RETs \\
 germany & Si le pays d'expérimentation est l'Allemagne & 1 - Germany \\
 & & 0 - Switzerland \\
-& & \\
 \bottomrule
 \end{longtable}
 
 Les données pour toutes les variables ont été tirées des articles
-respectifs. Variable stakes a été calculée manuellement.
+respectifs. Variable \emph{stakes} a été calculée manuellement. La
+stratégie du répondant neutre au risque lorsqu'il répond à la tâche BRET
+est d'arrêter le jeu à exactement la moitié des boîtes ouvertes. Étant
+donné que l'emplacement de la bombe n'est révélé qu'après avoir appuyé
+sur le bouton ``Arrêter'', la probabilité de ne pas rencontrer la bombe
+est de \(0.5\). Pour l'ouverture de chaque boîte, une récompense en
+espèces est donnée. Dans l'article de \citet{Crosetto2013}, il était de
+\(0.1\) euro et dans l'article de \citet{Crosetto2016}, il était de
+\(0.2\) euro. La formule de calcul du gain neutre au risque est donc
+\(0.1 * 100 / 2 * 0.5\) et \(0.2 * 100 / 2 * 0.5\) respectivement pour
+chaque article. De même, dans la tâche BART, le neutre au risque
+choisirait également la stratégie du demi-maximum. Pour chaque gonflage
+du ballon, \(0.005\) euros sont versés. Au total, il est proposé de
+gonfler \(10\) ballons. Ainsi, pour le jeu, neutre au risque reçoit une
+récompense \(128 / 2 * 0.005 * 10 * 0.5\). Dans la tâche EG
+(\citet{Crosetto2016}) neutre au risque choisira la loterie avec le gain
+le plus élevé, c'est-à-dire la dernière ligne. Ainsi, son gain sera de
+\(12 * 0.5\). Dans la HL tâche, le répondant neutre au risque passera à
+l'option risqué à partir de la cinquième ligne. Selon les règles, une
+seule loterie sur dix sera joué à la fin de la partie. Trouvons tous les
+gains attendus pour chaque loterie en s'appuyant sur le tableau 2
+(tableau 5). Dans la colonne de droite, les loteries qui ont été
+choisies par le répondant neutre au risque ont listé. Résumons les
+gains. L'occurrence de chacun des 10 événements est également probable,
+on peut donc diviser la valeur résultante par 10 pour trouver
+l'espérance mathématique moyenne de gagner. Tableau 5 - Les calculs des
+gains attendus
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0921}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3421}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3421}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2237}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Espérance de loterie A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Espérance de loterie B
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Options choisi
+\end{minipage} \\
+\midrule
+\endhead
+1 & 3,28 & 0,95 & 3,28 \\
+2 & 3,36 & 1,7 & 3,36 \\
+3 & 3,44 & 2,45 & 3,44 \\
+4 & 3,52 & 3,2 & 3,52 \\
+5 & 3,6 & 3,95 & 3,95 \\
+6 & 3,68 & 4,7 & 4,7 \\
+7 & 3,76 & 5,45 & 5,45 \\
+8 & 3,84 & 6,2 & 6,2 \\
+9 & 3,92 & 6,95 & 6,95 \\
+10 & 4 & 7,7 & 7,7 \\
+Total & & & 48,55 \\
+\bottomrule
+\end{longtable}
+
+Ainsi, la valeur d'espérance pour la tâche HL pour l'article
+\citet{Crosetto2016} est de \(4.86\). Une procédure similaire a été
+effectuée pour l'article de \citet{Frey2017}, la valeur de gain
+résultante est de \(5.82\). Lors de la participation à la tâche IG, la
+personne neutre au risque doit investir la totalité de son montant
+disponible. Donc, pour l'article de \citet{Crosetto2016}, ce serait
+\(4 * 2.5 * 0.5\).
 
 \subsection{Méthodologie}
+
+Afin d'identifier les caractéristiques des tâches qui décrivent le mieux
+les attitudes face au risque, il est nécessaire de déterminer ce qui
+reflète réellement la perception du risque pour le répondant. En tant
+que reflet de la réalité, on peut considérer les réponses aux questions
+directes sur soi, c'est-à-dire SOEP et DOSPERT. Ainsi, le critère de
+qualité pour caractériser la tâche sera la distance entre le paramètre
+CRRA et les réponses aux questions.
+
+La corrélation entre les reponses de questionnaires est de 0.44, il est
+donc logique de considérer deux modèles avec chaque questionnaire
+séparément. Pour comparer deux séries, il faut les mettre à des valeurs
+comparables. DOSPERT varie de 1 à 7 et le paramètre CRRA se situe
+quelque part entre -2 et 2,5. Il faut ``tendre'' les valeurs des
+paramètre R sur l'échelle de DOSPERT. J'ai fait la transformation
+suivant le formule
+\(\frac{r - r_{min}}{r_{max} - r_{min}} * (t_{max} - t_{min}) + t_{min}\),
+ou \(r\) - valeur de CRRA, \(r_{min}\), \(r_{max}\) - valeurs du CRRA
+minimale et maximale; \(t_{max}\), \(t_{min}\) - valeurs de SOEP ou
+DOSPERT maximale et minimale.
+
+Si nous voulons minimiser la différence entre les séries, on a besoin
+que les points de neutralité du risque de deux distributions coïncident.
+Pour CRRA = 1, une nouvelle échelle de DOSPERT est égale à 4.83352 et on
+savent aussi le répondant neutre au risque obtient 4 sur l'échelle
+DOSPERT réele. Soustrayons la valeur 0.83352 des valeurs de la série
+obtenu. Puisque nous avons soustrait la valeur, la queue droite a été
+mise à zéro dessus. On peut tronquer la distribution sur la queue droite
+pour ne faire correspondre que les réponses réelles. On peut maintenant
+regarder la différence entre ces distributions.
 
 \subsection{Resultats}
 

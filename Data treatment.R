@@ -24,7 +24,6 @@ df_test$task[df_test$task=="BART" & df_test$bibkey == "Crosetto2016"]<-"BRET"
 ## check how many rows are there
 nrow(df_test)
 
-df_test%>%select(country)%>%group_by(country) %>% summarise(n=n())
 ## What"s a correlation between two questionnaires? It"s quite low though...
 cor(df_test$r, df_test$soep)
 
@@ -47,7 +46,7 @@ df_test %>%
   select(y_r_SoepScale, soep, id, task) %>%
   pivot_longer(-c(id,task)) %>% 
   ggplot(aes(x = value, fill = name)) + geom_density(alpha = 0.3) + 
-  geom_vline(xintercept = 5)
+  geom_vline(xintercept = 5) 
 
 df_test = df_test %>% filter( 
   y_r_SoepScale <= (1-(2.542214)/10) * max(y_r_SoepScale))
@@ -66,8 +65,8 @@ df_test$y_r_DospertScale = df_test$y_r_DospertScale - .83352
 
 cor(df_test$y_r_DospertScale, df_test$doall)
 
-pldf_test %>% 
-  select(y_r_DospertScale, y_r_SoepScale, id, country) %>%
+df_test %>% 
+  select(y_r_DospertScale, doall, id, country) %>%
   pivot_longer(-c(id,country)) %>% 
   ggplot(aes(x = value, fill = name)) + geom_density(alpha = 0.3) + 
   geom_vline(xintercept = 4)
@@ -115,7 +114,7 @@ df_test$n_choices = with(df_test,
                                               ifelse(task == 'BART' & bibkey == "Frey2017", 128,
                                                      ifelse(task == 'HL' & bibkey == "Frey2017", 10, 0))))))))
 
-
+df_test %>% filter(task == 'EG')
 ## 5. Neutral to risk payments
 
 df_test$stakes = with(df_test,
@@ -128,16 +127,16 @@ df_test$stakes = with(df_test,
                            ifelse(task == 'EG' & bibkey == "Crosetto2016", 0.5 * 12,
                                   
                                   ## lottery 5 is the switching point
-                                  ifelse(task == 'HL' & bibkey == "Crosetto2016", 0.5 * 4 + 0.5 * 3.2,
+                                  ifelse(task == 'HL' & bibkey == "Crosetto2016", 4.86,
                                          
                                          ## 2.5 times 4
                                          ifelse(task == 'IG' & bibkey == "Crosetto2016", 4 * 2.5 * 0.5,
                                                 
-                                                ## Frey 0.005 for each pump, Risk neutral = 64 pumps
-                                                ifelse(task == 'BART' & bibkey == "Frey2017", 128 / 2 * 0.005,
+                                                ## Frey 0.005 for each pump, Risk neutral = 64 pumps for 10 ballons
+                                                ifelse(task == 'BART' & bibkey == "Frey2017", 128 / 2 * 0.005 * 10 * 0.5,
                                                      
                                                         ## €0.05 for each point , Risk neutral = 5 choice
-                                                       ifelse(task == 'HL' & bibkey == "Frey2017", (0.5 * 80 + 0.5 * 70) *  0.05 , 0))))))))
+                                                       ifelse(task == 'HL' & bibkey == "Frey2017", 5.82, 0))))))))
 
 
 ## 6. Are there safe options in tasks? 
