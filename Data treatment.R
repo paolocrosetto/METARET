@@ -46,7 +46,7 @@ df_test %>%
   select(y_r_SoepScale, soep, id, task) %>%
   pivot_longer(-c(id,task)) %>% 
   ggplot(aes(x = value, fill = name)) + geom_density(alpha = 0.3) + 
-  geom_vline(xintercept = 5) 
+  geom_vline(xintercept = 5)
 
 df_test = df_test %>% filter( 
   y_r_SoepScale <= (1-(2.542214)/10) * max(y_r_SoepScale))
@@ -63,13 +63,16 @@ df_test$y_r_DospertScale = (df_test$r - min(df_test$r))/(max(df_test$r) - min(df
 
 df_test$y_r_DospertScale = df_test$y_r_DospertScale - .83352
 
-cor(df_test$y_r_DospertScale, df_test$doall)
-
 df_test %>% 
   select(y_r_DospertScale, doall, id, country) %>%
   pivot_longer(-c(id,country)) %>% 
   ggplot(aes(x = value, fill = name)) + geom_density(alpha = 0.3) + 
-  geom_vline(xintercept = 4)
+  geom_vline(xintercept = 4) +
+  theme_minimal() + 
+  labs(x = NULL, y = NULL, fill = NULL) + 
+  theme(plot.title = element_text(hjust = 0.5)) +  
+  theme(axis.text = element_blank(),
+        panel.grid = element_blank())
 
 plot + facet_wrap( ~ country)
 
