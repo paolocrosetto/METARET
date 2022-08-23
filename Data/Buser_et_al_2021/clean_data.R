@@ -10,15 +10,13 @@ library(broom)
 df <- read_dta("Data/Buser_et_al_2021/Buseretal2021.dta")
 
 df = df %>% select(Subject, Investment, Gender, Age) %>% 
-  rename(subject = Subject,
-         choice = Investment,
+  rename(choice = Investment,
          gender = Gender,
          age = Age) %>% 
-  
   ## 1 - females
   mutate(gender = case_when(gender == 2 ~ 1,
                             gender == 1 ~ 0))
-
+df$subject = 1:nrow(df)
 df$task = 'IG'
 df$country = 'Germany'
 df$city = 'Berlin'

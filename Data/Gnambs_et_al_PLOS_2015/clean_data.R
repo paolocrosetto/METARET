@@ -30,12 +30,19 @@ df <- df %>%
   select(id, age, sex, treatment, adjmeasure) %>% 
   distinct()
 
+####Participants scored higher on red balloons (M = 182.82, SD = 58.40) 
+## than on blue balloons (M = 175.68, SD = 58.54). 
+###However, this difference failed to reach significance, t(141) = 1.22,
+### p = .11 (one-tailed), d = .12
+###
+
+df = df %>% filter(treatment != 'red balloon')
+
 ## renaming and adjusting variables
 df <- df %>% 
   mutate(gender = sex - 1) %>% # 1 si female, 0 is male
   rename(choice = adjmeasure,
-         subject = id) %>% 
-  mutate(subject = 756000+subject)
+         subject = id)
 
 ## r assuming no burst (leap of faith actually)
 df <- df %>% mutate(r = choice/(64-choice))

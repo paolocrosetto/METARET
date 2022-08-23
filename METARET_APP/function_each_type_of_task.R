@@ -14,10 +14,10 @@ task_variability_plot <- function(selectedtask, data) {
     summarize(m = mean(r),          # calculating mean 
               s = sem(r)) %>%    # calculating standard error
     ggplot(aes(m, reorder(paper,m), group = paper)) + 
-    geom_point(color = 'red', size = 3) +                      # adding data points
     geom_line() +                       # adding connecting lines
     geom_errorbar(aes(xmin = m - s,     # adding lower error bars
                       xmax = m + s))+  # adding upper error bars
+    geom_point(color = 'red', size = 3) +                      # adding data points
     labs(x = "Risk aversion parameter CRRA",
          y = "")+
     theme(legend.title = element_blank(),

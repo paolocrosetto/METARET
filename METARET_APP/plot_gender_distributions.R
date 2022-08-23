@@ -8,16 +8,16 @@ plotgender <- function(selectedtask, data) {
   if (selectedtask == 'all'){
     data = data %>% 
       select(r, gender) %>% 
-      drop_na() %>%
       mutate(gender = case_when(gender == 1  ~ "female",
-                                gender == 0 ~ "male"))
+                                gender == 0 ~ "male")) %>%
+      drop_na() 
   }
   else {
   data = data %>% 
   select(r, gender, task) %>% 
-  drop_na() %>%
   mutate(gender = case_when(gender == 1  ~ "female",
-                            gender == 0 ~ "male"))
+                            gender == 0 ~ "male")) %>%
+  drop_na() 
   }
 
   mean_effect_df <- data %>%

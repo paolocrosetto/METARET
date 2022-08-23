@@ -16,9 +16,10 @@ df <- read_dta("Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/original_da
 ## 1. the result of the task
 ## 2. any treatment or differences in the task
 ## 3. answers to questionnaires
-df <- df %>% 
+df <- df %>% filter(rep != 1, outlier == 0) %>%
   select(subject, gender, age, treatment, perc, soep, starts_with("do"))
 
+df$subject = 1:nrow(df)
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 df <- df %>% mutate(r = perc/(100-perc))
 

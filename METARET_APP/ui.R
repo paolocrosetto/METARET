@@ -13,8 +13,8 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
           menuItem("Questionnaires", tabName = "tab_questionnaires", icon = icon("question")),
           menuItem("Correlations", tabName = "tab_lotteries_and_questionnaires", icon = icon("sync alternate")),
           menuItem("Demographics", tabName = 'demography', icon = icon("user")),
-          menuItem("Download", tabName = "tab_download", icon = icon("download")),
-          menuItem('Explore', tabName = "tab_explore", icon = icon("compass"))
+          menuItem('Map', tabName = "tab_map", icon = icon("compass")),
+          menuItem("Download", tabName = "tab_download", icon = icon("download"))
           
           #menuItem("About", tabName = "tab_about", icon = icon("info"))
         )),
@@ -373,7 +373,7 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
         #tabItem("tab_about", includeMarkdown('info.md'))
         
         ## Explore page
-        tabItem("tab_explore",
+        tabItem("tab_map",
                 tabBox(color = "black", width = 16,
                        tabs = list(
                          

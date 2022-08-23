@@ -11,7 +11,6 @@ df = df %>%
   select(village, tablet_id, I, age, female) %>%
   drop_na() %>% 
   rename(city = village,
-         subject = tablet_id,
          choice = I,
          gender = female)
 
@@ -133,6 +132,7 @@ for (i in 1:nrow(df)){
 }
 
 df$task = 'IG'
+df$subject = 1:nrow(df)
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
 df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
