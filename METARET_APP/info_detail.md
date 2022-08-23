@@ -18,5 +18,5 @@ Right now, the site proposes:
 
 # Authors
 
-- **Paolo Crosetto**: conception, funding, scientific overview
-- **Liza Golovanova**: research assistance, shiny development, data analysis
+**Paolo Crosetto**: conception, funding, scientific overview  
+**Liza Golovanova**: research assistance, shiny development, data analysis

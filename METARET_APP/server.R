@@ -32,7 +32,7 @@ colnames_given_pattern <- function(.data, pattern){
       value_box(
         "Contributed papers"
         ,n_distinct(df$paper)
-        ,color = "green")  
+        ,color = "brown")  
     })
     
     output$lotteries_num <- renderValueBox({ 
@@ -41,14 +41,14 @@ colnames_given_pattern <- function(.data, pattern){
         df %>% filter(task != 'quest_only') %>%
           select(task) %>%
           n_distinct()
-        ,color = "yellow")  
+        ,color = "brown")  
     })
     
     output$participants_num <- renderValueBox({ 
       value_box(
         'Participants',
         n_distinct(df$subject)
-        ,color = "purple")  
+        ,color = "brown")  
     })
     
     ## Tasks page 
@@ -58,7 +58,7 @@ colnames_given_pattern <- function(.data, pattern){
       value_box(
         "Contributed papers"
         ,n_distinct(filter(df, task == input$Tasks) %>% select(paper))
-        ,color = "green")  
+        ,color = "purple")  
     })
     
     output$participants_num_lot <- renderValueBox({ 
@@ -72,7 +72,7 @@ colnames_given_pattern <- function(.data, pattern){
       value_box(
         "Observations"
         ,filter(df, task == input$Tasks) %>% select(subject) %>% nrow()
-        ,color = "yellow")  
+        ,color = "purple")  
     })
     
     output$lotteries <- renderPlot({
@@ -566,9 +566,7 @@ colnames_given_pattern <- function(.data, pattern){
         select('subject', 'paper', 
                'task', "age", "gender",
                "choice", "r")})
-    
 
-    
     output$downloadData <- downloadHandler(
       filename = function() {
         paste("data-", Sys.Date(), ".csv", sep="")
