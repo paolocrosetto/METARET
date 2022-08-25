@@ -175,7 +175,7 @@ propension des personnes à prendre telle ou telle décision face au
 risque. L'analyse de l'aversion au risque joue un rôle primordial dans
 plein de domaines de l'économie et de la vie.
 
-Une des objectifs dans l'économie expérimentale est d'éliciter les
+Une des direction dans l'économie expérimentale est d'éliciter les
 risques, c'est-à-dire de formaliser le comportement des personnes en
 situation à risque. Un concept qui décrit la capacité d'une mesure d'en
 prédire des autres, ou de prédire des comportements est connu comme
@@ -236,13 +236,13 @@ suivant deux méthodes :
 
 \begin{enumerate}
 \item Paolo a envoyé un e-mail décrivant le projet et demandant l'accès aux données issues d'expériences d'élicitation des attitudes face au risque en laboratoire à ses collègues directement, en utilisant la base de contact qu'il avait et la liste de diffusion `ESA-discuss`. Une quinzaine d'auteurs ont partagé ces informations avec nous. Depuis lors, de nouvelles données ainsi que les fonctionnalités ont été ajoutées au site, Paolo renverra encore une demande afin d'obtenir plus de données; 
-\item Étant donné que peu de personnes ont répondu, nous avons décidé d'élargir notre base de contacts et de rechercher d'autres auteurs qui ont fait des expériences similaires. Nous avons convenu de chercher des articles pour chaque type de tache que nous considérons dans notre projet et pour lequel nous n'avons pas eu beaucoup d'observations.
+\item Étant donné que peu de personnes ont répondu, nous avons décidé d'élargir notre base de contacts et de rechercher d'autres auteurs qui ont fait des expériences similaires. Nous avons convenu de chercher des articles pour chaque type de tâche que nous considérons dans notre projet et pour lequel nous n'avons pas eu beaucoup d'observations.
 
-En utilisant les mots clés appropriées dans Google Scholar, j'ai sélectionné une liste d'articles qui contiennent très probablement des données sur les expériences. Vérifier manuellement le contenu de tous les articles et extraire les e-mails des auteurs prendrait beaucoup de temps, j'ai donc écrit un analyseur en `Python` qui le faisait automatiquement.
+En utilisant les mots clés appropriées dans Google Scholar, j'ai sélectionné une liste d'articles qui contiennent très probablement des données sur les expériences. Vérifier manuellement le contenu de tous les articles et extraire les e-mails des auteurs prendrait beaucoup de temps, j'ai donc écrit un analyseur en Python qui le faisait automatiquement.
 
-Ainsi, les liens sur ces articles et son information donnée par le site, tel que les noms d'auteurs et d'article et l'année de publication ont été collectés pour chaque type de tache. Ensuite, j'ai supprimé les articles pour lesquels nous avons déjà des données.
+Ainsi, les liens sur ces articles et son information donnée par le site, tel que les noms d'auteurs et d'article et l'année de publication ont été collectés pour chaque type de tâche. Ensuite, j'ai supprimé les articles pour lesquels nous avons déjà des données.
 
-Puis, j'ai commencé à suivre les liens et à essayer de lire le texte des articles. Cependant, avec l'aide de Google Scholar, je ne peux y accéder qu'à une partie gratuitement. La plupart est toujours disponible uniquement par abonnement. C’est pourquoi j'ai utilisé le site Scihub, qui fournit un accès automatique et gratuit aux textes des articles scientifiques. J'ai écrit le deuxième analyser pour lire le reste des articles avec Scihub et extraire des mails à partir du format pdf en Python. Après avoir analysé environ 1500 articles, j'ai pu extraire les e-mails d'environ 600. 
+Puis, j'ai commencé à suivre les liens et à essayer de lire le texte des articles. Cependant, avec l'aide de Google Scholar, il n’était pas possible y accéder qu'à une partie gratuitement. La plupart était toujours disponible uniquement par abonnement. C’est pourquoi j'ai utilisé le site Scihub, qui fournit un accès automatique et gratuit aux textes des articles scientifiques. J'ai écrit le deuxième analyser pour lire le reste des articles avec Scihub et extraire des mails à partir du format pdf en Python. Après avoir analysé environ 1500 articles, j'ai pu extraire les e-mails d'environ 600. 
 
 Paolo va bientôt rédiger les messages personnels afin de diffuser une demande à chaque auteur pour les données des expériences menées dans leurs articles.
 
@@ -268,8 +268,8 @@ géographiques, ainsi que des tableaux avec des sources de données, etc.
 
 J'ai également essayé de contribuer à résoudre le problème de la faible
 validité externe entre RETs et les questionnaires sur la base des
-données collectées. L'approche pour cette partie de ma mission est
-décrite dans la partie 4 de ce rapport.
+données collectées. L'approche pour cette mission est décrite dans la
+partie 4 de ce rapport.
 
 \section{Développement d’une mission avec problématique économique et analyse}
 \label{sec:fourth}
@@ -338,7 +338,7 @@ Age & 18-25 & 2785 \\
 Attitude à l'égard du risque & Réticent au risque & 3578 \\
 & Risque neutre & 176 \\
 & Preneur de risques & 459 \\
-Types de taches & HL & 1399 \\
+Types de tâches & HL & 1399 \\
 & IG & 86 \\
 & EG & 88 \\
 & BRET & 1135 \\
@@ -560,12 +560,12 @@ gain ésperé sera de \(12 * 0.5\). Dans la tâche HL, le répondant neutre
 au risque passera à l'option risqué à partir de la cinquième ligne.
 Selon les règles, une seule loterie sur dix sera joué à la fin de la
 partie. Trouvons tous les gains attendus pour chaque loterie en
-s'appuyant sur le tableau 2 (tableau 5). Dans la colonne de droite, les
+s'appuyant sur le tableau 2 (tableau 4). Dans la colonne de droite, les
 loteries qui ont été choisies par le répondant neutre au risque ont
 listé. Résumons les gains. L'occurrence de chacun des 10 évènements est
 également probable, on peut donc diviser la valeur résultante par 10
 pour trouver l'espérance mathématique moyenne de gagner. \newpage
-Tableau 5 - Les calculs des gains attendus
+Tableau 4 - Les calculs des gains attendus
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0921}}
@@ -606,7 +606,9 @@ disponible. Donc, pour l'article de \citet{Crosetto2016},
 \texttt{stakes} prend la valeur \(4 * 2.5 * 0.5\).
 
 Ci-dessous il y a un tableau de toutes les variables explicatives pour
-cette étude. Tableau 4 - Les variables explicatives
+cette étude.
+
+Tableau 5 - Les variables explicatives
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2095}}
@@ -716,8 +718,8 @@ l'étude, était conditionnelle, excluant le (peu) de sujets ayant une
 forte propension à prendre des risques. Il n'y avait aucune restriction
 sur les échelles DOSPERT et SOEP, bien que les répondants obtenant de 6
 à 7 sur l'échelle DOSPERT et de 7 à 10 sur l'échelle SOEP soient des
-amateurs de danger. Ainsi, pour la pureté de l'expérience, il est
-logique de filtrer les réponses également pour les deux questionnaires.
+amateurs de risque Ainsi, pour la pureté de l'expérience, il est logique
+de filtrer les réponses également pour les deux questionnaires.
 
 On dénote par la variable \texttt{y\_gap\_Dospert} la différence entre
 les séries CRRA avec une nouvelle échelle de 1 à 7 et DOSPERT, et par la
@@ -733,7 +735,7 @@ j'ai construit, je peux finalement faire une estimation avec un modèle
 de régression linéaire pour chaque type de questionnaire sur les
 certaines variables explicatives choisies pour l'analyse :
 
-\(y_i = c_i + beta_1 * is\_female_i+ beta_2 * age_i + beta_3 * is\_visual_i + beta4 * is\_price\_list_i + beta_5 * probabilities\_change_i + beta_6 * stakes_i + beta_7 * germany_i + epsilon_i\)
+\(y_i = c_i + beta_1 * is\_female_i+ beta_2 * age_i + beta_3 * is\_visual_i + beta_4 * is\_price\_list_i + beta_5 * probabilities\_change_i + beta_6 * stakes_i + beta_7 * germany_i + epsilon_i\)
 , où \(y_i\) est \(y\_gap\_Dospert_i\) et \(y\_gap\_Soep_i\).
 
 Pour la comparabilité des résultats, un échantillon a été créé à partir
@@ -791,13 +793,13 @@ Les résultats contradictoires pour les deux questionnaires se trouvent
 dans la présence d'une composante visuelle et les \emph{stakes}, car ils
 affectent l'écart dans les données considérées de manière différente.
 
-On peut voir que les caractéristiques choisies pour le modèle sont
-largement déterminées par le type de tâche, et il est possible que la
-faible variabilité des caractéristiques au sein de chaque tâche
-séparément ne permette pas d'obtenir des résultats plus univoques.
-Testons cette hypothèse en ne laissant que les variables de contrôle sur
-les répondants, en ajoutant des variables dummy pour chaque RET. Comme
-variable de référence, on prend HL.
+Les caractéristiques choisies pour le modèle sont largement déterminées
+par le type de tâche, et il est possible que la faible variabilité des
+caractéristiques au sein de chaque tâche séparément ne permette pas
+d'obtenir des résultats plus univoques. Testons cette hypothèse en ne
+laissant que les variables de contrôle sur les répondants, en ajoutant
+des variables dummy pour chaque RET. Comme variable de référence, on
+prend HL.
 
 \(y_i = c_i + beta_1 * is\_female_i+ beta_2 * age_i + beta_3 * germany_i + beta_4 * BRET_i + beta_5 * BART_i + beta_6 * EG_i + beta_7 * IG_i + epsilon_i\)
 , où \(y_i\) est \(y\_gap\_Dospert_i\) et \(y\_gap\_Soep_i\).
@@ -859,12 +861,12 @@ Adjusted R$^{2}$ & 0.082 & 0.120 & 0.082 & 0.120 \\
 \end{table} 
 \newpage
 
-Tableau 8 - La liste de préférences pour les RETs selon écart avec SOEP
-et DOSPERT.
+Tableau 8 - La liste de préférences des RETs selon écart avec SOEP et
+DOSPERT.
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule()
-Ecart SOEP & Ecart DOSPERT \\
+Écart SOEP & Écart DOSPERT \\
 \midrule()
 \endhead
 BRET & BART \\
@@ -916,7 +918,7 @@ et traité beaucoup de données provenant de diverses expériences.
 Deuxièmement, j'ai repensé et développé le site web avec visualisation
 et analyse de la base de données. Troisièmement, dans ce rapport, j'ai
 analysé les tâches actuelles et leurs caractéristiques pour la
-conception future de la nouvelle tache d'élicitation du risque. La
+conception future de la nouvelle tâche d'élicitation du risque. La
 réalisation de ce travail a aussi amélioré mes compétences en
 programmation, car je peux désormais créer des sites web intercatifs
 basés sur le logiciel R à l'aide du package \texttt{Shiny}. Grâce à la

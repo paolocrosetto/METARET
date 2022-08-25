@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.8.24)  25 AUG 2022 11:45
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.8.24)  25 AUG 2022 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -453,7 +453,7 @@ File: BRET.png Graphic file (type bmp)
 File: BART.png Graphic file (type bmp)
 <BART.png>
 [13] [14] [15]
-Overfull \hbox (15.31706pt too wide) in paragraph at lines 635--635
+Overfull \hbox (15.31706pt too wide) in paragraph at lines 637--637
 []|\TU/lmr/m/n/12 probabilities_change|  
  []
 
@@ -461,14 +461,14 @@ Overfull \hbox (15.31706pt too wide) in paragraph at lines 635--635
 File: Report-de-stage_PC_files/figure-latex/distdospert-1.pdf Graphic file (type pdf)
 <use Report-de-stage_PC_files/figure-latex/distdospert-1.pdf>
 
-Overfull \hbox (7.48387pt too wide) in paragraph at lines 693--694
+Overfull \hbox (7.48387pt too wide) in paragraph at lines 695--696
  [][] 
  []
 
 File: Report-de-stage_PC_files/figure-latex/distsoep-1.pdf Graphic file (type pdf)
 <use Report-de-stage_PC_files/figure-latex/distsoep-1.pdf>
 
-Overfull \hbox (7.48387pt too wide) in paragraph at lines 709--710
+Overfull \hbox (7.48387pt too wide) in paragraph at lines 711--712
  [][] 
  []
 
@@ -486,6 +486,6 @@ Here is how much of TeX's memory you used:
  33669 multiletter control sequences out of 15000+600000
  475904 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 110i,10n,106p,627b,485s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 110i,10n,106p,642b,485s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on Report-de-stage_PC.pdf (27 pages).
