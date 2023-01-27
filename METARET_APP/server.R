@@ -574,8 +574,8 @@ colnames_given_pattern <- function(.data, pattern){
       content = function(file) {
         data <- df %>% 
           select('subject', 'paper', 
-                 'task', "age", "gender",
-                 "choice", "r")
+                 'task', 'age', 'gender',
+                 'choice', 'r')
         write.csv(data, file)
       }
     )
