@@ -19,18 +19,39 @@ library(readxl)
 
 
 #### getting the data
-load("~/Documents/METARET/Data/Kirchkamp_et_al_2021/data/data.Rdata")
+load("Data/Kirchkamp_et_al_2021/data/data.Rdata")
 
 ## So we have several datasets from various sources, we can treat them separately
 ## If 11 then person always chose non risky lottery -> no switching point
 
 ## Holt and Lorry pull of tasks 
 ## ----------BRUNNER-----------------
+## hlSwitch is the row at which the subject leaves the safe option, so the
+## number of safe choices is hlSwitch - 1 and the number of RISKY choices --
+## which is what `choice` means everywhere else in this project, and what
+## generate_r.R's table expects -- is 11 - hlSwitch. The block above filters
+## hlSwitch == 11 out, which is exactly the "never switched, all safe" case,
+## i.e. 0 risky choices.
+##
+## This used to be a plain rename, and fed the number of SAFE choices into a
+## table built for risky ones. It flipped the CRRA of every dataset in this
+## file: mean r came out at 1.11 (risk loving) against 0.57 for the other 60
+## HL papers on the site, with 54% of subjects past the risk-neutral r = 1
+## against 20% elsewhere.
+##
+## One caveat is recorded here rather than silently resolved. The Duersch,
+## Oechssler and Vadovic experiment appears both here (as DOV) and in the
+## ManSci2016 meta-analysis, and the two codings sit one step apart: matching
+## the meta-analysis exactly would need 12 - hlSwitch, which puts one subject
+## at 11 on a 0-10 scale. 11 - hlSwitch follows this file's own definition of
+## hlSwitch and stays in range, so that is what is used.
+
 brunner = HL$BHO %>% 
   filter(hlSwitch!=11, consistent == 1) %>% 
   mutate(subject = rownames(.)) %>%
   select(subject, hlSwitch) %>%
-  rename(choice = hlSwitch)
+  mutate(choice = 11L - as.integer(hlSwitch)) %>%
+  select(-hlSwitch)
 
 ## add the name of the task   
 brunner$task = 'HL'
@@ -59,7 +80,8 @@ dursch = HL$DOV %>%
   mutate(subject = rownames(.)) %>%
   select(subject, hlSwitch) %>%
   mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  rename(choice = hlSwitch)
+  mutate(choice = 11L - as.integer(hlSwitch)) %>%
+  select(-hlSwitch)
 
 ## add the name of the task   
 dursch$task = 'HL'
@@ -78,14 +100,32 @@ dursch <- dursch %>%
 dursch <- dursch %>% 
   select(bibkey, paper, task, subject, choice, r, everything())
 
-dursch %>% write_csv("Data/Kirchkamp_et_al_2021/data/Dursch2012/formatted_dataset.csv")
+## NOT written to the app any more -- this is the same experiment, and the same
+## ~200 subjects, that the ManSci2016 meta-analysis already contributes as
+## Duersch2012. Verified: this file's `choice` equals the meta-analysis'
+## `totsafe` + 2 (a monotone increasing map, 7 mismatches in 400 observations,
+## all explained by the two cleanings dropping different inconsistent subjects).
+##
+## The two disagreed on direction as well. Everywhere else in this project
+## `choice` for HL is the number of RISKY choices -- see the "coding choices in
+## HL as number of risky choices" line in the Crosetto/Filippin ExpEcon script,
+## and generate_r.R, where choice = 6 maps to r ~ 1, the risk-neutral value the
+## HL table puts at 4 safe / 6 risky choices. `hlSwitch` counts the other way,
+## so this block produced mean r = 1.34, i.e. risk loving, for a sample the
+## meta-analysis puts at r = 0.80. The kept copy is the meta-analysis one.
+##
+## The block is left in place because the same `hlSwitch` coding is used for
+## Brunner2014 / Proto2018 / Kirchkamp2021 / Roth2016 / Dursch2017 below and
+## wants the same look; only the output file is renamed out of the way.
+# dursch %>% write_csv("Data/Kirchkamp_et_al_2021/data/Dursch2012/formatted_dataset.csv")
 
 ## ----------Proto----------------
 proto = HL$PRS %>%  
   filter(hlSwitch!=11, consistent == 1) %>% 
   mutate(subject = rownames(.)) %>%
   select(subject, hlSwitch) %>%
-  rename(choice = hlSwitch)
+  mutate(choice = 11L - as.integer(hlSwitch)) %>%
+  select(-hlSwitch)
 
 ## add the name of the task   
 proto$task = 'HL'
@@ -113,7 +153,8 @@ kirch = HL$onlineStd %>%
   mutate(subject = rownames(.)) %>%
   select(subject, hlSwitch) %>%
   mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  rename(choice = hlSwitch)
+  mutate(choice = 11L - as.integer(hlSwitch)) %>%
+  select(-hlSwitch)
 
 ## add the name of the task   
 kirch$task = 'HL'
@@ -140,7 +181,8 @@ roth = HLS$RTV %>%
   mutate(subject = rownames(.)) %>%
   select(subject, hlSwitch) %>%
   mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  rename(choice = hlSwitch)
+  mutate(choice = 11L - as.integer(hlSwitch)) %>%
+  select(-hlSwitch)
 
 ## add the name of the task   
 roth$task = 'HL'
@@ -168,7 +210,8 @@ dursch = HLS$DRR %>%
   mutate(subject = rownames(.)) %>%
   select(subject, hlSwitch) %>%
   mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  rename(choice = hlSwitch)
+  mutate(choice = 11L - as.integer(hlSwitch)) %>%
+  select(-hlSwitch)
 ## add the name of the task   
 dursch$task = 'HL'
 dursch$country = 'Germany'

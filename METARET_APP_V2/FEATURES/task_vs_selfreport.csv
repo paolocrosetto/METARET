@@ -1,0 +1,19 @@
+bibkey,citation,task,n,rho,p,safe_option,fixed_50_50,price_list
+Crosetto2016,Crosetto and Filippin (2016),BART,94,0.3981,7.06e-5,FALSE,FALSE,FALSE
+Crosetto2016,Crosetto and Filippin (2016),EG,88,0.2929,0.00561,TRUE,TRUE,FALSE
+DrichoutisNayga2022,Drichoutis and Nayga (2022),HL,172,0.2749,2.63e-4,FALSE,FALSE,TRUE
+Veldhuizen2022,van Veldhuizen (2022),HL,533,0.2417,1.6e-8,FALSE,FALSE,TRUE
+Crosetto2016,Crosetto and Filippin (2016),HL,73,0.2273,0.0531,FALSE,FALSE,TRUE
+Veldhuizen2022,van Veldhuizen (2022),EG,562,0.2042,1.06e-6,TRUE,TRUE,FALSE
+Huber2019,Huber et al. (2019),BRET,280,0.1761,0.00312,FALSE,FALSE,FALSE
+Kessel2021,Kessel et al. (2021),IG,374,0.1475,0.00425,TRUE,TRUE,FALSE
+Weitzel2019,Weitzel et al. (2020),BRET,384,0.1365,0.00737,FALSE,FALSE,FALSE
+Crosetto2013,Crosetto and Filippin (2013),BRET,1093,0.1355,6.97e-6,FALSE,FALSE,FALSE
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),EG_loss,785,0.1195,7.97e-4,TRUE,TRUE,FALSE
+Crosetto2016,Crosetto and Filippin (2016),IG,86,0.1157,0.289,TRUE,TRUE,FALSE
+Frey2017,Pedroni et al. (2017),BART,1505,0.0916,3.76e-4,FALSE,FALSE,FALSE
+Frey2017,Pedroni et al. (2017),HL,1331,0.0764,0.00528,FALSE,FALSE,TRUE
+DrichoutisNayga2022,Drichoutis and Nayga (2022),PV,169,0.0561,0.469,FALSE,TRUE,TRUE
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),EG,786,0.0465,0.193,TRUE,TRUE,FALSE
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),IG,785,0.0413,0.248,TRUE,TRUE,FALSE
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),CEPL,785,-0.029,0.417,FALSE,TRUE,TRUE

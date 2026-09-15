@@ -47,6 +47,13 @@ df <- df %>%
   separate(keep, into = c("bibkey", "drop"), sep = "\\}") %>% 
   select(-drop)
 
+## Fiore et al. (2009) arrive with 0-12 in the age column for all 44 subjects,
+## median 3. That is not an age -- some other subject-level count was sent in
+## its place, and the real age is nowhere in the file. Recorded as missing, so
+## it stops dragging the age tabs down instead of pretending to be data.
+df <- df %>%
+  mutate(age = if_else(bibkey == "Fiore2009", NA_real_, as.numeric(age)))
+
 # since this is a meta analysis paper that groups different papers we need a metabibkey
 df <- df %>% 
   mutate(metabibkey = "Meta2016")

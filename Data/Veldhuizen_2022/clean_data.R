@@ -22,6 +22,7 @@ df = df %>% select(age, eckel, dohmen1, dohmen3,
                  holtlauryswitch,
                   subject, gender), names_to = 'task', values_to = 'choice')
 
+
 for (i in 1:nrow(df)){
   if (df$task[i] == "HL" & df$holtlauryswitch[i] > 1){
     df$choice[i] = NA
@@ -29,6 +30,12 @@ for (i in 1:nrow(df)){
 }
 
 df = df %>% drop_na() %>% select(-holtlauryswitch)
+
+## one subject arrives with age 3. 16-17 shows up too and is plausible for a
+## university pool, 3 is not, so anything under 15 is recorded as missing.
+## Placed after drop_na() on purpose: before it, blanking the age threw the
+## whole subject out, and their task data is perfectly good.
+df <- df %>% mutate(age = if_else(age < 15, NA_real_, as.numeric(age)))
 
 df$country = 'Germany'
 df$city = 'Berlin'

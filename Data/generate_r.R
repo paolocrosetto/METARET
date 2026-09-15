@@ -1,11 +1,37 @@
 ## function that translates choices into each different task
 ## into an 'r' risk parameter of a CRRA x utility funtion
 
+## For the interval-based tasks (HL, EG, CEPL, EG_loss, PV) an answer only pins
+## down a range, and we draw a point from it with runif() -- 60% of the rows.
+## Without a seed the HL x EG correlation moved between 0.205 and 0.247 across
+## rebuilds of the same data, so published figures could not be reproduced.
+##
+## The seed sits at the top of this file on purpose: every clean_data.R sources
+## it, so each paper starts from the same RNG state and adding a new paper
+## cannot disturb values already published for the others.
+set.seed(20220823)
+
+
 ### Comment calculer les bornes? 
 
 ## https://economics.stackexchange.com/questions/33003/how-to-calculate-crra-bounds-from-holt-and-laury-2002-type-lottery
 ## https://www.wolframalpha.com/input?i=1.11369
 ## ex. 16 ^ r * 0.5 + 72 ^  r * 0.5 = 0 ^ r * 0.5 + 84 ^ r * 0.5
+
+## Investment Game (Gneezy-Potters) inversion.
+## Endowment X, invest x, win with prob 1/2 -> X + (k-1)x, else -> X - x.
+## With u(w) = w^r the interior FOC is
+##     (k-1) * (X + (k-1)x)^(r-1) = (X - x)^(r-1)
+## which solves to
+##     r = 1 - log(k-1) / [ log(X + (k-1)x) - log(X - x) ]
+## Corner cases keep the convention already used across the file:
+##   x = X (invest everything) -> r = 1  (risk neutral; the IG cannot express r > 1)
+##   x = 0 (invest nothing)    -> r = -1 (censored; the corner is consistent with any low r)
+ig_crra <- function(choice, X, k) {
+  if (choice >= X) return(1)
+  if (choice <= 0) return(-1)
+  1 - log(k - 1) / (log(X + (k - 1) * choice) - log(X - choice))
+}
 
 get_r <- function(bibkey, task, choice) {
   
@@ -35,11 +61,7 @@ get_r <- function(bibkey, task, choice) {
     }
     
     ## TODO: how to deal with the long left tail??
-    if (task == "IG") {
-      if (choice == 8) { out <- 1  }
-      if (choice == 0) { out <- -1  }
-      if (choice != 8 & choice != 0) { out <- (-0.405465 -log(8 - choice) + log(8 + 1.5*choice))/(-log(8-choice) + log(8 + 1.5*choice))  }
-    } 
+    if (task == "IG") { out <- ig_crra(choice, X = 8, k = 2.5) }
     
     if (task != "HL" & task != "EG" & task != "IG") { out <- NA }
   }
@@ -70,10 +92,7 @@ get_r <- function(bibkey, task, choice) {
     
     if (task == "BART") { out <- choice/(100-choice) }
     
-    if (task == "IG") {
-      if (choice == 4) { out <- 1  }
-      if (choice != 4) { out <- (log(4-choice) - log(4+3*choice) + log(3))/(log(4-choice) +log(2) - log(4+3*choice))  }
-    }
+    if (task == "IG") { out <- ig_crra(choice, X = 4, k = 4) }
     
   }
   
@@ -111,11 +130,7 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 5) { out <- 1}
     }
     
-    if (task == "IG") {
-      if (choice == 100) { out <- 1  }
-      if (choice == 0) { out <- -1  }
-      if (choice != 100 & choice != 0) { out <- (log(1/(2*(100-choice))) + log(100 + 2*choice))/(-log(100-choice) + log(100 + 2*choice))  }
-    } 
+    if (task == "IG") { out <- ig_crra(choice, X = 100, k = 3) }
     
     if (task == "CEPL") {
       if (choice == 20) { out <- 1.52   }
@@ -262,7 +277,10 @@ get_r <- function(bibkey, task, choice) {
     
   }
   
-  if (bibkey == "Huber2019") {
+  ## Huber and Weitzel are the same group running the same protocol: a BRET on
+  ## a 5x5 grid, so 25 boxes. Collecting the boxes is the only choice, and the
+  ## CRRA that rationalises stopping at k of n boxes is k/(n-k).
+  if (bibkey == "Huber2019" | bibkey == "Weitzel2019") {
     if (task == "BRET") {
       if (choice == 25) { out <- 10 }
       if (choice != 25) { out <- choice/(25-choice) }
@@ -399,11 +417,7 @@ get_r <- function(bibkey, task, choice) {
     }
   }
   if (bibkey == "Dannenberg2022"){
-    if (task == "IG") {
-      if (choice == 1000) { out <- 1  }
-      if (choice == 0) { out <- -1  }
-      if (choice != 1000 & choice != 0) { out <- log(-2 * choice / (choice - 1000)) / (log(choice) - log(333.333333333333 - 0.333333333333333*choice)) }
-    }
+    if (task == "IG") { out <- ig_crra(choice, X = 1000, k = 3) }
   }
   if (bibkey == "Shachat2021"){
     if (task == "CEPL") {
@@ -420,19 +434,11 @@ get_r <- function(bibkey, task, choice) {
       }
   }
   if (bibkey == "Buser2021"){
-    if (task == "IG") {
-      if (choice == 20) { out <- 1  }
-      if (choice == 0) { out <- -1  }
-      if (choice != 20 & choice != 0) { out <- log(-2 * choice / (choice - 20)) / (log(choice) - log(8.00000032000001 - 0.400000016000001*choice)) }
-    }
+    if (task == "IG") { out <- ig_crra(choice, X = 20, k = 2.5) }
   }
 
   if (bibkey == "Kessel2021"){
-    if (task == "IG") {
-      if (choice == 10) { out <- 1  }
-      if (choice == 0) { out <- -1  }
-      if (choice != 10 & choice != 0) { out <- log(-2 * choice / (choice - 10)) / (log(choice) - log(4.00000016000001 - 0.400000016000001*choice)) }
-    }
+    if (task == "IG") { out <- ig_crra(choice, X = 10, k = 2.5) }
   }
   if (bibkey == "Veldhuizen2022"){
     if (task == "EG") {
@@ -474,11 +480,7 @@ get_r <- function(bibkey, task, choice) {
   } 
   
   if (bibkey == "Erkal2018" | bibkey == "Erkal2022"){
-    if (task == "IG") {
-      if (choice == 50) { out <- 1  }
-      if (choice == 0) { out <- -1  }
-      if (choice != 50 & choice != 0) { out <- log(-2 * choice / (choice - 50)) / (log(choice) - log(16.6666666666667 - 0.333333333333333 *choice)) }
-    }
+    if (task == "IG") { out <- ig_crra(choice, X = 50, k = 3) }
   }
   if (bibkey == "Erkal2020"){
   if (task == "CEPL") {

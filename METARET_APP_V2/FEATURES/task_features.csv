@@ -1,0 +1,105 @@
+bibkey,citation,task,n,mean_r,hypothetical_payment,safe_option,fixed_50_50,forced_switching_point,real_losses,single_choice,sources,status
+Abdellaoui2011,Abdellaoui et al. (2011),HL,36,0.723,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Amador2021,Amador-Hidalgo et al. (2021),HL,492,0.56,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Harrison2008,Andersen et al. (2008),HL,100,0.465,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Andersen2010,Andersen et al. (2010),HL,89,0.298,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,v1+v2,coded
+Apesteguia2020,Apesteguia et al. (2020),EG,176,0.342,FALSE,FALSE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Barrera2012,Barrera and Simpson (2012),HL,98,0.606,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Bauernschuster2010,Bauernschuster et al. (2010),HL,174,0.317,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Bellemare2010,Bellemare and Shearer (2010),HL,84,0.724,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Branas2011,Brañas-Garza and Rustichini (2011),HL,145,0.651,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Brañas-Garza2021,Brañas-Garza et al. (2021),HL,476,0.802,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Brunner2014,Brunner et al. (2014),HL,318,0.686,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Buser2021,Buser et al. (2021),IG,784,0.66,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v4,coded
+Carlsson2009,Carlsson et al. (2012),HL,213,0.514,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Casari2009,Casari (2009),HL,78,0.533,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Chakravarty2011,Chakravarty et al. (2011),HL,37,0.344,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Charness2019,Charness et al. (2020),EG,241,0.288,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Charness2019,Charness et al. (2020),HL,157,0.348,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Charness2019,Charness et al. (2020),IG,213,0.449,FALSE,FALSE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Chen2013,Chen et al. (2013),HL,72,0.345,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Cobo-Reyes2012,Cobo-Reyes and Jiménez (2012),HL,76,0.673,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Costa-Gomes2022,Costa-Gomes and Schoenegger (2022),BRET,1496,0.557,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,v1,coded
+Crosetto2013,Crosetto and Filippin (2013),BRET,1093,0.91,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Crosetto2016,Crosetto and Filippin (2016),BART,94,1.127,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Crosetto2016,Crosetto and Filippin (2016),EG,88,0.101,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Crosetto2016,Crosetto and Filippin (2016),HL,73,0.364,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Crosetto2016,Crosetto and Filippin (2016),IG,86,0.687,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Csermely2016,Csermely and Rabas (2016),CEPL,96,0.868,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,v1,coded
+Csermely2016,Csermely and Rabas (2016),EG,96,0.56,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Csermely2016,Csermely and Rabas (2016),HL,96,1.098,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,v1,coded
+Dannenberg2022,Dannenberg et al. (2022),IG,648,0.638,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,v1,coded
+Dave2010,Dave et al. (2010),HL,802,0.31,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Deck2012a,Deck et al. (2012),HL,47,0.428,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,v1+v2,coded
+Dickinson2009,Dickinson (2009),HL,126,0.789,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Drichoutis2012,Drichoutis and Koundouri (2012),HL,57,0.462,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+DrichoutisNayga2013,Drichoutis and Nayga (2013),HL,83,0.744,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,v1,coded
+DrichoutisNayga2013,Drichoutis and Nayga (2013),PV,86,0.362,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+DrichoutisNayga2022,Drichoutis and Nayga (2022),HL,313,0.481,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+DrichoutisNayga2022,Drichoutis and Nayga (2022),PV,313,0.39,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,v1,coded
+Duersch2012,Duersch et al. (2012),HL,200,0.775,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Dursch2017,Duersch et al. (2017),HL,133,0.566,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Eckel2006,Eckel and Wilson (2006),HL,198,0.59,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Erkal2018,Erkal et al. (2018),IG,156,0.768,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Erkal2020,Erkal et al. (2020),CEPL,114,0.934,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Erkal2022,Erkal et al. (2022),IG,775,0.808,FALSE,TRUE,TRUE,FALSE,TRUE,TRUE,v4,coded
+ErtHaruvy2017,Ert and Haruvy (2017),HL,60,0.828,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Fairley2019,Fairley et al. (2019),BART,158,0.796,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Fairley2019,Fairley et al. (2019),BERP,158,0.987,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,v1,coded
+Fiedler2012,Fiedler and Glöckner (2012),HL,29,0.075,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Fiore2009,Fiore et al. (2009),HL,40,0.425,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Gloeckner2012,Glöckner and Hilbig (2012),HL,159,0.551,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Gloeckner2012a,Glöckner and Pachur (2012),HL,38,0.226,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Gnambs2015,Gnambs et al. (2015),BART,146,0.567,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Grijalva2011,Grijalva et al. (2011),HL,77,0.817,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Harrison2005,Harrison et al. (2005),HL,152,0.533,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Harrison2007b,Harrison et al. (2007),HL,18,0.811,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+harrison2012b,Harrison et al. (2013),HL,90,0.376,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Holt2002,Holt and Laury (2002),HL,199,0.398,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Holzmeister2019,Holzmeister and Stefan (2021),BRET,198,0.511,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Holzmeister2019,Holzmeister and Stefan (2021),CEPL,198,0.396,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,v1,coded
+Holzmeister2019,Holzmeister and Stefan (2021),EG,198,0.273,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Holzmeister2019,Holzmeister and Stefan (2021),HL,198,0.406,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,v1,coded
+Hopfensitz2019,Hopfensitz et al. (2019),EG,72,0.271,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v4,coded
+Huber2019,Huber et al. (2019),BRET,280,0.835,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Jacquemet2008,Jacquemet et al. (2008),HL,87,0.451,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+jamison2008,Jamison et al. (2008),HL,130,0.465,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Kessel2021,Kessel et al. (2021),IG,374,0.799,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Kirchkamp2021,Kirchkamp et al. (2021),EG,124,0.485,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Kirchkamp2021,Kirchkamp et al. (2021),HL,102,0.679,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Kersting2019,König-Kersting et al. (2019),EG,199,0.539,FALSE,FALSE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Lange2007,Lange et al. (2007a),HL,121,0.573,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Lange2007a,Lange et al. (2007b),HL,172,0.627,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Levy-Garboua2012,Levy-Garboua et al. (2012),HL,54,0.44,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Lusk2005,Lusk and Coble (2005),HL,47,0.566,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Masclet2009,Masclet et al. (2009),HL,79,0.573,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),CEPL,785,0.855,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,v1,coded
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),EG,786,0.149,FALSE,TRUE,TRUE,FALSE,TRUE,TRUE,v1,coded
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),EG_loss,785,0.533,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Menkhoff_Sakha_2017,Menkhoff and Sakha (2017),IG,785,-0.042,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,v1,coded
+Mueller2012,Mueller and Schwieren (2012),HL,116,0.641,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Nieken2012,Nieken and Schmitz (2012),HL,287,0.62,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Nielsen2019,Nielsen (2019),BRET,1818,0.468,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,v1,coded
+Frey2017,Pedroni et al. (2017),BART,1505,0.493,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Frey2017,Pedroni et al. (2017),HL,1331,0.26,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Pogrebna2011,Pogrebna et al. (2011),HL,57,0.604,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Ponti2009,Ponti and Carbone (2009),HL,33,0.517,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Proto2018,Proto et al. (2020),HL,215,0.623,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1+v2,coded
+Rommel2019,Rommel et al. (2019),HL,133,0.613,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Rosaz2012,Rosaz (2012),HL,112,0.505,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Rosaz2012a,Rosaz and Villeval (2012),HL,279,0.615,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Roth2016,Roth et al. (2016),HL,104,0.655,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v1,coded
+Ryvkin2011,Ryvkin (2011),HL,42,0.473,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Schmidt2019,Schmidt (2019),EG,158,0.424,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Schram2011,Schram and Sonnemans (2011),HL,137,0.532,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Shachat2021,Shachat et al. (2021),CEPL,566,0.23,FALSE,TRUE,TRUE,FALSE,TRUE,FALSE,v1+v2,coded
+Shafran2010,Shafran (2010),HL,64,0.757,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Slonim2010,Slonim and Guillen (2010),HL,116,0.642,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,v2,coded
+Sloof2010,Sloof and van Praag (2010),HL,86,0.661,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Szrek2012,Szrek et al. (2012),HL,198,0.551,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Wakolbinger2009,Wakolbinger and Haigner (2009),HL,131,0.545,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Weitzel2019,Weitzel et al. (2020),BRET,384,0.852,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Yechiam2012,Yechiam and Hochman (2013),HL,11,0.796,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,v2,coded
+Zhou2018,Zhou and Hey (2018),CEPL,91,0.765,NA,NA,NA,NA,NA,NA,NA,task not yet coded
+Veldhuizen2022,van Veldhuizen (2022),EG,562,0.45,FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,v1,coded
+Veldhuizen2022,van Veldhuizen (2022),HL,533,0.628,NA,NA,NA,NA,NA,NA,NA,task not yet coded
