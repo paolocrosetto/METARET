@@ -25,12 +25,13 @@ plotDensity <- function(task, data) {
                  alpha = 0) +
     geom_jitter(aes(r,0), height = 0.1, color = 'purple', size = 0.1, alpha = 0.3) +
     geom_vline(xintercept = 1, color = 'red', linetype = 'dashed', show.legend = F) +
+    ## no title: it only repeated the selector above the figure and the
+    ## explanatory note under it
     labs(x = "Risk aversion parameter CRRA",
-         y = "Density",
-         title = paste0("Distribution of elicited risk attitudes for the ", colnames_given_pattern(mychoices, data$task[[1]]), " task")) +
+         y = "Density") +
     theme_bw() + 
     theme(
-      text = element_text(size=15),
+      text = element_text(size = 16),
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),

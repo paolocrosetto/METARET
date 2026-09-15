@@ -4,7 +4,7 @@
 
 suppressMessages(library(tidyverse))
 
-df <- read.csv("METARET_APP_V2/DATA/df_mod.csv", sep = ",")
+df <- read.csv("METARET_APP/DATA/df_mod.csv", sep = ",")
 
 quest_cols <- df %>%
   select(starts_with("soep"), starts_with("do"),
@@ -63,7 +63,7 @@ cache <- list(
   built_at        = Sys.time()
 )
 
-saveRDS(cache, "METARET_APP_V2/DATA/corr_cache.rds", compress = "xz")
+saveRDS(cache, "METARET_APP/DATA/corr_cache.rds", compress = "xz")
 
 cat("corr_cache.rds written\n")
 cat("  wide_tasks      ", nrow(wide_tasks), "x", ncol(wide_tasks), "\n")

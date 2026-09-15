@@ -37,7 +37,7 @@ plotgender <- function(selectedquest, data) {
                                           color = gender), size=0.5) + theme_bw() +
     #eliminates background, gridlines, and chart border
     theme(
-      text = element_text(size=15),
+      text = element_text(size = 16),
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
@@ -45,12 +45,16 @@ plotgender <- function(selectedquest, data) {
       legend.title=element_blank(),
     ) +
     theme(axis.line = element_line(color = 'black')) + 
+    ## no title: it only repeated the selector above the figure and the
+    ## explanatory note under it
     labs(x = "Choices of respondents",
-         y = "Density",
-         title = paste0("Distribution of answers to the ", colnames_given_pattern(questionchoice_gender, colnames(data)[2]), " questionnaire, by gender")) +
+         y = "Density") +
     annotate(geom="text", x=max(data[[variable]]), hjust = 1.1,
              y = c(max(den1$y) - 0.1*max(den1$y), max(den1$y)-0.2*max(den1$y)), 
-             fontface = "bold", 
+             fontface = "bold",
+             ## geom_text sizes are in mm; 5.5 matches the theme's 16pt, which
+             ## the default 3.88 did not -- these read as a footnote next to it
+             size = 5.5,
              label=nonmetric_label,
              color="black") + 
     scale_y_continuous(expand = c(0,0))+

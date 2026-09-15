@@ -93,7 +93,7 @@ METARET started from two papers of mine -- the [Bomb Risk Elicitation Task](http
 library(tidyverse)   ## this chunk runs before the analysis one below
 library(knitr)
 
-papers <- read_csv("METARET_APP_V2/DATA/df_mod.csv") %>%
+papers <- read_csv("METARET_APP/DATA/df_mod.csv") %>%
   mutate(task = na_if(task, "quest_only")) %>%
   group_by(Paper = paper) %>%
   summarise(Subjects = n_distinct(subject),

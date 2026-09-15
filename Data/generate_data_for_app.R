@@ -46,7 +46,7 @@ data=df %>% mutate(subject = paste0(bibkey, '_', subject)) %>%
          longitude, lattitude)
 
 ## save the df to the shiny director for deployment
-data %>% write_csv("METARET_APP_V2/DATA/df_mod.csv")
+data %>% write_csv("METARET_APP/DATA/df_mod.csv")
 
 ## rebuild the precomputed correlation panels the app serves, so they can never
 ## go stale relative to df_mod.csv above

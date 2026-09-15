@@ -1,1 +1,0 @@
-Here we show the Pearson's correlations between tasks upon the risk aversion parameter (CRRA). We limit CRRA to between **-1.5** and **2.5** to avoid outliers. The correlation between each pair of tasks is computed using all complete pairs of observations on those variables.

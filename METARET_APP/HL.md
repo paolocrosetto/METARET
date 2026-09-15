@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 **The multiple price list by Holt and Laury (HL) (2002)** 
 
 The Holt and Laury task was introduced in a [2002 paper on the American Economic Review](https://www.aeaweb.org/articles?id=10.1257/000282802762024700), and it is by far the most-used and most-cited risk elicitation task in experimental economics. 

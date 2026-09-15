@@ -6,7 +6,7 @@
 
 suppressMessages(library(tidyverse))
 
-df <- read_csv("METARET_APP_V2/DATA/df_mod.csv", show_col_types = FALSE)
+df <- read_csv("METARET_APP/DATA/df_mod.csv", show_col_types = FALSE)
 
 quest_cols <- df %>%
   select(starts_with("soep"), starts_with("do"),

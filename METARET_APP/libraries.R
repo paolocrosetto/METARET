@@ -6,28 +6,32 @@ library(shinydashboard)
 library(shinydashboardPlus)
 library(shinyWidgets)
 library(semantic.dashboard)
-library(shinipsum)
-library(babynames)
 library(DT)
 library(tidyverse)      ## basic data wrangling and plotting libraries
-library(broom)          ## apply correlations to whole papers in one go
-library(hrbrthemes)     ## cool ggplot theming
-library(ggbeeswarm)     ## quasirandom jitter
-library(GGally)         ## correlation plot
 library(RColorBrewer)   ## colors
-library(dplyr)    
-library(bib2df) 
-source("flat_violin.R")
-library(corrmorant)
-library(corrplot)
-library(circlize)
-library(effectsize)
-library(markdown)
 library(dplyr)
-library(tmap)    # for static and interactive maps
+library(bib2df)
+source("flat_violin.R")
+library(corrplot)
+library(effectsize)     ## cohens_d, used by the gender distribution plots
+library(markdown)
+library(spData)  # world country polygons for the map
+library(sf)      # spData::world is an sf object
 library(ggplot2) # tidyverse data visualization package
-## library(rbokeh)  -- archived from CRAN; nothing here calls it
-library(leaflet)
+library(leaflet) # tmap's interactive backend; leaflet::providers used in server.R
+
+
+## Packages that used to be attached here but are never called. Dropped to cut
+## the cold start from 4.8 s to 1.2 s -- put a line back if you start using one.
+##   rbokeh                -- only used by map_crra_function.R, which is gone
+##                            (and archived from CRAN, so it no longer installs)
+##   shinipsum, babynames  -- leftovers from a dashboard template
+##   broom, hrbrthemes, ggbeeswarm, GGally, circlize  -- no call remains
+##   tmap                  -- the map is leaflet now; tmap was attached for its
+##                            World dataset alone. spData::world replaces it.
+##   corrmorant            -- the panels are drawn by corrplot from
+##                            DATA/corr_cache.rds. Worth keeping out: it is not
+##                            on CRAN and had to be installed by hand.
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",

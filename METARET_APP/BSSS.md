@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 **Sensation Seeking Scale (SSS)**
 
 [The Sensation Seeking Scale (SSS)](https://arc.psych.wisc.edu/self-report/sensation-seeking-scale-sss/) is a forty-item questionnaire. The SSS has four primary scales (Disinhibition, Boredom Susceptibility, Thrill and Adventure Seeking, Experience Seeking) and one total score.
