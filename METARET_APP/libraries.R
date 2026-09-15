@@ -26,7 +26,7 @@ library(markdown)
 library(dplyr)
 library(tmap)    # for static and interactive maps
 library(ggplot2) # tidyverse data visualization package
-library(rbokeh)
+## library(rbokeh)  -- archived from CRAN; nothing here calls it
 library(leaflet)
 
 ## list for the task choices 
