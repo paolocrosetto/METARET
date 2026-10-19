@@ -1,0 +1,28 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+SPDX-License-Identifier: CC-BY-4.0
+
+Unless otherwise indicated, the dataset, documentation, static experimental
+materials, and preprint included in this release are licensed under the Creative
+Commons Attribution 4.0 International Public License.
+
+You are free to share and adapt the licensed material for any purpose, including
+commercial purposes, provided that you give appropriate credit, provide a link to
+the license, and indicate whether changes were made. No additional legal or
+technological restrictions may be applied.
+
+Preferred attribution:
+
+Kratochvil, V.; Jirousek, R.; Simunkova, K.; and Bazantova, S. An Anonymized
+Urn-Based Experimental Dataset on Decision-Making under Risk and Ambiguity.
+Zenodo. https://doi.org/10.5281/zenodo.22116575
+
+Canonical license deed:
+https://creativecommons.org/licenses/by/4.0/
+
+Full legal code:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+The license does not waive privacy, personality, trademark, patent, or other
+rights held by third parties. No warranties are given. If any individual file is
+explicitly marked with different terms, those terms take precedence for that file.

@@ -1,0 +1,82 @@
+---
+title: "METARET – finding papers and data with risk elicitation tasks"
+subtitle: "Method, choices, sources and results of the first Claude exploration run"
+author: "Claude (autonomous run requested by Paolo Crosetto)"
+date: "2026-10-19"
+format:
+  html:
+    toc: true
+    self-contained: true
+  pdf:
+    toc: true
+    pdf-engine: xelatex
+    geometry: margin=2.2cm
+    fontsize: 10pt
+---
+
+# Goal
+
+Identify papers that elicited risk attitudes with at least one risk elicitation task (RET) and that have an online data repository; for each, create a folder in `DATA ENTRY/claude exploration/` with a README (bibliography, notes), the paper PDF when open access, and the repository's data and documentation. Scope given by the user: any RET (Holt–Laury, Eckel–Grossman, Gneezy–Potters, BRET, Tanaka–Camerer–Nguyen, Andreoni–Sprenger convex budgets, others), journals JRU, Experimental Economics, JEBO, JESA, agricultural economics (ERAE, Q Open), plus GitHub, AEA registry and "elsewhere". The user then left, asking me to choose sensibly, log choices, and to start small ("a few at a time is fine, as long as the method is sound and we can rerun it").
+
+# Method
+
+The pipeline is deliberately API-based so that it can be rerun. Scripts are in `_scripts/`.
+
+1. **Candidate papers** (`oa.py`). OpenAlex full-text search over 15 RET phrases ("risk elicitation", "Holt and Laury", "Eckel and Grossman", "Gneezy and Potters", "bomb risk", "Tanaka", "multiple price list", "DOSPERT", "investment game", …) restricted to six ISSNs: JRU, Experimental Economics, JEBO, JESA, JBEF and ERAE, articles since 2008. Result: 639 candidate articles (JEBO 243, Exp. Econ. 157, JRU 126, JESA 57, JBEF 37, ERAE 19).
+2. **Abstract screen** (`cr.py`). Abstracts from Crossref (only 271 of 639 had one), keyword screen on title+abstract: 212 flagged as likely RET users.
+3. **Paper → dataset linking, two ways.**
+   - DataCite relation search (`dc.py`): datasets listing the paper DOI as related identifier (44 hits, mostly publisher supplements, low yield).
+   - DataCite title match (`dct.py`): dataset titles ("Replication data for: …", "Data for: …") fuzzy-matched to the paper title (ratio > 0.8).
+4. **Dataset → paper discovery** (`dcs.py`, plus ad hoc Dataverse/Zenodo searches). DataCite full-text search for RET terms in dataset descriptions; I then hand-picked plausible experimental datasets from titles.
+5. **Build** (`build.py`, `lib.py`). For each dataset DOI: DataCite metadata → paper DOI (related identifier, else Crossref title match with similarity > 0.85) → Crossref bibliography → Unpaywall open-access PDF (only files that really start with `%PDF`) → dataset download via repository APIs (Harvard/other Dataverse, Zenodo, Mendeley Data, OSF, figshare) with a 250 MB cap → `README.md` and an entry in `_index.csv`.
+6. **Vet** (`vet.py`). Counts RET keywords in the paper PDF and in readable data documentation, appended to each README. Indicative only.
+7. **Summary** (`summ.py`) regenerates the top-level `README.md` table.
+
+# Methodological choices (and why)
+
+* **Any single RET qualifies**, as instructed; within-subject pairs are *not* required at this stage, but are what METARET ultimately needs, so each dataset must still be checked for them.
+* **Public data only.** I did not create accounts, accept terms, use tokens or bypass bot challenges. Consequently openICPSR/ICPSR (login), Dryad (token), UK Data Service (registration) and Radboud RDR datasets are recorded with metadata and link but **not downloaded**: they are folders marked "no (manual)". heiDATA first served a "not a bot" challenge to a browser-like User-Agent; I did not circumvent it and instead used an honest script User-Agent, which was accepted.
+* **250 MB cap** per dataset to keep the Dropbox folder manageable; one dataset (Pahontu 2020, 491 MB) was skipped for this reason.
+* **Data left as published**, not cleaned or recoded; cleaning follows the existing `clean_data.R` convention in `Data/` later.
+* **Conservative automatic matching.** Title similarity thresholds (0.8 for discovery, 0.85 for bibliographic matching). One wrong match (a Zenodo urn-task dataset matched to an unrelated IEEE paper) was caught on inspection and the folder was relabelled "paper not identified". A keyword false positive (Brañas-Garza et al. 2023: time preferences only, no RET) was moved to `_excluded/`.
+* **Overlap with METARET not yet checked.** The README of the repository lists ~90 papers already included; I did not systematically remove overlaps, but none of the folders below matches a title on that list as far as I could see (the README list was read once; a formal check by DOI/bibkey against `METARET.bib` is a to-do).
+* **Honest labelling.** Where a paper could not be confirmed to contain a RET automatically, the table says "(not verifiable automatically)" rather than asserting it.
+
+# Sources used
+
+OpenAlex (candidate discovery, until its free daily budget ran out), Crossref (bibliography, abstracts), DataCite (dataset discovery and metadata), Unpaywall (open-access PDFs), Harvard Dataverse, DataverseNL, heiDATA, Zenodo, Mendeley Data, OSF, figshare (data), and a few web searches (little value; the search tool returned mostly paper landing pages). GitHub repository search turned up only oTree/Redwood implementations of Holt–Laury and BRET (e.g. `felixholzmeister/bret`, `Leeps-Lab/redwood-holt-laury`), not paper datasets; they are not downloaded but are useful for the "Tasks" pages of the app.
+
+# Results
+
+36 candidate folders were created (plus one excluded). Of these, 23 have data downloaded, 13 are metadata-only (login, token, size cap or no files listed), and 6 have a paper PDF. Total size ≈ 170 MB. The notable leads for METARET are:
+
+* **Tanaka, Camerer & Nguyen (2010, AER)** – the "Vietnam data Camerer" lead already in `DATA ENTRY`; openICPSR 112336, login required.
+* **Andreoni & Sprenger (2012, AER)** and the two AER comments (Cheung 2015; Miao & Zhong 2015) – risk vs. time (convex budgets and uncertainty equivalents); openICPSR, login required.
+* **Sutter et al. (2013, AER)** – risk/time experiments with adolescents linked to field behaviour (a natural RET-vs-real-behaviour case); openICPSR.
+* **Downloaded now:** Ergin et al. 2025 (Fork Game, higher-order risk), Gächter et al. 2021 (loss aversion in riskless and risky choices), Huber et al. 2023 (risk aversion in wealth, field), Müller & Rau 2016 (risk and other-regarding preferences), Crockett & Crockett 2019 (BDM and Holt–Laury), Halko et al. 2021, Gross et al. 2021, Haile et al. 2020, Brunner et al. 2014, Mudzingiri 2024, Woike et al. 2026, Gallenstein 2024, Kassas et al. 2021 and several datasets whose paper could not be identified automatically.
+
+```{=latex}
+\small
+```
+{{< include table_short.md >}}
+
+# Limitations
+
+* **Recall is low.** The 212 flagged papers in the six journals mostly have *no* dataset findable through DataCite; many journals host data as publisher supplements or on author sites not indexed there. Springer/Elsevier/Cambridge landing pages and the AEA registry (not an API I could use) were not scraped. The result is a lead list, not a census.
+* **Precision is unverified for several folders.** The RET keyword check works only when the PDF is present or data documentation is textual; binary data (xlsx, dta, sav) are not inspected.
+* **OpenAlex outage** (free budget exhausted by my early requests) prevented abstract-based screening through OpenAlex and the planned extension to ERAE, Q Open and other journals beyond the first pass (ERAE yielded only 19 candidates; Q Open and JEP returned none).
+* **Early use of the user's email address** in OpenAlex `mailto` parameters: this should not have been done; no personal email was used afterwards (Unpaywall uses a public test address).
+
+# How to rerun or extend
+
+1. `python3 oa.py` (needs an OpenAlex API key or a fresh daily budget) → `cr.py` → `dct.py` / `dcs.py`: new candidates.
+2. Pick DOIs and run `python3 build.py <dataset-doi> ...`: builds folders; it appends to `_index.csv`.
+3. `python3 vet.py` and `python3 summ.py` refresh keyword checks and the top-level README.
+4. Re-render this report: `quarto render report.qmd`.
+
+# Suggested next steps
+
+1. Manually download the openICPSR/Dryad packages (Tanaka et al., Andreoni–Sprenger, Sutter et al., Hoel et al., Blavatskyy et al., Füllbrunn et al., Noussair et al., van Rooij et al.).
+2. Read the READMEs of the "paper not identified" folders and fix their bibliography.
+3. Check each downloaded dataset for within-subject RET pairs and ask: is it new relative to the METARET list?
+4. Extend discovery to ERAE/Q Open/Agricultural Economics and to AEA registry/OSF registrations; consider mining reference lists of existing METARET papers and the `METARET.bib` for datasets.

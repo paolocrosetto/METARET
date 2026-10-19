@@ -1,0 +1,397 @@
+---
+title: "How Hwee Ong - Dissertation Chapter 4 Study 2"     
+author: "How Hwee Ong"
+date: "20 June 2022"
+output: html_document
+---
+# Set-up
+
+### Set WD for knitr
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = "~/How Hwee/PhD Stuff/Research/Self-Punishment/Data Package/Study 2/")
+```
+
+### Load packages
+```{r message=F}
+library(psych)
+library(ggplot2)
+library(effsize)
+library(tidyr)
+library(emmeans)
+library(car)
+library(ggpubr)
+library(WRS2)
+library(lme4)
+library(lmerTest)
+library(ARTool)
+```
+
+### Read data file
+```{r}
+# Read CSV
+df <- read.csv("Data Files/Study 2 - Raw Data - Deidentified.csv", skip=1, header=T)
+df2 <- read.csv("Data Files/Study 2 - Raw Data - Deidentified.csv")
+names(df) <- names(df2)
+df <- df[-1,]
+
+# Create Subject ID
+df$ID <- as.factor(1:nrow(df))
+```
+
+BRET
+(Compute the number of boxes opened)
+```{r}
+df$BRET1.opened <- count.fields(textConnection(df$Round1Opened), sep=",", blank.lines.skip = F)
+df$BRET2.opened <- count.fields(textConnection(df$Round2Opened), sep=",", blank.lines.skip = F)
+df$BRET.diff <- df$BRET2.opened - df$BRET1.opened
+```
+
+# Data Exclusion
+
+To exclude participants who incorrectly recalled their version choice.
+```{r}
+df$Recall_Correct <- as.character(df$Game_Choice) == as.character(df$Recall)
+
+#Frequency table
+table(df$Recall_Correct)
+
+#Drop cases who failed comprehension checks
+df <- df[df$Recall_Correct == 1,]
+
+```
+
+# Data Preparation
+
+### Demographics
+```{r}
+df$Gender <- factor(df$Gender, levels=c("1", "2", "3", "4"), labels=c("Male", "Female", "Other", "Prefer not to answer"))
+table(df$Gender)
+
+df$Age <- factor(df$Age, levels=c("1", "2"), labels=c("Yes","Prefer not to answer"))
+table(df$Age)
+df$Age.values <- as.numeric(as.character(df$Age_1_TEXT))
+psych::describe(df$Age.values)
+```
+
+### Version Choice
+```{r}
+# Recode such that 0 = No pain (Version A), 1 = Pain (Version B)
+df$Game_Choice_Binary <- NA
+df$Game_Choice_Binary[df$Game_Choice == 1] <- 0
+df$Game_Choice_Binary[df$Game_Choice == 2] <- 1
+
+df$Game_Choice_Binary <- as.factor(df$Game_Choice_Binary)
+
+# Frequency Distribution Table 
+table(df$Game_Choice_Binary)
+```
+### Group 
+```{r}
+df$Group <- NULL
+df$Group[df$Condition == "NoChoice"] <- "Control"
+df$Group[df$Game_Choice_Binary == 0] <- "NoPain"
+df$Group[df$Game_Choice_Binary == 1] <- "Pain"
+
+table(df$Group)
+
+```
+
+
+Pain
+```{r}
+# Compute 
+df$Pain <- as.numeric(as.character(df$Pain))
+table(df$Pain)
+
+```
+
+# BRET Risk
+```{r}
+
+
+corr.test(df$BRET1.opened, df$BRET2.opened)
+corr.test(df$BRET1.opened[df$Group == "Control"], df$BRET2.opened[df$Group == "Control"])
+corr.test(df$BRET1.opened[df$Group == "Pain"], df$BRET2.opened[df$Group == "Pain"])
+corr.test(df$BRET1.opened[df$Group == "NoPain"], df$BRET2.opened[df$Group == "NoPain"])
+
+df$BRET1.time <- as.numeric(as.character(df$BRET1_t_Page.Submit))
+df$BRET2.time <- as.numeric(as.character(df$BRET2_t_Page.Submit))
+
+describeBy(df$BRET1.opened, group = df$Group)
+describeBy(df$BRET2.opened, group = df$Group)
+describeBy(df$BRET.diff, group = df$Group)
+
+t.test(df$BRET.diff[df$Group == "Pain" | df$Group == "NoPain"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "NoPain"])
+
+t.test(df$BRET.diff[df$Group == "Pain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "Control"])
+
+t.test(df$BRET.diff[df$Group == "NoPain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "NoPain" | df$Group == "Control"])
+
+#one sample t-test against zero
+t.test(df$BRET.diff[df$Group == "Pain"], mu = 0, alternative = "two.sided")
+t.test(df$BRET.diff[df$Group == "NoPain"], mu = 0, alternative = "two.sided")
+t.test(df$BRET.diff[df$Group == "Control"], mu = 0, alternative = "two.sided")
+```
+Difference Score Bar Graph
+```{r}
+# Bargraph
+ggplot(df, aes(x=Group, y=BRET.diff, fill=Group)) +
+  geom_bar(position="dodge", stat="summary", fun="mean") +
+  stat_summary(fun.data=mean_se, fun.args = list(mult=1), 
+        geom="errorbar", width=0.2, color="black") +
+  labs(title= "Difference Score by Group", y = "Difference Score (BRET #2 - BRET #1)")
+
+```
+
+BRET #1 Comparison
+```{r}
+### Pain vs. No Pain
+t.test(df$BRET1.opened[df$Group == "Pain" | df$Group == "NoPain"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "NoPain"])
+
+### Pain vs. Control
+t.test(df$BRET1.opened[df$Group == "Pain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "Control"])
+
+### NoPain vs. Control
+t.test(df$BRET1.opened[df$Group == "NoPain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "NoPain" | df$Group == "Control"])
+```
+
+BRET #2 Comparison
+```{r}
+### Pain vs. No Pain
+t.test(df$BRET2.opened[df$Group == "Pain" | df$Group == "NoPain"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "NoPain"])
+
+### Pain vs. Control
+t.test(df$BRET2.opened[df$Group == "Pain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "Control"])
+
+### NoPain vs. Control
+t.test(df$BRET2.opened[df$Group == "NoPain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "NoPain" | df$Group == "Control"])
+```
+
+### Belief in Karma scale
+```{r}
+df$Karma_1 <- as.numeric(as.character(df$BK_1))
+df$Karma_2 <- as.numeric(as.character(df$BK_2))
+df$Karma_3 <- as.numeric(as.character(df$BK_3))
+df$Karma_4 <- as.numeric(as.character(df$BK_4))
+df$Karma_5 <- as.numeric(as.character(df$BK_5))
+df$Karma_6 <- as.numeric(as.character(df$BK_6))
+df$Karma_7 <- as.numeric(as.character(df$BK_7))
+df$Karma_8 <- as.numeric(as.character(df$BK_8))
+df$Karma_9 <- as.numeric(as.character(df$BK_9))
+df$Karma_10 <- as.numeric(as.character(df$BK_10))
+df$Karma_11 <- as.numeric(as.character(df$BK_11))
+df$Karma_12 <- as.numeric(as.character(df$BK_12))
+df$Karma_13 <- as.numeric(as.character(df$BK_13))
+df$Karma_14 <- as.numeric(as.character(df$BK_14))
+df$Karma_15 <- as.numeric(as.character(df$BK_15))
+df$Karma_16 <- as.numeric(as.character(df$BK_16))
+
+df$Karma_2r <- 6 - df$Karma_2
+df$Karma_14r <- 6 - df$Karma_14
+
+Karma_list <- cbind(df$Karma_1,
+                    df$Karma_2r,
+                    df$Karma_3,
+                    df$Karma_4,
+                    df$Karma_5,
+                    df$Karma_6,
+                    df$Karma_7,
+                    df$Karma_8,
+                    df$Karma_9,
+                    df$Karma_10,
+                    df$Karma_11,
+                    df$Karma_12,
+                    df$Karma_13,
+                    df$Karma_14r,
+                    df$Karma_15,
+                    df$Karma_16)
+
+df$Karma <- rowMeans(Karma_list)
+df$Karma.ctr <- df$Karma - mean(df$Karma)
+
+# Karma  by Group
+describe(df$Karma)
+describeBy(df$Karma, group = df$Group)
+
+### Pain vs. No Pain
+t.test(df$Karma[df$Group == "Pain" | df$Group == "NoPain"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "NoPain"])
+
+### Pain vs. Control
+t.test(df$Karma[df$Group == "Pain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "Control"])
+
+### NoPain vs. Control
+t.test(df$Karma[df$Group == "NoPain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "NoPain" | df$Group == "Control"])
+
+
+# Alpha for Belief in Karma
+psych::alpha(Karma_list)
+
+# Correlation: BRET.diff x BK
+corr.test(df$BRET.diff, df$Karma)
+cor.test(df$BRET.diff[df$Group == "Pain"], df$Karma[df$Group == "Pain"])
+cor.test(df$BRET.diff[df$Group == "NoPain"], df$Karma[df$Group == "NoPain"])
+cor.test(df$BRET.diff[df$Group == "Control"], df$Karma[df$Group == "Control"])
+
+corr.karma.pain <- cor(df$BRET.diff[df$Group == "Pain"], df$Karma[df$Group == "Pain"])
+corr.karma.nopain <- cor(df$BRET.diff[df$Group == "NoPain"], df$Karma[df$Group == "NoPain"])
+corr.karma.control <- cor(df$BRET.diff[df$Group == "Control"], df$Karma[df$Group == "Control"])
+n.pain <- nrow(df[df$Group == "Pain",])
+n.nopain <- nrow(df[df$Group == "NoPain",])
+n.control <- nrow(df[df$Group == "Control",])
+
+# Pain vs. NoPain
+r.test(n = n.pain, 
+       n2 = n.nopain,
+       r12 = corr.karma.pain, 
+       r34 = corr.karma.nopain)
+
+# Pain vs. Control
+r.test(n = n.pain, 
+       n2 = n.control,
+       r12 = corr.karma.pain, 
+       r34 = corr.karma.control)
+
+# NoPain vs. Control
+r.test(n = n.nopain, 
+       n2 = n.control,
+       r12 = corr.karma.nopain, 
+       r34 = corr.karma.control)
+
+```
+
+# Wide to Long Conversion (for mixed ANOVA)
+'df.long' is the 'long' dataframe
+```{r}
+df.long <- gather(df, time, BRET, c("BRET1.opened", "BRET2.opened"))
+
+df.long <- df %>% 
+  pivot_longer(c("BRET1.opened", "BRET2.opened"), names_to = "time", values_to = "BRET")
+
+```
+
+# BRET Scores
+# Mixed ANOVA: BRET x Pain vs. No Pain (Model 1a)
+```{r}
+ANOVA.Model1a <- aov(BRET ~ Group*time + Error(ID/time), 
+                       data=df.long[(df.long$Group == "Pain" | df.long$Group == "NoPain"),])
+summary(ANOVA.Model1a)
+
+
+model.tables(ANOVA.Model1a, "means")
+
+ANOVA.Model1a.decompose<-emmeans(ANOVA.Model1a, ~time|as.factor(Group))
+ANOVA.Model1a.decompose
+pairs(ANOVA.Model1a.decompose)
+
+## to check results using lmer instead of anova approach. Some minor varations for main effects, but interaction effect is the same. This is likely because aov uses type I SS, while lmer uses type III ss. 
+
+lmer.Model1a <- lmer(BRET ~ Group*time + (1|ID), 
+                     data=df.long[(df.long$Group == "Pain" | df.long$Group == "NoPain"),])
+summary(lmer.Model1a)
+
+```
+
+# Mixed ANOVA: BRET x Pain vs. Control (Model 1b)
+```{r}
+ANOVA.Model1b <- aov(BRET ~ Group*time + Error(ID/time), 
+                       data=df.long[(df.long$Group == "Pain" | df.long$Group == "Control"),])
+summary(ANOVA.Model1b)
+
+model.tables(ANOVA.Model1b, "means")
+
+ANOVA.Model1b.decompose<-emmeans(ANOVA.Model1b, ~time|as.factor(Group))
+ANOVA.Model1b.decompose
+pairs(ANOVA.Model1b.decompose)
+
+lmer.Model1b <- lmer(BRET ~ Group*time + (1|ID), 
+                     data=df.long[(df.long$Group == "Pain" | df.long$Group == "Control"),])
+summary(lmer.Model1b)
+```
+
+# Mixed ANOVA: BRET x NoPain vs. Control (Model 1c)
+```{r}
+ANOVA.Model1c <- aov(BRET ~ Group*time + Error(ID/time), 
+                       data=df.long[(df.long$Group == "NoPain" | df.long$Group == "Control"),])
+summary(ANOVA.Model1c)
+
+model.tables(ANOVA.Model1c, "means")
+
+ANOVA.Model1c.decompose<-emmeans(ANOVA.Model1c, ~time|as.factor(Group))
+ANOVA.Model1c.decompose
+pairs(ANOVA.Model1c.decompose)
+
+
+lmer.Model1c <- lmer(BRET ~ Group*time + (1|ID), 
+                     data=df.long[(df.long$Group == "NoPain" | df.long$Group == "Control"),])
+summary(lmer.Model1c)
+```
+
+# Plot: Likelihood x Time x Version Choice
+```{r}
+ggplot(df.long, aes(x = time, y = BRET, colour = Group, group=Group))  +
+    geom_point(stat = "summary", fun.y="mean", aes(colour = Group, group = Group), shape=18, size = 5) + 
+        labs(title= "Risk Taking by Group", 
+       x = "Time", y = "BRET (Boxes Opened)") +
+  scale_x_discrete(labels=c("BRET #1", "BRET #2"))
+```
+
+
+# Karma as moderator (BRET ~ Group * Time * Karma)
+(Model 3)
+
+```{r}
+# Pain vs. No Pain
+lmer.Model3a <- lmer(BRET ~ Group*time*Karma.ctr + (1|ID), 
+                       data=df.long[(df.long$Group == "Pain" | df.long$Group == "NoPain"),])
+summary(lmer.Model3a)
+
+# Pain vs. Control
+lmer.Model3b <- lmer(BRET ~ Group*time*Karma.ctr + (1|ID), 
+                       data=df.long[(df.long$Group == "Pain" | df.long$Group == "Control"),])
+summary(lmer.Model3b)
+
+# No pain vs. Control
+lmer.Model3c <- lmer(BRET ~ Group*time*Karma.ctr + (1|ID),
+                       data=df.long[(df.long$Group == "NoPain" | df.long$Group == "Control"),])
+summary(lmer.Model3c)
+```
+
+Pain score
+```{r}
+#Pain by Group 
+describe(df$Pain)
+describeBy(df$Pain, group = df$Group)
+
+### Pain vs. No Pain
+t.test(df$Pain[df$Group == "Pain" | df$Group == "NoPain"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "NoPain"])
+
+### Pain vs. Control
+t.test(df$Pain[df$Group == "Pain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "Pain" | df$Group == "Control"])
+
+### NoPain vs. Control
+t.test(df$Pain[df$Group == "NoPain" | df$Group == "Control"] ~ 
+         df$Group[df$Group == "NoPain" | df$Group == "Control"])
+
+
+# Correlation: BRET.diff x Pain
+corr.test(df$BRET.diff, df$Pain)
+corr.test(df$BRET.diff[df$Group == "Pain"], df$Pain[df$Group == "Pain"])
+corr.test(df$BRET.diff[df$Group == "NoPain"], df$Pain[df$Group == "NoPain"])
+corr.test(df$BRET.diff[df$Group == "Control"], df$Pain[df$Group == "Control"])
+```
+
