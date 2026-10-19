@@ -13,6 +13,9 @@ df = df %>% select(Subject, Investment, Gender, Age) %>%
   rename(choice = Investment,
          gender = Gender,
          age = Age) %>% 
+  ## one subject comes through as 13 in a university subject pool; 16-17 is
+  ## plausible for a first-year, 13 is not. Dropped to missing rather than guessed.
+  mutate(age = if_else(age < 15, NA_real_, as.numeric(age))) %>% 
   ## 1 - females
   mutate(gender = case_when(gender == 2 ~ 1,
                             gender == 1 ~ 0))

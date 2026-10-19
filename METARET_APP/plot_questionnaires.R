@@ -15,11 +15,12 @@ plotDensity2 <- function(tasklist, data) {
                  outlier.alpha = 0,
                  alpha = 0) +
     geom_jitter(aes(values,0), height = 0.05, color = 'green', size = 0.05) +
+    ## no title: it only repeated the selector above the figure and the
+    ## explanatory note under it
     labs(x = "Choices",
-         y = "Density",
-         title = paste0("Distribution of answers for the ", colnames_given_pattern(questionchoice, data$name[1]), " questionnaire")) + 
+         y = "Density") + 
     theme(
-      text = element_text(size=15),
+      text = element_text(size = 16),
       plot.background = element_blank(),
       panel.background = element_rect(fill = "white"), 
       panel.grid.major = element_blank(),

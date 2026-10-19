@@ -1,0 +1,283 @@
+---
+title: "How Hwee Ong - Dissertation Chapter 4 - Study 1"
+author: "How Hwee Ong"
+date: "20 June 2022"
+output: html_document
+---
+# Set-up
+
+### Set WD for knitr
+Manually setWD to "......./Data Package/Study 1"
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = "~/How Hwee/PhD Stuff/Research/Self-Punishment/Data Package/Study 1")
+```
+
+### Load packages
+```{r message=F}
+library(psych)
+library(ggplot2)
+library(effsize)
+library(tidyr)
+library(emmeans)
+library(car)
+library(ggpubr)
+library(WRS2)
+```
+
+### Read data file
+- Because participants' age can be potentially identifiable (e.g., several participants have idiosyncratic ages; 51), I have separated that into a standalone file (where age is sorted in ascending order) to prevent matching of age and responses on main dataset. 
+- We had excluded two participants from analyses for failing comprehension checks. Their ages were manually removed from the age file. There was 1 missing response for age. 
+- This resulted in 273 valid responses (276 - 2 - 1 = 273)
+```{r}
+# Read CSV
+df <- read.csv("Data Files/Study 1 - Raw Data - Deidentified.csv", skip=1, header=T)
+df2 <- read.csv( "Data Files/Study 1 - Raw Data - Deidentified.csv")
+names(df) <- names(df2)
+df <- df[-1,]
+
+# Create Subject ID
+df$ID <- as.factor(1:nrow(df))
+
+# Read Age file
+age.values <- read.csv("Data Files/Study 1 - Age.csv", header=F)
+age.values <- unlist(age.values)
+```
+
+
+# Data Exclusion
+
+To exclude participants who incorrectly recalled their version choice.
+```{r}
+df$Recall_Correct <- as.character(df$Game_Choice) == as.character(df$Recall)
+
+#Frequency table
+table(df$Recall_Correct)
+
+#Perentage who passed comprehension checks
+sum(df$Recall_Correct==TRUE) / ( sum(df$Recall_Correct==TRUE, df$Recall_Correct==FALSE)) *100
+
+#Drop cases who failed comprehension checks
+df <- df[df$Recall_Correct == 1,]
+```
+
+# Data Preparation
+
+### Version Choice
+```{r}
+# Recode such that 0 = No pain (Version A), 1 = Pain (Version B)
+df$Game_Choice_Binary <- NA
+df$Game_Choice_Binary[df$Game_Choice == 1] <- 0
+df$Game_Choice_Binary[df$Game_Choice == 2] <- 1
+
+df$Game_Choice_Binary <- as.factor(df$Game_Choice_Binary)
+
+# Frequency Distribution Table 
+table(df$Game_Choice_Binary)
+```
+
+### Platform used for Finger Agility
+```{r}
+# Compute variable 'Platform' and label its levels
+df$Platform <- factor(df$Platform, 
+                      levels = c(1,2,3,4),
+                      labels = c("trackpad", "mouse", "touch screen", "other"))
+
+# Frequencies
+table(df$Platform)
+
+# Show 'Other' responses
+table(df$Platform_4_TEXT)
+```
+
+### Pain score 
+Due to mistake in Qualtrics (two '1': 1 1 2 3 4 5 6 7), I analyse it in two ways
+1) Treat both '1's as '1'
+2) Treat it as a 8-point scale (i.e., 1 2 3 4 5 6 7 8)
+
+#### Approach #1
+(both '1s' as '1s)
+```{r}
+# Compute / redo variable
+df$Pain1 <- as.numeric(as.character(df$Pain))
+df$Pain1[df$Pain1 == 8] <- 1
+
+table(df$Pain1)
+# Descriptives: Pain - Grand mean
+describe(df$Pain1)
+
+# Descriptives: Pain by choice (versions A vs. B)
+describeBy(df$Pain1, group = df$Game_Choice_Binary)
+
+# t-test
+t.test(df$Pain1 ~ df$Game_Choice_Binary)
+```
+
+#### Approach #2
+(as 8-point scale)
+```{r}
+# Compute / redo variable
+df$Pain2 <- NULL
+df$Pain2[df$Pain == 1] <- 1
+df$Pain2[df$Pain == 8] <- 2
+df$Pain2[df$Pain == 2] <- 3
+df$Pain2[df$Pain == 3] <- 4
+df$Pain2[df$Pain == 4] <- 5
+df$Pain2[df$Pain == 5] <- 6
+df$Pain2[df$Pain == 6] <- 7
+df$Pain2[df$Pain == 7] <- 8
+
+table(df$Pain2)
+
+# Descriptives: Pain - Grand mean
+describe(df$Pain2)
+
+# Descriptives: Pain by choice (versions A vs. B)
+describeBy(df$Pain2, group = df$Game_Choice_Binary)
+
+# t-test
+t.test(df$Pain2 ~ df$Game_Choice_Binary)
+```
+
+# Score on Finger Agility Task (self-reported)
+```{r}
+# Compute / recode self-reported game score
+df$Game_Actual <- as.numeric(as.character(df$Game_Actual))
+
+# Descriptives: Game_Actual - Grand mean
+describe(df$Game_Actual)
+table(df$Game_Actual)
+```
+
+# Perceived Likelihood (Time #1)
+```{r}
+# Compute / recode self-reported game score
+df$Likelihood1 <- as.numeric(as.character((df$Likelihood_1_4)))
+
+# Descriptive: Grand mean
+describe(df$Likelihood1)
+
+# Descriptive: Likelihood1 by Version Choice (versions A vs. B)
+describeBy(df$Likelihood1, group = df$Game_Choice_Binary)
+
+# t.test: Likelihood1 by Version Choice
+t.test(df$Likelihood1 ~ df$Game_Choice_Binary)
+effsize::cohen.d(df$Likelihood1 ~ df$Game_Choice_Binary)
+```
+
+# Perceived Likelihood (Time #2)
+```{r}
+# Compute / recode self-reported game score
+df$Likelihood2 <- as.numeric(as.character((df$Likelihood_2_4)))
+
+# Descriptive: Grand mean
+describe(df$Likelihood2)
+
+# Descriptive: Likelihood2 by Version Choice (versions A vs. B)
+describeBy(df$Likelihood2, group = df$Game_Choice_Binary)
+
+# t.test: Likelihood2 by Version Choice
+t.test(df$Likelihood2 ~ df$Game_Choice_Binary)
+effsize::cohen.d(df$Likelihood2 ~ df$Game_Choice_Binary)
+```
+
+# Perceived Likelihood (Time #3)
+```{r}
+# Compute / recode self-reported game score
+df$Likelihood3 <- as.numeric(as.character((df$Likelihood_3_4)))
+
+# Descriptive: Grand mean
+describe(df$Likelihood3)
+
+# Descriptive: Likelihood3 by Version Choice (versions A vs. B)
+describeBy(df$Likelihood3, group = df$Game_Choice_Binary)
+
+# t.test: Likelihood3 by Version Choice
+t.test(df$Likelihood3 ~ df$Game_Choice_Binary)
+effsize::cohen.d(df$Likelihood3 ~ df$Game_Choice_Binary)
+```
+
+# Wide to Long Conversion (for mixed ANOVA)
+'df.long' is the 'long' dataframe
+```{r}
+df.long <- gather(df, time, likelihood, c("Likelihood1", "Likelihood2", "Likelihood3"))
+```
+
+# Mixed ANOVA (T1 vs T2)
+```{r}
+aov_time_choice <- aov(likelihood ~ Game_Choice_Binary*time + Error(ID/time), 
+                       data=df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood2"),])
+summary(aov_time_choice)
+
+model.tables(aov_time_choice, "means")
+```
+
+# Paired sample t-test
+Change across time for each between-subject group
+```{r}
+Mixed_Fitted_Interaction<-emmeans(aov_time_choice, ~time|as.factor(Game_Choice_Binary))
+Mixed_Fitted_Interaction
+pairs(Mixed_Fitted_Interaction)
+```
+
+# Assumption check for Mixed ANOVA (T1 vs T2)
+```{r}
+# Assumption check: Levene's test
+leveneTest(likelihood~ time*Game_Choice_Binary, data=df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood2"),], center=median)
+
+# Robust ANOVA with 10% trim rate
+### Interaction term remains significant
+
+mixed_anova_rob1 <- bwtrim(formula = likelihood ~ Game_Choice_Binary*time, id = ID, 
+       data = df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood2"),], tr = 0.1)
+mixed_anova_rob1
+```
+
+# Mixed ANOVA (T1 vs T3)
+```{r}
+leveneTest(likelihood~ time*Game_Choice_Binary, data=df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood3"),], center=median)
+
+aov_time_choice <- aov(likelihood ~ Game_Choice_Binary*time + Error(ID/time), 
+                       data=df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood3"),])
+summary(aov_time_choice)
+
+model.tables(aov_time_choice, "means")
+```
+
+# Assumption check for Mixed ANOVA (T1 vs T3)
+```{r}
+# Assumption check: Levene's test
+leveneTest(likelihood~ time*Game_Choice_Binary, data=df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood3"),], center=median)
+
+# Robust ANOVA with 10% trim rate
+### Interaction term remains significant
+
+mixed_anova_rob2 <- bwtrim(formula = likelihood ~ Game_Choice_Binary*time, id = ID, 
+       data = df.long[(df.long$time == "Likelihood1" | df.long$time == "Likelihood3"),], tr = 0.1)
+mixed_anova_rob2
+```
+
+
+
+# Plot: Likelihood x Time x Version Choice
+```{r}
+ggplot(df.long, aes(x = time, y = likelihood))  +
+    geom_point(stat = "summary", fun.y="mean", aes(colour = Game_Choice_Binary), shape=18, size = 5) + 
+  scale_color_manual(values=c("blue4", "red3"), name = "Version Choice", labels = c("No Pain", "Pain")) +
+  labs(title= "Perceived Likelihood of Winning Lottery by Time and Version Choice", 
+       x = "Time", y = "Perceived Likelihood of Winning Lottery") +
+  scale_x_discrete(labels=c("Time #1", "Time #2", "Time #3"))
+```
+
+### Demographics
+### Age ###
+```{r}
+df$Age <- factor(df$Age, levels=c("1", "2"), labels=c("Yes","Prefer not to answer"))
+table(df$Age)
+psych::describe(age.values)
+```
+
+```{r}
+df$Gender <- factor(df$Gender, levels=c("1", "2", "3", "4"), labels=c("Male", "Female", "Other", "Prefer not to answer"))
+table(df$Gender)
+```

@@ -44,13 +44,29 @@ plotDensity1 <- function(tasklist, data) {
     labs(y = "Risk aversion parameter CRRA",
          x = "")+
     theme(
-      text = element_text(size=15),
+      text = element_text(size = 16),
       plot.background = element_blank(),
       panel.background = element_rect(fill = "white"), 
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
-      panel.border = element_blank()
+      panel.border = element_blank(),
+      ## the legend read "task" over a list of task names -- the heading said
+      ## nothing the entries did not already say, so it goes
+      legend.title = element_blank(),
+      legend.text = element_text(size = 16),
+      legend.key = element_blank(),
+      legend.key.size = unit(1.5, "lines"),
+      legend.background = element_blank(),
+      ## along the bottom rather than down the right: the panel is taller than
+      ## it is wide, so a side legend was stealing width from the densities
+      legend.position = "bottom",
+      legend.direction = "horizontal",
+      legend.margin = margin(t = 6),
+      legend.spacing.x = unit(14, "pt")
     ) +
+    guides(fill  = guide_legend(nrow = 1, byrow = TRUE,
+                                override.aes = list(alpha = 1, colour = NA)),
+           color = "none") +
     
     #draws x and y axis line
     theme(axis.line = element_line(color = 'black')) +

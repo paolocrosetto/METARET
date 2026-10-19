@@ -11,7 +11,7 @@ data %>% ggplot(aes(x=age, y=r)) +
   theme_bw() +
   #eliminates background, gridlines, and chart border
   theme(
-    text = element_text(size=20),
+    text = element_text(size = 16),
     plot.background = element_blank(),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),

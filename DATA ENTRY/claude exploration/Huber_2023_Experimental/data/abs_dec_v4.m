@@ -1,0 +1,6 @@
+function nll = abs_dec_v4(alpha,beta,gamma,delta,sigma,wealth,R_A_choice,control,safe_choice)
+    value = alpha + beta.*wealth + control*gamma' + ...
+        ((wealth*ones(1,3)).*control(:,5:7))*delta' - R_A_choice;
+    prob = normcdf(value,0,sigma).*safe_choice + ...
+        normcdf(-value,0,sigma).*(1-safe_choice);
+    nll = (-1).*sum(log(prob));

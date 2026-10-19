@@ -1,7 +1,7 @@
 ---
 title: "METARET -- a Meta Analysis of the External Validity of Risk Elicitation Tasks"
 author: "Paolo Crosetto"
-date: "This version: June 2019"
+date: "This version: September 2026"
 output: github_document
 ---
 
@@ -47,8 +47,8 @@ METARET is composed of:
 - this **github repository** where the real work is done and updated, and that contains
   - **data** from each of several *contributed papers* by experimental economists and social psychologists. 
   - **code** to format each original dataset into a common format for later analysis
-  - **results** in the form of plots and tables (*work in progress*)
-  - **code** for the interactive shiny app (*work in progress*)
+  - **results** in the form of plots and tables
+  - **code** for the interactive shiny app
 
 
 ## How to contribute
@@ -83,14 +83,29 @@ METARET will be **developed in public**. As new papers and data sources arrive, 
 
 ### Presentation
 
-The methodology and first results of METARET will be the object of a special [semi-pleanry session](https://lessac.bsb-education.com/index.php?page=plenary) organized by me at the [2019 Dijon European ESA meeting](https://lessac.bsb-education.com/index.php?page=european-esa-meeting-dijon-sept-2019). Pop by Dijon to learn more. 
+The methodology and first results of METARET were the object of a special [semi-plenary session](https://lessac.bsb-education.com/index.php?page=plenary) organized by me at the [2019 Dijon European ESA meeting](https://lessac.bsb-education.com/index.php?page=european-esa-meeting-dijon-sept-2019). 
 
 ## Contributed papers (list updates as papers are contributed)
 
-In order to give a feeling of the final product, METARET started from two papers of mine. More papers whose data is freely available for download will be soon added. 
+METARET started from two papers of mine -- the [Bomb Risk Elicitation Task](https://link.springer.com/article/10.1007/s11166-013-9170-z) (JRU, 2013) and [A Theoretical and Experimental Appraisal of Four Risk Elicitation Methods](https://link.springer.com/article/10.1007/s10683-015-9457-9) (ExEc, 2016). The table below is built from the data itself, so it stays current as papers arrive.
 
-- Crosetto, Paolo, and Filippin, Antonio, *The Bomb Risk Elicitation Task*, JRU, 2013 [paper](https://link.springer.com/article/10.1007/s11166-013-9170-z) [data](/Data/Crosetto_Filippin_Experimental_Economics_2016)
-- Crosetto, Paolo, and Filippin, Antonio, *A Theoretical and Experimental Appraisal of Four Risk ELicitation Methods*, ExEc, 2016 [paper](https://link.springer.com/article/10.1007/s10683-015-9457-9) [data](/Data/Crosetto_Filippin_Journal_Risk_Uncertainty_2013/)
+```{r papers-table}
+library(tidyverse)   ## this chunk runs before the analysis one below
+library(knitr)
+
+papers <- read_csv("METARET_APP/DATA/df_mod.csv") %>%
+  mutate(task = na_if(task, "quest_only")) %>%
+  group_by(Paper = paper) %>%
+  summarise(Subjects = n_distinct(subject),
+            Tasks    = paste(sort(unique(na.omit(task))), collapse = ", "),
+            .groups  = "drop") %>%
+  ## two papers contribute questionnaire answers and no lottery task, which
+  ## otherwise shows as an empty cell
+  mutate(Tasks = if_else(Tasks == "", "questionnaire only", Tasks)) %>%
+  arrange(Paper)
+
+kable(papers)
+```
 
 ### First look at the results
 
@@ -103,14 +118,12 @@ Each task is represented by a point estimate + confidence interval. Here are the
 
 The plots and analyses are updated for each new contributed paper. An interactive version fo the same data is to be found at the [shiny app](https://paolocrosetto.shinyapps.io/METARET/)
 
-```{r, fig.height=12, fig.width = 9, dpi=600}
+```{r correlations, fig.height=12, fig.width = 9, dpi=600}
 
 ### playing around with the correlation plots
 library(tidyverse)
-library(broom)
-library(hrbrthemes)
 
-theme_set(theme_ipsum_rc()+
+theme_set(theme_minimal(base_size = 11)+
             theme(legend.position = "bottom")+
             theme(strip.text.x = element_text(hjust = 0.5))+
             theme(panel.spacing.x = unit(0.2, "lines")))
@@ -119,20 +132,28 @@ theme_set(theme_ipsum_rc()+
 df <- list.files(recursive = T, pattern = "^formatted_dataset") %>% 
   map_dfr(read_csv)
 
-#### playground for the final plot -- commented away
+## with 87 papers most paper/task/treatment cells are far too thin to correlate
+## -- cor.test() stops outright below three complete pairs, and a confidence
+## interval on a handful of subjects says nothing. Cells below this are dropped.
+MIN_N <- 25
 
-## TODO/ need to automate this in a function, adn don't know how. MESSY!
 compute_corr <- function(data, var, name) {
   data %>%
-  nest(-paper, -task, -treatment) %>%
-  mutate(
-    test = map(data, ~ cor.test(.x$choice, .x[[var]], method = "pearson", conf.level = 0.95)), 
-    tidied = map(test, tidy)
-  ) %>%
-  unnest(tidied, .drop = TRUE) %>% 
-    mutate(questionnaire = name)
+    select(paper, task, treatment, choice, all_of(var)) %>%
+    drop_na(choice, all_of(var)) %>%
+    group_by(paper, task, treatment) %>%
+    filter(n() >= MIN_N,
+           sd(choice) > 0, sd(.data[[var]]) > 0) %>%   ## a constant kills cor.test too
+    summarise(test = list(cor.test(choice, .data[[var]],
+                                   method = "pearson", conf.level = 0.95)),
+              N = n(), .groups = "drop") %>%
+    mutate(estimate  = map_dbl(test, "estimate"),
+           p.value   = map_dbl(test, "p.value"),
+           conf.low  = map_dbl(test, ~ .x$conf.int[1]),
+           conf.high = map_dbl(test, ~ .x$conf.int[2]),
+           questionnaire = name) %>%
+    select(-test)
 }
-
 
 # SOEP
 soep <- compute_corr(df, "soep", "SOEP")
@@ -150,13 +171,10 @@ doinvest <- compute_corr(df, "doinvest", "D-invest")
 dohealth <- compute_corr(df, "dohealth", "D-health")
 
 # rbind
-corr <- rbind(soep, dospert, dogamble, doinvest, dohealth) %>% 
+corr <- bind_rows(soep, dospert, dogamble, doinvest, dohealth) %>% 
   mutate(questionnaire = fct_relevel(as_factor(questionnaire), "SOEP", "DOSPERT"))
 
-# join  the N of observations oer study
-corr <- df %>% group_by(paper, task, treatment) %>% summarise(N = n()) %>% left_join(corr, by = c("paper", "task", "treatment"))
-
-# another stupid hack
+# a paper with no treatment arm gets a blank label rather than an NA one
 corr <- corr %>% mutate(treatment = if_else(is.na(treatment), "", treatment))
 
 ## plot on non-transformed values
@@ -165,8 +183,8 @@ corr %>%
   mutate(p.value = cut(p.value,
                        breaks = c(-1, 0.01, 0.05, 0.1, 1),
                        labels = c("<1%", "<5%", "<10%", "n.s."))) %>%
-  mutate(treatment = paste(treatment, " (N = ", N, ")", sep ="")) %>%
-  ggplot(aes(reorder(treatment, estimate), estimate, color= p.value))+
+  mutate(label = paste0(paper, " ", treatment, " (N = ", N, ")")) %>%
+  ggplot(aes(reorder(label, estimate), estimate, color= p.value))+
   geom_errorbar(aes(ymin = conf.low , ymax = conf.high), width = 0.2)+
    geom_point(size = 2)+
    coord_flip()+

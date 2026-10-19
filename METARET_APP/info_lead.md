@@ -1,0 +1,1 @@
+A **large dataset of risk elicitation experiments** from around the world, conducted in labs and in the field over the past two to three decades, brought together in one place and made available to the research community.

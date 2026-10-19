@@ -1,1 +1,0 @@
-# METARET: A META analysis of Risk Elicitation Tasks

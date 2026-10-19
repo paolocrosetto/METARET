@@ -1,6 +1,3 @@
----
-bibliography: references.bib
----
 **Balloon Economic Risk Protocol (BERP)**
 
 The BERP is an attempt to make the Balloon Analog Risk Task (BART) more appealing to experimental economists, by controlling for beliefs, avoiding truncation, and inserting the standard BART metaphor and task into a more rigorous setting. The aim is to retain the peculiar characteristic of BART -- its correlation with health outcomes -- in a setting that can be safely used by experimental economists.

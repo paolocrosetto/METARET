@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 **Youth Risk Behavior Surveillance System (CDC, 2001)**
 
 [The Youth Risk Behavior Surveillance System (YRBSS)](https://www.cdc.gov/mmwr/preview/mmwrhtml/ss5104a1.htm) monitors six categories of health-related behaviors that contribute to the leading causes of death and disability among youth and adults, including:
