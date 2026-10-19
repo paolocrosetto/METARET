@@ -1,0 +1,50 @@
+### explore page
+
+###########
+Variables that need to look at the actual paper and parameters:
+
+- stakes: "expected value of the task"; EV gotten by a subject that is risk neutral. [€]
+
+- value of safe option [€]
+
+- share val_safe_option/stakes [float \in (0-1)]
+
+
+############
+Variables that depend on the task only:
+
+- nchoices: nombre de choix [int]
+
+- safe_option: does the task have one or more options with exactly zero variance? [True/False]
+
+- is_50_50: [True/False]
+
+- varying_dimension: categorical variable; probabilities vary; outcomes vary; both vary 
+[eg: BRET: both vary; EG: outcoms vary; HL: prob vary; IG: outcome varies]
+
+- has_losses [True/False]
+
+- is_price_list [True/False]
+
+_ is_visual [True/False] 
+
+
+######
+Site layout
+
+1. one page where subjects choose among the above variables, and then a TABLE with mean/st.dev is created by interaction of all the categories. 
+
+2. same but with a dot-whisker plot
+
+3. people choose a configuration of variables, and a REGRESSION is made with an lm() and displayed as a table
+
+4. same, but with coefficient plot
+
+5. difficut: to explore further: generate custom plots given the choices of people. 
+
+
+
+
+
+
+
