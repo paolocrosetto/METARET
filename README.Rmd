@@ -42,7 +42,7 @@ The aim is to be as **inclusive** as possible, to allow the map to cover most po
 
 METARET is composed of:
 
-- a **shiny interactive app** [(here)](https://paolocrosetto.shinyapps.io/METARET/) where the data accumulated so far can be explored and visualised;
+- a **shiny interactive app** [(here)](https://paolocrosetto.shinyapps.io/METARET_APP/) where the data accumulated so far can be explored and visualised;
 - an **OSF page** [(here)](https://osf.io/h2z56/) where the project is being pre-registered;
 - this **github repository** where the real work is done and updated, and that contains
   - **data** from each of several *contributed papers* by experimental economists and social psychologists. 
@@ -73,13 +73,13 @@ To contribute:
 This is an **open science project**. All data shared will be **made public**. It will be available for external scrutiny, download, and further use (upon citation and contact, CC NC-BY-SA):
 
 - *static .csv files* and analysis scripts (mainly R and Stata), on this **github** repository;
-- *dynamically explorable*, on the [shiny app](https://paolocrosetto.shinyapps.io/METARET/). 
+- *dynamically explorable*, on the [shiny app](https://paolocrosetto.shinyapps.io/METARET_APP/). 
 
 If **you do not wish** your raw data to be disclosed but *still want to contribute*, let me know. It is possible to include only the computed correlations to the shiny app and the meta-analysis plots *without* fully disclosing the individual data. Of course, with individual data more is possible (distribution plots, large scatter plots, computation of different utility functions, more measures...)
 
 ### Open science
 
-METARET will be **developed in public**. As new papers and data sources arrive, they will be added to the repository, cleaned, correlations will be computed, and results will be fed to the [shiny app](https://paolocrosetto.shinyapps.io/METARET/). You will be able to **track** the active development of the meta-analysis. 
+METARET will be **developed in public**. As new papers and data sources arrive, they will be added to the repository, cleaned, correlations will be computed, and results will be fed to the [shiny app](https://paolocrosetto.shinyapps.io/METARET_APP/). You will be able to **track** the active development of the meta-analysis. 
 
 ### Presentation
 
@@ -116,7 +116,7 @@ Each task is represented by a point estimate + confidence interval. Here are the
 - the SOEP risk question 
 - the DOSPERT scale and its subscales
 
-The plots and analyses are updated for each new contributed paper. An interactive version fo the same data is to be found at the [shiny app](https://paolocrosetto.shinyapps.io/METARET/)
+The plots and analyses are updated for each new contributed paper. An interactive version fo the same data is to be found at the [shiny app](https://paolocrosetto.shinyapps.io/METARET_APP/)
 
 ```{r correlations, fig.height=12, fig.width = 9, dpi=600}
 
