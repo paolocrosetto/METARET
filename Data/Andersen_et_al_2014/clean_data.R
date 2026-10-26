@@ -22,8 +22,23 @@ library(tidyverse)
 ## The other three lists (skewed prizes) and the discounting tasks are not used.
 ## The 2003 Danish field sample (Andersen et al. 2008) is already in METARET
 ## (Harrison2008) and is not part of this file.
-## Age is missing for the lab students.
+## Age is missing for the lab students (also in the authors' Data.dta).
+##
+## As for the other lists on the site, only subjects who switched once from A
+## to B are kept: 87 of the 501 switched more than once (81 field, 6 lab), and
+## 15 chose A in all ten rows, including the last, where B pays 3850 DKK for
+## sure (all in the field). 399 remain: 317 from the field, 82 from the lab.
 df <- read_csv("Data/Andersen_et_al_2014/original_dataset.csv", show_col_types = FALSE)
+
+stopifnot(nrow(df) == 5010, n_distinct(df$userid) == 501)
+
+df <- df %>%
+  arrange(userid, rowproba) %>%
+  group_by(userid) %>%
+  filter(str_detect(paste(choicea, collapse = ""), "^1*0*$"), sum(choicea == 0) >= 1) %>%
+  ungroup()
+
+stopifnot(n_distinct(df$userid) == 399)
 
 df <- df %>% 
   group_by(userid) %>% 

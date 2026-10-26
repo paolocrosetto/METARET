@@ -868,7 +868,8 @@ get_r <- function(bibkey, task, choice) {
   ## spread); they come closest to optimal at the C|E and E|G boundaries, so they
   ## are coded at those points.
   if (bibkey == "HarrisonRutstrom2008"){
-    ## Holt-Laury list times 10 (A 20/16, B 38.50/1 dollars): standard bounds
+    ## Holt-Laury list times 10 (Methods: A 20/16, B 38.50/1 dollars) and times 2
+    ## (first-price auction sessions): the same ratios, so the standard bounds
     if (task == "HL") {
       if (choice == 10) { out <- 2.71 }
       if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
