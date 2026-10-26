@@ -75,8 +75,9 @@ df <- df %>%
 ## better qualify the location
 df <- df %>% 
   mutate(city = if_else(country == "Germany", "Berlin", "Basel"),
-         longitude = if_else(country == "Germany", 13.404954, 7.588576),
-         latitude = if_else(country == "Germany", 52.520008, 47.449601))
+## The map shows only the country, so no coordinates (removed on 23.10.2026).
+         longitude = NA_real_,
+         latitude = NA_real_)
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")

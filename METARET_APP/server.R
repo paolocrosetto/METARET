@@ -672,23 +672,30 @@ colnames_given_pattern <- function(.data, pattern){
     })
     
   
-    output$quant_femmes_q <- renderValueBox({ 
+    ## one row per person: a subject who did several tasks has the same
+    ## questionnaire answer on every task row, and counting rows counted them
+    ## several times (e.g. 4 times in Hackethal2023)
+    quest_people <- function(q) {
+      df %>% filter(!is.na(.data[[q]])) %>% distinct(bibkey, subject, .keep_all = TRUE)
+    }
+
+    output$quant_femmes_q <- renderValueBox({
       value_box(
         "Women"
         ,
-          count(filter(df, gender == '1') %>% select(input$genderdist_quest)  %>% drop_na())
-        ,color =  "blue")  
+          count(filter(quest_people(input$genderdist_quest), gender == '1'))
+        ,color =  "blue")
     })
-    
-    output$quant_hommes_q <- renderValueBox({ 
+
+    output$quant_hommes_q <- renderValueBox({
       value_box(
         "Men"
-        ,count(filter(df, gender == '0') %>% select(input$genderdist_quest) %>% drop_na())
-        ,color = "blue")  
+        ,count(filter(quest_people(input$genderdist_quest), gender == '0'))
+        ,color = "blue")
     })
-    
+
     output$gender_dist_quest <- renderPlot({
-        data = df %>% 
+        data = quest_people(input$genderdist_quest) %>%
           select(gender, input$genderdist_quest) %>% drop_na()
       source("plot_gender_distributions_quest.R")
       plotgender(input$genderdist_quest, data)
@@ -706,12 +713,12 @@ colnames_given_pattern <- function(.data, pattern){
     
         ,if (input$agedist == 'all'){
           n_distinct(df %>% 
-            filter(r > -1.5 & r < 2.5, age >= 18) %>%
+            filter(r > -1.5 & r < 2.5, age >= 5) %>%
             select(paper, age) %>% 
             drop_na() %>% select(paper))} 
         else {
           n_distinct(df %>% 
-            filter(r > -1.5 & r < 2.5, age >= 18) %>%
+            filter(r > -1.5 & r < 2.5, age >= 5) %>%
             filter(task == input$agedist) %>% 
               select(paper, age) %>% 
               drop_na() %>% select(paper))
@@ -789,26 +796,26 @@ colnames_given_pattern <- function(.data, pattern){
     output$quant_femmes_aq <- renderValueBox({ 
       value_box(
         "Average age of women"
-        ,df %>% 
-            filter(gender == '1') %>% 
-            select(age, input$agedist_q) %>% 
+        ,quest_people(input$agedist_q) %>%
+            filter(gender == '1') %>%
+            select(age, input$agedist_q) %>%
             drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)
-        ,color = "blue")  
+        ,color = "blue")
     })
-    
-    output$quant_hommes_aq <- renderValueBox({ 
+
+    output$quant_hommes_aq <- renderValueBox({
       value_box(
         "Average age of men",
-          df %>% 
-            filter(gender == '0') %>% 
+          quest_people(input$agedist_q) %>%
+            filter(gender == '0') %>%
             select(age, input$agedist_q) %>% 
             drop_na() %>%  summarise(mean = round(mean(age))) %>% pull(mean)
         ,color = "blue")  
     })
     
     output$age_dist_quest<- renderPlot({
-        data = df %>% 
-          select(input$agedist_q, choice, age) 
+        data = quest_people(input$agedist_q) %>%
+          select(input$agedist_q, choice, age)
       source("plot_age_distributions_quest.R")
       plotage1(input$agedist_q, data)
     })
@@ -869,25 +876,108 @@ colnames_given_pattern <- function(.data, pattern){
     data(world, package = "spData")
     world_map <- world %>% rename(name = name_long)
 
+    ## The dataset spells countries the way the papers do; spData's polygons use
+    ## a handful of different names, so translate before the join or the country
+    ## silently falls off the map.
+    to_polygon <- c("Russia" = "Russian Federation")
+
+    ## Two different spans of years go into the tooltip, and they must not be
+    ## confused with each other.
+    ##
+    ## The tooltip shows WHEN THE DATA WERE GATHERED, which is not the `year`
+    ## df carries -- that is the publication year, merged in from the
+    ## bibliography, and fieldwork precedes it by a year or more, sometimes by a
+    ## decade (Di Falco and Vieider's Ethiopian panel ran 2013-2017 and was
+    ## published in 2022). The publication years are deliberately not shown at
+    ## all: a collection period can line up with a drought, a crisis, a lockdown
+    ## or a reform, which is what makes a country's level worth a second look,
+    ## and a publication date cannot.
+    ##
+    ## The periods live in Data/collection_years.csv, one row per paper, each
+    ## with the sentence it was read from, and are filled in paper by paper --
+    ## so far for a minority of them. So the line is printed over the papers
+    ## whose period is known, with the count when that is only some of them.
+    collection <- tryCatch(
+      readr::read_csv("DATA/collection_years.csv", show_col_types = FALSE),
+      error = function(e) tibble::tibble(bibkey = character(),
+                                         year_from = integer(),
+                                         year_to = integer()))
+
+    span <- function(lo, hi) {
+      lo <- suppressWarnings(min(lo, na.rm = TRUE))
+      hi <- suppressWarnings(max(hi, na.rm = TRUE))
+      if (!is.finite(lo) || !is.finite(hi)) return(NA_character_)
+      if (lo == hi) as.character(lo) else paste0(lo, "-", hi)
+    }
+
+    ## How many observations a country needs before it is coloured at all. Ten
+    ## countries sit on one to four people each -- Croatia, Kazakhstan and
+    ## Slovakia on a single one, Finland on two -- almost all of them lone
+    ## respondents of online panels whose nationality happened to be recorded.
+    ## Painting a whole country from one person says nothing about that country
+    ## and reads as if it did, so below this they stay grey like a country with
+    ## no data. The count is still in the tooltip, with the reason, so the
+    ## observations are not hidden -- only the colour is withheld.
+    min_obs <- 50
+    isTRUE_vec <- function(x) !is.na(x) & x
+
     countries = df %>%
       filter(r > -1.5 & r < 2.5) %>%
+      left_join(collection %>% select(bibkey, year_from, year_to), by = "bibkey") %>%
       group_by(country) %>%
       summarise(CRRA = mean(r),
-                Observartions = n()) %>%
-      rename(name = country)
+                Observartions = n(),
+                Collected = span(year_from, year_to),
+                n_papers = n_distinct(bibkey),
+                n_dated = n_distinct(bibkey[!is.na(year_from)]),
+                .groups = "drop") %>%
+      mutate(too_few = Observartions < min_obs,
+             CRRA = ifelse(too_few, NA_real_, CRRA)) %>%
+      rename(name = country) %>%
+      mutate(name = ifelse(name %in% names(to_polygon),
+                           unname(to_polygon[name]), name))
 
-    unmatched <- setdiff(na.omit(countries$name), as.character(world_map$name))
-    if (length(unmatched)) {
-      warning("Map: no polygon for ", paste(unmatched, collapse = ", "),
-              " -- these countries will not be coloured.")
+    ## A country can hold hundreds of observations and still be invisible on a
+    ## 1:110m world: Singapore has no polygon in it at all, and a city state that
+    ## did would be a pixel. Those get a dot instead, on the same colour scale
+    ## and with the same tooltip, so the data are never there without the
+    ## country showing.
+    ##
+    ## A country lands among the dots either because the polygon set has nothing
+    ## for it -- then the coordinates come from the table below -- or because its
+    ## polygon is smaller than 15,000 km2, in which case the dot sits on the
+    ## polygon itself. The threshold is below the smallest country now in the
+    ## data (Slovenia, 19,000 km2), so it only ever picks up micro-states.
+    dot_latlon <- tibble::tribble(
+      ~name,                  ~lat,     ~lon,
+      "Singapore",           1.3521, 103.8198,
+      "Hong Kong",          22.3193, 114.1694,
+      "Macao",              22.1987, 113.5439,
+      "Malta",              35.9375,  14.3754,
+      "Luxembourg",         49.8153,   6.1296,
+      "Bahrain",            26.0667,  50.5577,
+      "Qatar",              25.2854,  51.5310,
+      "Mauritius",         -20.3484,  57.5522,
+      "Trinidad and Tobago", 10.6918, -61.2225,
+      "Brunei Darussalam",   4.5353, 114.7277)
+
+    no_polygon <- setdiff(na.omit(countries$name), as.character(world_map$name))
+    missing_coords <- setdiff(no_polygon, dot_latlon$name)
+    if (length(missing_coords)) {
+      warning("Map: no polygon and no coordinates for ",
+              paste(missing_coords, collapse = ", "),
+              " -- add them to dot_latlon in server.R or they stay off the map.")
     }
 
     new_tab = left_join(world_map, countries, by = "name")
 
 
-    new_tab$`Risk propensity` <- ifelse(is.na(new_tab$CRRA),
-                                        "no data yet",
-                                        sprintf("%.3f", new_tab$CRRA))
+    ## Three states, not two: a country with enough data, one held back for too
+    ## few observations, and one with none at all.
+    new_tab$`Risk propensity` <- dplyr::case_when(
+      !is.na(new_tab$CRRA)                  ~ sprintf("%.3f", new_tab$CRRA),
+      isTRUE_vec(new_tab$too_few)           ~ "Insufficient data",
+      TRUE                                  ~ "no data yet")
     new_tab$Observations <- ifelse(is.na(new_tab$Observartions),
                                    "—",
                                    format(new_tab$Observartions, big.mark = " ",
@@ -911,11 +1001,69 @@ colnames_given_pattern <- function(.data, pattern){
                             lat  = label_xy[, 2],
                             stringsAsFactors = FALSE)
 
+    ## A country drawn as a dot gets its name from the dot layer, so it must not
+    ## also get one here or the two sit on top of each other.
+    tiny_names <- world_map %>%
+      mutate(area_km2 = as.numeric(sf::st_area(.)) / 1e6) %>%
+      sf::st_drop_geometry() %>%
+      filter(area_km2 < 15000) %>%
+      pull(name) %>%
+      as.character()
+    label_pts <- label_pts %>% filter(!name %in% tiny_names)
+
     Mypal <- c('#4dcb00','#e2cb00','#ee9663','#ee4128')
-    map_labels <- lapply(
-      sprintf("<b>%s</b><br/>Risk propensity: %s<br/>Observations: %s",
-              new_tab$name, new_tab$`Risk propensity`, new_tab$Observations),
-      htmltools::HTML)
+
+    ## One tooltip builder for the polygons and the dots alike, so the two can
+    ## never drift apart.
+    ##
+    ## It deliberately does NOT show the publication years or the number of
+    ## papers: neither tells the reader anything about the country. When the
+    ## data were gathered does -- a period lines up with droughts, crises,
+    ## lockdowns and reforms, which is exactly what makes a country's level
+    ## worth a second look. That line is left out entirely where no paper has a
+    ## collection year yet. It used to add "(1 of 2 papers)" when only some
+    ## papers were dated; that note was dropped at the user's request (26.10.2026),
+    ## so n_dated and n_papers are no longer shown.
+    make_label <- function(name, rp, obs, collected, n_dated, n_papers) {
+      coll <- ifelse(is.na(collected), "",
+                     sprintf("<br/>Data collected: %s", collected))
+      lapply(sprintf("<b>%s</b><br/>Risk propensity: %s<br/>Observations: %s%s",
+                     name, rp, obs, coll),
+             htmltools::HTML)
+    }
+
+    map_labels <- make_label(new_tab$name, new_tab$`Risk propensity`,
+                             new_tab$Observations, new_tab$Collected,
+                             new_tab$n_dated, new_tab$n_papers)
+
+    ## The countries that get a dot: those with no polygon at all, plus the ones
+    ## whose polygon is too small to find. Both carry the same tooltip as the
+    ## polygons, so nothing about them reads differently.
+    poly_area <- world_map %>%
+      mutate(area_km2 = as.numeric(sf::st_area(.)) / 1e6) %>%
+      sf::st_drop_geometry() %>%
+      select(name, area_km2)
+
+    dot_tab <- countries %>%
+      filter(!is.na(CRRA)) %>%
+      left_join(poly_area, by = "name") %>%
+      filter(is.na(area_km2) | area_km2 < 15000) %>%
+      left_join(dot_latlon, by = "name") %>%
+      left_join(label_pts %>% rename(plat = lat, plon = lon), by = "name") %>%
+      mutate(lat = ifelse(is.na(lat), plat, lat),
+             lon = ifelse(is.na(lon), plon, lon)) %>%
+      filter(!is.na(lat) & !is.na(lon))
+
+    if (nrow(dot_tab)) {
+      dot_tab$`Risk propensity` <- sprintf("%.3f", dot_tab$CRRA)
+      dot_tab$Observations <- format(dot_tab$Observartions, big.mark = " ",
+                                     trim = TRUE, scientific = FALSE)
+      dot_labels <- make_label(dot_tab$name, dot_tab$`Risk propensity`,
+                               dot_tab$Observations, dot_tab$Collected,
+                               dot_tab$n_dated, dot_tab$n_papers)
+    } else {
+      dot_labels <- list()
+    }
 
     map_top  <- max(1.2, ceiling(max(new_tab$CRRA, na.rm = TRUE) * 10) / 10)
     map_bins <- c(-0.3, 0, 0.2, 0.4, 0.6, 0.8, 1, map_top)
@@ -957,6 +1105,35 @@ colnames_given_pattern <- function(.data, pattern){
           labelOptions = labelOptions(noHide = TRUE, direction = "center",
                                       textOnly = TRUE,
                                       className = "metaret-country-label")) %>%
+
+        ## the micro-states, drawn on top of the polygons so the dot is not
+        ## swallowed by the country it sits in
+        addCircleMarkers(
+          data = dot_tab,
+          lng = ~lon, lat = ~lat,
+          radius      = 6,
+          fillColor   = ~map_pal(CRRA),
+          fillOpacity = 1,
+          color       = "#3C3C3C",
+          weight      = 1.2,
+          opacity     = 1,
+          label        = dot_labels,
+          labelOptions = labelOptions(direction = "auto", sticky = TRUE,
+                                      textsize = "13px", opacity = 0.97,
+                                      style = list(
+                                        "padding"       = "8px 11px",
+                                        "line-height"   = "1.45",
+                                        "border"        = "1px solid rgba(0,0,0,.15)",
+                                        "border-radius" = "4px",
+                                        "box-shadow"    = "0 2px 8px rgba(0,0,0,.18)")),
+          popup = dot_labels) %>%
+        addLabelOnlyMarkers(
+          data = dot_tab,
+          lng = ~lon, lat = ~lat,
+          label = ~name,
+          labelOptions = labelOptions(noHide = TRUE, direction = "right",
+                                      offset = c(8, 0), textOnly = TRUE,
+                                      className = "metaret-country-label")) %>%
         addLegend(position = "bottomright",
                   pal      = map_pal,
                   values   = ~CRRA,
@@ -964,7 +1141,10 @@ colnames_given_pattern <- function(.data, pattern){
                   na.label = "No data yet",
                   opacity  = 0.85) %>%
 
-        setMaxBounds(lng1 = -180, lat1 = -57, lng2 = 180, lat2 = 74) %>%
+        ## empty margin around the world, wider on the right and at the bottom where
+        ## the legend sits: with the bounds at the map edge New Zealand stayed
+        ## under the legend and could not be panned out from behind it
+        setMaxBounds(lng1 = -200, lat1 = -85, lng2 = 250, lat2 = 80) %>%
         fitBounds(lng1 = -172, lat1 = -55, lng2 = 178, lat2 = 72)
     })
     

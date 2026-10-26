@@ -36,8 +36,9 @@ df <- df %>%
 
 df$country = 'Australia'
 df$city = "Melbourne"
-df$longitude = "-37.79822719279415"
-df$lattitude = "144.96098472664792"
+df$longitude = ''
+## The map shows only the country, so no coordinates (removed on 23.10.2026).
+df$lattitude = ''
 df$task = 'IG'
 
 source("Data/generate_r.R")

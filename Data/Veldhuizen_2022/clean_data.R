@@ -39,8 +39,9 @@ df <- df %>% mutate(age = if_else(age < 15, NA_real_, as.numeric(age)))
 
 df$country = 'Germany'
 df$city = 'Berlin'
-df$latitude = '52.51250267430032'
-df$longitude = '13.324436617770202'
+## The map shows only the country, so no coordinates (removed on 23.10.2026).
+df$latitude = ''
+df$longitude = ''
 
 # adding paper name and bibkey
 df <- df %>% 

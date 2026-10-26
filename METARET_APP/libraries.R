@@ -40,6 +40,7 @@ mychoices = c("Holt and Laury" = "HL",
               "Bomb Risk Elicitation Task" = "BRET",
               "Balloon Analog Risk Task" = "BART",
               "Certainty equivalent price list" = "CEPL",
+              "Certainty equivalent staircase" = "CE_staircase",
               'Balloon Economic Risk Protocol'='BERP', 
               'Binswanger / Eckel and Grossmann with probability of loss'= 'EG_loss',
               'Payoff Varying Task' = "PV")
@@ -51,6 +52,7 @@ mychoicesgender = c("All tasks" = "all",
               "Bomb Risk Elicitation Task" = "BRET",
               "Balloon Analog Risk Task" = "BART",
               "Certainty equivalent price list" = "CEPL",
+              "Certainty equivalent staircase" = "CE_staircase",
               'Balloon Economic Risk Protocol'='BERP',
               'Payoff Varying Task' = "PV")
               #'Binswanger / Eckel and Grossmann with probability of loss'= 'EG_loss')

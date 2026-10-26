@@ -48,8 +48,9 @@ df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 df$country = 'Thailand'
 df$city = "Ubon Ratchathani"
-df$longitude = "104.856117"
-df$lattitude = "15.229730"
+df$longitude = ''
+## The map shows only the country, so no coordinates (removed on 23.10.2026).
+df$lattitude = ''
 
 # Order of variables
 df <- df %>% 

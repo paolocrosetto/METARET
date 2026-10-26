@@ -48,6 +48,13 @@ data=df %>% mutate(subject = paste0(bibkey, '_', subject)) %>%
 ## save the df to the shiny director for deployment
 data %>% write_csv("METARET_APP/DATA/df_mod.csv")
 
+## The years each paper's data were gathered in, which are not the publication
+## years df carries. The master copy is edited here, in Data/, but the app is
+## deployed from METARET_APP/ alone, so it needs its own copy next to df_mod.csv
+## or the map tooltip silently loses the collection period once uploaded.
+file.copy("Data/collection_years.csv", "METARET_APP/DATA/collection_years.csv",
+          overwrite = TRUE)
+
 ## rebuild the precomputed correlation panels the app serves, so they can never
 ## go stale relative to df_mod.csv above
 source("Data/build_corr_cache.R")

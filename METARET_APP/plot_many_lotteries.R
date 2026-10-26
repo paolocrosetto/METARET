@@ -16,7 +16,10 @@ plotDensity1 <- function(tasklist, data) {
     ungroup() %>% 
     mutate(task = reorder(task,r))
   
-  values = c(brewer.pal(8,"Dark2"), '#632d00')[1:length(levels(data$task))]
+  ## one colour per task; the list held 9 colours, so with 10 tasks the last one
+  ## in the order (BERP) got NA and was drawn invisible
+  palette <- c(brewer.pal(8,"Dark2"), '#632d00', '#1f5f8b', '#8c2d6b', '#4d4d4d')
+  values = palette[1:length(levels(data$task))]
   names(values) <- levels(data$task)
   
   plot <- data %>% 
@@ -64,7 +67,8 @@ plotDensity1 <- function(tasklist, data) {
       legend.margin = margin(t = 6),
       legend.spacing.x = unit(14, "pt")
     ) +
-    guides(fill  = guide_legend(nrow = 1, byrow = TRUE,
+    ## two rows once there are more than five tasks, or the legend runs off the panel
+    guides(fill  = guide_legend(nrow = ifelse(length(tasklist) > 5, 2, 1), byrow = TRUE,
                                 override.aes = list(alpha = 1, colour = NA)),
            color = "none") +
     

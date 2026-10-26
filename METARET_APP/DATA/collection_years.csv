@@ -1,0 +1,174 @@
+bibkey,year_from,year_to,precision,source
+Andersen2014,2009,2010,exact,"phase 1 field experiment Sep-Oct 2009, phase 3 lab session May 2010"
+Bachmann2023,2021,2022,exact,sessions 2021-2022 (age approximated as 2022 minus birth year)
+Baier2024,2017,2017,exact,"EconLab University of Innsbruck, October and November 2017"
+Becchetti2026,2023,2023,exact,"ORSEE recruitment March to November 2023, VeraLabEx Ca' Foscari"
+Bonnier2019,2016,2017,exact,"CEE Copenhagen 2016 and 2017, LINEEX Valencia 2017"
+Bruhin2024,2019,2019,exact,20 sessions at the LABEX in November 2019
+Burro2022,2020,2020,exact,"online oTree experiment July 2020, PUCP Lima"
+Burro2026,2023,2023,exact,"two online Prolific experiments, early 2023"
+Buser2019,2015,2015,start_only,three CREED Amsterdam experiments run from November 2015; end date not stated
+Cahlikova2020,2014,2015,exact,"Laboratory of Experimental Economics Prague, 2014 and 2015"
+Campigotto2025,2022,2022,exact,"online oTree experiment on Prolific, January 2022"
+CecchiniManara2025,2023,2023,exact,"online oTree experiment on Prolific, April 2023"
+Chan2024,2020,2023,exact,"two Prolific sessions, August 2020 and April 2023"
+Cortes2023,2020,2020,exact,"LIONESS Lab, March and April 2020, Arizona State University"
+DiFalco2022,2013,2017,exact,"panel of Ethiopian farmers, three waves 2013, 2015, 2017"
+Eckel2025,2016,2021,exact,"Rice University cohorts, one row per subject and wave, 2016-2021"
+Ellis2024,2021,2022,exact,"session years in the Prolific export: 2021 for 108 subjects, 2022 for 77"
+Filippin2023,2018,2018,exact,"12 sessions at EELAB Milan-Bicocca, 2018"
+Fochmann2021,2017,2017,exact,"CLER University of Cologne, August to October 2017"
+Gleue2025,2021,2021,exact,"online survey experiment of the Kassel lab, December 2021"
+Gruener2022,2020,2020,exact,"internet study in Germany, 14 September to 13 November 2020"
+HembachStunden2024,2019,2020,exact,"17 sessions at the WISO lab of Hamburg University, Nov 2019 to Feb 2020"
+Hermann2019,2016,2016,exact,"lab experiment at the University of Goettingen, autumn 2016"
+Holm2025,2023,2023,exact,"first experiment (CnD, Prolific, USA), May 2023; only it asked the risk question"
+Holt2005,2004,2004,exact,the 2004 experiment at the University of Virginia
+Horvath2025,2022,2022,exact,"oTree on Prolific, July to September 2022"
+Itaya2023,2021,2021,exact,"Kansai University, 8 to 12 November 2021"
+Jiang2024,2019,2022,exact,"sessions 1-10 Hangzhou June 2019, sessions 11-12 Jinan October 2022"
+Kevane2020,2013,2013,exact,"only the first of three sessions is used, May 2013"
+Kirchler2020,2019,2019,exact,the survey ran in 2019 (the paper was submitted that September)
+Mantovani2026,2017,2018,exact,"20 sessions at EELAB Milan-Bicocca, 2017-2018"
+McGee2024,2014,2016,exact,474 subjects completed a Baseline and an Evaluation session between 2014 and 2016
+Minnich2024,2021,2021,exact,"survey through Respondi, 2 to 14 September 2021"
+Prati2025,2019,2022,exact,five waves at GATE-Lab Lyon between April 2019 and October 2022
+Ranehill2022,2015,2015,exact,"lab experiment in Zurich, 2015"
+Rentschler2025,2022,2022,exact,"13 sessions at the Utah State University lab, Spring 2022"
+Seifert2024,2021,2022,exact,two waves: October-November 2021 and February 2022
+Snowberg2021,2015,2019,exact,"samples from spring 2015, spring 2016, spring 2017 and summer 2019"
+Stueber2024,2020,2021,exact,"wave 1 February 2020, wave 2 June 2021"
+Tatarnikova2026,2020,2022,exact,session years 2020 and 2022 in the file
+Trutmann2023,2019,2019,exact,invitations by email in July and August 2019
+TrutmannRieskamp2023,2022,2022,exact,"online experiment on Prolific, March 2022"
+ValdezGonzalez2025,2019,2019,exact,"31 sessions in Fall 2019 at the Human Behavior Lab, Texas A&M"
+Wang2026,2025,2025,exact,"11 sessions at the Veconlab of the University of Virginia, June to September 2025"
+AgranovOrtoleva2025,2018,2018,exact,raw Qualtrics export is dated March and June 2018 (INCPREF folder)
+Aschenwald2024,2021,2021,exact,paper: experiment conducted in participating schools between March and July 2021
+Vieider2015,2011,2012,exact,paper: all experiments were run between September 2011 and October 2012
+Holzmeister2023,2019,2019,exact,"paper: the experimental data was collected between January 4 and February 10, 2019"
+Chopra2025,2019,2020,exact,paper: twenty-one sessions during the summer and fall of 2019 as well as fall of 2020
+Zhao2026,2023,2025,exact,paper: sessions conducted between May 2023 and May 2025 (BDM and CDA treatments)
+Porter2025,2019,2020,exact,paper: six lab-in-the-field sessions at five CoP meetings from August 2019 to January 2020
+Buser2021,2013,2015,exact,"paper: first wave at the beginning of the 2013/2014 school year, second at the end of 2014/2015"
+Coiffard2025,2021,2021,exact,readme пакета: online experiment conducted in 2021 on the FouleFactory platform; сырые выгрузки датированы июнем и июлем 2021
+Jagau2024,2022,2022,exact,paper: the computerized experiment was conducted in 2022 at UC Irvine's Experimental Social Science Laboratory
+Cox2026,2021,2021,exact,paper: all sessions were run at the University of Massachusetts Amherst in the Fall of 2021 with 128 subjects
+Holmen2023,2019,2019,exact,"same experiment as Holzmeister et al. 2023 (project 6rdp8, software archive named 2019_hea-02), whose paper states the data were collected between January 4 and February 10, 2019"
+Chowdhury2022,2016,2016,exact,paper: the experiments were conducted between March and May 2016 (the household survey waves themselves were 2014)
+VonBieberstein2026,2022,2022,exact,paper: the experiment was run on Amazon MTurk between June and August 2022
+Diecidue2026,2023,2023,exact,"oTree timestamps: sessions from 24 April to 7 July 2023, INSEAD-Sorbonne Behavioral Lab"
+Toccafondi2026,2023,2025,exact,"Prolific: January and June 2023, one more treatment July 2025 (year of submission in the data)"
+Dalton2020,2015,2015,exact,paper: the study was carried out in May 2015 at Tam Bac Market in Hai Phong
+Krull2024,2021,2023,exact,"paper: December 2021 and February 2022, additional treatment November 2023"
+HernandezArenaz2023,2017,2020,exact,"z-Tree session codes: Bilbao February-May 2017, Castellon November 2020"
+Ihli2022,2020,2020,exact,paper: data collected in Bugesera district in March 2020
+Banerjee2021,2018,2019,exact,paper: experiments conducted at Purdue University in 2018 and 2019 (session codes 180328-190321)
+Mittone2020,2017,2018,exact,paper: sessions at CEEL Trento from 6 April 2017 to 13-14 November 2018
+Charness2023,2022,2022,exact,"data timestamps: April 2022, UCSB"
+Adamo2026,2023,2023,exact,paper: the experiment was conducted on-site between November and December 2023 at the University of Southern California
+Aydogan2024,2023,2023,exact,raw Qualtrics export (db_raw.dta): every StartDate and RecordedDate falls in 2023
+Bajoori2024,2021,2023,exact,"paper: data collection started 15 July 2021, sessions on 23-24 August 2021, two new treatments on 11-12 September 2023"
+Balart2022,2018,2019,exact,"paper, session table: pilot in October 2018, sessions November 2018 to May 2019"
+Beaud2026,2021,2023,exact,session_date in the published data runs from 2021 to 2023
+Bettega2025,2019,2019,exact,paper: recruitment started in October and ended in December 2019 (Bilendi panel)
+Brox2025,2021,2021,exact,paper: sessions run between March and September 2021 (z-Tree files 210305 to 211105)
+Buser2022,2013,2013,exact,"paper: first wave, which carried the risk task, at the beginning of the 2013/2014 school year"
+Buyukboyaci2025,2022,2022,exact,"paper: sessions conducted in March 2022 at METU BEL, Ankara"
+Buyukboyaci2026,2024,2024,exact,"paper: 12 sessions in April and May 2024 at METU BEL, Ankara"
+Chlass2026,2011,2011,exact,session dates in the data (Date) and z-Tree files: April-May 2011
+Chugunova2025,2023,2023,exact,oTree export: participant.time_started_utc all in 2023
+Congiu2026,2025,2025,exact,paper: conducted online on Prolific in July 2025
+Crosetto2013,2012,2012,exact,paper: run between March and May 2012 at the MPI lab in Jena
+Dadon2026,2022,2022,exact,paper: 14 sessions between May and October 2022
+Dannenberg2022,2020,2020,exact,paper: carried out in March 2020
+DeGiorgi2026,2025,2025,exact,oTree export: time_started_utc all in 2025
+Dong2026,2025,2025,exact,paper: data collected in six batches between February and April 2025 (pilot 11 February 2025)
+Engel2020,2018,2018,exact,oTree exports EMM181127 and EMM181206: time_started in November-December 2018
+Faravelli2026,2019,2019,exact,paper: the experiment began on 19 October 2019 and lasted about 24 hours
+Finger2023,2018,2018,exact,site uses the 2018 online survey of grape growers (clean_data.R; paper: surveys 2016-2018)
+Fisar2023,2018,2020,exact,paper: sessions from November 2018 to June 2020 (SessionDate in the data agrees)
+Flambard2024,2019,2019,exact,paper: sessions between February and March 2019 (oTree time_started 2019)
+Fornwagner2026,2024,2025,exact,"paper: first wave July 2024, second wave July 2025"
+Hackethal2023,2020,2020,exact,"paper: main data collected in April and May 2020, student robustness sample November 2020 (survey_date in the data: 2020)"
+Hillenbrand2018,2016,2016,exact,"oTree exports (Bret.csv, Quest.csv): time_started all in 2016"
+Horn2022,2019,2020,exact,paper: from March 2019 to March 2020 we visited 9 secondary schools in Hungary
+Huber2019,2017,2019,exact,"paper: Innsbruck EconLab January 2017 and May 2019, MaxJungLab Graz April 2017 and 2018"
+Hueber2022,2020,2020,exact,oTree export: time_started all in 2020 (online)
+Kessel2021,2018,2018,exact,paper: run at the lab of TU Berlin in November 2018
+Schmidt2019,2018,2018,exact,paper: experimental lab of Heidelberg University in January and February 2018
+Kloosterman2026,2022,2022,exact,z-Tree session files and session codes: March-September 2022
+Lambrecht2024,2018,2019,exact,z-Tree session files from 28 November 2018 to 23 October 2019
+Lauber2026,2016,2017,exact,"paper: BLER, University of Bamberg, from November 2016 to May 2017"
+Alan2019,2014,2016,exact,paper: incentivized experiments in May 2014 (Sample 1) and January 2016 (Sample 2)
+Brañas-Garza2021,2019,2019,exact,"paper: lab study last week of April 2019, Kano (Nigeria) April 2019, Santa Rosa de Copan (Honduras) 1-14 May 2019"
+Chapman2025,2020,2021,exact,paper: main sample online by YouGov 21 February - 24 March 2020; the student sample file is studentSample2021
+Coerts2026,2022,2022,exact,"paper: 252 participants at CentERlab, Tilburg, between February and May 2022 (the site uses these 24 sessions)"
+Crosetto2016,2012,2012,exact,"paper: MPI Jena laboratory, from March to May 2012"
+Desmet2021,2017,2017,exact,z-Tree session codes in the data: 27 February - 2 March 2017
+drichoutis2021,2013,2015,exact,"paper: panel of subjects over three waves, between 2013 and 2015"
+DrichoutisNayga2013,2010,2010,exact,paper: six sessions conducted in March 2010
+DrichoutisNayga2022,2019,2019,exact,"the site keeps the 2019 wave only (clean_data.R: year == 2019, wave == 3); Qualtrics RecordedDate agrees"
+DrouvelisPearce2025,2023,2023,exact,z-Tree session codes in the data: 22 March - 6 October 2023
+Engel2025,2022,2022,exact,"paper: Study 1, 24 sessions between late June and August 2022 (Study 2 not on the site)"
+Erkal2018,2015,2015,exact,"paper: experiments conducted between August and November 2015 at E2MU, University of Melbourne"
+Grimalda2026,2017,2020,exact,"paper: wave 1 from 2 to 9 September 2017, wave 2 from 12 June to 7 September 2020"
+Heinke2024,2019,2019,exact,"raw session folders 20190516 ... 20190913 (WISO lab, University of Hamburg)"
+Fuellbrunn2026,2025,2025,exact,the site uses the robustness sample: Qualtrics StartDate 16 October 2025 (Prolific)
+Ashraf2023,2020,2022,exact,"paper, Study 2: student sessions in May 2020 and July-August 2022, Dallas commuters November-December 2020"
+Belot2025,2013,2014,exact,"paper: the site uses the job seeker study, a field experiment with 300 unemployed job seekers in Scotland in 2013/2014"
+Hopfensitz2019,2014,2015,exact,"paper: eight sessions on Baru island in July 2014, ten sessions at Universidad Autonoma de Bucaramanga in April 2015"
+Dursch2017,2012,2013,exact,paper: run from September 2012 to January 2013 in the AWI lab at Heidelberg University
+Harrison2005,2002,2002,exact,paper: 178 subjects in 11 sessions in October and November 2002 at the University of South Carolina
+Szrek2012,2009,2010,exact,paper: data collected between September 2009 and April 2010
+Jacquemet2008,2006,2006,exact,"paper: five sessions at GATE, Lyon, from June to November 2006"
+Chakravarty2011,2005,2005,exact,paper: the experiments were conducted in mid-2005 (IIM Ahmedabad)
+Chen2013,2006,2006,exact,"paper: the risk measures (HL) come from the second wave of experiments, October 2006 (first wave October 2001 - January 2002 had none)"
+Carlsson2009,2007,2007,exact,"paper (Carlsson et al. 2012, JEBO): conducted in October 2007 in villages of Majiang County, Guizhou"
+Casari2009,2004,2004,exact,"paper: six sessions run between April 26 and April 28, 2004"
+Sloof2010,2007,2007,exact,"paper: conducted in the CREED laboratory, University of Amsterdam, in November 2007"
+Harrison2008,2003,2003,exact,"paper (Andersen et al. 2008): 20 sessions between June 2 and June 24, 2003, in 19 locations across Denmark"
+MariniGovigli2026,2021,2021,exact,interview_date in the FoodLAND farmer datasets: 2021
+Menkhoff_Sakha_2017,2013,2013,exact,paper: the seven risk items were elicited in a separate survey implemented in 2013
+Mill2026,2025,2025,exact,Qualtrics StartDate in the published data: 2025 (the 2019 MTurk original is not this dataset)
+Mueller2023,2020,2020,exact,Prolific export: started_datetime all in 2020
+Novak2024,2019,2019,exact,questionnaire timestamps in the raw data: 2019
+Orland2025,2022,2022,exact,"paper: seven sessions at PLEx Potsdam between April 11 and April 19, 2022"
+Razen2021,2017,2019,exact,paper: data collection took place from October 2017 to June 2019
+Read2023,2016,2016,exact,Qualtrics StartDate in the data: 2016
+Schipper2023,2007,2010,exact,z-Tree session files: October-December 2007 and February-March 2010
+Staebler2025,2022,2022,exact,oTree exports all_apps_wide dated 12 April to 14 October 2022
+Holzknecht2025,2023,2024,exact,oTree exports dated 1 December 2023 to 12 March 2024 (EconLab Innsbruck)
+Huber2020,2018,2020,exact,oTree exports all_apps_wide dated 14 December 2018 to 17 January 2020
+Dave2010,2002,2003,exact,"paper: from May 2002 to March 2003, 881 Canadian residents in 102 sessions"
+Andersen2010,2003,2003,start_only,paper: field experiments in June 2003 across Denmark; the dates of the comparison laboratory sessions are not given
+Pin2023,2019,2019,exact,"paper: the experiment took place in Spring 2019 (BELSS Lab, Bocconi); the site uses the main survey"
+Rommel2019,2015,2015,exact,paper: the experiment was conducted online in July 2015 with German farmers
+Schmidt2025,2023,2024,exact,paper: sessions at the Heidelberg University lab between July 2023 and February 2024
+Segovia2025,2017,2017,exact,paper: 206 Texas A&M students completed the experiment in June-August 2017
+Veldhuizen2022,2014,2014,exact,paper: conducted at the TU Berlin experimental economics laboratory in June 2014
+Wang2023,2018,2018,exact,"paper: CentERlab, Tilburg University, between September 2018 and November 2018"
+Riley2024,2017,2017,exact,the site uses the baseline survey; its submission dates in the data are all in 2017
+Priebe2024,2018,2018,exact,paper: the lab-in-the-field experiment was conducted from August to September 2018 in Ha Tinh province (the site uses only the experiment)
+Shachat2021,2019,2020,exact,"paper: baseline sample in May 2019, repeated samples between late January and early March 2020 (Wuhan)"
+Aassve2024,2020,2020,exact,the site uses the survey experiment of the third panel wave (experiment_v2.dta): Qualtrics StartDate all in 2020
+Back2023,2019,2021,exact,"paper: study 1 in December 2019, study 2 in June 2021 (both on the site)"
+BotoGarcia2023,2019,2019,exact,"paper: lab experiment conducted in July-November 2019 with couples in Aviles, Bilbao, Gijon and Oviedo"
+Buser2026,2017,2017,exact,paper: the survey question (used on the site) was included in one of the LISS waves in 2017
+Buso2024,2022,2023,exact,"paper: first 8 sessions in February 2022, second 8 sessions in September 2023 (Luiss Cesare Lab)"
+Drouvelis2026,2022,2023,exact,oTree exports raw_session*.csv: time_started December 2022 to March 2023
+Fallucchi2026,2024,2024,exact,"paper: all sessions at VELE, University of Verona, in November 2024"
+GonzalezJimenez2025,2021,2021,exact,paper: the study was conducted in 2021
+Hergueux2025,2011,2011,exact,paper: on 8 December 2011 we ran a lab-in-the-field experiment on the Wikipedia website
+Kaiser2024,2019,2020,exact,paper: data collected November-December 2019 and March-May 2020
+Koelle2025,2022,2023,exact,oTree export (Sessions_clean_complete.dta): time_started in 2022 and 2023
+Margalit2021,2016,2016,exact,"paper: invitations in April 2016, final post-treatment survey 20 July 2016 (the site uses waves 1 and 4)"
+Seifert2026,2023,2023,exact,the site uses study 2: startdate in the raw file October-November 2023
+Apesteguia2020,2017,2017,exact,paper: the experiments were run at the University of Heidelberg in 2017 (176 subjects)
+Pitts2025,2022,2022,exact,paper (Table 2 note): field visits were conducted in summer 2022 (28 June - 22 August)
+Alfonso2025,2021,2023,exact,TeensLab lab-in-the-field data collected in Spanish schools 2021-2023 (dataset description; clean_data.R)
+Chaudhuri2024,2018,2018,exact,paper: incoming and outgoing politicians sampled immediately after the 2018 local elections in West Bengal
+Engl2021,2014,2019,exact,"paper: Maastricht November 2014, Zurich February 2015, follow-up treatments 2016, trust treatments 2019 (all four waves on the site)"
+BjorkmanNyqvist2018,2010,2010,exact,"paper: risk measures taken at baseline; recruitment and baseline data collection February-May 2010 (Lesotho)"
+Shachat2024,2021,2023,exact,"oTree raw files: buyer experiment November-December 2021, main treatments October 2022 and May 2023"
+Li2025,2020,2020,exact,"paper: run online in September and October 2020 (LIONESS, CREED pool, University of Amsterdam)"

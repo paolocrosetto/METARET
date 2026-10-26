@@ -22,8 +22,9 @@ df <- df %>%
 
 df$country = 'China'
 df$city = 'Wuhan'
-df$lattitude = '30.592850'
-df$longitude = '114.305542'
+## The map shows only the country, so no coordinates (removed on 23.10.2026).
+df$lattitude = ''
+df$longitude = ''
 
 df$task = 'CEPL'
 source("Data/generate_r.R")

@@ -1,7 +1,14 @@
 plotage1 <- function(selectedquest, data) {
   
   data = data %>% 
-         filter(age >= 18) %>% 
+  ## Adults only used to be the rule here. Many of the contributed studies are
+  ## run with schoolchildren and adolescents (Alan et al. 2019 from age 6.6,
+  ## Roig et al. 2025 from 7, Aschenwald et al. 2024 and Alfonso et al. 2025
+  ## from 10-11), so cutting at 18 hid about 13,000 observations. The bound is
+  ## now a plausibility guard only: the youngest genuine subject in the whole
+  ## dataset is 6.6, and the single value below that is one subject recorded as
+  ## 2 years old in Engl et al. 2021, which cannot be a real age.
+         filter(age >= 5) %>%
   select(selectedquest, age) %>% 
   drop_na() 
 

@@ -23,111 +23,112 @@ df <- df %>%
 for (i in 1:nrow(df)){
   if (df$city[i] == "Kakukuru"){
     df$country[i] = 'Uganda'
-    df$latitude[i] = '0.133333'
-    df$longitude[i] = '30.783333'
+## The map shows only the country, so no coordinates (removed on 23.10.2026).
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == "Namasabo"){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.10875'
-    df$longitude[i] = '33.04086'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Bugula'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.01209'
-    df$longitude[i] = '32.87846'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Nafuba Island'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.19918'
-    df$longitude[i] = '33.28838'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Guta'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.075145935036385'
-    df$longitude[i] = '33.74057028922266'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Shinembo'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.5537'
-    df$longitude[i] = '33.33597'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Chabula'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.47532'
-    df$longitude[i] = '33.15021'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Bugabu'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.53212'
-    df$longitude[i] = '33.39738'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Bezi'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.279100244759778'
-    df$longitude[i] = '33.123603668684126'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kabangaja'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.3877688361024285'
-    df$longitude[i] = '32.97763532789297'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kijiweni'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.384387687881357'
-    df$longitude[i] = '32.65860819894339'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kanyala'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.277308430027509'
-    df$longitude[i] = '32.23619409039246'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kahunda'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.3987135559254797'
-    df$longitude[i] = '32.06632349624662'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Makatani'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.495871536967837'
-    df$longitude[i] = '32.00283378362571'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Senga'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.6071959338363175'
-    df$longitude[i] = '31.971477626961544'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Mwembeni'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.909259042746012'
-    df$longitude[i] = '32.23259358177653'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kakete'){
     df$country[i] = 'Tanzania'
   }
   else if (df$city[i] == 'Igabilo'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-2.726244047330907'
-    df$longitude[i] = '30.645804654790666'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Mubembe'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-1.2929267725616311'
-    df$longitude[i] = ' 31.553147127802593'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Makoko'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-7.963328400941517'
-    df$longitude[i] = '33.65912831264465'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kibuyi'){
     df$country[i] = 'Tanzania'
-    df$latitude[i] = '-1.4156169810606982'
-    df$longitude[i] = '33.813314888200416'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
   else if (df$city[i] == 'Kanga'){
     df$country[i] = 'Kenya'
-    df$latitude[i] = '-0.7855195354883444'
-    df$longitude[i] = '34.584250575018466'
+    df$latitude[i] = ''
+    df$longitude[i] = ''
   }
 }
 
