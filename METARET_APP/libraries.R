@@ -92,10 +92,13 @@ questionchoice_cor <- c("SOEP" = "soep",
                     'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
 ## list for the question choices 
+## The SOEP sub-items were left out here when they had little data; financial
+## now has ~19,600 subjects with an age (23 papers), patience ~1,200 and
+## impulsive ~800, so the age tab offers them like the gender tab does.
 questionchoice_agetab <- c("SOEP" = "soep",
-                    #"SOEP - financial" = "soep_financial",
-                    #"SOEP - patience" = "soep_patience",
-                    #"SOEP - impulsive" = "soep_impulsive",
+                    "SOEP - financial" = "soep_financial",
+                    "SOEP - patience" = "soep_patience",
+                    "SOEP - impulsive" = "soep_impulsive",
                     "DOSPERT" = "doall",
                     "DOSPERT - health" = "dohealth",
                     "DOSPERT - social" = "dosocial",

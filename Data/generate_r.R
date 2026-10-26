@@ -912,7 +912,9 @@ get_r <- function(bibkey, task, choice) {
   ## CRRA bounds do not depend on the scale, so the standard ones apply
   if (bibkey == "Holt2005" | bibkey == "Andersen2014" | bibkey == "Engel2025" | bibkey == "Buyukboyaci2025" |
       bibkey == "BarredaTarrazona2022" | bibkey == "AlosFerrer2018" | bibkey == "Engel2020" |
-      bibkey == "Engel2024" | bibkey == "ValdezGonzalez2025" | bibkey == "Krull2024"){
+      bibkey == "Engel2024" | bibkey == "ValdezGonzalez2025" | bibkey == "Krull2024" |
+      bibkey == "EngelKirchkamp2019" | bibkey == "Corgnet2019" | bibkey == "Koch2024" |
+      bibkey == "Asako2020" | bibkey == "Farjam2018" | bibkey == "BellemareLeeJust2020"){
     if (task == "HL") {
       if (choice == 10) { out <- 2.71 }
       if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
@@ -2749,6 +2751,46 @@ get_r <- function(bibkey, task, choice) {
       if (choice >= 1 & choice <= 4) { out <- runif(1, min = rk[6 - choice], max = rk[5 - choice]) }
       if (choice >= 5) { out <- rk[1] }
     }
+  }
+
+  ## Kahsay et al. 2022: eight choices between a sure 50, 37.5, 30, 25, 20, 15,
+  ## 10 or 5 ETB and a coin toss for 50 or 0 (Table 1). choice = number of rows
+  ## where the sure amount was taken, 1 to 8, so the certainty equivalent lies
+  ## in [37.5, 50], [30, 37.5], [25, 30], [20, 25], [15, 20], [10, 15],
+  ## [5, 10] or [0, 5]. r = log(0.5) / log(CE / 50); the top interval reaches
+  ## the prize and is coded at its lower end (2.409), as for Haile2020.
+  if (bibkey == "Kahsay2022"){
+    if (task == "CEPL") {
+      lo <- c(37.5, 30, 25, 20, 15, 10, 5, 0)[choice]
+      hi <- c(50, 37.5, 30, 25, 20, 15, 10, 5)[choice]
+      out <- ce_stair_crra(lo, hi, X = 50, p = 0.5, top = log(0.5) / log(37.5 / 50))
+    }
+  }
+
+  ## Crockett and Crockett 2019: the Holt-Laury payoffs times seven (A 11.20 or
+  ## 14, B 0.70 or 26.95 dollars) on a 21-row list whose high-state
+  ## probability rises 0, 0.05, ..., 1 (Table 2 of the paper). Indifference at
+  ## p = 0.05 ... 0.95 gives the cuts below (the same routine returns the
+  ## standard HL cuts 2.713, 1.487, 0.854, 0.324, -0.368 at p = .1, .3, .5,
+  ## .7, .9). choice = number of B choices, 1 to 20 for a single switcher; B
+  ## in row k means r above the cut of row k. The open ends take the bound.
+  if (bibkey == "Crockett2019"){
+    if (task == "HL") {
+      ck <- c(3.477, 2.713, 2.266, 1.947, 1.696, 1.487, 1.305, 1.143, 0.994, 0.854,
+              0.720, 0.589, 0.458, 0.324, 0.183, 0.029, -0.147, -0.368, -0.701)
+      ## ck[j] is the cut at p = 0.05 * j; with n B choices the lowest B row has
+      ## p = 0.05 * (21 - n) and the highest A row p = 0.05 * (20 - n)
+      if (choice <= 1) { out <- ck[19] }
+      if (choice >= 2 & choice <= 19) { out <- runif(1, min = ck[21 - choice], max = ck[20 - choice]) }
+      if (choice >= 20) { out <- ck[1] }
+    }
+  }
+
+  ## Adema, Nikolka, Poutvaara and Sunde 2022: 100 euros, the invested part
+  ## is lost or returned 2.5 times with equal chance, so X + 1.5x or X - x --
+  ## the Gneezy-Potters setting with k = 2.5. choice = euros invested.
+  if (bibkey == "Adema2022"){
+    if (task == "IG") { out <- ig_crra(choice, X = 100, k = 2.5) }
   }
 
   ## A single ceiling and floor for the whole file, applied last.
