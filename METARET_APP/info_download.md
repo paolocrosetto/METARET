@@ -8,7 +8,7 @@ Here you can inspect and download **the full dataset** in a single file, includi
 | `collected_from`, `collected_to` | years of data collection |
 | `subject` | subject unique identifier |
 | `gender` | 1 = female, 0 = male |
-| `age` | age in years; for the few studies that asked for an age range (e.g. 25–34), the midpoint of the range |
+| `age` | age in years; for age ranges (e.g., 25–34), the midpoint is used |
 | `task` | the type of task, or `none` |
 | `choice` | the subject's answer in the task |
 | `r` | risk attitude on a common scale: the coefficient of a CRRA utility u(x) = x^r implied by the choice |
