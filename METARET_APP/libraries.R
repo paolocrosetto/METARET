@@ -1,4 +1,8 @@
 ## Libraries
+## Attached quietly: otherwise every start prints some sixty lines of "The
+## following objects are masked" notes, the tidyverse banner and the spData and
+## sf hints, which bury any real warning in the log.
+suppressPackageStartupMessages({
 library(shiny)
 library(shinyjs)
 library(shiny.semantic)
@@ -19,6 +23,7 @@ library(spData)  # world country polygons for the map
 library(sf)      # spData::world is an sf object
 library(ggplot2) # tidyverse data visualization package
 library(leaflet) # tmap's interactive backend; leaflet::providers used in server.R
+})
 
 
 ## Packages that used to be attached here but are never called. Dropped to cut

@@ -9,13 +9,13 @@ plotage1 <- function(selectedquest, data) {
   ## dataset is 6.6, and the single value below that is one subject recorded as
   ## 2 years old in Engl et al. 2021, which cannot be a real age.
          filter(age >= 5) %>%
-  select(selectedquest, age) %>% 
+  select(all_of(selectedquest), age) %>% 
   drop_na() 
 
 
 data %>% ggplot(aes(x=age, y=.data[[selectedquest]])) +
   geom_jitter(alpha = 0.5, color = '#87b0e8') +
-  geom_smooth(method = 'lm') +
+  geom_smooth(method = 'lm', formula = y ~ x) +
   theme_bw() +
   #eliminates background, gridlines, and chart border
   theme(

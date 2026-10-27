@@ -23,7 +23,20 @@ read_bib_unwrapped <- function(path) {
   writeLines(out, tmp)
   tmp
 }
-bibdf <- bib2df(read_bib_unwrapped("METARET.bib"))
+## bib2df warns that entries "may have been dropped" and that YEAR is
+## character: both come from the two JabRef @Comment blocks, which have no
+## fields. Checked: all 657 entries parse and every bibkey of df_mod.csv has
+## its row. bib2df sends them as messages; only those two are muffled, so any
+## other message or warning still shows.
+bib_noise <- "may have been dropped|contains character strings"
+bibdf <- withCallingHandlers(
+  bib2df(read_bib_unwrapped("METARET.bib")),
+  message = function(m) {
+    if (grepl(bib_noise, conditionMessage(m))) invokeRestart("muffleMessage")
+  },
+  warning = function(w) {
+    if (grepl(bib_noise, conditionMessage(w))) invokeRestart("muffleWarning")
+  })
 
 ## clean names
 bibdf <- bibdf %>% 
@@ -394,7 +407,9 @@ colnames_given_pattern <- function(.data, pattern){
     })
     
     output$lotteries_comp <- renderPlot({
-      data <- df %>% filter(task == input$id_selectInput)
+      ## a checkbox group: several tasks at once, so %in% (== recycled the
+      ## selection against the rows and kept an arbitrary subset)
+      data <- df %>% filter(task %in% input$id_selectInput)
       source("plot_many_lotteries.R")
       plotDensity1(input$id_selectInput, data)
     }, height = 700)
@@ -488,7 +503,7 @@ colnames_given_pattern <- function(.data, pattern){
     })
     
     output$table_papers_name_quest <- renderDataTable({
-      table = df %>% filter(df[input$Questionnaires] != 'Na') %>% 
+      table = df %>% filter(!is.na(.data[[input$Questionnaires]])) %>%
         select(subject, paper, author, title, year, journal, doi_2, url) %>%
         distinct() %>%
       group_by(paper, author, title, year, journal, doi_2, url) %>% 

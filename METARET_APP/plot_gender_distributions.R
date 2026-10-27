@@ -41,7 +41,7 @@ plotgender <- function(selectedtask, data) {
     geom_density(alpha= 0.5) + scale_fill_brewer(palette = "Paired")+
     scale_color_brewer(palette = "Paired") +
     geom_vline(data = mean_effect_df, aes(xintercept = mean, 
-                                          color = gender), size=0.5) + theme_bw() +
+                                          color = gender), linewidth=0.5) + theme_bw() +
     #eliminates background, gridlines, and chart border
     theme(
       text = element_text(size = 16),

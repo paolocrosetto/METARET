@@ -67,7 +67,7 @@ GeomFlatViolin <-
   
   draw_key = draw_key_polygon,
   
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+  default_aes = aes(weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
                     alpha = NA, linetype = "solid"),
   
   required_aes = c("x", "y")

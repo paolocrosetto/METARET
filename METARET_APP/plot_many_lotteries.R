@@ -22,8 +22,10 @@ plotDensity1 <- function(tasklist, data) {
   values = palette[1:length(levels(data$task))]
   names(values) <- levels(data$task)
   
-  plot <- data %>% 
-    mutate(task = paste0(task, " (N = ",n,")")) %>% 
+  ## Built straight on the selected tasks. It used to be built on labels with
+  ## "(N = ...)" appended and then given new data with %+% (deprecated in
+  ## ggplot2 4.0), which threw those labels away -- so the picture is the same.
+  plot <- droplevels(data[data$task %in% tasklist, ]) %>%
     ggplot(aes(task, r, colour = task, fill = task)) +
     geom_flat_violin(position = position_nudge(x = 0.15, y = 0),
                      alpha = 0.7, 
@@ -76,7 +78,7 @@ plotDensity1 <- function(tasklist, data) {
     theme(axis.line = element_line(color = 'black')) +
     coord_flip() 
   
-  plot %+% droplevels(data[data$task %in% tasklist,]) +
+  plot +
     scale_fill_manual(values = values)+
     scale_color_manual(values = values)
 }

@@ -32,7 +32,6 @@ task_variability_plot <- function(selectedtask, data) {
     ggplot(aes(m, reorder(citation,m), group = citation)) + 
     geom_vline(xintercept = task_median, linetype = "dashed",
                colour = "#8A8A8A", linewidth = 0.6) +
-    geom_line() +                       # adding connecting lines
     geom_errorbar(aes(xmin = m - s,     # adding lower error bars
                       xmax = m + s))+  # adding upper error bars
     geom_point(color = 'red', size = 3) +                      # adding data points

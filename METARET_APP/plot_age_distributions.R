@@ -14,7 +14,7 @@ plotage <- function(selectedtask, data) {
 
 data %>% ggplot(aes(x=age, y=r)) +
   geom_jitter(alpha = 0.5, color = '#87b0e8') +
-  geom_smooth(method = 'lm') +
+  geom_smooth(method = 'lm', formula = y ~ x) +
   theme_bw() +
   #eliminates background, gridlines, and chart border
   theme(
