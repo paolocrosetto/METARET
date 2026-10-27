@@ -256,9 +256,10 @@ get_r <- function(bibkey, task, choice) {
       }
     }
   
-  ## Schuermann et al. 2019 and Michael et al. 2020 use the same 128-pump BART as
-  ## Frey et al. 2017
-  if (bibkey == "Frey2017" | bibkey == "Schuermann2019" | bibkey == "Michael2020") {
+  ## Schuermann et al. 2019, Michael et al. 2020 and Zhang & Palma 2021 use the
+  ## same 128-pump BART as Frey et al. 2017
+  if (bibkey == "Frey2017" | bibkey == "Schuermann2019" | bibkey == "Michael2020" |
+      bibkey == "Zhang2021") {
     if (task == "BART") {
       out <- choice/(128-choice)
     }
@@ -2792,6 +2793,16 @@ get_r <- function(bibkey, task, choice) {
   ## the Gneezy-Potters setting with k = 2.5. choice = euros invested.
   if (bibkey == "Adema2022"){
     if (task == "IG") { out <- ig_crra(choice, X = 100, k = 2.5) }
+  }
+
+  ## Chakraborty & Kendall 2026, lottery task 1: of $1.00, the amount withdrawn
+  ## pays 1.5 per dollar and the c dollars left invested pay 2.2 or 1 with equal
+  ## chance. Relative to withdrawing everything (1.50 for sure) each invested
+  ## dollar gains 0.70 or loses 0.50, so this is ig_crra_pgl with wealth 1.5,
+  ## g = 0.7 and l = 0.5; choice = cents invested. Investing everything (2.20 or
+  ## 1.00) is coded at its bound, r = 0.573, as for the other assets with l < 1.
+  if (bibkey == "Chakraborty2026"){
+    if (task == "IG") { out <- ig_crra_pgl(choice / 100, X = 1.5, p = 0.5, g = 0.7, l = 0.5) }
   }
 
   ## A single ceiling and floor for the whole file, applied last.

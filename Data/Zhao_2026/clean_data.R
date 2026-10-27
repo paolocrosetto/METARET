@@ -2,7 +2,7 @@
 #### Games and Economic Behavior, 155, 107-148.
 #### https://doi.org/10.1016/j.geb.2025.10.005
 #### Data: GitHub, https://github.com/fenixzhao1/data-salience_market
-#### (df_mpl/*.csv and data_survey.csv)
+#### (df_mpl/*.csv, data_survey.csv and, for gender, df_bdm/df_call/df_mkt)
 
 #### cleaning data to be used for the meta-analysis
 
@@ -26,7 +26,11 @@ library(tidyverse)
 ##
 ## The 74 subjects who went back to the safe option after once taking the risky
 ## one are dropped, as multiple switchers are elsewhere in this corpus, leaving
-## 438. The public data carry no age or gender.
+## 438. gender: player.gender of the oTree market files (df_bdm, df_call,
+## df_mkt), joined on participant.code; all 512 match and no code carries two
+## answers. "Female" = 1, "Male" = 0, the 12 "Other" are left missing. The paper
+## does not report the split, so it cannot be checked against the text. No age
+## was asked.
 df <- read_csv("Data/Zhao_2026/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
@@ -35,7 +39,7 @@ df <- df %>%
             task = "HL",
             choice = 10L - num_safe_choices,
             age = NA_real_,
-            gender = NA_real_,
+            gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0, TRUE ~ NA_real_),
             china = location == "DUFE")
 
 df <- df %>%

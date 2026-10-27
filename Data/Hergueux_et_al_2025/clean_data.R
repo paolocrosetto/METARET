@@ -13,7 +13,11 @@ library(tidyverse)
 ## in the replication package -- only the 154 students of the online lab that the
 ## paper uses as a standard subject pool (Table 4). original_dataset.csv keeps
 ## their risk answer, gender and age; subjects are row numbers. The paper does not
-## say where the students were recruited, so the country is left empty.
+## say where the students were recruited; it takes them from Hergueux & Jacquemet
+## (2015, Experimental Economics 18, 251-283), whose working paper (HAL
+## halshs-00748615) describes French undergraduates, sessions in November 2010
+## and 2011, instructions in French and "not born in France" as a covariate. The
+## country is therefore France; no city is given.
 ##
 ## This paper contributes questionnaire answers only -- there is no incentivised
 ## risk elicitation task -- so the rows are marked 'quest_only'.
@@ -30,7 +34,7 @@ df <- df %>%
             gender = female,
             choice = risk_1to11 - 1,
             task = "quest_only",
-            country = NA_character_)
+            country = "France")
 
 ## no task, so no CRRA coefficient: generate_r.R is deliberately not sourced
 df <- df %>%

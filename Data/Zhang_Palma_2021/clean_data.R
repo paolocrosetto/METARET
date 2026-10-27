@@ -14,17 +14,18 @@ library(tidyverse)
 ## (compulsory, mixed, voluntary). The main task is a thirty-balloon BART with
 ## insurance offered on some balloons.
 ##
-## THE BART IS NOT USED. The balloon task is the outcome the paper is about:
-## insurance is offered or imposed on part of the balloons, so the number of
-## pumps is a treatment response, not a clean risk measure. The file carries
-## only two averages, over all thirty balloons and over balloons 2 to 29, and
-## neither separates the insured balloons from the rest. Which balloons carried
-## no insurance in each regime would settle it -- a question for the authors.
-## The balloon itself is the standard 128-pump one ("each balloon can be pumped
-## up to 128 times (it will surely pop at 128th pump)", one cent a pump), so
-## the site could code it the moment the uninsured balloons are identified.
+## BART: subjects state in advance how many pumps they want on each balloon
+## (up to 128, one cent a pump, "it will surely pop at 128th pump"), and the
+## explosion point is drawn on the spot. Insurance was offered or imposed only
+## on the FIRST and LAST balloon, in all three regimes: "For the other 28
+## balloons, they played BART without the insurance option", and the paper
+## calls them "the measurement of risk taking by BART". The authors' own
+## averagewantedp229 is the mean of balloons 2-29 (checked against the thirty
+## per-balloon columns); it is kept as average_wantedpumps_2_29 and used as
+## choice, coded with the 128-pump rule of Frey2017 in generate_r.R.
 ##
-## What is used is the DOSPERT battery, asked after the task. The file holds
+## The DOSPERT battery, asked after the task, sits on the same row (as in
+## Michael2020). The file holds
 ## sums, not item means: dospertall runs 30 to 187 over thirty items, doethics
 ## and dohealth and dorecreational and dosocial over six items each, dogamble
 ## and doinvest over three each. The site stores DOSPERT as the mean per item
@@ -39,10 +40,8 @@ stopifnot(nrow(df) == 299)
 
 df <- df %>%
   transmute(subject,
-            task = "quest_only",
-            ## no general risk item in this study, so `choice` -- which
-            ## generate_data_for_app.R turns into soep -- stays empty
-            choice = NA_real_,
+            task = "BART",
+            choice = average_wantedpumps_2_29,
             doall   = as.numeric(dospertall) / 30,
             doethic = as.numeric(doethics) / 6,
             dogamble = as.numeric(dogamble) / 3,
@@ -57,8 +56,9 @@ df <- df %>%
 
 stopifnot(all(df$doall >= 1 & df$doall <= 7))
 
-## no task, so no CRRA coefficient: generate_r.R is deliberately not sourced
-df <- df %>% mutate(r = NA_real_)
+## Computing the CRRA (x^r) coefficient of risk aversion from the task data
+source("Data/generate_r.R")
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 ## country: NOT SET. An MTurk study with no residence requirement stated in the
 ## paper, the same treatment as the Prolific studies here.

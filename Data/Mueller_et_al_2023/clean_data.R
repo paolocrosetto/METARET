@@ -68,8 +68,10 @@ df <- dat %>%
             bibkey = "Mueller2023",
             paper = "Müller et al. 2023")
 
-## online on Prolific; the package does not record where participants lived
-df$country = NA_character_
+## online on Prolific. The package does not record residence, but the paper
+## (section 2.1) set the Prolific prescreen to "UK nationality", so the sample is
+## United Kingdom (by nationality, not checked residence)
+df$country = 'United Kingdom'
 df$city = ''
 df$lattitude = ''
 df$longitude = ''

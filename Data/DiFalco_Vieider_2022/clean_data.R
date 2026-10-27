@@ -14,12 +14,18 @@ library(tidyverse)
 ## Only one CE per person is used: the 50/50 prospect paying 120 birr or 0
 ## (equiv_nr 3, stored as high = 20, low = 0), in the first wave (2013): 889
 ## farmers. original_dataset.csv keeps only these rows and the district, CE and
-## gender (no household ids; ages in the file are not usable).
+## the sex and age of the household head (no household ids).
 ## The CE comes from a list of sure amounts from 0 to 120 birr in steps of 3 birr
 ## (0.5 in file units); `equivalent` is the midpoint of the switching interval,
 ## 0.25, 0.75, ..., 19.75. choice = number of the interval (0 ... 39), so the CE
 ## lies in [0.5 choice, 0.5 choice + 0.5]. Check: the authors' rt = equivalent / 20.
-## gender: "Female" = 1, "Male" = 0.
+## gender and age: the experiment was run with the self-declared household head
+## (paper, section 1.1.1: "mean age of the household heads ... is 49.84 in 2013,
+## and 84% are male"), and the authors' do-file controls for "age and gender of
+## the respondent" with age_hh and male_hh. Those two are used: 86% male and mean
+## age 49.6 here. The file's own `gender` and `age` columns describe another
+## household member (median age 6-7, unrelated to male_hh) and are not used.
+## Three heads aged 4, 6 and 8 are data errors and are left missing.
 df <- read_csv("Data/DiFalco_Vieider_2022/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(all(df$high == 20 & df$low == 0 & df$probability == 0.5))
@@ -28,7 +34,8 @@ df <- df %>%
   transmute(subject,
             task = "CEPL",
             choice = round((equivalent - 0.25) / 0.5),
-            gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0, TRUE ~ NA_real_),
+            gender = 1 - male_hh,
+            age = if_else(age_hh >= 15, as.numeric(age_hh), NA_real_),
             country = "Ethiopia")
 
 # adding paper name and bibkey

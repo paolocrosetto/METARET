@@ -841,7 +841,7 @@ colnames_given_pattern <- function(.data, pattern){
       content = function(file) {
         data <- df %>% 
           select('subject', 'paper', 
-                 'task', 'age', 'gender',
+                 'task', 'age', 'gender', 'country',
                  'choice', 'r')
         write.csv(data, file)
       }
@@ -863,9 +863,11 @@ colnames_given_pattern <- function(.data, pattern){
       },
       content = function(file) {
         data <- df %>% 
-          select('subject', 'paper', 'task', 'age', 'gender',
+          select('subject', 'paper', 'task', 'country', 'age', 'gender',
                  starts_with('soep'), starts_with("do"), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', -doi_2) %>%
-          pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
+          ## country is text, so it stays an id column instead of being pivoted
+          ## into the numeric answers
+          pivot_longer(-c(subject, paper, task, country), values_to = 'choice', names_to = 'type of question') %>%
           drop_na()
         write.csv(data, file)
       }

@@ -28,6 +28,9 @@ library(tidyverse)
 ## the lottery, since no single crossing means no interval; and the 4 who took
 ## the safe option in every row, including the last, where the lottery pays $4
 ## for sure against $2 for sure. 324 subjects remain.
+## age: Age of the repository file ("Participant age, in years"), joined on
+## SubjectID and SessionID. gender: Female is labelled "=1 if participant is
+## female"; the 3 values of 2 have no label and are left missing.
 ##
 ## The figures reproduce the paper exactly on the full 360: 47.2% risk averse
 ## by the authors' definition (reported 47%), 43.6% female (44%), 56.4% with
@@ -46,8 +49,8 @@ df <- df %>%
   transmute(subject = SubjectID,
             task = "HL",
             choice = 10L - n_safe,
-            age = NA_real_,
-            gender = Female,
+            age = Age,
+            gender = if_else(Female %in% c(0, 1), Female, NA_real_),
             country = "United States",
             city = "Knoxville")
 
