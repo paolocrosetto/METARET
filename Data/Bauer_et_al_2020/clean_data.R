@@ -29,12 +29,21 @@ library(tidyverse)
 ## against a sure 930 (choice 32) and 2 against a sure 900 (choice 31); as for
 ## Bittner2024 they are kept and coded at the bound r(870).
 ##
-## THE INCENTIVIZED TASK IS NOT CODED YET. It is a certainty-equivalent list,
-## "21 binary choices between a lottery that yielded a positive amount or zero
-## with equal probability, and a safe payment option that increased in each
-## subsequent binary choice" (e_risk = switching row). The prize and the 21
-## safe amounts are only in the Online Appendix, which is not in the package;
-## once it is at hand the rows can be filed as CEPL.
+## The incentivized task of the experiment visit is a certainty-equivalent list
+## (CEPL). The amounts are in the Online Appendix, printed at the end of the
+## working paper (CERGE-EI WP 653, January 2020, kept in raw_repository): 21
+## binary choices between a lottery paying KSh 0 or KSh 2,000 with equal
+## probability and a sure amount rising in steps of KSh 100 from KSh 0 (row 1)
+## to KSh 2,000 (row 21). e_risk_choices holds the 21 answers in row order
+## (L = lottery, S = sure amount, from e_risk_q1 ... e_risk_q21).
+## Only answers with a single switch from the lottery to the sure amount are
+## used (43), plus the 7 who took the lottery in every row. For all of them the
+## authors' e_risk is the first row with the sure amount (22 if none), so
+## choice = e_risk and the CE lies in [100 (choice - 2), 100 (choice - 1)].
+## The 7 all-lottery answers are coded at the bound, as for the staircase.
+## Dropped: 34 who took the sure amount in every row and 7 more who took a sure
+## KSh 0 over the lottery in row 1 (dominated), and 29 who switched back and
+## forth (the authors flag only some of them in e_risk_incons).
 ##
 ## 123 rows in the file, 120 people: survey_id 142149 appears four times with
 ## the same experimental record, risk answer, age and gender, differing only in
@@ -44,16 +53,26 @@ df <- read_csv("Data/Bauer_et_al_2020/original_dataset.csv", show_col_types = FA
 
 stopifnot(nrow(df) == 120, all(df$risk_qual %in% 0:10), all(df$risk_quant %in% 1:32))
 
+## single switchers (and all-lottery): e_risk must be the first sure-amount row
+single <- grepl("^L+S*$", df$e_risk_choices)
+stopifnot(sum(single) == 50,
+          all(df$e_risk[single] == nchar(sub("S*$", "", df$e_risk_choices[single])) + 1))
+
 df <- df %>%
   transmute(subject,
-            task = "CE_staircase",
-            choice = risk_quant,
+            CE_staircase = risk_quant,
+            CEPL = if_else(single, e_risk, NA_real_),
             soep = risk_qual,
             gender = case_when(s_gender == "Female" ~ 1, s_gender == "Male" ~ 0,
                                TRUE ~ NA_real_),
             age = s_age,
             bibkey = "Bauer2020",
-            paper = "Bauer et al. 2020")
+            paper = "Bauer et al. 2020") %>%
+  pivot_longer(c(CE_staircase, CEPL), names_to = "task", values_to = "choice") %>%
+  filter(!is.na(choice)) %>%
+  ## staircase rows first, so their seeded draws of r stay as they were before
+  ## the CEPL rows were added
+  arrange(task != "CE_staircase")
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")

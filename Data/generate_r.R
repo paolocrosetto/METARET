@@ -1409,11 +1409,19 @@ get_r <- function(bibkey, task, choice) {
   }
 
   ## Bauer et al. 2020: the same GPS staircase in Kenyan shillings, every amount
-  ## times 3 (lottery 900, sure amounts 30 ... 930), so the bounds are Bittner's
+  ## times 3 (lottery 900, sure amounts 30 ... 930), so the bounds are Bittner's.
+  ## CEPL: KSh 2,000 with 50% (else 0) against sure amounts 0, 100, ..., 2,000;
+  ## choice = first row with the sure amount (2 ... 22), so the CE lies in
+  ## [100 (choice - 2), 100 (choice - 1)]. Intervals reaching 2,000 (choice 21
+  ## and 22, the lottery over every sure amount) are coded at r(1,900).
   if (bibkey == "Bauer2020"){
     if (task == "CE_staircase") {
       out <- ce_stair_crra(lo = 30 * (choice - 1), hi = 30 * choice, X = 900,
                            top = log(0.5) / log(870 / 900))
+    }
+    if (task == "CEPL") {
+      out <- ce_stair_crra(lo = 100 * (choice - 2), hi = 100 * (choice - 1), X = 2000,
+                           top = log(0.5) / log(1900 / 2000))
     }
   }
 
