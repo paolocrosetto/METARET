@@ -1,3 +1,19 @@
+## Drawing every dot is what made the age tabs slow: 1.1 s for the 87,672
+## observations of "all tasks", 0.2 s for 20,000. The dots show a fixed random
+## sample of at most AGE_POINT_CAP (the same one every time); the regression
+## line is still fitted on all observations, and the subtitle says so. Shared
+## with plot_age_distributions_quest.R, which is read after this file.
+AGE_POINT_CAP <- 20000
+age_points <- function(d) {
+  if (nrow(d) <= AGE_POINT_CAP) return(d)
+  d[withr::with_seed(20220823, sample(nrow(d), AGE_POINT_CAP)), , drop = FALSE]
+}
+age_subtitle <- function(d) {
+  if (nrow(d) <= AGE_POINT_CAP) return(NULL)
+  sprintf("dots: random %s of %s; line fitted on all",
+          format(AGE_POINT_CAP, big.mark = ","), format(nrow(d), big.mark = ","))
+}
+
 plotage <- function(selectedtask, data) {
   
   data = data %>% 
@@ -13,7 +29,7 @@ plotage <- function(selectedtask, data) {
   drop_na() 
 
 data %>% ggplot(aes(x=age, y=r)) +
-  geom_jitter(alpha = 0.5, color = '#87b0e8') +
+  geom_jitter(data = age_points(data), alpha = 0.5, color = '#87b0e8') +
   geom_smooth(method = 'lm', formula = y ~ x) +
   theme_bw() +
   #eliminates background, gridlines, and chart border
@@ -26,5 +42,6 @@ data %>% ggplot(aes(x=age, y=r)) +
     legend.title=element_blank(),
   ) + theme(axis.line = element_line(color = 'black')) + 
   labs(x = "Age of respondents",
-       y = "CRRA")
+       y = "CRRA",
+       subtitle = age_subtitle(data))
 }

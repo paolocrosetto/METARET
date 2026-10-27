@@ -59,6 +59,10 @@ file.copy("Data/collection_years.csv", "METARET_APP/DATA/collection_years.csv",
 ## go stale relative to df_mod.csv above
 source("Data/build_corr_cache.R")
 
+## and the table the app reads at start-up: df_mod.csv already joined with the
+## bibliography, so the app does not parse METARET.bib on every start
+source("Data/build_app_data.R")
+
 ## and the meta-analysis tables, for the same reason -- they are not read by the
 ## app, but leaving them to be refreshed by hand is how they fell behind before.
 ## Costs about a second of a two-second rebuild, none of it in the app.

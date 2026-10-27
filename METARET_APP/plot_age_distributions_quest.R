@@ -14,7 +14,7 @@ plotage1 <- function(selectedquest, data) {
 
 
 data %>% ggplot(aes(x=age, y=.data[[selectedquest]])) +
-  geom_jitter(alpha = 0.5, color = '#87b0e8') +
+  geom_jitter(data = age_points(data), alpha = 0.5, color = '#87b0e8') +
   geom_smooth(method = 'lm', formula = y ~ x) +
   theme_bw() +
   #eliminates background, gridlines, and chart border
@@ -27,5 +27,6 @@ data %>% ggplot(aes(x=age, y=.data[[selectedquest]])) +
     legend.title=element_blank(),
   ) + theme(axis.line = element_line(color = 'black')) + 
   labs(x = "Age of respondents",
-       y = "Choice of respondents")
+       y = "Choice of respondents",
+       subtitle = age_subtitle(data))
 }

@@ -6,7 +6,7 @@ colnames_given_pattern <- function(.data, pattern){
   
 }
 
-plotgender <- function(selectedquest, data) {
+plotgender_quest <- function(selectedquest, data) {
   variable = selectedquest
   data = data %>%
   mutate(gender = case_when(gender == 1  ~ "female",

@@ -14,7 +14,6 @@ library(DT)
 library(tidyverse)      ## basic data wrangling and plotting libraries
 library(RColorBrewer)   ## colors
 library(dplyr)
-library(bib2df)
 source("flat_violin.R")
 library(corrplot)
 library(effectsize)     ## cohens_d, used by the gender distribution plots
@@ -37,6 +36,8 @@ library(leaflet) # tmap's interactive backend; leaflet::providers used in server
 ##   corrmorant            -- the panels are drawn by corrplot from
 ##                            DATA/corr_cache.rds. Worth keeping out: it is not
 ##                            on CRAN and had to be installed by hand.
+##   bib2df                -- the bibliography is parsed by Data/build_app_data.R
+##                            and the app reads DATA/app_data.rds.
 
 ## list for the task choices 
 mychoices = c("Holt and Laury" = "HL",

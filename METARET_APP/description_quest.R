@@ -1,4 +1,4 @@
-new_data = data.frame(desc = c('soep.md', 'soep_financial.md',
+desc_quest = data.frame(desc = c('soep.md', 'soep_financial.md',
                                'soep_impulsiveness.md', 'soep_patience.md',
                                'doall.md', 'dohealth.md',
                                'dosocial.md', 'doinvest.md',
