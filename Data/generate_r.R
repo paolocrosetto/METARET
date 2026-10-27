@@ -349,7 +349,9 @@ get_r <- function(bibkey, task, choice) {
   ## Karapetian et al. 2025 used the standard HL list ($2.00/$1.60 vs $3.85/$0.10),
   ## Buyukboyaci et al. 2026 the same list x 5 in ECU. Schipper 2023 used the list x 2
   ## shifted by one row; its choice is recoded to the standard count in clean_data.R.
-  if (bibkey == "Brunner2014" | bibkey == "Dursch2012" | bibkey == "Proto2018" | bibkey == "Kirchkamp2021" | bibkey == "Roth2016" | bibkey == "Dursch2017" | bibkey == "Karapetian2025" | bibkey == "Buyukboyaci2026" | bibkey == "Schipper2023") {
+  ## Kagan et al. 2020 do not give their payoffs; the standard list is assumed and
+  ## the switching row is turned into the count of safe choices in clean_data.R.
+  if (bibkey == "Brunner2014" | bibkey == "Dursch2012" | bibkey == "Proto2018" | bibkey == "Kirchkamp2021" | bibkey == "Roth2016" | bibkey == "Dursch2017" | bibkey == "Karapetian2025" | bibkey == "Buyukboyaci2026" | bibkey == "Schipper2023" | bibkey == "Kagan2020") {
     if (task == "HL") {
       if (choice == 10) { out <- 2.71 }
       if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
@@ -786,6 +788,11 @@ get_r <- function(bibkey, task, choice) {
   ## the bet, 2/3 chance of losing it; 200 tokens per round, choice = tokens bet
   if (bibkey == "Hueber2022"){
     if (task == "IG") { out <- ig_crra_pgl(choice, X = 200, p = 1/3, g = 2.5, l = 1) }
+  }
+
+  ## von Essen et al. 2020: the same Gneezy-Potters asset with 60 ECU
+  if (bibkey == "VonEssen2020"){
+    if (task == "IG") { out <- ig_crra_pgl(choice, X = 60, p = 1/3, g = 2.5, l = 1) }
   }
   
   ## Adamo & Coricelli 2026: 100 tokens, 50% chance the investment pays 2.5 times
@@ -2710,9 +2717,10 @@ get_r <- function(bibkey, task, choice) {
   ## 0.501; the last one is 1 exactly for Ihli (gambles 5 and 6 have the same
   ## expected value) and 1.225 for Charness, whose sixth gamble gives up
   ## expected value (the paper: rho < -0.22). The open ends take the bound.
-  if (bibkey == "Ihli2022" | bibkey == "Charness2023"){
+  ## Dai et al. 2018 used Ihli's menu in euros (28/28 ... 12/60, 2/70).
+  if (bibkey == "Ihli2022" | bibkey == "Charness2023" | bibkey == "Dai2018"){
     if (task == "EG") {
-      ek <- c(-2.460, -0.161, 0.294, 0.501, if (bibkey == "Ihli2022") 1.000 else 1.225)
+      ek <- c(-2.460, -0.161, 0.294, 0.501, if (bibkey == "Charness2023") 1.225 else 1.000)
       if (choice <= 1) { out <- ek[1] }
       if (choice >= 2 & choice <= 5) { out <- runif(1, min = ek[choice - 1], max = ek[choice]) }
       if (choice >= 6) { out <- ek[5] }

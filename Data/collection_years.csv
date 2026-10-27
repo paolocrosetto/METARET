@@ -184,3 +184,6 @@ Kachurka2021,2019,2019,exact,"session_date: 14 August to 24 October 2019 (Univer
 Chakraborty2026,2022,2024,exact,"README: 2P treatment April 2022, diagnostic treatments April-June 2024 (Prolific); file dates 19.04.2022-07.05.2024"
 Bauer2020,2018,2018,exact,"CERGE-EI WP 653 (Jan 2020), Online Appendix: 123 participants from Kibera, Nairobi, during August 2018"
 Haile2020,2017,2017,inferred,"paper: questionnaire on the 2017 farming season (Tigray); footnote 5: 1 ETB = 0.044 USD as the survey-period official rate (22.7 ETB/USD), a level the birr held only before the October 2017 devaluation"
+VonEssen2020,2014,2016,exact,"paper: Aarhus, Aalto (Helsinki) and BI (Oslo) labs during fall 2014 to spring 2016; survey dates 08.2014-03.2016"
+Dai2018,2014,2014,exact,"Date variable in DGV_MS_2016.dta: 7-18 November 2014, Lyon"
+Cohn2022,2013,2014,start_only,"paper: Experiment 1 wave 1 in October-November 2013, wave 2 one year later; Experiment 2 is not dated"

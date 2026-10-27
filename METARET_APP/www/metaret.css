@@ -303,6 +303,8 @@ h1 { font-size: 1.95em; } h2 { font-size: 1.5em; } h3 { font-size: 1.25em; }
 .metaret-picker .ui.checkbox label[for*="_"] { padding-left: 2.4em; }
 
 .metaret-note {
+  /* R's own sans (Helvetica, Arial elsewhere), as in the text drawn inside the plots */
+  font-family: Helvetica, Arial, sans-serif;
   max-width: 110ch;
   margin: 10px 0 4px 0;
   color: rgba(0,0,0,.70);
@@ -310,6 +312,8 @@ h1 { font-size: 1.95em; } h2 { font-size: 1.5em; } h3 { font-size: 1.25em; }
 }
 .metaret-note b { color: #1B2733; }
 .metaret-note p { display: inline; margin: 0 !important; }
+.metaret-note ol { margin: 4px 0 6px 0; padding-left: 22px; }
+.metaret-note li { margin: 0; }
 .metaret-note p + p { display: block; margin-top: .5em !important; }
 .metaret-note ul, .metaret-note ol { margin: .5em 0 0 0; }
 
@@ -581,3 +585,6 @@ body.metaret-nav-collapsed .pusher.dashboard-body { margin-left: 0 !important; }
 .leaflet-tooltip.metaret-country-label.metaret-label-hidden {
   visibility: hidden;
 }
+/* the age-range slider under each age plot */
+.metaret-age-range { max-width: 640px; margin: 4px 0 0 0; }
+.metaret-age-range .control-label { font-size: 15px; color: #1B2733; }

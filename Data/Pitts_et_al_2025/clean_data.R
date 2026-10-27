@@ -20,11 +20,14 @@ library(tidyverse)
 ## 0.38, 0.2 for gambles 1 to 5), the same bounds as the Banerjee2021 /
 ## Pitts2025 block of generate_r.R.
 ##
-## Payoffs were in experimental money; the paper does not say how the lottery
-## was converted into the final payment. Half the sample got an "additional
-## income" treatment, and half played the lottery after the marketing games;
-## both are kept. female is 1 for women; edad is age in years. The fieldwork
-## dates are not given in the paper.
+## Payoffs were in experimental pesos and paid in kind (section 3.9): "we do not
+## make cash payments to participants ... we provide vouchers redeemable on site
+## for dry goods", one voucher per MXN 250,000 of game earnings, three to six
+## vouchers each; the lottery was played out (the regressions control for its
+## outcome). Half the sample got an "additional income" treatment, and half
+## played the lottery after the marketing games; both are kept. female is 1 for
+## women; edad is age in years. Field visits ran from 28 June to 22 August 2022
+## (note to Table 2).
 df <- read_csv("Data/Pitts_et_al_2025/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 268, all(df$lottery %in% 1:5))

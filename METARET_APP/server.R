@@ -915,15 +915,19 @@ leaflet(new_tab,
     
     
     
+    ## the rows of the task age panel, within the picked age range; the plot
+    ## and the slope line under it both read them
+    age_task_rows <- reactive({
+      req(input$agedist, input$agedist_range)
+      data <- df %>% filter(r > -1.5 & r < 2.5)
+      if (input$agedist != 'all') data <- data %>% filter(task == input$agedist)
+      age_rows(data, "r", input$agedist_range)
+    })
     output$age_dist <- renderPlot({
-      if (input$agedist == 'all'){
-      data = df %>% 
-        filter(r > -1.5 & r < 2.5) }
-      else {
-        data = df %>% 
-          filter(r > -1.5 & r < 2.5) %>% filter(task == input$agedist) 
-      }
-      plotage(input$agedist, data)
+      plotage(input$agedist, age_task_rows())
+    })
+    output$age_dist_note <- renderUI({
+      age_note(age_task_rows(), "r", "r", "r")
     })
 
     observe({
@@ -961,10 +965,15 @@ leaflet(new_tab,
         ,color = "blue")  
     })
     
-    output$age_dist_quest<- renderPlot({
-        data = quest_people(input$agedist_q) %>%
-          select(input$agedist_q, choice, age)
-      plotage1(input$agedist_q, data)
+    age_quest_rows <- reactive({
+      req(input$agedist_q, input$agedist_q_range)
+      age_rows(quest_people(input$agedist_q), input$agedist_q, input$agedist_q_range)
+    })
+    output$age_dist_quest <- renderPlot({
+      plotage1(input$agedist_q, age_quest_rows())
+    })
+    output$age_dist_quest_note <- renderUI({
+      age_note(age_quest_rows(), input$agedist_q, "the answer", "answer")
     })
     
     observe({

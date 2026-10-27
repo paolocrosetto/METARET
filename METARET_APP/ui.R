@@ -388,8 +388,17 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                   valueBoxOutput("quant_femmes_a", width = 5),
                                   valueBoxOutput("quant_hommes_a", width = 5)),
                          
-                         ## Plot with possibility to chose one task
-                         column(12, plotOutput("age_dist")),
+                         ## Plot with possibility to chose one task and an age
+                         ## range; the slope of the line is given in the note under it
+                         column(12, plotOutput("age_dist"),
+                                ## the age range of the plot and of the slope line; shiny's own
+                                ## slider, since the dashboard theme lacks the styles of the
+                                ## semantic-UI one, which drew as a column of dots
+                                tags$div(class = "metaret-age-range",
+                                         shiny::sliderInput("agedist_range", "Ages:", min = 5, max = 100,
+                                                            value = c(5, 100), step = 1,
+                                                            ticks = FALSE, width = "100%")),
+                                uiOutput("age_dist_note")),
 
                          ## Select box for the plot
                          column(3,
@@ -402,14 +411,23 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                   valueBoxOutput("quant_femmes_aq", width = 5),
                                   valueBoxOutput("quant_hommes_aq", width = 5)),
                          
-                         ## Plot with possibility to chose one task
-                         column(12, plotOutput("age_dist_quest")),
+                         ## Plot with possibility to chose one questionnaire and
+                         ## an age range; the slope of the line is given in the note under it
+                         column(12, plotOutput("age_dist_quest"),
+                                ## the age range of the plot and of the slope line; shiny's own
+                                ## slider, since the dashboard theme lacks the styles of the
+                                ## semantic-UI one, which drew as a column of dots
+                                tags$div(class = "metaret-age-range",
+                                         shiny::sliderInput("agedist_q_range", "Ages:", min = 5, max = 100,
+                                                            value = c(5, 100), step = 1,
+                                                            ticks = FALSE, width = "100%")),
+                                uiOutput("age_dist_quest_note")),
 
                          ## Select box for the plot
                          column(3,
                                 box(selectInput("agedist_q", "Questions:",
                                                 questionchoice_agetab),  width = 3)
-                         )
+                                )
                        )))
                        )),
         
