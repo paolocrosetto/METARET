@@ -19,9 +19,14 @@ library(tidyverse)
 ## answers; the IP addresses, geolocation and other fields of the .dat file were
 ## not copied. age: characters 129-130 are the only two-digit field whose
 ## distribution matches the paper ("22.6 (s.d. = 3.20) years old"): mean 22.56,
-## s.d. 3.20, range 17-40; it is copied as `age`. Gender is in the authors' file
-## (the do-file tabulates by Gender) but no single column of the .dat matches
-## the reported 53.4% female, so it is left missing.
+## s.d. 3.20, range 17-40; it is copied as `age`. male: character 131, right
+## after age, is the authors' Gender (male = 1, as in the paper's regressions):
+## 0 for 68, 1 for 57 and blank for one participant, who wrote "Airplane" in
+## the free-text field that follows (characters 132-139) -- the "third gender"
+## the paper drops (footnote 9). Check against footnote 8: in session 7 the 8
+## people coded 1 answered the Dutch-language version in 75% of cases ("most of
+## them are Dutch (75%...)"). 68 of 126 is 54.0% female, against 53.4% in the
+## paper. The third-gender answer is left missing.
 ## 126 students at CentERlab, Tilburg University, 2018, z-Tree.
 ## Holt-Laury list (instructions, Part 2): option A pays 3 or 2 EUR, option B pays
 ## 5 or 1 EUR, the high outcome with probability k/10 in row k -- not the standard
@@ -33,6 +38,7 @@ df <- df %>%
             task = "HL",
             choice = rowSums(across(starts_with("choice")) == 2),
             age,
+            gender = 1 - male,
             country = "Netherlands",
             city = "Tilburg")
 
