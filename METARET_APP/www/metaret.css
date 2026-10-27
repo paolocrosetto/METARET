@@ -40,6 +40,27 @@ h1 { font-size: 1.95em; } h2 { font-size: 1.5em; } h3 { font-size: 1.25em; }
   margin: 0 !important;
 }
 .metaret-intro strong { color: #1B2733; }
+/* the Download page lists its columns in a table, with the column names as
+   code: both keep the font, size and colour of the intro text instead of the
+   browser's monospace and the theme's pale table grey */
+.metaret-intro code {
+  font-family: inherit;
+  font-size: inherit;
+  color: #1B2733;
+  background: none;
+  padding: 0;
+}
+.metaret-intro table { border-collapse: collapse; margin: 8px 0; }
+.metaret-intro th,
+.metaret-intro td {
+  font-size: 16px;
+  line-height: 1.45;
+  color: rgba(0,0,0,.72);
+  text-align: left;
+  vertical-align: top;
+  padding: 3px 18px 3px 0;
+}
+.metaret-intro th { color: #1B2733; }
 
 .dashboard-body,
 .dashboard-body .tab-pane { scrollbar-gutter: stable both-edges; }

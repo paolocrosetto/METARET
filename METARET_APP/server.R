@@ -618,6 +618,11 @@ colnames_given_pattern <- function(.data, pattern){
                                               input$amongcorrs_1, drop = FALSE])(file)
       }
     )
+    ## these buttons sit on semantic.dashboard tabs hidden at start-up, so,
+    ## as for download_dump below, they must not be suspended or they never
+    ## receive a link and stay greyed out
+    for (id in c("dl_corr_tasks", "dl_corr_quest", "dl_corr_quest_task"))
+      outputOptions(output, id, suspendWhenHidden = FALSE)
 
     ## Demography page
     
@@ -839,54 +844,45 @@ colnames_given_pattern <- function(.data, pattern){
       updateCheckboxGroupInput(session, "agedist_q", NULL,choices=questionchoice_agetab)
     })
     
-    ## Download page 
-    
-      ## First tab download page
-    
-    output$page1 <- DT::renderDataTable({df %>%
-        select('subject', 'paper',
-               'task', "age", "gender",
-               "choice", "r") %>%
-        mutate(r = round(r, 3))})
+    ## Download page
+    ##
+    ## One file with everything, one row per subject and task exactly as in
+    ## df_mod.csv: a subject who did two tasks has two rows (their questionnaire
+    ## answers repeat), and a subject with questionnaires only has task "none".
+    ## Paper and sample details are joined on, so the file can be used without
+    ## the site. The columns are described in info_download.md.
+    dump_quest <- c("soep", "soep_financial", "soep_patience", "soep_impulsive",
+                    "doall", "dohealth", "dosocial", "doinvest", "dogamble",
+                    "doethic", "dorecre", "BIS", "BSSS", "AuditS", "CDCrisk")
+    dump_years <- tryCatch(
+      readr::read_csv("DATA/collection_years.csv", show_col_types = FALSE) %>%
+        select(bibkey, collected_from = year_from, collected_to = year_to),
+      error = function(e) tibble(bibkey = character(),
+                                 collected_from = integer(), collected_to = integer()))
+    dump <- df %>%
+      left_join(dump_years, by = "bibkey") %>%
+      transmute(bibkey, paper = citation, authors = author,
+                pub_year = as.integer(year), journal, doi = as.character(doi_2),
+                country, city, collected_from, collected_to,
+                subject, gender, age,
+                task = if_else(task == "quest_only", "none", task), choice, r,
+                across(all_of(dump_quest))) %>%
+      arrange(bibkey, subject, task)
 
-    output$downloadData <- downloadHandler(
-      filename = function() {
-        paste("data-", Sys.Date(), ".csv", sep="")
-      },
-      content = function(file) {
-        data <- df %>% 
-          select('subject', 'paper', 
-                 'task', 'age', 'gender', 'country',
-                 'choice', 'r')
-        write.csv(data, file)
-      }
+    output$page_dump <- DT::renderDataTable(
+      dump %>% mutate(r = round(r, 3)),
+      rownames = FALSE, class = "compact nowrap",
+      options = list(scrollX = TRUE, pageLength = 10))
+
+    output$download_dump <- downloadHandler(
+      filename = function() paste0("METARET_data_", Sys.Date(), ".csv"),
+      content = function(file) readr::write_csv(dump, file, na = "")
     )
-    
-    ## Second tab download page
-    output$page2 <- DT::renderDataTable({df %>% 
-        select('subject', 'paper', 'task',
-               starts_with('soep'), starts_with("do"), -doi_2,
-               'BIS', 'BSSS', 'AuditS', 'CDCrisk') %>%
-        pivot_longer(-c(subject, paper, task), values_to = 'choice', names_to = 'type of question') %>%
-        drop_na()})
-    
-    
-    
-    output$downloadData2 <- downloadHandler(
-      filename = function() {
-        paste("data-", Sys.Date(), ".csv", sep="")
-      },
-      content = function(file) {
-        data <- df %>% 
-          select('subject', 'paper', 'task', 'country', 'age', 'gender',
-                 starts_with('soep'), starts_with("do"), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', -doi_2) %>%
-          ## country is text, so it stays an id column instead of being pivoted
-          ## into the numeric answers
-          pivot_longer(-c(subject, paper, task, country), values_to = 'choice', names_to = 'type of question') %>%
-          drop_na()
-        write.csv(data, file)
-      }
-    )
+    ## The page is a semantic.dashboard tab, hidden when the session starts, and
+    ## Shiny is not told when it is shown: a suspended download link then never
+    ## gets its href and the button stays greyed out. The link costs nothing
+    ## until clicked, so it is kept live.
+    outputOptions(output, "download_dump", suspendWhenHidden = FALSE)
 
     ## map with crra 
 

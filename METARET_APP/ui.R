@@ -413,40 +413,17 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                        )))
                        )),
         
-        ## Download page
+        ## Download page: one file with tasks, questionnaires, paper and sample
         tabItem("tab_download",
-                tabBox(color = "black", width = 16,
-                  tabs = list(
-                  
-                  ## First tab with tasks 
-                  list(menu = "Tasks",  content = list(column(15,
-                    tags$div(class = "metaret-intro", includeMarkdown("info_download_task.md")),
-                    
-                    
-                    ## Download button code 
-                    h5(), h5(),
-                    downloadButton('downloadData', 'Download all task data',  
-                                   style="color: #fff; background-color: green; border-color: Black; padding: 5px 14px 5px 14px;margin: 5px 5px 5px 5px; ",
-                                   icon = shiny::icon('download')),
-                    h5()),
-                    
-                    ## Table with tasks information
-                    column(15, dataTableOutput("page1")))),
-                  
-                  ## Second tab with tasks 
-                  list(menu = "Questionnaires", content = list(column(15,
-                  
-                    tags$div(class = "metaret-intro", includeMarkdown("info_download_quest.md")),
-                    
-                    ## Download button code 
-                    h5(), h5(),
-                    downloadButton('downloadData2', 'Download all questionnaire data',  
-                                   style="color: #fff; background-color: green; border-color: Black; padding: 5px 14px 5px 14px;margin: 5px 5px 5px 5px; ",
-                                   icon = shiny::icon('download')),
-                    h5()),
-                    ## Table with questions information
-                    column(15, dataTableOutput("page2")))))
-                )),
+                fluidRow(column(16,
+                  tags$div(class = "metaret-intro", includeMarkdown("info_download.md")),
+                  h5(),
+                  downloadButton('download_dump', 'Download the full dataset (CSV)',
+                                 style="color: #fff; background-color: green; border-color: Black; padding: 5px 14px 5px 14px;margin: 5px 5px 5px 5px; ",
+                                 icon = shiny::icon('download')),
+                  h5(),
+                  dataTableOutput("page_dump")))
+                ),
 
         
         ## Map page

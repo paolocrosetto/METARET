@@ -27,6 +27,10 @@ df1 = df1 %>%
 
 df = rbind(df1, df2)
 
+## surveyFemale / female are "=1 if female", but 7 subjects carry -1, a third
+## answer with no label in either file; it is not male, so it is left missing
+df <- df %>% mutate(gender = if_else(gender %in% c(0, 1), as.numeric(gender), NA_real_))
+
 ## new ID
 df$subject = 1:nrow(df)
 # adding paper name and bibkey
