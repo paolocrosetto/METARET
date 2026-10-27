@@ -23,9 +23,13 @@ library(tidyverse)
 ##
 ## Only the FIRST list is used. The site holds one coefficient per subject per
 ## task and the two lists are different menus, so they cannot be pooled into one
-## switching point; the second list is also degenerate at the top, since its row
-## 1 (25 or 45 against 2 or 40) is dominated by the safe side. The first list is
-## the clean one and its menu is in the Bonnier2019 block of generate_r.R.
+## switching point. The second list's row 1 (25 or 45 against 2 or 40) is
+## dominated by the safe side; it reads as a built-in dominance check rather than
+## a typo (32 subjects took the risky side there, about as many as in rows 2 and
+## 3). It would add little: of the 113 subjects dropped from the first list only
+## 48 answer the second one cleanly, and among those clean on both the two counts
+## correlate at 0.64. So the first list is kept alone; its menu is in the
+## Bonnier2019 block of generate_r.R.
 ## Kept: the 538 subjects whose ten answers switch at most once; 113 switch more
 ## often, so their count is not a switching point.
 ## choice = number of risky choices.

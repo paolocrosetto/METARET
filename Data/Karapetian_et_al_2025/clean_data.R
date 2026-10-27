@@ -23,28 +23,37 @@ library(tidyverse)
 ## This reproduces the paper's control samples exactly: N = 76 (41% female) in
 ## Experiment 1 and N = 93 (52% female) in Experiment 2.
 ## Sex: 1 male, 2 female (checked against the shares reported in the paper).
-## Age was asked in brackets only, so it is not kept.
+## Age was asked in brackets only (D1 in both files). The authors' own scripts
+## (Exp 1.R, SI Exp 2.R in the data repository) recode 99 ... 105 to 1 ... 7 and
+## label them 18-24, 25-34, 35-44, 45-54, 55-64, 65-74, 75-84; the shares in the
+## paper (Experiment 1: 3% 18-24, 44% 25-34, 28% 35-44, 17% 45-54, 7.5% 55+)
+## fit that reading. age = bracket midpoint, as for Burro2026 (21, 29.5, ...).
+age_mid <- c(`99` = 21, `100` = 29.5, `101` = 39.5, `102` = 49.5, `103` = 59.5,
+             `104` = 69.5, `105` = 79.5)
 
-clean_control <- function(df, q, att1, att2, sex) {
-  df %>% 
-    filter(Group == "Control") %>% 
-    mutate(across(all_of(c(q, att1, att2, sex)), ~ suppressWarnings(as.numeric(.x)))) %>% 
+clean_control <- function(df, q, att1, att2, sex, age) {
+  df %>%
+    filter(Group == "Control") %>%
+    mutate(across(all_of(c(q, att1, att2, sex, age)), ~ suppressWarnings(as.numeric(.x)))) %>%
     filter(if_all(all_of(q), ~ !is.na(.x)),
-           .data[[att1]] == 1, .data[[att2]] == 2) %>% 
+           .data[[att1]] == 1, .data[[att2]] == 2) %>%
     transmute(choice = rowSums(across(all_of(q)) == 2),
               ## 1 - female, 0 - male
               gender = case_when(.data[[sex]] == 2 ~ 1,
                                  .data[[sex]] == 1 ~ 0,
-                                 TRUE ~ NA_real_))
+                                 TRUE ~ NA_real_),
+              age = unname(age_mid[as.character(.data[[age]])]))
 }
 
 ## Experiment 1: the first two rows of the Qualtrics export are labels
 exp1 <- read_csv("Data/Karapetian_et_al_2025/original_exp1.csv", show_col_types = FALSE) %>% 
   slice(-(1:2)) %>% 
-  clean_control(q = paste0("CGQ", 1:10), att1 = "CGATT1", att2 = "CGATT2", sex = "D6")
+  clean_control(q = paste0("CGQ", 1:10), att1 = "CGATT1", att2 = "CGATT2", sex = "D6",
+                age = "D1")
 
 exp2 <- read_csv("Data/Karapetian_et_al_2025/original_exp2.csv", show_col_types = FALSE) %>% 
-  clean_control(q = paste0("CG_HL", 1:10), att1 = "CG_ATT1", att2 = "CG_ATT2", sex = "Sex")
+  clean_control(q = paste0("CG_HL", 1:10), att1 = "CG_ATT1", att2 = "CG_ATT2", sex = "Sex",
+                age = "D1")
 
 df <- bind_rows(exp1, exp2) %>% 
   mutate(subject = row_number())

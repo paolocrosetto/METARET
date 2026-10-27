@@ -26,14 +26,23 @@ library(tidyverse)
 ## the table row by row. choice = gamble number, 1 (safe) to 5 (riskiest).
 ##
 ## The questionnaire recorded sex in English at Florida State and in Spanish at
-## Pompeu Fabra; 21 subjects left it blank. Age was not recorded.
+## Pompeu Fabra. Age was asked in brackets (edad): 18-20, 21-23, 24-26 and
+## "27 and above" ("27 y mas" in Spanish). In the csv, edad and sex are blank
+## for seven Spanish subjects of order cd, treatment 20; the authors' FinalCode.do
+## fills both by hand ("Completing the Spanish Database"), and
+## original_dataset.csv carries those corrections. 14 subjects are still blank
+## on sex and on age.
+## age = bracket midpoint (19, 22, 25), as for Burro2026; the open top bracket
+## is coded 28, the middle of a 27-29 bracket of the same width.
 df <- read_csv("Data/Hamman_Martinez_Carrasco_2023/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
   transmute(subject = row_number(),
             task = "EG_loss",
             choice = gamble,
-            age = NA_real_,
+            age = case_when(edad == "18 - 20" ~ 19, edad == "21 - 23" ~ 22,
+                            edad == "24 - 26" ~ 25, edad == "27 and above" ~ 28,
+                            TRUE ~ NA_real_),
             gender = case_when(sex %in% c("Female", "Femenino") ~ 1,
                                sex %in% c("Male", "Masculino") ~ 0,
                                TRUE ~ NA_real_),
