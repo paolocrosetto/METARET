@@ -1700,6 +1700,100 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Woerner et al. 2025: Gneezy-Potters investment, EUR 40, 2.5-fold.
+  if (bibkey == "Woerner2025"){
+    if (task == "IG") { out <- ig_crra(choice, X = 40, k = 2.5) }
+  }
+
+  ## Balafoutas et al. 2024: Gneezy-Potters investment, 100 units, the invested
+  ## part returns three times its amount with probability 1/2.
+  if (bibkey == "Balafoutas2024"){
+    if (task == "IG") { out <- ig_crra(choice, X = 100, k = 3) }
+  }
+
+  ## Agranov and Buyalskaya 2022: first of the two investment tasks, 200 points,
+  ## 2.5-fold with probability 1/2.
+  if (bibkey == "Agranov2022"){
+    if (task == "IG") { out <- ig_crra(choice, X = 200, k = 2.5) }
+  }
+
+  ## Corgnet et al. 2022: BRET with 49 boxes, so as for Crosetto2016 with N = 49;
+  ## collecting all 49 (r infinite) would be coded at 10, but nobody did.
+  if (bibkey == "Corgnet2022"){
+    if (task == "BRET") {
+      if (choice >= 49) { out <- 10 } else { out <- choice/(49-choice) }
+    }
+  }
+
+  ## Duffy et al. 2024: Holt-Laury at twice the original stakes (A 4 / 3.20,
+  ## B 7.70 / 0.20), so the original bounds apply; rk[k] is the r of
+  ## indifference at p = k/10. choice = number of B choices.
+  if (bibkey == "Duffy2024"){
+    if (task == "HL") {
+      rk <- c(2.713, 1.947, 1.487, 1.143, 0.854, 0.589, 0.324, 0.029, -0.368)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+  }
+
+  ## Beil et al. 2026: a fixed 500 + 500k ECU against 6,000 or 1,000 ECU at 1/2,
+  ## k = 1 ... 10. b[j] is the r at which the fixed 1,000 + 500j equals the
+  ## lottery (0.5 * 6000^r + 0.5 * 1000^r = s^r). choice = number of lottery
+  ## choices, taken in the first rows: lottery at row choice and fixed at row
+  ## choice + 1 put r between b[choice - 1] and b[choice]. Taking the lottery in
+  ## every row is coded at the top bound, taking it only against the dominated
+  ## 1,000 at the bottom one. A risk-neutral subject takes it five times, r 0.52
+  ## to 1.
+  if (bibkey == "Beil2026"){
+    if (task == "CEPL") {
+      b <- c(-1.564, -0.523, 0.051, 0.523, 1.000, 1.564, 2.359, 3.796, 7.966)
+      if (choice >= 10) { out <- b[9] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = b[choice - 1], max = b[choice]) }
+      if (choice <= 1) { out <- b[1] }
+    }
+  }
+
+  ## Guo and Recalde 2023: a 50-50 lottery between 1 and 2 against 3 with
+  ## probability q, q = 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 95% in rows
+  ## 1-13. bq[j] solves 0.5 + 0.5 * 2^r = q_j * 3^r: B is taken in row j when
+  ## r > bq[j]. choice = number of B choices, so the switch is at row 14 - choice
+  ## and r lies between bq[14 - choice] and bq[13 - choice]. B in every row is
+  ## coded at bq[1], never B at bq[13]. Risk neutrality switches at q = 50%.
+  if (bibkey == "Guo2023"){
+    if (task == "CEPL") {
+      bq <- c(5.725, 4.108, 2.629, 2.196, 1.860, 1.361, 1.000, 0.720, 0.494,
+              0.395, 0.304, 0.142, 0.069)
+      if (choice >= 13) { out <- bq[1] }
+      if (choice >= 1 & choice <= 12) { out <- runif(1, min = bq[14 - choice], max = bq[13 - choice]) }
+      if (choice <= 0) { out <- bq[13] }
+    }
+  }
+
+  ## Ifcher and Zarghamee 2024: USD 0 ... 10 for sure against 10 or 0 at 1/2.
+  ## choice = the first sure amount taken, so the certainty equivalent is in
+  ## (choice - 1, choice) and the staircase inversion applies; a switch at 10
+  ## (CE between 9 and 10) is coded at the r of CE = 9, 6.579.
+  if (bibkey == "Ifcher2024"){
+    if (task == "CEPL") { out <- ce_stair_crra(lo = choice - 1, hi = choice, X = 10, p = 0.5, top = 6.579) }
+  }
+
+  ## Schwerter 2024: a sure 3 EUR against X_k with probability p_k, else 0,
+  ## k = 1 ... 20 (3.40 at 97% ... 16.23 at 2%). b[k] = log(p_k) / log(3 / X_k)
+  ## is the r at which 3^r = p_k X_k^r; the lottery is taken in row k when r >
+  ## b[k]. choice = the row where the subject moves to the sure 3 EUR, so r lies
+  ## between b[choice - 1] and b[choice]; moving at row 1 is coded at b[1],
+  ## never moving (21) at b[20]. Risk neutrality moves at row 16.
+  if (bibkey == "Schwerter2024"){
+    if (task == "CEPL") {
+      b <- c(0.243, 0.271, 0.302, 0.334, 0.368, 0.403, 0.440, 0.479, 0.522, 0.568,
+             0.619, 0.676, 0.740, 0.813, 0.900, 1.005, 1.140, 1.324, 1.615, 2.317)
+      if (choice <= 1) { out <- b[1] }
+      if (choice >= 2 & choice <= 20) { out <- runif(1, min = b[choice - 1], max = b[choice]) }
+      if (choice >= 21) { out <- b[20] }
+    }
+  }
+
   if (bibkey == "Finger2023"){
     if (task == "HL") {
       rk <- c(2.747, 1.972, 1.504, 1.155, 0.860, 0.588, 0.316, 0.013, -0.399)

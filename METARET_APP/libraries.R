@@ -77,7 +77,7 @@ questionchoice <- c("SOEP" = "soep",
                     "DOSPERT - recreation" = "dorecre", 
                     "Barratt impulsiveness scale" = 'BIS',
                     "Brief Sensation seeking scale" = 'BSSS',
-                    'Alcohol Use DIsorders Test' = 'AuditS',
+                    'Alcohol Use Disorders Test' = 'AuditS',
                     'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
 ## list for the question choices 
@@ -94,7 +94,7 @@ questionchoice_cor <- c("SOEP" = "soep",
                     "DOSPERT - recreation" = "dorecre", 
                     "Barratt impulsiveness scale" = 'BIS',
                     "Brief Sensation seeking scale" = 'BSSS',
-                    'Alcohol Use DIsorders Test' = 'AuditS',
+                    'Alcohol Use Disorders Test' = 'AuditS',
                     'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
 ## list for the question choices 
@@ -114,10 +114,10 @@ questionchoice_agetab <- c("SOEP" = "soep",
                     "DOSPERT - recreation" = "dorecre", 
                     "Barratt impulsiveness scale" = 'BIS',
                     "Brief Sensation seeking scale" = 'BSSS',
-                    'Alcohol Use DIsorders Test' = 'AuditS',
+                    'Alcohol Use Disorders Test' = 'AuditS',
                     'Youth Risk Behavior Surveillance (risk)' = 'CDCrisk')
 
-## correlation tab
+## gender tab by questionnaire
 questionchoice_gender <- c("SOEP" = "soep",
                     "SOEP - financial" = "soep_financial",
                     "SOEP - patience" = "soep_patience",

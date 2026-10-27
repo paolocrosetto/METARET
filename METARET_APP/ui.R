@@ -340,8 +340,12 @@ ui <- dashboardPage(theme  = "solar", dashboardHeader(title = 'METARET'),
                                  actionButton("selectallcorrquest", "Select/Deselect all"),
                                  multiple_checkbox("amongquest",
                                                    label = NULL,
-                                                   choices = names(questionchoice_gender),
-                                                   choices_value = unname(questionchoice_gender),
+                                                   ## the full list, as the Select/Deselect all
+                                                   ## button in server.R uses: BIS, BSSS, AUDIT
+                                                   ## and CDC only correlate among themselves
+                                                   ## (one paper, Fairley2019)
+                                                   choices = names(questionchoice),
+                                                   choices_value = unname(questionchoice),
                                                    position = 'inline',
                                                    selected = c("soep", "dohealth", 'dogamble')))),
                              ## the figure's download

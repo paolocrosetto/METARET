@@ -20,10 +20,14 @@ wide_tasks <- df %>%
   pivot_wider(id_cols = subject, names_from = "task", values_from = "r") %>%
   select(-subject)
 
-##  questionnaire answers 
+##  questionnaire answers, one row per person. Keeping only rows with a SOEP
+##  answer dropped every paper without SOEP (BIS, BSSS, AUDIT and CDC, which come
+##  from Fairley2019 alone, and the DOSPERT-only papers), and people with
+##  several task rows were counted once per task.
 wide_quest <- df %>%
-  select(all_of(quest_cols)) %>%
-  filter(!is.na(df$soep))
+  filter(if_any(all_of(quest_cols), ~ !is.na(.x))) %>%
+  distinct(subject, .keep_all = TRUE) %>%
+  select(all_of(quest_cols))
 
 ## subject x (task + questionnaire) matrix
 wide_task_quest <- df %>%
