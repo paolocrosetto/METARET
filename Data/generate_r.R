@@ -1542,8 +1542,9 @@ get_r <- function(bibkey, task, choice) {
   ## Halim et al. 2025: 1 SGD for sure against 3 SGD with probability (k - 1) / 10 in
   ## row k. A is kept while p <= 3^(-r), so switching point k (A in row k - 1, B in
   ## row k) gives r between log(10 / (k - 1)) / log(3) and log(10 / (k - 2)) / log(3);
-  ## 2 and 11 are open-ended and coded at their bound
-  if (bibkey == "Halim2025"){
+  ## 2 and 11 are open-ended and coded at their bound.
+  ## Halim et al. 2019 ran the same list in the same lab.
+  if (bibkey == "Halim2025" | bibkey == "Halim2019"){
     if (task == "CEPL") {
       if (choice == 2)  { out <- log(10) / log(3) }
       if (choice == 11) { out <- log(10 / 9) / log(3) }
