@@ -14,8 +14,20 @@ library(tidyverse)
 ## Kibera, Nairobi, in the Busara Center lab: two visits a week apart, one
 ## with incentivized experiments and one with the survey. The qualitative
 ## risk item of the survey is the GPS / SOEP self-assessment on 0 to 10
-## ("using a scale from 0 to 10"), s_risk_qual. The rows are 'quest_only' and
-## generate_data_for_app.R moves `choice` into `soep`.
+## ("using a scale from 0 to 10"), s_risk_qual; it goes into soep.
+##
+## The task coded is the quantitative risk item of the same survey visit: the
+## GPS staircase of Falk et al. (CE_staircase), hypothetical, five binary
+## choices between a 50/50 draw of KSh 900 (else 0) and a sure amount. The
+## variable labels of s_risk_q74 ... s_risk_q104 give the 31 sure amounts, 30,
+## 60, ..., 930: the GPS tree (lottery 300, sure amounts 10 ... 310) times 3.
+## The first sure amount is 480, then +-240, +-120, +-60, +-30 (up after the
+## lottery, down after the sure amount). Rebuilding each path from those five
+## answers gives the authors' s_risk_quant (1 ... 32) for all 123 rows, so
+## choice = s_risk_quant and the CE lies in [30 (choice - 1), 30 choice] --
+## the same choice-to-r mapping as Bittner2024. 13 people took the draw even
+## against a sure 930 (choice 32) and 2 against a sure 900 (choice 31); as for
+## Bittner2024 they are kept and coded at the bound r(870).
 ##
 ## THE INCENTIVIZED TASK IS NOT CODED YET. It is a certainty-equivalent list,
 ## "21 binary choices between a lottery that yielded a positive amount or zero
@@ -30,21 +42,22 @@ library(tidyverse)
 ## survey visit (s_gender, s_age); four ages are missing.
 df <- read_csv("Data/Bauer_et_al_2020/original_dataset.csv", show_col_types = FALSE)
 
-stopifnot(nrow(df) == 120, all(df$risk_qual %in% 0:10))
+stopifnot(nrow(df) == 120, all(df$risk_qual %in% 0:10), all(df$risk_quant %in% 1:32))
 
 df <- df %>%
   transmute(subject,
-            task = "quest_only",
-            ## choice is what generate_data_for_app.R moves into soep
-            choice = risk_qual,
+            task = "CE_staircase",
+            choice = risk_quant,
+            soep = risk_qual,
             gender = case_when(s_gender == "Female" ~ 1, s_gender == "Male" ~ 0,
                                TRUE ~ NA_real_),
             age = s_age,
             bibkey = "Bauer2020",
             paper = "Bauer et al. 2020")
 
-## no task coded, so no CRRA coefficient: generate_r.R is deliberately not sourced
-df <- df %>% mutate(r = NA_real_)
+## Computing the CRRA (x^r) coefficient of risk aversion from the task data
+source("Data/generate_r.R")
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
 
 ## Busara Center, Nairobi; participants from Kibera
 df$country = 'Kenya'

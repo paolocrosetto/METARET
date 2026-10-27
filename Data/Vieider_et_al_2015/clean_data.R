@@ -40,6 +40,15 @@ library(tidyverse)
 ## original_dataset.csv keeps the subject number, this CE, the authors' female
 ## and age variables and the country name; the other 43 CEs and the 30 country
 ## dummies are dropped.
+## financial is the SOEP domain question "How would you rate your willingness to
+## take risks ... in financial matters?" (0 = risk averse, 10 = fully prepared to
+## take risks), from data_30countries.csv in the replication files of
+## l'Haridon & Vieider (2019), Quantitative Economics 10(1), 185-215,
+## https://doi.org/10.3982/QE898 (645-3082-1-SP.zip). Its subject_global is this
+## file's subject: CE of task 3, female, age and country agree for all 2,927;
+## 30 left the question blank. The other five domains (driving, sport,
+## occupation, health, faith in people) have no column on the site, and the
+## general SOEP question was asked but is not in the data.
 df <- read_csv("Data/Vieider_et_al_2015/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(all(abs((df$equivalent - 0.25) / 0.5 - round((df$equivalent - 0.25) / 0.5)) < 1e-9))
@@ -50,6 +59,7 @@ df <- df %>%
             choice = round((equivalent - 0.25) / 0.5),
             age,
             gender = female,
+            soep_financial = financial,
             country = case_when(country == "UK" ~ "United Kingdom",
                                 country == "USA" ~ "United States",
                                 TRUE ~ country))

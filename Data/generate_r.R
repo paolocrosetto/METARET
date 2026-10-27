@@ -1408,6 +1408,15 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Bauer et al. 2020: the same GPS staircase in Kenyan shillings, every amount
+  ## times 3 (lottery 900, sure amounts 30 ... 930), so the bounds are Bittner's
+  if (bibkey == "Bauer2020"){
+    if (task == "CE_staircase") {
+      out <- ce_stair_crra(lo = 30 * (choice - 1), hi = 30 * choice, X = 900,
+                           top = log(0.5) / log(870 / 900))
+    }
+  }
+
   ## Schmidt 2025.
   ## EG: eight 50/50 lotteries 8/8, 7/10, 6/12, 5/14, 4/16, 3/18, 2/20, 1/21.
   ## Bounds make adjacent lotteries indifferent; 7 and 8 have the same expected
