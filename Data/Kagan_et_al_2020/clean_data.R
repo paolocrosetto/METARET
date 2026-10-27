@@ -21,7 +21,8 @@ library(tidyverse)
 ## method", but only in the OPTOUT (treatment 8) and CLAIM (9) treatments.
 ## risk is labelled "Risk aversion switching decision" and runs 1-10 with no 0
 ## and no 11; it is read as the row at which the subject switched to the risky
-## option, so the number of safe choices is risk - 1. Subjects with several
+## option B. choice is the number of B choices, as for the other HL papers:
+## B from row risk to row 10, so choice = 11 - risk. Subjects with several
 ## switching points have risk missing ("6 subjects in OPTOUT and 9 subjects in
 ## CLAIM", online appendix), leaving 129 answers. The payoffs are not given (the
 ## software is "available from the authors upon request"); the standard HL list
@@ -37,7 +38,7 @@ df <- df %>%
   filter(!is.na(risk)) %>%
   transmute(subject = id,
             task = "HL",
-            choice = risk - 1,
+            choice = 11 - risk,
             gender = if_else(sex == 0, 1, 0),
             age = if_else(age > 0, age, NA_real_),
             country = "United States",

@@ -350,7 +350,7 @@ get_r <- function(bibkey, task, choice) {
   ## Buyukboyaci et al. 2026 the same list x 5 in ECU. Schipper 2023 used the list x 2
   ## shifted by one row; its choice is recoded to the standard count in clean_data.R.
   ## Kagan et al. 2020 do not give their payoffs; the standard list is assumed and
-  ## the switching row is turned into the count of safe choices in clean_data.R.
+  ## the switching row is turned into the count of B choices in clean_data.R.
   if (bibkey == "Brunner2014" | bibkey == "Dursch2012" | bibkey == "Proto2018" | bibkey == "Kirchkamp2021" | bibkey == "Roth2016" | bibkey == "Dursch2017" | bibkey == "Karapetian2025" | bibkey == "Buyukboyaci2026" | bibkey == "Schipper2023" | bibkey == "Kagan2020") {
     if (task == "HL") {
       if (choice == 10) { out <- 2.71 }
@@ -1568,6 +1568,47 @@ get_r <- function(bibkey, task, choice) {
   ## row k) gives r between log(10 / (k - 1)) / log(3) and log(10 / (k - 2)) / log(3);
   ## 2 and 11 are open-ended and coded at their bound.
   ## Halim et al. 2019 ran the same list in the same lab.
+  ## Buser, Van Veldhuizen and Zhong 2025: 11 rows, a sure EUR 4 or a lottery
+  ## paying EUR 6 with probability (row - 1)/10 and EUR 2 otherwise. choice = rows
+  ## where the lottery was taken (all single switchers; the dominated 0 and 11 are
+  ## dropped in clean_data.R), so the switch lies at a probability p of EUR 6 in
+  ## ((10 - choice)/10, (11 - choice)/10]. Indifference u(4) = p u(6) + (1 - p) u(2)
+  ## under CRRA gives r = 5.634, 3.826, 2.685, 1.790, 1.000, 0.239, -0.559,
+  ## -1.495, -2.839 at p = 0.1 ... 0.9; r falls as p rises. The open ends
+  ## (choice 1 and 10) take the bound.
+  if (bibkey == "BuserVanVeldhuizen2025"){
+    if (task == "CEPL") {
+      rp <- c(5.634, 3.826, 2.685, 1.790, 1.000, 0.239, -0.559, -1.495, -2.839)
+      if (choice == 1)  { out <- rp[9] }
+      if (choice == 10) { out <- rp[1] }
+      if (choice > 1 & choice < 10) { out <- runif(1, min = rp[11 - choice], max = rp[10 - choice]) }
+    }
+  }
+
+  ## Fornwagner et al. 2023: Holt-Laury list with A = GBP 2.20 / 1.75 and
+  ## B = 4.20 / 0.10, the high payoff with probability k/10 in row k. Indifference
+  ## in row k gives rk[k] (CRRA, log at r = 0); choice = number of B choices
+  ## (single switchers, 1 ... 10), as for Flambard2024.
+  if (bibkey == "Fornwagner2023"){
+    if (task == "HL") {
+      rk <- c(2.725, 1.958, 1.498, 1.154, 0.867, 0.604, 0.342, 0.052, -0.339)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+  }
+
+  ## Mahmoud 2022: CE of a 50/50 lottery of CHF 5 or 0 from sure amounts CHF 0.50,
+  ## 1, ..., 5; choice = number of sure amounts against which the lottery was
+  ## taken (0 ... 9), so the CE lies in [0.5 choice, 0.5 (choice + 1)].
+  ## choice 9 reaches CHF 5 and is coded at r(4.5).
+  if (bibkey == "Mahmoud2022"){
+    if (task == "CEPL") {
+      out <- ce_stair_crra(lo = 0.5 * choice, hi = 0.5 * (choice + 1), X = 5,
+                           top = log(0.5) / log(4.5 / 5))
+    }
+  }
+
   if (bibkey == "Halim2025" | bibkey == "Halim2019"){
     if (task == "CEPL") {
       if (choice == 2)  { out <- log(10) / log(3) }

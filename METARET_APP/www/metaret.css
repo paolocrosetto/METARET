@@ -1,6 +1,11 @@
 .shiny-output-error { visibility: hidden; }
 .shiny-output-error:before { visibility: hidden; }
 
+/* One font everywhere: R's own sans (Helvetica on a Mac, Arial elsewhere), the
+   font of the text drawn inside the plots, instead of the solar theme's Source
+   Sans Pro. Icon fonts (<i> elements, .icon) keep their own. */
+body, body *:not(i):not(.icon) { font-family: Helvetica, Arial, sans-serif !important; }
+
 body, .ui.form, .ui.menu, .ui.segment, p, li, td, th, label { font-size: 17px; }
 .ui.table td, .ui.table th,
 table.dataTable td, table.dataTable th { font-size: 15.5px; }
@@ -303,8 +308,6 @@ h1 { font-size: 1.95em; } h2 { font-size: 1.5em; } h3 { font-size: 1.25em; }
 .metaret-picker .ui.checkbox label[for*="_"] { padding-left: 2.4em; }
 
 .metaret-note {
-  /* R's own sans (Helvetica, Arial elsewhere), as in the text drawn inside the plots */
-  font-family: Helvetica, Arial, sans-serif;
   max-width: 110ch;
   margin: 10px 0 4px 0;
   color: rgba(0,0,0,.70);

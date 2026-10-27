@@ -187,3 +187,7 @@ Haile2020,2017,2017,inferred,"paper: questionnaire on the 2017 farming season (T
 VonEssen2020,2014,2016,exact,"paper: Aarhus, Aalto (Helsinki) and BI (Oslo) labs during fall 2014 to spring 2016; survey dates 08.2014-03.2016"
 Dai2018,2014,2014,exact,"Date variable in DGV_MS_2016.dta: 7-18 November 2014, Lyon"
 Cohn2022,2013,2014,start_only,"paper: Experiment 1 wave 1 in October-November 2013, wave 2 one year later; Experiment 2 is not dated"
+BuserVanVeldhuizen2025,2021,2021,start_only,"paper: online experiment with the CREED (Amsterdam) pool in June 2021; the date of the student survey is not given"
+Fornwagner2023,2020,2020,exact,"readme: date of data collection March 2020, Nottingham"
+Falk2023,2010,2011,exact,"paper: two lab sessions at the University of Bonn in winter 2010/2011"
+Mahmoud2022,2018,2018,exact,"participant.time_started in RAW_DATA.xls: 9-30 January 2018"
