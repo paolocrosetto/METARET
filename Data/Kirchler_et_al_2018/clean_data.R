@@ -16,7 +16,13 @@ library(tidyverse)
 ## Innsbruck (Austria)" in the Innsbruck EconLab. The lab-in-the-field file holds
 ## only STUD (prof = 0, prof_word = "Students"), one row per subject and period
 ## of the investment game; original_dataset.csv keeps one row per subject
-## (subjectid). The online file (PROF ONLINE) has no risk measure.
+## (subjectid). The professionals' data are not released: "Disclosure of the data
+## set of the lab-in-the-field experiment with financial professionals is
+## restricted because of nondisclosure agreements (NDA) with the participating
+## financial institutions" (Kirchler_etal_JF_code_v2.do). The online file (PROF
+## ONLINE) has no risk measure. The student sessions are not dated; the risky
+## asset is calibrated on returns up to December 2013 and the version of September
+## 2017 reports them, so 2014-2017.
 ##
 ## Task: Part 2, Section 1, "7 decisions ... OPTION A: A payment with 100%
 ## probability ... OPTION B: either 0 euro with 50% probability or 24 euro with

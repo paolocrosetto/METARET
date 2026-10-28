@@ -17,10 +17,11 @@ library(tidyverse)
 ##
 ## No risk task in the data. The baseline survey asked "How do you see yourself?
 ## Are you generally a person who is fully prepared to take risks or do you try
-## to avoid taking risks?" The paper gives the scale as 1 to 10, but
-## willingrisk1to10 runs 0-10 (49 answers of 0), the 11-point scale of Dohmen et
-## al. (2011), and is taken as such. It goes into soep as a questionnaire-only
-## row.
+## to avoid taking risks?" The paper (footnote 26) and the variable label say 1 to
+## 10, but willingrisk1to10 has 11 values, 0-10, and no missing answers, and the
+## authors' own balance table counts the 49 zeros as answers (log/Table2.smcl:
+## means 4.716 and 4.344), so it is the 11-point scale of Dohmen et al. (2011).
+## It goes into soep as a questionnaire-only row.
 ##
 ## male: 1 = man; age in years.
 df <- read_csv("Data/Jha_Shayo_2019/original_dataset.csv", show_col_types = FALSE)

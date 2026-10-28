@@ -226,3 +226,5 @@ Cipriani2018,2016,2016,exact,"session codes in holt_laury.dta: June to October 2
 CrockettDuffy2019,2009,2014,exact,"raw Holt-Laury files hl_090716 ... hl_140326 and individual choice sessions 111028 ... 111118, University of Pittsburgh"
 Breunig2021,2013,2013,exact,"created.at of the laboratory sessions: March 19 - April 10, 2013, WZB-TU Berlin decision laboratory"
 Siddique2020,2016,2016,exact,"paper: lab-in-the-field experiment in the summer of 2016, Rajshahi district villages"
+Kirchler2018,2014,2017,inferred,"paper: the risky asset is calibrated on returns from January 1994 to December 2013, and the version of September 14, 2017 already reports the 432 students; exact dates not given"
+Jaspersen2022,2018,2018,exact,"clean_data.R: 1,730 subjects in March 2018, mTurk and University of Wisconsin-Madison"

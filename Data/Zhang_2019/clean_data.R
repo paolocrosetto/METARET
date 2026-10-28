@@ -20,8 +20,14 @@ library(tidyverse)
 ## rate. If the investment turned out to be successful, it returned three times
 ## the amount invested; otherwise, the money invested was lost." AmountInvested.
 ##
-## sex is coded 1/2 with no label in the file or the paper, so gender is left
-## empty; age in years.
+## sex is coded 1/2 with no label in the file or the paper (nor in the author's
+## earlier deposit of the same data, Mendeley 10.17632/998pc9y8jc, commonfate.csv,
+## in raw_repository/mendeley_998pc9y8jc). It is read as 1 = male, 2 = female from
+## the majors, which do not depend on the risk task: Management/Business 15 vs 5
+## and Economics 4 vs 0 against Liberal Arts 1 vs 5, Education 0 vs 2 and
+## Humanities 0 vs 1 (code 1 vs code 2), the US pattern by sex. The investment
+## itself is not used to decide, so the gender gap of this paper is not built in.
+## age in years.
 df <- read_csv("Data/Zhang_2019/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 96, all(df$AmountInvested %in% seq(0, 5, 0.5)))
@@ -31,7 +37,7 @@ df <- df %>%
             task = "IG",
             choice = AmountInvested,
             age,
-            gender = NA_real_,
+            gender = case_when(sex == 2 ~ 1, sex == 1 ~ 0),
             country = "United States",
             city = "",
             bibkey = "Zhang2019",

@@ -13,7 +13,7 @@ Here you can inspect and download **the full dataset** in a single file, includi
 | `choice` | the subject's answer in the task |
 | `r` | risk attitude on a common scale: the coefficient of a CRRA utility u(x) = x^r implied by the choice |
 | `soep`, `soep_financial`, `soep_patience`, `soep_impulsive` | SOEP self-assessments, 0 to 10 |
-| `doall`, `dohealth`, `dosocial`, `doinvest`, `dogamble`, `doethic`, `dorecre` | DOSPERT, overall and by domain |
+| `doall`, `dohealth`, `dosocial`, `doinvest`, `dogamble`, `doethic`, `dorecre` | DOSPERT, overall and by domain, 1 to 7 |
 | `BIS`, `BSSS`, `AuditS`, `CDCrisk` | Barratt Impulsiveness Scale, Brief Sensation Seeking Scale, AUDIT, Youth Risk Behavior Survey |
 
 Where a questionnaire boils down to a single score, that score is reported rather than the answers to its individual items.

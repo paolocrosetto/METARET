@@ -27,10 +27,13 @@ library(tidyverse)
 ## the raw log, renamed risk.tolerance), 0-10; 3 students have no answer. It goes
 ## into soep as a questionnaire-only row.
 ##
-## gender is stored as 1 / 2 with no label in the files, and the authors' own
-## female = (gender == 'female') does not match these codes, so gender is left
-## empty. age in years; one entry of 1984 is a birth year, not an age, and is
-## left empty.
+## gender is stored as 1 / 2 with no label in the files (the authors' own
+## female = (gender == 'female') matches neither code). It is read with the SOEP
+## coding the questionnaire repeats, 1 = male and 2 = female, as in the authors'
+## SOEP-IS import (c('male','female')[psex]); code 1 is also 125 of 197, the
+## majority one would expect in the TU Berlin pool. One student has no gender.
+## age in years; one entry of 1984 is a birth year, not an age, and is left
+## empty.
 df <- read_csv("Data/Breunig_et_al_2021/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 198, all(df$risk.tolerance %in% c(0:10, NA)))
@@ -43,7 +46,7 @@ df <- df %>%
             ## choice into soep
             choice = risk.tolerance,
             r = NA_real_,
-            gender = NA_real_,
+            gender = case_when(gender == 2 ~ 1, gender == 1 ~ 0),
             age = if_else(age < 100, age, NA_real_),
             country = "Germany",
             city = "Berlin")

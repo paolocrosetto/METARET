@@ -31,16 +31,29 @@ bart <- bart %>%
 # Quetionnaires -- note MANY MORE done, now only using some for the time being
 quest <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/quest/quest_scores.csv")
 
-quest <- quest %>% 
-  select(subject = partid, 
-                soep = SOEP,
-                dogamble = Dgam,
-                doinvest = Dinv,
-                dohealth = Dhea,
-         Deth, Drec, Dsoc) %>% 
-  mutate(soep = soep - 1) %>% 
-  mutate(doall = 1+(Deth+Drec+dogamble+dohealth+doinvest+Dsoc)/6) %>%  ##TODO this is just a hack, as renato about this
-  select(-Deth, -Drec, -Dsoc)
+## DOSPERT: the 40-item German version, answered "von 1 bis 5" (sehr
+## unwahrscheinlich ... sehr wahrscheinlich; quest_print.pdf). Deth, Dhea, Drec and
+## Dsoc are the means of their 8 items, Dgam and Dinv of their 4 (Dgam is exactly
+## items 3, 11, 22 and 33), so doall, the mean of all 40 items, is the item-weighted
+## mean of the six; checked against the raw items in quest_raw.csv, it matches the
+## item mean for 99.7% of the participants. The other DOSPERT data in METARET use
+## the 1-7 scale, so every score is rescaled linearly, as for Michael2020:
+## 1 + (x - 1) * 6 / 4.
+to7 <- function(x) 1 + (x - 1) * 6 / 4
+
+quest <- quest %>%
+  select(subject = partid,
+         soep = SOEP,
+         Deth, Dinv, Dgam, Dhea, Drec, Dsoc) %>%
+  mutate(soep = soep - 1,
+         doall    = to7((8 * (Deth + Dhea + Drec + Dsoc) + 4 * (Dgam + Dinv)) / 40),
+         doethic  = to7(Deth),
+         doinvest = to7(Dinv),
+         dogamble = to7(Dgam),
+         dohealth = to7(Dhea),
+         dorecre  = to7(Drec),
+         dosocial = to7(Dsoc)) %>%
+  select(-Deth, -Dinv, -Dgam, -Dhea, -Drec, -Dsoc)
 
 # CEPL -- multiple price list
 hl <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/mpl/mplBehavior.csv")
@@ -60,7 +73,8 @@ df <- left_join(df, hl, by = "subject")
 
 ## gathering
 df <- df %>% 
-  gather(task, choice, -subject, -gender, -age, -soep, -doall, -dogamble, -doinvest, -dohealth, -country)
+  gather(task, choice, -subject, -gender, -age, -soep, -doall, -doethic, -dogamble, -doinvest,
+         -dohealth, -dorecre, -dosocial, -country)
 
 ## 
 df <- df %>% 
