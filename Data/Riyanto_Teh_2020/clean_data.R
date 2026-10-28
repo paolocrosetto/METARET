@@ -24,6 +24,12 @@ library(tidyverse)
 ## which option. It is read as the number of B (risky) choices: then only 2 of 240
 ## took B even at a 0% chance (the dominated choice), against 8 with the other
 ## reading, and the name is a preference for risk. Those 2 are dropped.
+## Rechecked 28.10.2026: the z-Tree program stores only Choice[1..10] (1 = A,
+## 2 = B) and computes no count; the line choices are published nowhere (the
+## Mendeley file's Risk column equals RiskPref for all 200 matched subjects).
+## RiskPref correlates weakly positively with choosing stag, the risky action of
+## the coordination game (Spearman 0.05, p = 0.43), the sign the B reading
+## predicts. Not proven, so the authors are asked to confirm.
 ## choice = RiskPref; the number of A choices is 10 - choice.
 ##
 ## Gender: 1 = woman (105 of 240, the paper's "around 44%"); Age in years.

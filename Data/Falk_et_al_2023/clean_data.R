@@ -17,30 +17,43 @@ library(tidyverse)
 ## MainSample_Replication.dta has one row per subject; the file has no age or
 ## sex. The small test-retest and pretest samples are not used.
 ##
-## The incentivized risk experiments were two price lists (a sure 0, 50, ...,
-## 1,000 points against 1,000 points with probability 0.5), but the file keeps
-## only x_risk_av, the average of the two switching rows, not each list, so no
-## task is taken.
+## The incentivized risk experiment was two price lists of 21 rows each: the
+## same lottery, 1,000 points with probability 0.5 and 0 otherwise, against a
+## sure 0, 50, ..., 1,000 points, the second list with every sure amount moved
+## by a random -5 to +5 points (online appendix A). The file keeps x_risk_av,
+## the average over the two lists of the first row in which the sure amount was
+## taken (2 to 22). As the lists are the same up to five points, that average
+## still pins the certainty equivalent: x.0 when both lists agree (199
+## subjects), x.5 when they differ by one row (142). The remaining 54 values
+## (3.17, 7.125, ...) can only come from several switch points within a list,
+## and 22 means the sure 1,000 was never taken (dominated, 2 subjects); these
+## stay questionnaire-only. The bounds are in the Falk2023 block of
+## generate_r.R. Checked on 28.10.2026 from the online appendix, so nothing has
+## to be asked of the authors.
 ##
 ## v_94, "Risk: willingness to take risks", is the general risk question of
-## Dohmen et al. (2011), 0-10, answered by 394 subjects; it goes into soep as a
-## questionnaire-only row.
+## Dohmen et al. (2011), 0-10, answered by 394 subjects; it goes into soep, on
+## the CEPL row where there is one and as a questionnaire-only row otherwise.
 df <- read_csv("Data/Falk_et_al_2023/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 409, sum(!is.na(df$v_94_general_risk)) == 394)
 
 df <- df %>%
-  filter(!is.na(v_94_general_risk)) %>%
+  mutate(cepl = !is.na(x_risk_av) & abs(2 * x_risk_av - round(2 * x_risk_av)) < 1e-6 &
+                x_risk_av >= 2 & x_risk_av < 22) %>%
+  filter(cepl | !is.na(v_94_general_risk)) %>%
   transmute(subject = row,
-            task = "quest_only",
+            task = if_else(cepl, "CEPL", "quest_only"),
             ## for questionnaire-only rows generate_data_for_app.R moves
             ## choice into soep
-            choice = v_94_general_risk,
-            r = NA_real_,
+            choice = if_else(cepl, round(2 * x_risk_av) / 2, v_94_general_risk),
+            soep = if_else(cepl, v_94_general_risk, NA_real_),
             gender = NA_real_,
             age = NA_real_,
             country = "Germany",
             city = "Bonn")
+
+stopifnot(sum(df$task == "CEPL") == 341)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -50,6 +63,12 @@ df <- df %>%
 ## the map shows only the country, so no coordinates
 df$lattitude = ''
 df$longitude = ''
+
+## Computing the CRRA (x^r) coefficient of risk aversion from the task data
+source("Data/generate_r.R")
+cepl <- df$task == "CEPL"
+df$r <- NA_real_
+df$r[cepl] <- purrr::pmap_dbl(list(df$bibkey[cepl], df$task[cepl], df$choice[cepl]), get_r)
 
 # Order of variables
 df <- df %>%

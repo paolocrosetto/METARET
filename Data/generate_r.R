@@ -1294,6 +1294,21 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Falk et al. 2023: two 21-row price lists, a sure 0, 50, ..., 1000 points
+  ## (the second perturbed by -5 to +5 points) against 1000 points with
+  ## probability 0.5 (online appendix A). choice is x_risk_av, the average of
+  ## the two first rows in which the sure amount was taken, so x.0 or x.5; the
+  ## certainty equivalent lies between the sure amounts of rows floor(x) - 1 and
+  ## ceiling(x): 50 * (floor(x) - 2) and 50 * (ceiling(x) - 1). The top cell
+  ## takes its lower bound, as for the other lists here.
+  if (bibkey == "Falk2023") {
+    if (task == "CEPL") {
+      lo <- 50 * (floor(choice) - 2)
+      out <- ce_stair_crra(lo = lo, hi = 50 * (ceiling(choice) - 1),
+                           X = 1000, p = 0.5, top = log(0.5) / log(max(lo, 1) / 1000))
+    }
+  }
+
   ## Bjorkman Nyqvist, Corno, de Walque and Svensson 2018: a fifteen-row price
   ## list, reproduced in the package's own crra_data.xlsx. Alternative k pits a
   ## sure 25*(k-1) maloti, so 0, 25, ... , 350, against the same 50/50 lottery
@@ -1949,8 +1964,7 @@ get_r <- function(bibkey, task, choice) {
   ## 0.28/0.28 ... 0.02/0.70 USD at 50/50; the same bounds as Charness2019 (the
   ## authors' CRRA categories 3.46, 1.16, 0.71, 0.50, 0 as r = 1 - rho). Gambles 5
   ## and 6 have the same expected value, so gamble 6 takes r = 1.
-  ## Baik et al. 2021 use the same six Eckel-Grossman (2008) gambles.
-  if (bibkey == "Diederich2022" | bibkey == "Baik2021"){
+  if (bibkey == "Diederich2022"){
     if (task == "EG") {
       if (choice == 1) { out <- -2.45 }
       if (choice == 2) { out <- runif(1, min = -2.45, max = -0.16)}
@@ -1958,6 +1972,23 @@ get_r <- function(bibkey, task, choice) {
       if (choice == 4) { out <- runif(1, min = 0.29, max = 0.50)}
       if (choice == 5) { out <- runif(1, min = 0.50, max = 1)}
       if (choice == 6) { out <- 1}
+    }
+  }
+
+  ## Baik, Chowdhury and Ramalingam 2021: not the Eckel-Grossman (2008) table
+  ## but that table shifted down by 8 tokens, with a loss in the last gamble:
+  ## 20/20, 16/28, 12/36, 8/44, 4/52, -2/58 tokens, 50/50 (Appendix,
+  ## Instructions - Part 1, of the accepted manuscript, White Rose eprint
+  ## 192123). Expected values 20, 22, 24, 26, 28, 28. Adding the largest loss,
+  ## 2, as for the other EG_loss menus: 22/22, 18/30, 14/38, 10/46, 6/54, 0/60.
+  ## Indifference between neighbours under u = x^r at -1.732, 0.081, 0.449,
+  ## 0.624 and exactly 1 (gambles 5 and 6 have the same expected value).
+  if (bibkey == "Baik2021"){
+    if (task == "EG_loss") {
+      bk <- c(-1.732, 0.081, 0.449, 0.624, 1)
+      if (choice == 1) { out <- bk[1] }
+      if (choice >= 2 & choice <= 5) { out <- runif(1, min = bk[choice - 1], max = bk[choice]) }
+      if (choice == 6) { out <- bk[5] }
     }
   }
 
@@ -3043,6 +3074,15 @@ get_r <- function(bibkey, task, choice) {
   if (bibkey == "Ihli2022" | bibkey == "Charness2023" | bibkey == "Dai2018"){
     if (task == "EG") {
       ek <- c(-2.460, -0.161, 0.294, 0.501, if (bibkey == "Charness2023") 1.225 else 1.000)
+      if (choice <= 1) { out <- ek[1] }
+      if (choice >= 2 & choice <= 5) { out <- runif(1, min = ek[choice - 1], max = ek[choice]) }
+      if (choice >= 6) { out <- ek[5] }
+    }
+    ## Dai et al. 2018, loss set: EUR 40 endowment, then -12/-12, -16/-4,
+    ## -20/4, -24/12, -28/20, -38/30 (online appendix, period 2 of part 1).
+    ## Plus the 40 these are the gain menu exactly, so the same bounds.
+    if (task == "EG_loss" & bibkey == "Dai2018") {
+      ek <- c(-2.460, -0.161, 0.294, 0.501, 1.000)
       if (choice <= 1) { out <- ek[1] }
       if (choice >= 2 & choice <= 5) { out <- runif(1, min = ek[choice - 1], max = ek[choice]) }
       if (choice >= 6) { out <- ek[5] }

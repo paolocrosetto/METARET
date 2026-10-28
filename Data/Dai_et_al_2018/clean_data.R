@@ -21,7 +21,8 @@ library(tidyverse)
 ## (2012), first set: six 50/50 lotteries, EUR 28/28, 24/36, 20/44, 16/52, 12/60,
 ## 2/70 (online appendix, screens of part 1). Gain_risk is the lottery chosen,
 ## 1 the safe one ("degree of risk seeking" in the paper). One lottery of the
-## four sets was paid. The other three sets (losses, ambiguity) are not used.
+## four sets was paid. The loss set is used as EG_loss (below); the two
+## ambiguity sets are not used.
 ## The menu is the Dave et al. (2010) one used for Ihli2022.
 ##
 ## Male: 0 = female. Age is in brackets (variable list and Table A1 of the
@@ -31,12 +32,17 @@ library(tidyverse)
 ## width as the one below, as for Hamman2023.
 df <- read_csv("Data/Dai_et_al_2018/original_dataset.csv", show_col_types = FALSE)
 
-stopifnot(nrow(df) == 279, all(df$Gain_risk %in% 1:6))
+stopifnot(nrow(df) == 279, all(df$Gain_risk %in% 1:6), all(df$Loss_risk %in% 1:6))
 
-df <- df %>%
+## Second set (Loss_risk): the same ring after an endowment of EUR 40, with
+## -12/-12, -16/-4, -20/4, -24/12, -28/20, -38/30 in the same positions
+## (online appendix, period 2 of part 1). Final payoffs equal the gain menu,
+## so it is filed as EG_loss with the same bounds (generate_r.R).
+df <- bind_rows(df %>% mutate(task = "EG", choice = Gain_risk),
+                df %>% mutate(task = "EG_loss", choice = Loss_risk)) %>%
   transmute(subject = Subject_ID,
-            task = "EG",
-            choice = Gain_risk,
+            task,
+            choice,
             gender = if_else(Male == 0, 1, 0),
             age = c(`1` = 21, `2` = 29.5, `3` = 39.5, `4` = 52, `5` = 67)[as.character(Age)],
             country = "France",

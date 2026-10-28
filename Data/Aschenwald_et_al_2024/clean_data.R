@@ -21,6 +21,10 @@ library(tidyverse)
 ## off the experimental software shipped with the package (Experimental
 ## Software.zip, Preferences/templates/Preferences/RiskPreference.html) and are
 ## quoted in the Aschenwald2024 block of generate_r.R. HYPOTHETICAL payments.
+## The template's last change in the software's git history is 27.02.2021,
+## before data collection (March-July 2021), and the comprehension check on
+## that page (qc counter in the data) makes pupils restate the amounts of the
+## chosen gamble, so this is the menu that was run.
 ##
 ## Questionnaire: general_risk is "self-assessed willingness to take risks" on
 ## 0 = not willing to 10 = very willing, which is the SOEP item, so it fills the

@@ -26,7 +26,12 @@ library(tidyverse)
 ## switching points have risk missing ("6 subjects in OPTOUT and 9 subjects in
 ## CLAIM", online appendix), leaving 129 answers. The payoffs are not given (the
 ## software is "available from the authors upon request"); the standard HL list
-## is assumed.
+## is assumed. That is harmless: with u = x^r the r bounds of an HL list do not
+## change when all payoffs are scaled, only the HL ratios matter. Switch row,
+## not number of safe choices (checked 28.10.2026): the label says "switching
+## decision"; 10 subjects have risk = 10, which as a count would mean the
+## dominated A in row 10, yet the appendix says inconsistent answers were
+## dropped; and no value 11 (never switching, dominated) is left.
 ##
 ## sex: 0 = female. age 0 (one subject) is missing.
 df <- read_csv("Data/Kagan_et_al_2020/original_dataset.csv", show_col_types = FALSE)

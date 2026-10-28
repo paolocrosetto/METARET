@@ -26,7 +26,11 @@ library(tidyverse)
 ## found no fuller version: risktemp.dta has 26 rows and subjects_exp.dta the
 ## same 49. The paper describes a larger experiment, so the published data
 ## evidently carry the investment task for part of the sample only - worth
-## asking the authors for the rest.
+## asking the authors for the rest. Checked 28.10.2026: DesignSummary.pdf says all
+## 179 participants did the two investment rounds; risk1/risk2 are not in
+## OriginalData.xlsx but typed into analysis.do by hand for 49 subjects (all
+## buyers of No Competition and Competition, 5 of Monetary) to answer a referee
+## question about buyers, so sellers' answers exist only with the authors.
 ## Only the first question is used, since the site holds one coefficient per
 ## subject per task; risk2 is kept in original_dataset.csv for reference.
 ## The package has no gender or age.
