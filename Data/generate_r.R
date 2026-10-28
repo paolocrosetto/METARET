@@ -3193,6 +3193,44 @@ get_r <- function(bibkey, task, choice) {
     if (task == "IG") { out <- ig_crra_pgl(choice / 100, X = 1.5, p = 0.5, g = 0.7, l = 0.5) }
   }
 
+  ## Crosetto and Filippin 2023 (JRU, "Safe options and gender differences").
+  ## HL baseline: the standard table (4/3.2 vs 7.7/0.2 euro), so the standard
+  ## HL bounds. HLsafe (coded CEPL): option A is a sure 3.3, 3.4, 3.5, 3.5, 3.6,
+  ## 3.7, 3.7, 3.8, 3.9, 4 euro (Table 3) against the same option B; hk[k] is
+  ## the r = 1 - rho at which the sure amount in row k and option B are equally
+  ## good, solved from the table. choice = number of risky (B) choices.
+  ## EG and EGnosafe: 4/4, 6/3, 8/2, 10/1, 12/0 euro, and in EGnosafe lottery 1
+  ## is 4.5/3.6 (Table 6), built so that the switch between lotteries 1 and 2
+  ## stays at rho = 2; so both use the Crosetto2016 EG bounds.
+  ## BRET and BRETsafe: 100 boxes; in BRETsafe the bomb is never in boxes 1-25,
+  ## so for k >= 25 the expected utility is the baseline one times 100/75 and
+  ## r = k/(100 - k) still holds; k = 25, the largest safe choice, is coded at
+  ## its bound 1/3. Collecting all 100 boxes is coded at 10.
+  if (bibkey == "Crosetto2023"){
+    if (task == "HL") {
+      rk <- c(2.71, 1.95, 1.49, 1.15, 0.85, 0.59, 0.32, 0.03, -0.37)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+    if (task == "CEPL") {
+      hk <- c(2.717, 1.965, 1.515, 1.132, 0.855, 0.598, 0.310, 0.023, -0.370)
+      if (choice == 10) { out <- hk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = hk[11 - choice], max = hk[10 - choice]) }
+      if (choice <= 1) { out <- hk[9] }
+    }
+    if (task == "EG") {
+      if (choice == 1) { out <- -1 }
+      if (choice == 2) { out <- runif(1, min = -1, max = 0.33)}
+      if (choice == 3) { out <- runif(1, min = 0.33, max = 0.62)}
+      if (choice == 4) { out <- runif(1, min = 0.62, max = 0.80)}
+      if (choice == 5) { out <- 1}
+    }
+    if (task == "BRET") {
+      if (choice >= 100) { out <- 10 } else { out <- choice/(100-choice) }
+    }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
