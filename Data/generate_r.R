@@ -923,7 +923,8 @@ get_r <- function(bibkey, task, choice) {
       bibkey == "BarredaTarrazona2022" | bibkey == "AlosFerrer2018" | bibkey == "Engel2020" |
       bibkey == "Engel2024" | bibkey == "ValdezGonzalez2025" | bibkey == "Krull2024" |
       bibkey == "EngelKirchkamp2019" | bibkey == "Corgnet2019" | bibkey == "Koch2024" |
-      bibkey == "Asako2020" | bibkey == "Farjam2018" | bibkey == "BellemareLeeJust2020"){
+      bibkey == "Asako2020" | bibkey == "Farjam2018" | bibkey == "BellemareLeeJust2020" |
+      bibkey == "Gallo2023" | bibkey == "Shrum2022" | bibkey == "Mimra2025"){
     if (task == "HL") {
       if (choice == 10) { out <- 2.71 }
       if (choice == 9) { out <- runif(1, min = 1.95, max = 2.71) }
@@ -1792,6 +1793,65 @@ get_r <- function(bibkey, task, choice) {
       if (choice >= 2 & choice <= 20) { out <- runif(1, min = b[choice - 1], max = b[choice]) }
       if (choice >= 21) { out <- b[20] }
     }
+  }
+
+  ## Hoyer et al. 2023: 10 EUR or 0 with probability 1/2 against 0, 1, ..., 10
+  ## EUR for sure, the menu of Ifcher2024; choice = the first sure amount
+  ## taken, so the certainty equivalent lies in (choice - 1, choice).
+  if (bibkey == "Hoyer2023"){
+    if (task == "CEPL") { out <- ce_stair_crra(lo = choice - 1, hi = choice, X = 10, p = 0.5, top = 6.579) }
+  }
+
+  ## Jaspersen et al. 2026: 20 EUR or 0 with probability 1/2 against a sure 1,
+  ## 2, ..., 19 EUR; choice = the first sure amount taken, so the certainty
+  ## equivalent lies in (choice - 1, choice). choice 20 (lottery in all 19 rows,
+  ## CE above 19 EUR) is coded at r(19) = log(0.5) / log(19 / 20) = 13.513.
+  if (bibkey == "Jaspersen2026"){
+    if (task == "CEPL") { out <- ce_stair_crra(lo = choice - 1, hi = choice, X = 20, p = 0.5, top = 13.513) }
+  }
+
+  ## Kocher et al. 2019: 0.20 or 4.20 EUR with probability 1/2 against a sure
+  ## 0.60, 1.00, ..., 4.20 EUR. b[j] is the r at which the certainty equivalent
+  ## of the lottery, (0.5 * 0.2^r + 0.5 * 4.2^r)^(1/r), equals the sure amount of
+  ## row j (j = 1 ... 9; row 5 is the expected value, r = 1). choice = the row
+  ## of the first sure amount taken, so r lies in (b[choice - 1], b[choice]);
+  ## the open ends, rows 1 and 10, take the bound.
+  if (bibkey == "Kocher2019"){
+    if (task == "CEPL") {
+      b <- c(-0.386, 0.075, 0.386, 0.676, 1.000, 1.418, 2.054, 3.280, 6.926)
+      if (choice <= 1) { out <- b[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = b[choice - 1], max = b[choice]) }
+      if (choice >= 10) { out <- b[9] }
+    }
+  }
+
+  ## Li et al. 2026: Gneezy-Potters with 5 SGD; the bet is lost with probability
+  ## 2/3 and returned 2.5 times with probability 1/3; choice = SGD bet
+  if (bibkey == "Li2026"){
+    if (task == "IG") { out <- ig_crra_pgl(choice, X = 5, p = 1/3, g = 2.5, l = 1) }
+  }
+
+  ## Chen et al. 2019: Holt-Laury list with A = 30 / 17 and B = 40 / 1 CNY, the
+  ## high prize with probability k/10 in row k. rk[k] is the r of indifference at
+  ## p = k/10 (u = x^r, log at 0, -x^r below); choice = number of B choices,
+  ## coded as a Holt-Laury count. A risk-neutral subject switches between rows 6
+  ## and 7.
+  if (bibkey == "Chen2019"){
+    if (task == "HL") {
+      rk <- c(3.168, 2.424, 1.967, 1.617, 1.319, 1.042, 0.764, 0.455, 0.043)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+  }
+
+  ## Zheng & Zhou 2025: the price of a ticket paying 10 EUR with probability 1/2,
+  ## else 0, at 0.50, 1.00, ..., 10.00 EUR; choice = the first row where the
+  ## ticket was not bought, so the certainty equivalent lies in
+  ## (0.5 (choice - 1), 0.5 choice). Row 20 (CE between 9.50 and 10) is coded at
+  ## r(9.5) = log(0.5) / log(9.5 / 10) = 13.513.
+  if (bibkey == "Zheng2025"){
+    if (task == "CEPL") { out <- ce_stair_crra(lo = 0.5 * (choice - 1), hi = 0.5 * choice, X = 10, p = 0.5, top = 13.513) }
   }
 
   if (bibkey == "Finger2023"){
