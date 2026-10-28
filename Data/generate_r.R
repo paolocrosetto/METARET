@@ -116,7 +116,9 @@ get_r <- function(bibkey, task, choice) {
     if (task != "HL" & task != "EG" & task != "IG") { out <- NA }
   }
   
-  if (bibkey == "Crosetto2016") {
+  ## Li and Zafar 2023 used the same five 50/50 gambles ($2/2, 3/1.5, 4/1, 5/0.5,
+  ## 6/0, the classic Eckel-Grossman menu halved), so the EG bounds are shared.
+  if (bibkey == "Crosetto2016" | bibkey == "LiZafar2023") {
     
     if (task == "EG") {
       if (choice == 1) { out <- -1 }
@@ -1225,8 +1227,13 @@ get_r <- function(bibkey, task, choice) {
   ## Control: the gamble is actuarially favourable (half of three times the
   ## stake beats the stake), so a risk-neutral child invests all five tokens,
   ## which ig_crra codes at exactly r = 1.
-  if (bibkey == "Alan2019") {
+  ## Alan et al. 2020 (8th graders) used the same five-token version.
+  if (bibkey == "Alan2019" | bibkey == "Alan2020") {
     if (task == "IG") { out <- ig_crra(choice, X = 5, k = 3) }
+  }
+  ## van Leeuwen et al. 2020: Gneezy-Potters, 600 points, x2.5 or lost with 50%.
+  if (bibkey == "VanLeeuwen2020") {
+    if (task == "IG") { out <- ig_crra(choice, X = 600, k = 2.5) }
   }
 
   ## Tungodden and Willen 2023: the Eckel and Grossman gamble choice, which the
@@ -1610,6 +1617,33 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Schaap 2021: Gneezy-Potters, 6 points, tripled or lost with 50%.
+  ## Zhang 2019: Gneezy-Potters, USD 5 in steps of 0.50, tripled or lost with 50%.
+  if (bibkey == "Schaap2021"){
+    if (task == "IG") { out <- ig_crra(choice, X = 6, k = 3) }
+  }
+  if (bibkey == "Zhang2019"){
+    if (task == "IG") { out <- ig_crra(choice, X = 5, k = 3) }
+  }
+
+  ## Boschini et al. 2019: SEK 200 or 0 with 50% against sure SEK 40, 60, ..., 160;
+  ## choice = number of rows with the lottery (single switchers, 0 ... 7), so the
+  ## CE lies between the last sure amount refused and the first one taken:
+  ## [0, 40] for choice 0, [40, 60] for 1, ..., [160, 200] for 7 (coded at r(160)).
+  if (bibkey == "Boschini2019"){
+    if (task == "CEPL") {
+      ends <- c(0, 40, 60, 80, 100, 120, 140, 160, 200)
+      out <- ce_stair_crra(lo = ends[choice + 1], hi = ends[choice + 2], X = 200,
+                           top = log(0.5) / log(160 / 200))
+    }
+  }
+
+  ## Gortner and van der Weele 2019: BRET with 36 boxes; collecting k boxes is
+  ## optimal for r = k / (36 - k), as for the 100-box version.
+  if (bibkey == "Gortner2019"){
+    if (task == "BRET") { out <- choice / (36 - choice) }
+  }
+
   if (bibkey == "Halim2025" | bibkey == "Halim2019"){
     if (task == "CEPL") {
       if (choice == 2)  { out <- log(10) / log(3) }
@@ -1863,6 +1897,22 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Diederich et al. 2022: Eckel-Grossman with the original amounts / 100,
+  ## 0.28/0.28 ... 0.02/0.70 USD at 50/50; the same bounds as Charness2019 (the
+  ## authors' CRRA categories 3.46, 1.16, 0.71, 0.50, 0 as r = 1 - rho). Gambles 5
+  ## and 6 have the same expected value, so gamble 6 takes r = 1.
+  ## Baik et al. 2021 use the same six Eckel-Grossman (2008) gambles.
+  if (bibkey == "Diederich2022" | bibkey == "Baik2021"){
+    if (task == "EG") {
+      if (choice == 1) { out <- -2.45 }
+      if (choice == 2) { out <- runif(1, min = -2.45, max = -0.16)}
+      if (choice == 3) { out <- runif(1, min = -0.16, max = 0.29)}
+      if (choice == 4) { out <- runif(1, min = 0.29, max = 0.50)}
+      if (choice == 5) { out <- runif(1, min = 0.50, max = 1)}
+      if (choice == 6) { out <- 1}
+    }
+  }
+
   if (bibkey == "Finger2023"){
     if (task == "HL") {
       rk <- c(2.747, 1.972, 1.504, 1.155, 0.860, 0.588, 0.316, 0.013, -0.399)
@@ -1925,8 +1975,9 @@ get_r <- function(bibkey, task, choice) {
   }
   ## Fisar et al. 2023: dynamic BRET on a 10x10 grid, 100 boxes
   ## Beaud et al. 2026: static BRET on a 10x10 grid, 100 boxes
+  ## Fullbrunn et al. 2019: dynamic BRET, 100 boxes, EUR 0.10 each
   if (bibkey == "Fisar2023" | bibkey == "Beaud2026" | bibkey == "Buser2022" |
-      bibkey == "Mittone2020"){
+      bibkey == "Mittone2020" | bibkey == "Fullbrunn2019"){
     if (task == "BRET") {
       if (choice == 100) { out <- 10 }
       if (choice != 100) { out <- choice/(100-choice) }
