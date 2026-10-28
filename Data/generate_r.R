@@ -1644,6 +1644,21 @@ get_r <- function(bibkey, task, choice) {
     if (task == "BRET") { out <- choice / (36 - choice) }
   }
 
+  ## Riyanto and Teh 2020: a sure 20 ECU (A) or 60 ECU with probability p (B),
+  ## p = 0, 0.1, ..., 0.9 down ten rows, one switch from A to B. choice = number of
+  ## B choices (1 ... 10), so s = 10 - choice rows of A and the switch lies at
+  ## p* in ((s - 1)/10, s/10]. With u = x^r, 20^r = p 60^r gives r = log(p) / log(1/3),
+  ## which falls as p rises. choice 9 (B from p = 0.1) is open above and coded at
+  ## r(0.1); choice 0 (A even at p = 0.9) is drawn in [0, r(0.9)].
+  if (bibkey == "Riyanto2020"){
+    if (task == "CEPL") {
+      s <- 10 - choice
+      if (s == 1) { out <- log(0.1) / log(1/3) }
+      if (s == 10) { out <- runif(1, min = 0, max = log(0.9) / log(1/3)) }
+      if (s > 1 & s < 10) { out <- runif(1, min = log(s / 10) / log(1/3), max = log((s - 1) / 10) / log(1/3)) }
+    }
+  }
+
   if (bibkey == "Halim2025" | bibkey == "Halim2019"){
     if (task == "CEPL") {
       if (choice == 2)  { out <- log(10) / log(3) }
@@ -2485,7 +2500,9 @@ get_r <- function(bibkey, task, choice) {
   ## worst outcome as zero wealth is the convention this file already uses for
   ## that menu; here the subjects' accumulated earnings were in fact larger,
   ## which the bounds do not take into account.
-  if (bibkey == "Hamman2023"){
+  ## Zheng et al. 2021: hypothetical 100/100, 180/60, 260/20, 340/-20, 420/-60
+  ## yuan; plus 60 it is the canonical table times 40, so the same bounds.
+  if (bibkey == "Hamman2023" | bibkey == "Zheng2021"){
     if (task == "EG_loss") {
       if (choice == 1) { out <- -1 }
       if (choice == 2) { out <- runif(1, min = -1, max = 0.33) }
