@@ -118,7 +118,11 @@ get_r <- function(bibkey, task, choice) {
   
   ## Li and Zafar 2023 used the same five 50/50 gambles ($2/2, 3/1.5, 4/1, 5/0.5,
   ## 6/0, the classic Eckel-Grossman menu halved), so the EG bounds are shared.
-  if (bibkey == "Crosetto2016" | bibkey == "LiZafar2023") {
+  ## Meraner and Finger 2019 used the Holt-Laury table times 50 (100/80 vs
+  ## 192.5/5 euro), Crockett et al. 2019 the table times 3 and Cipriani et al.
+  ## 2018 the original one, so the HL bounds are shared.
+  if (bibkey == "Crosetto2016" | bibkey == "LiZafar2023" | bibkey == "Meraner2019" |
+      bibkey == "Cipriani2018" | bibkey == "CrockettDuffy2019") {
     
     if (task == "EG") {
       if (choice == 1) { out <- -1 }
@@ -1606,6 +1610,18 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Chaturvedi and Kanjilal 2021: Holt-Laury list with A = INR 80 / 64 and
+  ## B = 140 / 4, the high payoff with probability k/10 in row k; rk as for
+  ## Fornwagner2023.
+  if (bibkey == "Chaturvedi2021"){
+    if (task == "HL") {
+      rk <- c(3.061, 2.207, 1.696, 1.317, 1.000, 0.712, 0.428, 0.115, -0.301)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+  }
+
   ## Mahmoud 2022: CE of a 50/50 lottery of CHF 5 or 0 from sure amounts CHF 0.50,
   ## 1, ..., 5; choice = number of sure amounts against which the lottery was
   ## taken (0 ... 9), so the CE lies in [0.5 choice, 0.5 (choice + 1)].
@@ -1615,6 +1631,23 @@ get_r <- function(bibkey, task, choice) {
       out <- ce_stair_crra(lo = 0.5 * choice, hi = 0.5 * (choice + 1), X = 5,
                            top = log(0.5) / log(4.5 / 5))
     }
+  }
+
+  ## Kirchler et al. 2018 (students): CE of a 50/50 lottery of EUR 8 or 0 from
+  ## sure amounts EUR 1, 2, ..., 7; choice = number of sure amounts against which
+  ## the lottery was taken (0 ... 7), so the CE lies in [choice, choice + 1].
+  ## choice 7 reaches EUR 8 and is coded at r(7).
+  if (bibkey == "Kirchler2018"){
+    if (task == "CEPL") {
+      out <- ce_stair_crra(lo = choice, hi = choice + 1, X = 8,
+                           top = log(0.5) / log(7 / 8))
+    }
+  }
+
+  ## Siddique and Vlassopoulos 2020: Gneezy-Potters, 20 taka, six times the amount
+  ## invested or lost with 50%.
+  if (bibkey == "Siddique2020"){
+    if (task == "IG") { out <- ig_crra(choice, X = 20, k = 6) }
   }
 
   ## Schaap 2021: Gneezy-Potters, 6 points, tripled or lost with 50%.
