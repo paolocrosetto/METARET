@@ -1961,6 +1961,23 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Jaspersen, Ragin & Sydnor 2022, table CP: a sure 2.00 USD against x with
+  ## probability 0.2, else 1.00 USD, x = 2.50, 4.50, ..., 60 in 16 rows. rk[k] is
+  ## the r at which the sure 2.00 and the lottery of row k are equally good
+  ## (u = x^r, log at 0, -x^r below); the sure amount is kept while r < rk[k].
+  ## choice = number of rows with the sure amount, so r lies in
+  ## (rk[choice + 1], rk[choice]); never taking it is coded at rk[1], always
+  ## taking it at rk[16]. Risk neutrality is indifferent in row 6 (x = 6).
+  if (bibkey == "Jaspersen2022"){
+    if (task == "CEPL") {
+      rk <- c(7.188, 1.610, 1.465, 1.343, 1.148, 1.000, 0.883, 0.788, 0.643, 0.537,
+              0.457, 0.341, 0.230, 0.122, 0.014, -0.102)
+      if (choice <= 0) { out <- rk[1] }
+      if (choice >= 1 & choice <= 15) { out <- runif(1, min = rk[choice + 1], max = rk[choice]) }
+      if (choice >= 16) { out <- rk[16] }
+    }
+  }
+
   if (bibkey == "Finger2023"){
     if (task == "HL") {
       rk <- c(2.747, 1.972, 1.504, 1.155, 0.860, 0.588, 0.316, 0.013, -0.399)

@@ -45,7 +45,9 @@ df <- df %>%
 # adding paper name and bibkey
 df <- df %>%
   mutate(bibkey = "BuserCappelen2025",
-         paper = "Buser et al. 2025")
+         ## "Buser et al. 2025" is already BuserVanVeldhuizen2025; the app
+         ## counts papers by this label, so the two would merge into one
+         paper = "Buser, Cappelen and Tungodden 2025")
 
 ## the map is drawn by country; the coordinates are those of the lab's city
 df$lattitude = '60.3913'
