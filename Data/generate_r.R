@@ -1854,6 +1854,15 @@ get_r <- function(bibkey, task, choice) {
     if (task == "CEPL") { out <- ce_stair_crra(lo = 0.5 * (choice - 1), hi = 0.5 * choice, X = 10, p = 0.5, top = 13.513) }
   }
 
+  ## Maggian et al. 2020: static BRET with 100 boxes; stopping at k boxes is
+  ## rationalised by r = k / (100 - k)
+  if (bibkey == "Maggian2020"){
+    if (task == "BRET") {
+      if (choice == 100) { out <- 10 }
+      if (choice != 100) { out <- choice/(100-choice) }
+    }
+  }
+
   if (bibkey == "Finger2023"){
     if (task == "HL") {
       rk <- c(2.747, 1.972, 1.504, 1.155, 0.860, 0.588, 0.316, 0.013, -0.399)
