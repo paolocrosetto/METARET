@@ -3231,6 +3231,31 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Zakharov and Bondarenko 2021: the Holt-Laury table times 12.5 (50/40 vs
+  ## 96.25/2.5 RUR), so the standard HL bounds. choice = number of risky choices.
+  if (bibkey == "Zakharov2021"){
+    if (task == "HL") {
+      rk <- c(2.71, 1.95, 1.49, 1.15, 0.85, 0.59, 0.32, 0.03, -0.37)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+  }
+
+  ## Dezso, Alm and Kirchler 2022: six 50/50 gambles in HUF, 2000/2000,
+  ## 1700/2700, 1400/3400, 1100/4100, 800/4800, 100/5500 (Table 1). The paper's
+  ## implied CRRA ranges (3.74, 1.25, 0.77, 0.55, 0) are relative risk aversion,
+  ## so r = 1 - rho; the bounds are solved from the table. Gamble 6 has the same
+  ## expected value as 5 and is coded at r = 1, as for Charness2019.
+  if (bibkey == "Dezso2022"){
+    if (task == "EG") {
+      dk <- c(-2.737, -0.254, 0.230, 0.453, 1)
+      if (choice == 1) { out <- dk[1] }
+      if (choice >= 2 & choice <= 5) { out <- runif(1, min = dk[choice - 1], max = dk[choice]) }
+      if (choice == 6) { out <- 1 }
+    }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
