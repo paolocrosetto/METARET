@@ -3282,6 +3282,59 @@ get_r <- function(bibkey, task, choice) {
     if (task == "IG") { out <- ig_crra(choice, X = 100, k = 2.5) }
   }
 
+  ## Gibson et al. 2019 (LTIMS, Tonga and New Zealand; LOCAL ONLY until the
+  ## World Bank agrees): eight 50/50 "businesses" in pa'anga, A 10/10, B 9/19,
+  ## C 8/24, D 7/25, E 6/30, F 4/32, G 2/38, H 0/40. Solved from the table with
+  ## u = x^r, the options that are best for some r are A (r < -6.506), B
+  ## (-6.506, -0.743), C (-0.743, 0.188), E (0.188, 0.685), G (0.685, 1) and H
+  ## (r > 1). D and F are mean-preserving spreads of C and E (same expected value,
+  ## the authors' "inefficient" choices) and are best for no r; they are coded
+  ## at the switch point next to them, D at C|E and F at E|G. Open ends take
+  ## the bound.
+  if (bibkey == "Gibson2019"){
+    if (task == "EG") {
+      if (choice == 1) { out <- -6.506 }
+      if (choice == 2) { out <- runif(1, min = -6.506, max = -0.743) }
+      if (choice == 3) { out <- runif(1, min = -0.743, max = 0.188) }
+      if (choice == 4) { out <- 0.188 }
+      if (choice == 5) { out <- runif(1, min = 0.188, max = 0.685) }
+      if (choice == 6) { out <- 0.685 }
+      if (choice == 7) { out <- runif(1, min = 0.685, max = 1) }
+      if (choice == 8) { out <- 1 }
+    }
+  }
+
+  ## Morais et al. 2023: Gneezy-Potters design, 100 units per round, 1/3 chance
+  ## of gaining 2.5 times the bet, 2/3 chance of losing it; choice = units bet
+  if (bibkey == "Morais2023"){
+    if (task == "IG") { out <- ig_crra_pgl(choice, X = 100, p = 1/3, g = 2.5, l = 1) }
+  }
+
+  ## Barreiro-Hurle and Rommel 2025: static BRET, 100 boxes, 1 to 100 may be
+  ## collected, so r = k/(100 - k); collecting all 100 is coded at 10.
+  if (bibkey == "BarreiroHurle2025"){
+    if (task == "BRET") {
+      if (choice >= 100) { out <- 10 } else { out <- choice/(100-choice) }
+    }
+  }
+
+  ## Holden et al. 2025: certainty-equivalent list, a sure amount in one week
+  ## against 30,000 MWK with probability 0.75 in one week; the CE lies between
+  ## grid[choice] and grid[choice + 1] (MWK 0, 100, 200, 400, 1000, 3000, 6000,
+  ## ..., 30000). With u = x^r, CE = 30000 * 0.75^(1/r). The interval ending at
+  ## 30,000 is coded at its lower end (r = 2.730); keeping the lottery against a
+  ## sure 30,000 (choice 15) is dominated and coded at the ceiling.
+  if (bibkey == "Holden2025"){
+    if (task == "CEPL") {
+      grid <- c(0, 100, 200, 400, 1000, seq(3000, 30000, by = 3000))
+      if (choice <= 14) {
+        out <- ce_stair_crra(lo = grid[choice], hi = grid[choice + 1], X = 30000,
+                             p = 0.75, top = log(0.75) / log(27000 / 30000))
+      }
+      if (choice == 15) { out <- 10 }
+    }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
