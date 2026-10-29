@@ -228,3 +228,15 @@ Breunig2021,2013,2013,exact,"created.at of the laboratory sessions: March 19 - A
 Siddique2020,2016,2016,exact,"paper: lab-in-the-field experiment in the summer of 2016, Rajshahi district villages"
 Kirchler2018,2014,2017,inferred,"paper: the risky asset is calibrated on returns from January 1994 to December 2013, and the version of September 14, 2017 already reports the 432 students; exact dates not given"
 Jaspersen2022,2018,2018,exact,"clean_data.R: 1,730 subjects in March 2018, mTurk and University of Wisconsin-Madison"
+Angrisani2026,2019,2019,exact,"paper: the Pre-COVID wave used here was run in the laboratory in 2019 (the COVID wave, April 2020, is not used)"
+BarreiroHurle2025,2023,2023,inferred,design cleared in June 2023 and farmers had applied for the 2023 payments; the field dates are not given
+CamposMercade2021,2020,2020,exact,paper: both online surveys sent in April 2020
+Capitan2026,2018,2018,exact,"Qualtrics exports: laboratory survey March 2018, MTurk survey July 2018"
+Crosetto2023,2014,2016,exact,"paper: BRETsafe, HLsafe and the HL extra sessions in 2014 (MPI Jena), EGnosafe and the EGsafe extra sessions in 2016 (FSU Jena)"
+Dezso2022,2020,2020,inferred,preregistration AsPredicted #36099 is from 2020; the session dates are not given
+Forteza2024,2019,2019,exact,"paper: all sessions in August-October 2019, FCS-UdelaR, Montevideo"
+Holden2025,2024,2024,exact,interview dates in the data: July-August 2024
+Hussam2022,2019,2020,exact,baseline survey start times in the raw data: 20 November 2019 to 12 January 2020
+Morais2023,2018,2019,exact,paper: students recruited between October 2018 and March 2019
+Rommel2023,2021,2021,exact,survey start dates in the data: July-December 2021 in all 11 samples
+Ugur2024,2019,2019,exact,paper: experiments in the spring of 2019
