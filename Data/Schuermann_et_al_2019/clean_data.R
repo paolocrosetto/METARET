@@ -20,15 +20,28 @@ library(tidyverse)
 ## BART_summary2.RData. adj.pumps = mean pumps on balloons that did not explode
 ## (checked against the trial data).
 ## gender: 2 = female (55 of 90, 61% in the paper), 1 = male.
+##
+## Questionnaires (classic_quest2.RData, joined into original_dataset.csv on
+## 29.10.2026): "their alcohol consumption (using the Alcohol Use Disorders
+## Identification Test ...) ... the Zuckermann Sensation Seeking Scale V ... and
+## the Barratt Impulsiveness Scale". d_score is the AUDIT total (0-15 here, on
+## the 0-40 scale) and BARtotal the Barratt total (44-90, the range of the
+## 30-item BIS-11 total, as Fairley2019's BIS); they go into AuditS and BIS.
+## SStotal (45-76) is not the 8-item Brief Sensation Seeking Scale the site's
+## BSSS column holds (8-40), so it is not used; nor is the nicotine score.
+## Everyone answered the questionnaires, so the 60 subjects of the two
+## manipulated BART conditions are kept as questionnaire-only rows (as for
+## Krull2024).
 df <- read_csv("Data/Schuermann_et_al_2019/original_dataset.csv", show_col_types = FALSE)
 
-df <- df %>% 
-  filter(cond.BART == 1) %>% 
+df <- df %>%
   transmute(subject = row_number(),
-            task = "BART",
-            choice = adj.pumps,
+            task = if_else(cond.BART == 1, "BART", "quest_only"),
+            choice = if_else(cond.BART == 1, adj.pumps, NA_real_),
             age = as.numeric(age),
             gender = case_when(gender == 2 ~ 1, gender == 1 ~ 0, TRUE ~ NA_real_),
+            BIS = BARtotal,
+            AuditS = d_score,
             country = "Germany",
             city = "Berlin")
 
@@ -43,7 +56,9 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df <- df %>% mutate(r = if_else(task == "BART",
+                                 purrr::pmap_dbl(list(bibkey, if_else(task == "BART", task, "BART"), coalesce(choice, 0)), get_r),
+                                 NA_real_))
 
 # Order of variables
 df <- df %>% 
