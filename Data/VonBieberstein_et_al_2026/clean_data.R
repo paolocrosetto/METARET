@@ -1,7 +1,7 @@
 #### von Bieberstein, F., Feess, E. & Packham, N. (2026). Multi-step delegation
 #### and the frequency of immoral decisions: Theory and experiment.
 #### European Economic Review.
-#### https://doi.org/10.1016/j.euroecorev.2025.105161
+#### https://doi.org/10.1016/j.euroecorev.2025.105159
 #### Data: supplementary files of the article (EEREV-D-24-01222R1)
 
 #### cleaning data to be used for the meta-analysis
