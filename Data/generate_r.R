@@ -3070,8 +3070,9 @@ get_r <- function(bibkey, task, choice) {
   ## 0.501; the last one is 1 exactly for Ihli (gambles 5 and 6 have the same
   ## expected value) and 1.225 for Charness, whose sixth gamble gives up
   ## expected value (the paper: rho < -0.22). The open ends take the bound.
-  ## Dai et al. 2018 used Ihli's menu in euros (28/28 ... 12/60, 2/70).
-  if (bibkey == "Ihli2022" | bibkey == "Charness2023" | bibkey == "Dai2018"){
+  ## Dai et al. 2018 used Ihli's menu in euros (28/28 ... 12/60, 2/70), and
+  ## Capitan et al. 2026 the same menu in dollars (hypothetical).
+  if (bibkey == "Ihli2022" | bibkey == "Charness2023" | bibkey == "Dai2018" | bibkey == "Capitan2026"){
     if (task == "EG") {
       ek <- c(-2.460, -0.161, 0.294, 0.501, if (bibkey == "Charness2023") 1.225 else 1.000)
       if (choice <= 1) { out <- ek[1] }
@@ -3254,6 +3255,31 @@ get_r <- function(bibkey, task, choice) {
       if (choice >= 2 & choice <= 5) { out <- runif(1, min = dk[choice - 1], max = dk[choice]) }
       if (choice == 6) { out <- 1 }
     }
+  }
+
+  ## Forteza, Mussio and Pereyra 2024: a Holt-Laury list with option A $20 or
+  ## $16 and option B $39 or $1 (Uruguayan pesos), so not quite the HL table
+  ## times 10 (B would be 38.5 / 1); fk are the r = 1 - rho at the nine
+  ## switching rows, solved from this table. choice = number of B choices.
+  if (bibkey == "Forteza2024"){
+    if (task == "HL") {
+      fk <- c(2.672, 1.916, 1.462, 1.122, 0.836, 0.574, 0.311, 0.019, -0.376)
+      if (choice == 10) { out <- fk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = fk[11 - choice], max = fk[10 - choice]) }
+      if (choice <= 1) { out <- fk[9] }
+    }
+  }
+
+  ## Angrisani et al. 2026: the BRET with 100 boxes, 1 to 99 may be collected,
+  ## so r = k/(100 - k).
+  if (bibkey == "Angrisani2026"){
+    if (task == "BRET") { out <- choice/(100-choice) }
+  }
+
+  ## Campos-Mercade et al. 2021: 100 kr, invest 0, 20, ..., 100 kr, which is
+  ## lost with probability 1/2 or returned 2.5 times; choice = kr invested.
+  if (bibkey == "CamposMercade2021"){
+    if (task == "IG") { out <- ig_crra(choice, X = 100, k = 2.5) }
   }
 
   ## A single ceiling and floor for the whole file, applied last.
