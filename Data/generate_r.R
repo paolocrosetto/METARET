@@ -3385,6 +3385,12 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Cust et al. 2024: 3000 FCFA, the invested amount is lost or returned 2.5
+  ## times on a coin toss; choice = FCFA invested.
+  if (bibkey == "Cust2024"){
+    if (task == "IG") { out <- ig_crra(choice, X = 3000, k = 2.5) }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
