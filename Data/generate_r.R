@@ -3381,6 +3381,15 @@ get_r <- function(bibkey, task, choice) {
     if (task == "CEPL") { out <- log(0.58) / log(choice / 32) }
   }
 
+  ## Casal and Filippin 2024: static BRET, 10 x 10 boxes (99 pay 1 ECU, one
+  ## bomb); choice = boxes collected, so r = k / (100 - k) as for Nielsen2019.
+  if (bibkey == "Casal2024"){
+    if (task == "BRET") {
+      if (choice == 100) { out <- 10 }
+      if (choice != 100) { out <- choice/(100-choice) }
+    }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
