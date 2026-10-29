@@ -3391,6 +3391,13 @@ get_r <- function(bibkey, task, choice) {
     if (task == "IG") { out <- ig_crra(choice, X = 3000, k = 2.5) }
   }
 
+  ## Vieider 2024: EUR 32 with 0.58 (else 0) against sure amounts 6 ... 25 in
+  ## randomised binary choices; choice = the counted certainty equivalent (5.5
+  ## ... 25.5, see clean_data.R), so r = log(0.58) / log(CE / 32) at that point.
+  if (bibkey == "Vieider2024"){
+    if (task == "CEPL") { out <- log(0.58) / log(choice / 32) }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
