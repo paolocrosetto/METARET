@@ -3335,6 +3335,29 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Rommel et al. 2023: series 1 of the Tanaka et al. (2010) / Bocquego et al.
+  ## (2014) task, a payoff-varying list. A: 30% 400, 70% 100; B: 10% X, 90% 50,
+  ## X = 680, 750, 830, 930, 1060, 1250, 1500, 1850, 2200, 3000, 4000, 6000.
+  ## rk[k] is the r = 1 - rho at which row k's A and B are equally good, solved
+  ## from the table with u = x^r (it falls as X rises). choice = number of B
+  ## choices; with n = 12 - choice A rows the switch lies between rows n and
+  ## n + 1. The open ends (never B, B from row 1) take the bounds.
+  if (bibkey == "Rommel2023"){
+    if (task == "PV") {
+      rk <- c(2.213, 1.912, 1.680, 1.480, 1.300, 1.125, 0.975, 0.839, 0.748, 0.619, 0.527, 0.426)
+      n <- 12 - choice
+      if (n == 12) { out <- rk[12] }
+      if (n == 0)  { out <- rk[1] }
+      if (n >= 1 & n <= 11) { out <- runif(1, min = rk[n + 1], max = rk[n]) }
+    }
+  }
+
+  ## Ugur and Doganay 2024: 10 chocolates, the invested part is tripled or lost
+  ## on a coin toss; choice = chocolates invested.
+  if (bibkey == "Ugur2024"){
+    if (task == "IG") { out <- ig_crra(choice, X = 10, k = 3) }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
