@@ -3358,6 +3358,22 @@ get_r <- function(bibkey, task, choice) {
     if (task == "IG") { out <- ig_crra(choice, X = 10, k = 3) }
   }
 
+  ## Hussam et al. 2022: a probability list, Tk 100 for sure against Tk 300 with
+  ## probability p (else 0), p = 0.1, 0.2, ..., 0.9 down the rows. As for
+  ## Chang2024, u = x^r gives r = log(p) / log(100/300) at the indifference p.
+  ## choice = rows with the sure Tk 100 (0-9): the switch lies between
+  ## p = choice/10 and (choice + 1)/10. choice 0 (the gamble already at 10%)
+  ## only bounds r from below and is coded at the bound; choice 9 (the sure
+  ## amount up to 90%) lies between 0 and the 90% bound.
+  if (bibkey == "Hussam2022"){
+    if (task == "HL") {
+      pk <- c(2.096, 1.465, 1.096, 0.834, 0.631, 0.465, 0.325, 0.203, 0.096)
+      if (choice == 0) { out <- pk[1] }
+      if (choice >= 1 & choice <= 8) { out <- runif(1, min = pk[choice + 1], max = pk[choice]) }
+      if (choice == 9) { out <- runif(1, min = 0, max = pk[9]) }
+    }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the
