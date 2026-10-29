@@ -3374,6 +3374,17 @@ get_r <- function(bibkey, task, choice) {
     }
   }
 
+  ## Halko, Lappalainen and Saaksvuori 2021: the original Holt-Laury table in
+  ## euros, so the standard bounds. choice = number of B choices.
+  if (bibkey == "Halko2021"){
+    if (task == "HL") {
+      rk <- c(2.71, 1.95, 1.49, 1.15, 0.85, 0.59, 0.32, 0.03, -0.37)
+      if (choice == 10) { out <- rk[1] }
+      if (choice >= 2 & choice <= 9) { out <- runif(1, min = rk[11 - choice], max = rk[10 - choice]) }
+      if (choice <= 1) { out <- rk[9] }
+    }
+  }
+
   ## A single ceiling and floor for the whole file, applied last.
   ##
   ## Several tasks inverted here are unbounded near a corner: the BRET and the

@@ -240,3 +240,4 @@ Hussam2022,2019,2020,exact,baseline survey start times in the raw data: 20 Novem
 Morais2023,2018,2019,exact,paper: students recruited between October 2018 and March 2019
 Rommel2023,2021,2021,exact,survey start dates in the data: July-December 2021 in all 11 samples
 Ugur2024,2019,2019,exact,paper: experiments in the spring of 2019
+Halko2021,2015,2015,inferred,age minus birth year in the data gives 2015; the paper does not date the sessions
