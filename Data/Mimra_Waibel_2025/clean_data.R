@@ -21,8 +21,9 @@ library(tidyverse)
 ## used. Of these 424, 349 switch once from A to B (B in row 10), against the
 ## 399 consistent subjects the paper reports; the authors' own definition
 ## (non-decreasing choices, B in row 10) gives 349 in their files as well. The
-## others have no task row and there is no general risk question (the five
-## domain questions use a 0-3 scale), so they are not kept.
+## other 75 are kept for the download only, with inconsistent = 1 and one row
+## per switch to B (Data/inconsistent_rows.R); there is no general risk
+## question (the five domain questions use a 0-3 scale).
 ## original_dataset.csv keeps session, the ten choices, sex (1 = female) and
 ## age for all 488; subjects are row numbers.
 df <- read_csv("Data/Mimra_Waibel_2025/original_dataset.csv", show_col_types = FALSE)
@@ -36,21 +37,23 @@ hl <- df %>% select(hl_1:hl_10) %>% as.matrix()
 pattern <- apply(hl, 1, paste, collapse = "")
 single <- str_detect(pattern, "^0*1+$")
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  mutate(nB = rowSums(hl == 1)) %>%
-  filter(single) %>%
+  mutate(points = lapply(seq_len(nrow(hl)), function(i) switch_points(hl[i, ])),
+         inconsistent = as.numeric(!single)) %>%
   transmute(subject,
             task = "HL",
-            ## number of B choices
-            choice = nB,
+            points, inconsistent,
             age,
             gender = female,
             country = "Switzerland",
             city = "Zurich",
             bibkey = "Mimra2025",
-            paper = "Mimra and Waibel 2025")
+            paper = "Mimra and Waibel 2025") %>%
+  ## choice = number of B choices = 11 - the row where B starts
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
-stopifnot(nrow(df) == 349)
+stopifnot(sum(df$inconsistent == 0) == 349, n_distinct(df$subject[df$inconsistent == 1]) == 75)
 
 ## the map is drawn by country; the coordinates are those of the lab's city
 df$lattitude = '47.3769'
@@ -58,7 +61,7 @@ df$longitude = '8.5417'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

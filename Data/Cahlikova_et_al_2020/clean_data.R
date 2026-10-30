@@ -28,14 +28,17 @@ stopifnot(nrow(df) == 190)
 ## row at which the subject first took the safe payment is CE/20 + 1.5, an
 ## exact inversion.
 ##
-## WHO IS DROPPED. 14 subjects switched more than once and the authors already
+## INCONSISTENT. 14 subjects switched more than once and the authors already
 ## set their certainty equivalent to missing; the Inconsistent flag marks
 ## exactly those 14. A further 5 are coded 250, which is above the top safe
 ## payment and means they took the lottery even when offered a sure 240 --
 ## that is weakly dominated, since 240 is also the best the lottery can pay,
 ## so no increasing utility function rationalises it and there is no upper
-## bound to place them at. Both groups keep their questionnaire answers under
-## quest_only and only lose the task, leaving 171 CEPL observations.
+## bound to place them at. Both groups keep a CEPL row with inconsistent = 1,
+## for the download only (Data/inconsistent_rows.R): the 5 with choice 14 (the
+## safe payment never taken, CE/20 + 1.5 for CE 250), the 14 with no choice,
+## since the file keeps no row-by-row answers. Their questionnaire answers stay
+## in the statistics. 171 consistent CEPL observations.
 ##
 ## THE QUESTIONNAIRE. The study ran the full Dohmen et al. battery, general
 ## plus five domains; the site carries the general item (soep) and the
@@ -55,11 +58,9 @@ stopifnot(sum(df$usable) == 171,
 
 df <- df %>%
   transmute(subject = row_number(),
-            task = if_else(usable, "CEPL", "quest_only"),
-            ## for the 19 without a usable switch point the row is a
-            ## questionnaire row, and generate_data_for_app.R moves `choice`
-            ## into `soep`, so the general item goes there
-            choice = if_else(usable, switch_row, as.numeric(Risk_1)),
+            task = "CEPL",
+            choice = case_when(usable ~ switch_row, ce == 250 ~ 14, TRUE ~ NA_real_),
+            inconsistent = as.numeric(!usable),
             soep = as.numeric(Risk_1),
             soep_financial = as.numeric(Risk_3),
             gender = as.numeric(Female),
@@ -73,7 +74,7 @@ df <- df %>%
 ## switching row.
 source("Data/generate_r.R")
 df$r <- NA_real_
-i <- df$task == "CEPL"
+i <- df$inconsistent == 0
 df$r[i] <- purrr::pmap_dbl(list(df$bibkey[i], df$task[i], df$choice[i]), get_r)
 
 ## Laboratory of Experimental Economics, University of Economics, Prague.

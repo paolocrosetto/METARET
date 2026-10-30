@@ -23,9 +23,11 @@ library(tidyverse)
 ## played after a rank-based endowment) and is not used.
 ##
 ## The HL list goes to the shared standard-HL block of generate_r.R:
-## choice = number of B (risky) choices. Subjects who switched more than once
-## or chose A in the last row's dominance check are kept only for the SOEP
-## item -- their rows are 'quest_only' (the same split as Charness2019).
+## choice = number of B (risky) choices = 11 - the row where B starts.
+## Subjects who switched more than once or chose A in the last row's dominance
+## check keep an HL row with inconsistent = 1, for the download only, one row
+## per switch to B (Data/inconsistent_rows.R); their SOEP answer still counts.
+## Subjects with an incomplete list keep only the SOEP item, as 'quest_only'.
 ##
 ## The SOEP answer is stored as 1 ... 9 with the end points as their labels:
 ## "not at all willing to take risks" = 0 and "very willing to take risks" =
@@ -54,13 +56,19 @@ df <- df %>%
 
 stopifnot(nrow(df) == 1074, all(df$soep %in% 0:10 | is.na(df$soep)))
 
+source("Data/inconsistent_rows.R")
+complete <- apply(hl, 1, function(x) !any(is.na(x) | !(x %in% c("A", "B"))))
 df <- df %>%
+  mutate(points = lapply(seq_len(nrow(hl)), function(i)
+           if (complete[i]) switch_points(as.numeric(hl[i, ] == "B")) else integer(0))) %>%
   transmute(subject,
-            task = if_else(consistent, "HL", "quest_only"),
+            task = if_else(complete, "HL", "quest_only"),
+            inconsistent = as.numeric(complete & !consistent),
+            points,
             ## for the quest_only rows generate_data_for_app.R moves choice
             ## into soep, so it carries the SOEP answer there
-            choice = if_else(consistent, as.numeric(n_b), soep),
-            soep = if_else(consistent, soep, NA_real_),
+            choice = if_else(complete, NA_real_, soep),
+            soep = if_else(complete, soep, NA_real_),
             gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0,
                                TRUE ~ NA_real_),
             age = recode(age_bracket, "18 to 24" = 21, "25 to 34" = 29.5,
@@ -69,12 +77,16 @@ df <- df %>%
             bibkey = "Krull2024",
             paper = "Krull et al. 2024") %>%
   filter(!(task == "quest_only" & is.na(choice)))
+df <- bind_rows(
+  df %>% filter(task == "HL") %>% expand_switches(function(k) if_else(is.na(k), 0, 11 - k)),
+  df %>% filter(task == "quest_only") %>% select(-points)) %>%
+  arrange(match(subject, unique(subject)))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
 ## only the HL rows go through get_r; the quest_only rows have no task
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), function(b, t, c)
-  if (t == "HL") get_r(b, t, c) else NA_real_))
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice, inconsistent), function(b, t, c, i)
+  if (t == "HL" && i == 0) get_r(b, t, c) else NA_real_))
 
 ## online, United States
 df$country = 'United States'

@@ -18,32 +18,37 @@ library(tidyverse)
 ## order (pattern) and their sum (n_risky).
 ##
 ## The paper is about how to use inconsistent lists; the site keeps the
-## standard rule: 11 participants who switched more than once are dropped, and
-## so are the 2 who chose A even in the last row, where B pays 3.85 for sure.
-## 59 remain. choice = number of B choices, the convention of the shared
+## standard rule: 11 participants who switched more than once and the 2 who
+## chose A even in the last row, where B pays 3.85 for sure, are out of the
+## statistics and kept for the download only, with inconsistent = 1 and one row
+## per switch to B (Data/inconsistent_rows.R). 59 remain. choice = number of B
+## choices (11 - the row where B starts), the convention of the shared
 ## standard-HL block of generate_r.R. subL carries no age or gender.
 df <- read_csv("Data/Engel_Kirchkamp_2019/original_dataset.csv",
                col_types = cols(pattern = col_character()))
 
 stopifnot(nrow(df) == 72, all(nchar(df$pattern) == 10))
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  filter(str_detect(pattern, "^0*1*$"), n_risky >= 1)
+  mutate(points = lapply(strsplit(pattern, ""), function(x) switch_points(as.numeric(x))),
+         inconsistent = as.numeric(!(str_detect(pattern, "^0*1*$") & n_risky >= 1)))
 
-stopifnot(nrow(df) == 59)
+stopifnot(sum(df$inconsistent == 0) == 59)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
-            choice = n_risky,
+            points, inconsistent,
             gender = NA_real_,
             age = NA_real_,
             bibkey = "EngelKirchkamp2019",
-            paper = "Engel and Kirchkamp 2019")
+            paper = "Engel and Kirchkamp 2019") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Cologne Laboratory for Economic Research; the map shows only the country
 df$country = 'Germany'

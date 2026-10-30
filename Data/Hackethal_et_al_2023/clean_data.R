@@ -31,6 +31,18 @@ df <- read_dta("Data/Hackethal_et_al_2023/original_dataset.dta")
 ##        Added on 22.10.2026, after the other three tasks, so that their r draws
 ##        stay as they were.
 ## survey_risk and survey_risk_fin are the SOEP items (0-10).
+## Inconsistent HL answers (counted until 29.10.2026): 152 subjects switch more
+## than once and 172 keep A in row 10, where B pays 46.20 for sure (dominated),
+## 253 in all. Their HL answer is kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R),
+## added after the other rows; their other tasks are unaffected.
+source("Data/inconsistent_rows.R")
+hl_raw <- read_dta("Data/Hackethal_et_al_2023/original_dataset.dta")
+hl_B <- as.matrix(select(hl_raw, num_range("HL_choice", 1:10)))
+hl_B[hl_raw$sample != 1, ] <- as.matrix(select(hl_raw, num_range("invHL_choice", 1:10)))[hl_raw$sample != 1, ]
+hl_B <- (hl_B == 2) * 1
+hl_inc <- !apply(hl_B, 1, single_switch) | hl_B[, 10] == 0
+stopifnot(sum(hl_inc) == 253)
 df <- df %>% 
   mutate(subject = row_number(),
          student = sample == 1,
@@ -53,7 +65,9 @@ df <- df %>%
          city = if_else(sample == 1, "Innsbruck", "")) %>% 
   select(subject, HL, EG, IG, soep, soep_financial, age, gender, country, city) %>% 
   pivot_longer(c(HL, EG, IG), names_to = "task", values_to = "choice") %>% 
-  filter(!is.na(choice))
+  filter(!is.na(choice)) %>%
+  filter(!(task == "HL" & subject %in% which(hl_inc))) %>%
+  mutate(inconsistent = 0)
 
 # adding paper name and bibkey
 df <- df %>% 
@@ -90,7 +104,18 @@ fa <- read_dta("Data/Hackethal_et_al_2023/original_dataset.dta") %>%
   select(subject, soep, soep_financial, age, gender, country, city, task, choice,
          bibkey, paper, lattitude, longitude)
 fa <- fa %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
-df <- bind_rows(df, fa)
+## the inconsistent HL answers, at the end
+hl_inc_rows <- df %>%
+  filter(task == "IG") %>%
+  distinct(subject, .keep_all = TRUE) %>%
+  filter(subject %in% which(hl_inc)) %>%
+  select(-task, -choice, -r, -inconsistent) %>%
+  mutate(task = "HL", inconsistent = 1,
+         points = lapply(subject, function(i) switch_points(hl_B[i, ]))) %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k)) %>%
+  mutate(r = NA_real_)
+stopifnot(n_distinct(hl_inc_rows$subject) == 253)
+df <- bind_rows(df, fa %>% mutate(inconsistent = 0), hl_inc_rows)
 
 # Order of variables
 df <- df %>% 

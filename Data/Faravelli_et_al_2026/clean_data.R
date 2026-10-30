@@ -38,17 +38,20 @@ df <- read_dta("Data/Faravelli_et_al_2026/original_dataset.dta")
 ## stochastically dominates there, since it pays 49 rather than 12 on the low
 ## draw and 70 on the high draw either way. dropfromriskaversionanalysis flags
 ## the subjects who took the risky side anyway, and it is exactly the 14 people
-## with no safe choice at all. They are dropped, as the authors drop them,
-## because a dominated choice says nothing about r.
+## with no safe choice at all. They are out of the statistics, as the authors
+## drop them, because a dominated choice says nothing about r, and kept for the
+## download only, with inconsistent = 1 and choice 10 (Data/inconsistent_rows.R).
 ##
 ## male is 1 for men, so gender is its complement; one subject left it blank.
 ## age is the 2019 survey year minus the year of birth and has no gaps.
+stopifnot(sum(df$dropfromriskaversionanalysis == 1) == 14,
+          all(df$safechoices[df$dropfromriskaversionanalysis == 1] == 0))
 df <- df %>%
-  filter(dropfromriskaversionanalysis == 0) %>%
   mutate(subject = row_number()) %>%
   transmute(subject,
             task = "PV",
             choice = 10 - as.numeric(safechoices),
+            inconsistent = as.numeric(dropfromriskaversionanalysis == 1),
             gender = 1 - as.numeric(male),
             age = as.numeric(age),
             bibkey = "Faravelli2026",
@@ -62,7 +65,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

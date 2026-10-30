@@ -21,9 +21,10 @@ library(tidyverse)
 ## SR2 is the first row where the ticket was not bought, so the certainty
 ## equivalent of the lottery lies between 0.50 (SR2 - 1) and 0.50 SR2 EUR. The
 ## switch was enforced by the software. Three subjects bought the ticket even at
-## 10 EUR (SR2 = 21), which is dominated, and have no task row.
+## 10 EUR (SR2 = 21), which is dominated: they are kept for the download only,
+## with inconsistent = 1 and choice 21 (Data/inconsistent_rows.R).
 ## Q_Risk is the general willingness to take risks (Dohmen et al. 2011), 0-10,
-## answered by all; it goes in soep, and the three above enter as quest_only.
+## answered by all; it goes in soep and counts for everyone.
 ## The authors' files also hold religion, income, nationality, local IP
 ## addresses and oTree codes and are not copied; original_dataset.csv keeps
 ## session, treatment order, the four switching rows of the investment task,
@@ -35,10 +36,10 @@ stopifnot(nrow(df) == 176, all(df$SR2 %in% 1:21), all(!is.na(df$q_risk)))
 df <- df %>%
   mutate(dominated = SR2 == 21) %>%
   transmute(subject,
-            task = if_else(dominated, "quest_only", "CEPL"),
-            ## choice is what generate_data_for_app.R moves into soep for quest_only
-            choice = if_else(dominated, q_risk, SR2),
-            soep = if_else(dominated, NA_real_, q_risk),
+            task = "CEPL",
+            choice = SR2,
+            inconsistent = as.numeric(dominated),
+            soep = q_risk,
             age,
             gender = case_when(gender == "female" ~ 1, gender == "male" ~ 0),
             country = "France",
@@ -46,14 +47,14 @@ df <- df %>%
             bibkey = "Zheng2025",
             paper = "Zheng and Zhou 2025")
 
-stopifnot(sum(df$task == "CEPL") == 173)
+stopifnot(sum(df$inconsistent == 0) == 173)
 
 ## the map is drawn by country; the coordinates are those of the lab's city
 df$lattitude = '43.6047'
 df$longitude = '1.4442'
 
 source("Data/generate_r.R")
-cepl <- df$task == "CEPL"
+cepl <- df$inconsistent == 0
 df$r <- NA_real_
 df$r[cepl] <- purrr::pmap_dbl(list(df$bibkey[cepl], df$task[cepl], df$choice[cepl]), get_r)
 

@@ -19,10 +19,15 @@ library(tidyverse)
 ## 105 or 84 CHF and B pays 200 or 6 CHF, the high return with probability k/10.
 ## 10% of participants were paid one random scenario. scenario_k: "A1" = A,
 ## "A2" = B; choice = number of B choices.
-## As in the paper (footnote 5), subjects with multiple switches or no switch are
-## removed: 23 switch more than once and 26 never switch (13 always A, 13 always
-## B), leaving 161 single switchers (the paper reports 17 removals for its pooled
-## fruit and grape sample).
+## The paper (footnote 5) removes subjects with multiple switches or no switch:
+## 23 switch more than once and 26 never switch (13 always A, 13 always B),
+## leaving 161 single switchers (the paper reports 17 removals for its pooled
+## fruit and grape sample). The site's rule since 29.10.2026 differs only for
+## the 13 always-B growers: B in row 1 is not dominated, so they enter the
+## statistics with choice 10 (174 in all). The 23 multiple switchers and the 13
+## always-A (A in row 10, where B pays 200 for sure, is dominated) are kept for
+## the download only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R).
 ## gender: "F" = 1, "M" = 0. Age = 2018 - year of birth (implausible years set
 ## to NA).
 df <- read_csv("Data/Finger_et_al_2023/original_dataset.csv", show_col_types = FALSE)
@@ -30,15 +35,20 @@ df <- read_csv("Data/Finger_et_al_2023/original_dataset.csv", show_col_types = F
 b <- as.matrix(select(df, starts_with("scenario_"))) == "A2"
 switches <- rowSums(b[, -1] != b[, -10])
 
+stopifnot(sum(switches == 1) == 161)
+source("Data/inconsistent_rows.R")
+B <- b * 1
 df <- df %>%
-  mutate(choice = rowSums(b), switches = switches) %>%
-  filter(switches == 1) %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject,
             task = "HL",
-            choice,
+            points, inconsistent,
             age = if_else(year_b >= 1920 & year_b <= 2000, 2018 - year_b, NA_real_),
             gender = case_when(gender == "F" ~ 1, gender == "M" ~ 0, TRUE ~ NA_real_),
             country = "Switzerland")
+stopifnot(sum(df$inconsistent == 0) == 174, sum(df$inconsistent) == 36)
+df <- df %>% expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -51,7 +61,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

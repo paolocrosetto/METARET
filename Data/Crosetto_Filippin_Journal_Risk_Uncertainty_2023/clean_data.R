@@ -35,15 +35,19 @@ bret <- bret %>% filter(treatment == 2)
 stopifnot(nrow(hl) == 179 - 88 + 165, nrow(eg) == 145 - 88 + 134, nrow(bret) == 191)
 
 ## HL: numbersafe is the number of safe (A) choices and is missing for the
-## subjects who switched more than once; as in Crosetto2016 they are left out.
-## choice = number of risky choices. HLsafe pitches a sure amount against a
-## lottery, which this site calls a CEPL; its r bounds are in generate_r.R.
+## subjects who switched more than once; as in Crosetto2016 they are kept for
+## the download only, with inconsistent = 1 (Data/inconsistent_rows.R). The file
+## has no row-by-row answers, so their choice is left empty. Nobody kept the
+## safe side in the last row. choice = number of risky choices. HLsafe pitches a
+## sure amount against a lottery, which this site calls a CEPL; its r bounds are
+## in generate_r.R.
 hl <- hl %>%
-  filter(!is.na(numbersafe)) %>%
   transmute(subject = as.character(subject), female, soep,
             task = if_else(treatment == 2, "CEPL", "HL"),
             treatment = if_else(treatment == 2, "HLsafe", "HL"),
-            choice = 10 - numbersafe)
+            choice = 10 - numbersafe,
+            inconsistent = as.numeric(is.na(numbersafe)))
+stopifnot(!any(hl$choice %in% 0 & hl$task == "HL"))
 
 ## EG: eg is the lottery chosen, 1 the safest (the sure 4 euro in EGsafe).
 eg <- eg %>%
@@ -73,7 +77,9 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df <- df %>% mutate(inconsistent = coalesce(inconsistent, 0))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## "The experimental sessions were run in 2014 (BRETsafe, HLsafe, HL extra
 ## sessions) at the Laboratory of the Max Planck Institute of Economics, and in

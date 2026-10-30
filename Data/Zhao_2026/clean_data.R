@@ -25,22 +25,31 @@ library(tidyverse)
 ## choice = number of risky choices = 10 - num_safe_choices.
 ##
 ## The 74 subjects who went back to the safe option after once taking the risky
-## one are dropped, as multiple switchers are elsewhere in this corpus, leaving
-## 438. gender: player.gender of the oTree market files (df_bdm, df_call,
+## one are out of the statistics, as multiple switchers are elsewhere in this
+## corpus, and so are the 9 who took A in every row, including row 10, where B
+## pays 3.85 for sure (dominated; counted until 29.10.2026), leaving 429. The
+## 83 are kept for the download only, with inconsistent = 1 and one row per
+## switch to B (Data/inconsistent_rows.R).
+## gender: player.gender of the oTree market files (df_bdm, df_call,
 ## df_mkt), joined on participant.code; all 512 match and no code carries two
 ## answers. "Female" = 1, "Male" = 0, the 12 "Other" are left missing. The paper
 ## does not report the split, so it cannot be checked against the text. No age
 ## was asked.
 df <- read_csv("Data/Zhao_2026/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  filter(multiple_switching == 0) %>%
+  mutate(points = lapply(strsplit(pattern, ""), function(x) switch_points(as.numeric(x == "B"))),
+         inconsistent = as.numeric(multiple_switching == 1 | substr(pattern, 10, 10) == "A")) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = 10L - num_safe_choices,
+            points, inconsistent,
             age = NA_real_,
             gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0, TRUE ~ NA_real_),
-            china = location == "DUFE")
+            china = location == "DUFE") %>%
+  ## choice = number of risky choices = 11 - the row where B starts
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(sum(df$inconsistent == 0) == 429)
 
 df <- df %>%
   mutate(country = if_else(china, 'China', 'United States'),
@@ -56,7 +65,7 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

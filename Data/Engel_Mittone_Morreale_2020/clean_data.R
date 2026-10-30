@@ -14,20 +14,27 @@ library(tidyverse)
 ## answers; participant codes and IP addresses were dropped.
 ## 90 students in Trento (5 sessions of 18), oTree. hl_1 ... hl_10: 1 = option A
 ## (safe), 2 = option B (risky), as in the authors' EMM200820DataPreparation.do.
-## choice = number of risky choices (5 subjects switch more than once; as
-## elsewhere in METARET the total count is used).
+## choice = number of risky choices, i.e. 11 - the row where B starts.
+## The 6 subjects who switch back from B to A (counted until 29.10.2026) are
+## kept for the download only, with inconsistent = 1 and one row per switch to
+## B (Data/inconsistent_rows.R); nobody kept A in row 10.
 ## sex: "Femminile" = 1, "Maschile" = 0.
 df <- read_csv("Data/Engel_Mittone_Morreale_2020/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
+B <- (as.matrix(df[paste0("hl_", 1:10)]) == 2) * 1
 df <- df %>% 
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject = subject,
             task = "HL",
-            choice = (hl_1 == 2) + (hl_2 == 2) + (hl_3 == 2) + (hl_4 == 2) + (hl_5 == 2) +
-                     (hl_6 == 2) + (hl_7 == 2) + (hl_8 == 2) + (hl_9 == 2) + (hl_10 == 2),
+            points, inconsistent,
             age = age,
             gender = case_when(sex == "Femminile" ~ 1, sex == "Maschile" ~ 0, TRUE ~ NA_real_),
             country = "Italy",
             city = "Trento")
+stopifnot(sum(df$inconsistent) == 6)
+df <- df %>% expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>% 
@@ -40,7 +47,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

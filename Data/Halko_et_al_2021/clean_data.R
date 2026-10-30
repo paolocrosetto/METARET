@@ -28,20 +28,25 @@ stopifnot(nrow(df) == 160)
 ## ten-sided die, HLPay the payout, and HLSwitch the first row in which B was
 ## chosen (in every row checked, the payout is A's below HLSwitch and B's from
 ## it on). HLSwitch is missing for the 20 who switched more than once; as on the
-## rest of the site they are left out. choice = number of B choices = 11 -
-## HLSwitch.
+## rest of the site they are out of the statistics, and kept for the download
+## only with inconsistent = 1 (Data/inconsistent_rows.R) and no choice, since
+## the file has no row-by-row answers. The 4 with HLSwitch 11 never took B, so
+## they kept A in row 10, where B pays 3.85 for sure (dominated; counted until
+## 29.10.2026): inconsistent too, with choice 0. choice = number of B choices =
+## 11 - HLSwitch.
 ## General risk question: "willingness to take risk on a scale from 0 to 10"
 ## (Dohmen et al. 2011), the site's SOEP item.
 ## Gender: 1 female ("Female: a dummy variable with female = 1").
 df <- df %>%
-  filter(!is.na(HLSwitch)) %>%
   transmute(subject = row_number(),
             age = Age,
             gender = Gender,
             task = "HL",
             choice = 11 - HLSwitch,
+            inconsistent = as.numeric(is.na(HLSwitch) | HLSwitch == 11),
             soep = GeneralRisk)
-stopifnot(nrow(df) == 140, all(df$choice %in% 0:10))
+stopifnot(sum(df$inconsistent == 0) == 136, sum(df$inconsistent) == 24,
+          all(df$choice[df$inconsistent == 0] %in% 1:10))
 
 #### adding paper name and bibkey
 df <- df %>%
@@ -50,7 +55,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## PCRC laboratory, Turku School of Economics, University of Turku.
 df$country = 'Finland'

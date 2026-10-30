@@ -29,7 +29,8 @@ library(tidyverse)
 ## taken, counted from lottery1-lottery11 (2 = lottery, 4 = sure amount), the
 ## authors' choice_lottery. Every participant switched once. 0 (the sure EUR 4
 ## even against a sure EUR 6) and 11 (the lottery even when it pays EUR 2 for
-## sure) choose a dominated option; those two participants are dropped.
+## sure) choose a dominated option; those two participants are kept for the
+## download only, with inconsistent = 1 (Data/inconsistent_rows.R).
 ## The lab's own risk item is on a 1-7 scale and is not used.
 ##
 ## sex in the lab data: 1 = male, 2 = female (the authors' female).
@@ -39,13 +40,16 @@ df <- read_csv("Data/Buser_VanVeldhuizen_Zhong_2025/original_dataset.csv",
 stopifnot(sum(df$sample == "lab") == 211, sum(df$sample == "student_survey") == 1312)
 
 lab <- df %>%
-  filter(sample == "lab", risky_choices %in% 1:10) %>%
+  filter(sample == "lab") %>%
   transmute(subject = participant,
             task = "CEPL",
             choice = risky_choices,
+            inconsistent = as.numeric(!risky_choices %in% 1:10),
             gender = female,
             age = suppressWarnings(as.numeric(age)),
             city = "Amsterdam")
+
+stopifnot(sum(lab$inconsistent) == 2)
 
 students <- df %>%
   filter(sample == "student_survey", !is.na(risk_0to10)) %>%
@@ -57,6 +61,7 @@ students <- df %>%
             choice = risk_0to10,
             gender = female,
             age = NA_real_,
+            inconsistent = 0,
             city = "Amsterdam")
 
 df <- bind_rows(lab, students) %>%
@@ -74,8 +79,9 @@ df$longitude = ''
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 ## (the questionnaire-only rows have no task, so no r)
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), function(b, t, c)
-  if (t == "quest_only") NA_real_ else get_r(b, t, c)))
+## r for consistent rows only, in their order (Data/inconsistent_rows.R)
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice, inconsistent), function(b, t, c, i)
+  if (t == "quest_only" || i == 1) NA_real_ else get_r(b, t, c)))
 
 # Order of variables
 df <- df %>%

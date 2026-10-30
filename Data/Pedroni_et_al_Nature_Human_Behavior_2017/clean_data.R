@@ -8,6 +8,7 @@ library(tidyverse)
 library(haven)
 library(broom)
 library(readxl)
+source("Data/inconsistent_rows.R")
 
 
 #### getting the data
@@ -58,10 +59,30 @@ quest <- quest %>%
 # CEPL -- multiple price list
 hl <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/mpl/mplBehavior.csv")
 
+## Inconsistent HL answers (29.10.2026): CheckHolt 1 or 2. Rebuilt from the row
+## answers of problem 1 (mpl.csv, dp == 1, the standard Holt-Laury list;
+## choice 0 = B there), the rule of the site -- a single switch to B and B in
+## row 10 -- gives exactly the authors' 1331 consistent and 174 inconsistent
+## subjects. The 174 are kept for the download only, with inconsistent = 1 and
+## one row per switch to B (Data/inconsistent_rows.R), added after the other
+## rows. MPLr counts the B choices minus one (10 - the row where B starts).
+## Since 30.10.2026 choice is the number of B choices, MPLr + 1 = 11 - the row
+## where B starts, the convention of every other HL paper with the standard
+## bounds (before, choice was MPLr and r fell one interval too low); a switch at
+## row k is coded 11 - k (0 if B is never taken).
+mpl_rows <- read_csv("Data/Pedroni_et_al_Nature_Human_Behavior_2017/original_data/mpl/mpl.csv") %>%
+  filter(dp == 1) %>%
+  arrange(partid, decision) %>%
+  group_by(partid) %>%
+  summarise(points = list(switch_points(as.numeric(choice == 0))), .groups = "drop")
+hl_inc_ids <- hl$partid[hl$CheckHolt %in% c(1, 2)]
+stopifnot(length(hl_inc_ids) == 174)
+
 hl <- hl %>% 
   select(subject = partid, 
          inconsistent = CheckHolt,
          HL = MPLr) %>% 
+  mutate(HL = HL + 1) %>% 
   filter(inconsistent == 0) %>% 
   filter(!is.na(HL)) %>% 
   select(-inconsistent)
@@ -80,6 +101,18 @@ df <- df %>%
 df <- df %>% 
   filter(!is.na(choice))
 
+## the inconsistent HL answers, with the subject's demographics and
+## questionnaires, after the consistent rows
+hl_inc <- mpl_rows %>%
+  filter(partid %in% hl_inc_ids) %>%
+  rename(subject = partid) %>%
+  mutate(task = "HL", inconsistent = 1) %>%
+  left_join(left_join(id, quest, by = "subject"), by = "subject") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+df <- df %>%
+  mutate(inconsistent = 0) %>%
+  bind_rows(hl_inc)
+
 # adding paper name and bibkey
 df <- df %>% 
   mutate(bibkey = "Frey2017",
@@ -95,7 +128,7 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

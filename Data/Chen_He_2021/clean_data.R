@@ -24,25 +24,31 @@ library(tidyverse)
 ## grows from "die is 1" to "die is 1-10" down the rows. choice1 ... choice10
 ## are 1 for option A and 2 for option B, so choice is the count of twos.
 ##
-## Dropped on the authors' own rule, written out in their main.do: the 47
-## subjects who go back from B to A at any point, and the 16 who take A in the
-## last row, where it pays 200 points for sure against B's 385. Nine subjects
-## fail both, so 274 remain.
+## Out of the statistics on the authors' own rule, written out in their
+## main.do: the 47 subjects who go back from B to A at any point, and the 16 who
+## take A in the last row, where it pays 200 points for sure against B's 385.
+## Nine subjects fail both, so 274 remain. The 50 are kept for the download
+## only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R). choice = 11 - the row where B starts.
 df <- read_csv("Data/Chen_He_2021/original_dataset.csv", show_col_types = FALSE)
 
 b <- as.matrix(select(df, choice1:choice10))
 back <- apply(b, 1, function(x) any(x[1:9] == 2 & x[2:10] == 1))
 
+source("Data/inconsistent_rows.R")
+B <- (b == 2) * 1
 df <- df %>%
-  mutate(n_B = rowSums(b == 2), back = back, last_A = b[, 10] == 1) %>%
-  filter(!back, !last_A) %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(back | b[, 10] == 1)) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = n_B,
+            points, inconsistent,
             age,
             gender = female,
             country = "United States",
-            city = "Ann Arbor")
+            city = "Ann Arbor") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(sum(df$inconsistent == 0) == 274)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -54,7 +60,7 @@ df$longitude = '-83.7430'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

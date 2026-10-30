@@ -13,6 +13,10 @@ library(tidyverse)
 ## 200 students, 5 sessions at LEE, Universitat Jaume I (Castellón), z-Tree.
 ## Task 2 was the standard Holt-Laury list; RiskAttitude = number of safe
 ## lotteries chosen (codebook), so choice = number of risky choices = 10 - RiskAttitude.
+## The file has the count only, so multiple switchers cannot be seen; the 4 with
+## 10 safe choices kept A in row 10, where B pays 3.85 for sure (dominated;
+## counted until 29.10.2026): kept for the download only, with inconsistent = 1
+## (Data/inconsistent_rows.R).
 ## Female: 1 = woman, 0 = man. Age was not published.
 df <- read_csv("Data/Barreda_Tarrazona_et_al_2022/original_dataset.csv", show_col_types = FALSE)
 
@@ -20,6 +24,7 @@ df <- df %>%
   transmute(subject = Subject,
             task = "HL",
             choice = 10 - RiskAttitude,
+            inconsistent = as.numeric(RiskAttitude == 10),
             gender = Female,
             country = "Spain",
             city = "Castellon")
@@ -35,7 +40,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

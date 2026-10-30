@@ -20,7 +20,12 @@ library(tidyverse)
 ## switches, stayinbed flags subjects the authors treat as not switching. The
 ## paper's own sample for risk (do-file, Table 3) is numchanges == 1 and
 ## stayinbed == 0; the same filter is used here, which also removes the 13
-## without a switch row. 152 remain. With the first B in row s the subject made
+## without a switch row. 152 remain. The 6 with several switches (numchanges
+## 3-5) are kept for the download only, with inconsistent = 1 and one row with
+## their first switch (ownswitch) as choice (Data/inconsistent_rows.R); the
+## file has no row-by-row answers. The 16 flagged stayinbed or without a
+## switch row stay out: whether they took A or B throughout, and so whether the
+## answer is dominated, cannot be told. With the first B in row s the subject made
 ## 11 - s B choices, the convention of the shared standard-HL block of
 ## generate_r.R. The package has no age or gender.
 df <- read_csv("Data/Corgnet_HernanGonzalez_2019/original_dataset.csv", show_col_types = FALSE)
@@ -28,14 +33,17 @@ df <- read_csv("Data/Corgnet_HernanGonzalez_2019/original_dataset.csv", show_col
 stopifnot(nrow(df) == 174)
 
 df <- df %>%
-  filter(numchanges == 1, stayinbed == 0, !is.na(ownswitch))
+  filter(stayinbed == 0, !is.na(ownswitch)) %>%
+  mutate(inconsistent = as.numeric(numchanges > 1))
 
-stopifnot(nrow(df) == 152, all(df$ownswitch %in% 2:10))
+stopifnot(sum(df$inconsistent == 0) == 152, sum(df$inconsistent) == 6,
+          all(df$ownswitch[df$inconsistent == 0] %in% 2:10))
 
 df <- df %>%
   transmute(subject,
             task = "HL",
             choice = 11 - ownswitch,
+            inconsistent,
             gender = NA_real_,
             age = NA_real_,
             bibkey = "Corgnet2019",
@@ -43,7 +51,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Chapman University, Orange (California); the map shows only the country
 df$country = 'United States'

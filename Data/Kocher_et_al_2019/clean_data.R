@@ -20,7 +20,9 @@ library(tidyverse)
 ## and amount1 + 0.40; its mean, 2.14, matches the paper's 2.2 and 2.15 by
 ## treatment. choice = the row of the first sure amount taken,
 ## (amount1 - 0.20) / 0.40 + 1. One subject kept the lottery even against a sure
-## 4.20 EUR (dominated) and has no task row.
+## 4.20 EUR (dominated): kept for the download only, with inconsistent = 1 and
+## choice 11 (Data/inconsistent_rows.R); the file has no row-by-row answers, so
+## multiple switching cannot be seen.
 ## risk is a self-assessment, "How risk loving" from 1 (very much) to 6 (not at
 ## all); it is reversed and rescaled to 0-10 and kept in soep.
 ## The additional experiment (welfare.dta) asks for investments in an asset
@@ -36,10 +38,10 @@ df <- df %>%
          soep_risk = (6 - risk_self) / 5 * 10,
          dominated = row == 11) %>%
   transmute(subject,
-            task = if_else(dominated, "quest_only", "CEPL"),
-            ## choice is what generate_data_for_app.R moves into soep for quest_only
-            choice = if_else(dominated, soep_risk, row),
-            soep = if_else(dominated, NA_real_, soep_risk),
+            task = "CEPL",
+            choice = row,
+            inconsistent = as.numeric(dominated),
+            soep = soep_risk,
             age,
             gender,
             country = "Germany",
@@ -47,14 +49,14 @@ df <- df %>%
             bibkey = "Kocher2019",
             paper = "Kocher et al. 2019")
 
-stopifnot(sum(df$task == "CEPL") == 399)
+stopifnot(sum(df$inconsistent == 0) == 399)
 
 ## the map is drawn by country; the coordinates are those of the lab's city
 df$lattitude = '48.1351'
 df$longitude = '11.5820'
 
 source("Data/generate_r.R")
-cepl <- df$task == "CEPL"
+cepl <- df$inconsistent == 0
 df$r <- NA_real_
 df$r[cepl] <- purrr::pmap_dbl(list(df$bibkey[cepl], df$task[cepl], df$choice[cepl]), get_r)
 

@@ -42,14 +42,26 @@ shares <- df %>%
   arrange(id, sure) %>%
   group_by(id) %>%
   mutate(share = coalesce(share, (lag(share) + lead(share)) / 2, lag(share), lead(share))) %>%
-  summarise(ce = 5.5 + sum(share), .groups = "drop")
+  summarise(ce = 5.5 + sum(share),
+            ## monotone: the share of wager choices never rises with the sure
+            ## amount (amounts a subject never saw are skipped)
+            monotone = all(diff(share[!is.na(share)]) <= 0), .groups = "drop")
 stopifnot(nrow(shares) == 61, !anyNA(shares$ce))
+
+## Inconsistent (29.10.2026, agreed with the user): the 42 subjects whose
+## choices are not monotone, i.e. who take the wager at some sure amount above
+## one where they took the sure amount. They are kept for the download only,
+## with inconsistent = 1, one row each with the counted certainty equivalent
+## above (the questions came one at a time in random order, so there is no
+## list switching point to number); 19 subjects stay in the statistics.
 
 ## The package has no age or gender.
 df <- shares %>%
   transmute(subject = row_number(),
             task = "CEPL",
-            choice = ce)
+            choice = ce,
+            inconsistent = as.numeric(!monotone))
+stopifnot(sum(df$inconsistent) == 42)
 
 #### adding paper name and bibkey
 df <- df %>%
@@ -58,7 +70,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Ghent University, Faculty of Economics and Business Administration.
 df$country = 'Belgium'

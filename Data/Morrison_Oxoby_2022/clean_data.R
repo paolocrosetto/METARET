@@ -23,20 +23,25 @@ library(tidyverse)
 ## instructions give 3.50). A sure amount against a lottery whose probability
 ## moves along the list: a probability-equivalent list, grouped with CEPL (as
 ## Halim2025). choice = number of B choices.
-## Kept: subjects who never go back from B to A and take B in row 10 (35 CAD for
-## sure). Dropped: 2 with multiple switches and 2 who took 20 CAD over 35 CAD.
+## In the statistics: subjects who never go back from B to A and take B in row
+## 10 (35 CAD for sure). Kept for the download only, with inconsistent = 1 and
+## one row per switch to B (Data/inconsistent_rows.R): 2 with multiple switches
+## and 2 who took 20 CAD over 35 CAD. choice = 11 - the row where B starts.
 df <- read_csv("Data/Morrison_Oxoby_2022/original_dataset.csv", show_col_types = FALSE)
 
 B <- df %>% select(inc1:inc10) %>% as.matrix()
 consistent <- apply(B, 1, function(x) all(diff(x) >= 0)) & B[, 10] == 1
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  mutate(n_B = rowSums(B)) %>%
-  filter(consistent) %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!consistent)) %>%
   transmute(subject,
             task = "CEPL",
-            choice = n_B,
-            country = "Canada")
+            points, inconsistent,
+            country = "Canada") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(n_distinct(df$subject[df$inconsistent == 1]) == 4)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -49,7 +54,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

@@ -24,9 +24,12 @@ library(tidyverse)
 ## data_exp.csv: one row per subject, V1 ... V29, 1 = lottery A (the risky one
 ## in tasks 5-9). choice = number of risky choices in V5 ... V9. Kept: the 41
 ## subjects who move at most once, from the safe to the risky option, as the
-## probability of the high prize rises; the 8 others are dropped, as for the
-## multiple switchers of other HL papers. Bounds in the Georgalos2023 block of
-## generate_r.R.
+## probability of the high prize rises; the 8 others are out of the
+## statistics, as for the multiple switchers of other HL papers, and kept for
+## the download only, with inconsistent = 1 and one row per switch to the risky
+## option (Data/inconsistent_rows.R). No row is dominated (the chance of the
+## high prize stops at 90%). choice = 6 - the row where the risky option
+## starts. Bounds in the Georgalos2023 block of generate_r.R.
 ##
 ## No demographics in the package; Lancaster University, United Kingdom. The
 ## paper does not say when the sessions were run.
@@ -37,24 +40,26 @@ stopifnot(nrow(df) == 49)
 hl <- as.matrix(df[, paste0("V", 5:9)])
 single <- apply(hl, 1, function(x) all(diff(x) >= 0))
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  mutate(n_risky = rowSums(hl), single = single) %>%
-  filter(single)
+  mutate(points = lapply(seq_len(nrow(hl)), function(i) switch_points(hl[i, ])),
+         inconsistent = as.numeric(!single))
 
-stopifnot(nrow(df) == 41)
+stopifnot(sum(df$inconsistent == 0) == 41)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
-            choice = n_risky,
+            points, inconsistent,
             gender = NA_real_,
             age = NA_real_,
             bibkey = "Georgalos2023",
-            paper = "Georgalos et al. 2023")
+            paper = "Georgalos et al. 2023") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 6 - k))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Lancaster Experimental Economics Lab; the map shows only the country
 df$country = 'United Kingdom'

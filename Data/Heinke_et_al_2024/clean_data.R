@@ -20,6 +20,10 @@ library(tidyverse)
 ##    METARET category.
 ## MPL 1 is used as the CEPL measure (one CEPL per subject; MPL 2 is the same
 ## format and is not added to avoid two CEPL rows per subject).
+## The file has the count only, so multiple switching cannot be seen; the one
+## subject with MPL_1 = 0 took the sure amount even at -50 ECU against the
+## lottery (dominated; counted until 29.10.2026) and is kept for the download
+## only, with inconsistent = 1 (Data/inconsistent_rows.R).
 ## female: 1 = female, 0 = male, NA = other (2 subjects).
 ## SOEP_general and SOEP_finance are on 0-10.
 df <- read_csv("Data/Heinke_et_al_2024/original_dataset.csv", show_col_types = FALSE)
@@ -28,6 +32,7 @@ df <- df %>%
   transmute(subject = row_number(),
             task = "CEPL",
             choice = MPL_1,
+            inconsistent = as.numeric(MPL_1 == 0),
             soep = SOEP_general,
             soep_financial = SOEP_finance,
             age = as.numeric(Age),
@@ -46,7 +51,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

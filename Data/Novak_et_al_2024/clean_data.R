@@ -31,9 +31,10 @@ stopifnot(nrow(df) == 63)
 ## crossing is enforced and holds: 60 subjects switch once and 3 sit at a
 ## corner (two take the risky side in every row, one the safe side in every
 ## row). Those corners also cross a dominated row -- row 1 pays $1.75 for sure
-## against $0.10 for sure, row 11 pays $2.00 for sure against $4.00 -- and the
-## bounds block gives them the end points, as the canonical Holt-Laury block
-## does for its own corners.
+## against $0.10 for sure, row 11 pays $2.00 for sure against $4.00 -- so since
+## 29.10.2026 the 3 are kept for the download only, with inconsistent = 1 and
+## their count as choice (Data/inconsistent_rows.R); before they were counted
+## at the end points.
 stopifnot(all(df$switches <= 1))
 
 ## GenderDummy is 1 for women: matching the clean file to the raw answers on
@@ -57,6 +58,7 @@ df <- df %>%
   transmute(subject = ParticipantID,
             task = "HL",
             choice = n_risky,
+            inconsistent = as.numeric(n_risky %in% c(0, 11)),
             gender = as.numeric(GenderDummy),
             age = as.numeric(Age),
             bibkey = "Novak2024",
@@ -71,7 +73,8 @@ df$longitude = '-73.9626'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

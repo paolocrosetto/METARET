@@ -35,16 +35,20 @@ df <- read_dta("Data/Masters_et_al_2025/original_dataset.dta")
 ## Subjects who switched more than once leave the certainty equivalent
 ## unidentified; Single_r flags the 167 with a single switch point, and the
 ## authors use exactly those in their own analysis (their `risky` variable),
-## so the other 19 are dropped.
+## so the other 19 are out of the statistics; they are kept for the download
+## only, with inconsistent = 1 and no choice (Data/inconsistent_rows.R), since
+## the file has no row-by-row answers.
 ##
 ## genrisk is the general risk question of Dohmen et al. (2011) on the usual
 ## 0-10 scale, which goes into soep, on the same rows as the task.
 df <- df %>%
   mutate(across(c(Single_r, Gender), ~ as.character(haven::as_factor(.)))) %>%
-  filter(Single_r == "yes", !is.na(risky_full)) %>%
+  mutate(inconsistent = as.numeric(Single_r != "yes")) %>%
+  filter(inconsistent == 1 | !is.na(risky_full)) %>%
   transmute(subject = row_number(),
             task = "CEPL",
-            choice = (as.numeric(risky_full) - 3.00) / 0.25,
+            choice = if_else(inconsistent == 1, NA_real_, (as.numeric(risky_full) - 3.00) / 0.25),
+            inconsistent,
             gender = case_when(Gender == "female" ~ 1,
                                Gender == "male" ~ 0,
                                TRUE ~ NA_real_),
@@ -62,7 +66,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

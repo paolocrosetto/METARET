@@ -28,6 +28,7 @@ library(tidyverse)
 ## label them 18-24, 25-34, 35-44, 45-54, 55-64, 65-74, 75-84; the shares in the
 ## paper (Experiment 1: 3% 18-24, 44% 25-34, 28% 35-44, 17% 45-54, 7.5% 55+)
 ## fit that reading. age = bracket midpoint, as for Burro2026 (21, 29.5, ...).
+source("Data/inconsistent_rows.R")
 age_mid <- c(`99` = 21, `100` = 29.5, `101` = 39.5, `102` = 49.5, `103` = 59.5,
              `104` = 69.5, `105` = 79.5)
 
@@ -37,7 +38,12 @@ clean_control <- function(df, q, att1, att2, sex, age) {
     mutate(across(all_of(c(q, att1, att2, sex, age)), ~ suppressWarnings(as.numeric(.x)))) %>%
     filter(if_all(all_of(q), ~ !is.na(.x)),
            .data[[att1]] == 1, .data[[att2]] == 2) %>%
-    transmute(choice = rowSums(across(all_of(q)) == 2),
+    mutate(points = lapply(seq_len(n()), function(i) switch_points(as.numeric(unlist(pick(all_of(q))[i, ]) == 2))),
+           inconsistent = as.numeric(sapply(seq_len(n()), function(i) {
+             b <- as.numeric(unlist(pick(all_of(q))[i, ]) == 2)
+             !single_switch(b) | b[10] == 0
+           }))) %>%
+    transmute(points, inconsistent,
               ## 1 - female, 0 - male
               gender = case_when(.data[[sex]] == 2 ~ 1,
                                  .data[[sex]] == 1 ~ 0,
@@ -55,8 +61,13 @@ exp2 <- read_csv("Data/Karapetian_et_al_2025/original_exp2.csv", show_col_types 
   clean_control(q = paste0("CG_HL", 1:10), att1 = "CG_ATT1", att2 = "CG_ATT2", sex = "Sex",
                 age = "D1")
 
+## Inconsistent (counted until 29.10.2026): subjects who switch more than once
+## or keep A in row 10, where B pays $3.85 for sure; they are kept for the
+## download only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R). choice = 11 - the row where B starts.
 df <- bind_rows(exp1, exp2) %>% 
-  mutate(subject = row_number())
+  mutate(subject = row_number()) %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding task, paper name and bibkey
 df <- df %>% 
@@ -72,7 +83,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

@@ -14,6 +14,10 @@ library(tidyverse)
 ## After the main task everyone answered a standard Holt-Laury list
 ## (2.00/1.60 vs 3.85/0.10 EUR, checked against the payments in the raw file).
 ## hl = 10 - number of risky choices (authors' code), so choice = 10 - hl.
+## The file has the count only, so multiple switchers cannot be seen; the 9 with
+## hl = 10 kept A in row 10, where B pays 3.85 for sure (dominated; counted
+## until 29.10.2026): kept for the download only, with inconsistent = 1
+## (Data/inconsistent_rows.R).
 ## The Study 2 replication (56 people) is not added: its HL columns are empty
 ## in the published raw file.
 ## gender: "female" = 1, "male" = 0, "divers" = NA.
@@ -23,6 +27,7 @@ df <- df %>%
   transmute(subject = row_number(),
             task = "HL",
             choice = 10 - hl,
+            inconsistent = as.numeric(hl == 10),
             age = as.numeric(age),
             gender = case_when(gender == "female" ~ 1, gender == "male" ~ 0, TRUE ~ NA_real_),
             country = "Germany",
@@ -39,7 +44,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

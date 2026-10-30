@@ -21,21 +21,28 @@ df <- read_delim("Data/Humphrey_Meickmann_2026/original_dataset.csv",
 ## (safe), 0 = option B (risky), so choice = number of risky choices, as for the
 ## other HL papers. No row is missing for any subject.
 ##
-## Five subjects switch more than once (hl_inconsistent == 1). They are kept:
-## counting B choices is defined for them too, and the site keeps inconsistent
-## subjects elsewhere. The authors do not drop them from the data either -- their
-## own summary variable hl_switch_lasta is simply left missing for those five.
+## Five subjects switch more than once (hl_inconsistent == 1); the authors'
+## own summary variable hl_switch_lasta is left missing for them. Until
+## 29.10.2026 they were counted; now they, and anyone with A in row 10, where B
+## pays 23.00 for sure (dominated), are kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R).
 ## Checked: for the 443 consistent subjects, choice == 10 - hl_switch_lasta.
 ##
 ## The stationarity tasks (situation*), the loss-aversion list (lossaversion1-10)
 ## and the CRT are part of the same experiment but are not risk elicitation
 ## tasks in the sense of this repository, so they are not kept.
+source("Data/inconsistent_rows.R")
+B <- 1 - as.matrix(select(df, num_range("riskdecision", 1:10)))
 df <- df %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject = as.numeric(id),
-            choice = 10L - rowSums(across(num_range("riskdecision", 1:10))),
+            points, inconsistent,
             age = as.numeric(age),
             ## 1 - female, 0 - male
-            gender = as.numeric(female))
+            gender = as.numeric(female)) %>%
+  ## choice = number of B choices = 11 - the row where B starts
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding task, paper name and bibkey
 df <- df %>%
@@ -55,7 +62,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

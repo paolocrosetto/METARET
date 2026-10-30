@@ -23,10 +23,12 @@ library(tidyverse)
 ## uses ("the number of high risk lottery (lottery B) choices per individual",
 ## mean 3.96 over all 213).
 ##
-## Kept: the 201 subjects whose ten answers switch at most once, as for
-## BouluReshef2025 and Finger2023; the other 12 switch between two and eight
-## times, so their count is not a switching point and no CRRA interval follows
-## from it. choice = number of B choices.
+## Statistics: the subjects whose ten answers switch at most once, from A to
+## B, with B in row 10; the 12 who switch between two and eight times (and
+## anyone who switches the wrong way or keeps A in row 10, where B pays more for
+## sure, counted until 29.10.2026) are kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R).
+## choice = number of B choices = 11 - the row where B starts.
 ## The file also has risikograd, a 0-10 self report, but neither the paper nor
 ## the do-file gives its wording, so it is not mapped to the soep slot.
 ## gender: the authors' geschlecht ("weiblich" = 1, "maennlich" = 0).
@@ -37,16 +39,18 @@ ht <- df %>% select(ht_1:ht_10) %>% as.matrix()
 stopifnot(all(rowSums(ht) == df$anzahl_lotterieb_choices))
 switches <- rowSums(ht[, -1] != ht[, -10])
 
+stopifnot(sum(switches <= 1) == 201)
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  mutate(switches = switches) %>%
-  filter(switches <= 1) %>%
+  mutate(points = lapply(seq_len(nrow(ht)), function(i) switch_points(ht[i, ])),
+         inconsistent = as.numeric(!apply(ht, 1, single_switch) | ht[, 10] == 0)) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = anzahl_lotterieb_choices,
+            points, inconsistent,
             age = alter,
             gender = if_else(geschlecht == "weiblich", 1, 0),
-            country = "Germany")
-stopifnot(nrow(df) == 201)
+            country = "Germany") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -60,7 +64,7 @@ df$longitude = '6.9286'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

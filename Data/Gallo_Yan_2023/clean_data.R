@@ -27,7 +27,9 @@ library(tidyverse)
 ##    derived from this code and gives an impossible mean age of 44.)
 ## original_dataset.csv keeps one row per worker: the ten choices, female, age
 ## and the session date; subjects are row numbers. Only the subjects who switch
-## once are kept: there is no questionnaire to keep the others.
+## once enter the statistics; the 21 others are kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R); the
+## one who did not answer is left out. choice = 11 - the row where B starts.
 ## The sample is online, so no city and no coordinates.
 df <- read_csv("Data/Gallo_Yan_2023/original_dataset.csv", show_col_types = FALSE)
 
@@ -38,27 +40,32 @@ pattern <- apply(hl, 1, paste, collapse = "")
 single <- !is.na(pattern) & str_detect(pattern, "^1*2+$")
 stopifnot(sum(single) == 212)
 
+source("Data/inconsistent_rows.R")
+complete <- !apply(hl, 1, anyNA)
 df <- df %>%
-  mutate(nB = rowSums(hl == 2)) %>%
-  filter(single) %>%
+  mutate(points = lapply(seq_len(nrow(hl)), function(i)
+           if (complete[i]) switch_points(as.numeric(hl[i, ] == 2)) else integer(0)),
+         inconsistent = as.numeric(!single)) %>%
+  filter(complete) %>%
   transmute(subject,
             task = "HL",
-            ## number of B choices
-            choice = nB,
+            points, inconsistent,
             age,
             gender = female,
             country = "United States",
             bibkey = "Gallo2023",
-            paper = "Gallo and Yan 2023")
+            paper = "Gallo and Yan 2023") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
-stopifnot(abs(mean(11 - df$choice) - 7.30) < 0.005)
+stopifnot(sum(df$inconsistent == 0) == 212, n_distinct(df$subject[df$inconsistent == 1]) == 21,
+          abs(mean(11 - df$choice[df$inconsistent == 0]) - 7.30) < 0.005)
 
 df$lattitude = ''
 df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

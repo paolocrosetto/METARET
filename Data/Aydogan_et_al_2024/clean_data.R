@@ -18,16 +18,20 @@ library(tidyverse)
 ## comes from a list of 22 choices between the bet and a sure 0, 0.5, 1.5, 2.5,
 ## ..., 19.5, 20 EUR. CE_R100 is the midpoint of the switching interval
 ## (0.25, 1, 2, ..., 19, 19.75); it is missing for the 4 subjects without a
-## single switch. choice = number of the CE interval (0 ... 20):
+## single switch (more than one switch, or the bet refused against 0 or taken
+## against 20 for sure). They were dropped until 29.10.2026 and are now kept for
+## the download only, with inconsistent = 1 and choice empty (the file has no
+## row-by-row answers). choice = number of the CE interval (0 ... 20):
 ## 0 = [0, 0.5], i = [i - 0.5, i + 0.5], 20 = [19.5, 20].
 ## The ambiguous and compound-risk bets are not risk tasks for this site.
 ## Female1Male0: 1 = woman, 0 = man.
 df <- read_csv("Data/Aydogan_et_al_2024/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
-  filter(!is.na(CE_R100)) %>%
   transmute(subject = id,
             task = "CEPL",
+            inconsistent = as.numeric(is.na(CE_R100)),
+            switch_no = if_else(inconsistent == 1, 1, NA_real_),
             choice = case_when(CE_R100 == 0.25 ~ 0,
                                CE_R100 == 19.75 ~ 20,
                                TRUE ~ CE_R100),
@@ -47,7 +51,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

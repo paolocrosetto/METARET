@@ -27,14 +27,17 @@ library(tidyverse)
 ## multiple_switching flags the subjects who went back to the lottery after
 ## switching, read off the per-session files in Data/Raw_Data. A single switch
 ## is what brackets the certainty equivalent, so the 4 subjects who switched
-## more than once are dropped and 191 remain.
+## more than once are out of the statistics and 191 remain. The 4 are kept for
+## the download only, with inconsistent = 1 (Data/inconsistent_rows.R): the file
+## has only the author's count, which starts at their first switch, so each has
+## one row with that first switch as choice.
 df <- read_csv("Data/Staebler_2025/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
-  filter(multiple_switching == 0) %>%
   transmute(subject = row_number(),
             task = "CEPL",
             choice = 11 - risk_aversion,
+            inconsistent = as.numeric(multiple_switching == 1),
             age,
             gender = if_else(gender == "female", 1, 0),
             country = "Germany",
@@ -50,7 +53,8 @@ df$longitude = '8.4660'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

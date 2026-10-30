@@ -3384,8 +3384,9 @@ get_r <- function(bibkey, task, choice) {
   ## Casal and Filippin 2024: static BRET, 10 x 10 boxes (99 pay 1 ECU, one
   ## bomb); choice = boxes collected, so r = k / (100 - k) as for Nielsen2019.
   ## Botchway and Filippin 2026: the same static BRET on paper, 100 steps of
-  ## 0.5 cedi with one bomb; choice = steps taken.
-  if (bibkey == "Casal2024" | bibkey == "Botchway2026"){
+  ## 0.5 cedi with one bomb; choice = steps taken. Filippin and Pace 2025: the
+  ## same task online, 100 steps of 0.10 USD.
+  if (bibkey == "Casal2024" | bibkey == "Botchway2026" | bibkey == "Filippin2025"){
     if (task == "BRET") {
       if (choice == 100) { out <- 10 }
       if (choice != 100) { out <- choice/(100-choice) }

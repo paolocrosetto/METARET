@@ -18,9 +18,11 @@ library(tidyverse)
 ## "Do you think you are someone who is willing to take risks, or someone who is
 ## trying to minimize risks?", 0-10 (survey_r).
 ## 128 subjects switch once from A to B; the other 73 (36.3%, as in the paper)
-## switch more than once or keep A in row 10. Those of them with a survey answer
-## (49) enter as quest_only; 24 have neither and are dropped. 66 subjects in all
-## have no survey answer (the closing questions differed across subject ids).
+## switch more than once or keep A in row 10. They are kept for the download
+## only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R); the survey answer of the 49 of them who gave one
+## still counts. 66 subjects in all have no survey answer (the closing
+## questions differed across subject ids).
 ## The authors' file holds the subjects' medical records (blood tests, blood
 ## pressure, tumour markers, height, weight) and the clinic's client id, and is
 ## not copied; original_dataset.csv keeps treatment, task order, session, the
@@ -34,32 +36,30 @@ pattern <- apply(hl, 1, paste, collapse = "")
 single <- str_detect(pattern, "^1*2+$")
 stopifnot(sum(single) == 128)
 
-keep <- single | !is.na(df$survey_r)
-df <- df[keep, ]; hl <- hl[keep, ]; single <- single[keep]
-stopifnot(nrow(df) == 177)
-
+source("Data/inconsistent_rows.R")
+B <- (hl == 2) * 1
 df <- df %>%
-  mutate(nB = rowSums(hl == 2), single = single) %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!single)) %>%
   transmute(subject,
-            task = if_else(single, "HL", "quest_only"),
-            ## choice is what generate_data_for_app.R moves into soep for quest_only
-            choice = if_else(single, nB, survey_r),
-            soep = if_else(single, survey_r, NA_real_),
+            task = "HL",
+            points, inconsistent,
+            soep = survey_r,
             age,
             gender = case_when(gender == "f" ~ 1, gender == "m" ~ 0),
             country = "China",
             city = "Shanghai",
             bibkey = "Chen2019",
-            paper = "Chen et al. 2019")
+            paper = "Chen et al. 2019") %>%
+  ## choice = number of B choices = 11 - the row where B starts
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 ## the map is drawn by country; the coordinates are those of the city
 df$lattitude = '31.2304'
 df$longitude = '121.4737'
 
 source("Data/generate_r.R")
-hlrow <- df$task == "HL"
-df$r <- NA_real_
-df$r[hlrow] <- purrr::pmap_dbl(list(df$bibkey[hlrow], df$task[hlrow], df$choice[hlrow]), get_r)
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

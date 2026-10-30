@@ -17,22 +17,30 @@ library(tidyverse)
 ## original_dataset.csv keeps the treatment and the ten choices (1 = fixed,
 ## 2 = lottery) with the authors' safe count; subject and session ids are
 ## dropped and subjects are row numbers. Only subjects who take the lottery in
-## the first rows and the fixed amount after are kept, and the 1,000 ECU row,
-## where the fixed amount is dominated, must show the lottery.
-## choice = number of lottery choices. No demographics in the package.
+## the first rows and the fixed amount after enter the statistics, and the
+## 1,000 ECU row, where the fixed amount is dominated, must show the lottery.
+## choice = number of lottery choices, i.e. the row where the fixed amount
+## starts minus 1 (10 - the authors' safe count). No demographics in the package.
+## The others are kept for the download only with inconsistent = 1, one row per
+## switch to the fixed amount (Data/inconsistent_rows.R).
 df <- read_csv("Data/Beil_et_al_2026/original_dataset.csv", show_col_types = FALSE)
 
 B <- df %>% select(RiskChoice1:RiskChoice10) %>% as.matrix()
 consistent <- apply(B, 1, function(x) all(diff(x) <= 0)) & B[, 1] == 2
+stopifnot(all(rowSums(B[consistent, ] == 2) == 10 - df$RiskNumSafe[consistent]))
 
+source("Data/inconsistent_rows.R")
+fixed <- (B == 1) * 1
 df <- df %>%
-  filter(consistent) %>%
+  mutate(points = lapply(seq_len(nrow(fixed)), function(i) switch_points(fixed[i, ])),
+         inconsistent = as.numeric(!consistent)) %>%
   transmute(subject,
             task = "CEPL",
-            choice = 10 - RiskNumSafe,
+            points, inconsistent,
             age = NA_real_,
             gender = NA_real_,
-            country = "United States")
+            country = "United States") %>%
+  expand_switches(function(k) if_else(is.na(k), 10, k - 1))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -45,7 +53,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

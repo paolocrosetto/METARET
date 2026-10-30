@@ -20,21 +20,32 @@ library(tidyverse)
 ## variables; in row 10, where B pays 16 for sure, nearly everyone has 1). The
 ## authors' do-file calls the sum of these "HLsafe_choices", but by the dictionary
 ## and the row-10 check it is the number of risky (B) choices, which is what
-## choice is here. 38 subjects switch more than once; as elsewhere in METARET the
-## total count is used.
+## choice is here, i.e. 11 - the row where B starts. Inconsistent (counted
+## until 29.10.2026): the 32 subjects who switch more than once (this note
+## said 38 before; the answers give 32) and the 7 with A in row 10, where B
+## pays 16 for sure (dominated) -- 36 subjects, as the two groups overlap. They
+## are kept for the download only, with inconsistent = 1 and one row per switch
+## to B (Data/inconsistent_rows.R).
 ## participant_aversion is the SOEP general risk question (0 = afraid of risk,
 ## 10 = willing to take risks) and goes to soep.
 ## gender: 1 = woman, 0 = man. Age was not collected.
 df <- read_csv("Data/Flambard_et_al_2024/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
+B <- as.matrix(df[sprintf("aversion_choice_%02d", 1:10)])
 df <- df %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject,
             task = "HL",
-            choice = rowSums(across(starts_with("aversion_choice_"))),
+            points, inconsistent,
             soep,
             gender,
             country = "France",
             city = "Lille")
+stopifnot(sum(df$inconsistent) == 36)
+df <- df %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -47,7 +58,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

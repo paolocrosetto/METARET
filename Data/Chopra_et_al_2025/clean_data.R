@@ -24,10 +24,12 @@ library(tidyverse)
 ## was taken, so choice = 10 minus their sum, the number of rows in which the
 ## lottery was taken.
 ##
-## Dropped: the 32 subjects who went back to the safe option after once taking
-## the lottery, since no single crossing means no interval; and the 4 who took
-## the safe option in every row, including the last, where the lottery pays $4
-## for sure against $2 for sure. 324 subjects remain.
+## Out of the statistics: the 32 subjects who went back to the safe option
+## after once taking the lottery, since no single crossing means no interval;
+## and the 4 who took the safe option in every row, including the last, where
+## the lottery pays $4 for sure against $2 for sure. 324 subjects remain. The
+## 36 are kept for the download only, with inconsistent = 1 and one row per
+## switch to the lottery (Data/inconsistent_rows.R).
 ## age: Age of the repository file ("Participant age, in years"), joined on
 ## SubjectID and SessionID. gender: Female is labelled "=1 if participant is
 ## female"; the 3 values of 2 have no label and are left missing.
@@ -37,22 +39,29 @@ library(tidyverse)
 ## prior experiment experience (56%) and $2.51 average earnings from the risk
 ## task ($2.51).
 df <- read_csv("Data/Chopra_et_al_2025/original_dataset.csv", show_col_types = FALSE)
+source("Data/inconsistent_rows.R")
 
 df <- df %>%
   rowwise() %>%
   mutate(rows = list(c_across(c(risk11:risk19, risk110))),
          n_safe = sum(rows),
          first_risky = if (any(rows == 0)) which(rows == 0)[1] else 11L,
-         multiple_switching = any(rows[first_risky:10] == 1)) %>%
+         multiple_switching = any(rows[first_risky:10] == 1),
+         points = list(switch_points(1 - rows))) %>%
   ungroup() %>%
-  filter(!multiple_switching, n_safe < 10) %>%
+  mutate(inconsistent = as.numeric(multiple_switching | n_safe == 10))
+stopifnot(sum(df$inconsistent == 0) == 324, sum(df$inconsistent) == 36)
+
+df <- df %>%
   transmute(subject = SubjectID,
             task = "HL",
-            choice = 10L - n_safe,
+            points, inconsistent,
             age = Age,
             gender = if_else(Female %in% c(0, 1), Female, NA_real_),
             country = "United States",
-            city = "Knoxville")
+            city = "Knoxville") %>%
+  ## choice = number of lottery rows = 11 - the row where the lottery starts
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -64,7 +73,7 @@ df$longitude = '-83.9295'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

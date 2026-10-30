@@ -23,13 +23,19 @@ df = df %>% select(age, eckel, dohmen1, dohmen3,
                   subject, gender), names_to = 'task', values_to = 'choice')
 
 
-for (i in 1:nrow(df)){
-  if (df$task[i] == "HL" & df$holtlauryswitch[i] > 1){
-    df$choice[i] = NA
-  }
-}
+## Inconsistent HL answers (29.10.2026): the 29 subjects who switch more than
+## once (holtlauryswitch > 1; dropped before) and the 16 who never switch and
+## take A in every row (holtlaury, the number of risky choices, is 0), so also
+## in row 10, where B pays more for sure (counted before). They keep their HL
+## row for the download only, with inconsistent = 1 (Data/inconsistent_rows.R);
+## the file has no row-by-row answers, so the multiple switchers get no choice.
+df <- df %>%
+  mutate(inconsistent = as.numeric(task == "HL" & (holtlauryswitch > 1 | choice == 0)),
+         choice = if_else(task == "HL" & holtlauryswitch > 1, NA_real_, choice))
+stopifnot(sum(df$inconsistent) == 45)
 
-df = df %>% drop_na() %>% select(-holtlauryswitch)
+df = df %>% filter(!is.na(choice) | inconsistent == 1) %>%
+  drop_na(-choice) %>% select(-holtlauryswitch)
 
 ## one subject arrives with age 3. 16-17 shows up too and is plausible for a
 ## university pool, 3 is not, so anything under 15 is recorded as missing.
@@ -50,7 +56,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

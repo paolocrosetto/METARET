@@ -51,9 +51,38 @@ df <- df %>%
 df <- df %>% 
   mutate(choice = if_else(task == "HL", 10-choice, choice))
 
+## Inconsistent HL answers (29.10.2026). The authors flag 15 subjects who switch
+## more than once (inconsistent; safechoices is missing for them, so the
+## gather above dropped them) and 13 who keep A in row 10, where B pays the
+## high prize for sure (dominated; 5 of them switch once and were counted until
+## now). The row answers hl1-hl10 (1 = B) give the same 20 subjects. They are
+## kept for the download only, with inconsistent = 1 and one row per switch to
+## B (Data/inconsistent_rows.R); the other tasks have no inconsistent answers.
+source("Data/inconsistent_rows.R")
+raw_hl <- read_dta("Data/Crosetto_Filippin_Experimental_Economics_2016/original_dataset.dta") %>%
+  as_factor() %>%
+  filter(treatment == "hl")
+B <- sapply(paste0("hl", 1:10), function(v) as.numeric(as.character(raw_hl[[v]])))
+hl_rows <- raw_hl %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inc = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
+  filter(inc == 1) %>%
+  transmute(subject, gender, age, soep, across(starts_with("do") & !any_of("dominated")),
+            points, inconsistent = inc, treatment = " ", key = "safechoices",
+            task = "HL", bibkey = "Crosetto2016", paper = "Crosetto and Filippin EXEC 2016") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(n_distinct(hl_rows$subject) == 20)
+## the 5 single switchers among them are already in df: drop them there, and
+## add every inconsistent row at the end, so the r draws of the rows before
+## stay as they were
+df <- df %>%
+  mutate(inconsistent = 0) %>%
+  filter(!(task == "HL" & subject %in% hl_rows$subject)) %>%
+  bind_rows(hl_rows)
+
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 
 

@@ -23,7 +23,9 @@ library(tidyverse)
 ## payoff with probability k/10 in row k (Risk Experiment.ztt). One question is
 ## drawn and paid. rk: 0 = A, 1 = B; choice = number of B choices, as for the other
 ## HL papers. Only 105 subjects switched once (from A to B); the 68 who switched
-## more than once are left out.
+## more than once are out of the statistics and kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R).
+## choice = 11 - the row where B starts.
 ##
 ## gender: Female / Male; age in years.
 df <- read_csv("Data/Chaturvedi_Kanjilal_2021/original_dataset.csv", show_col_types = FALSE)
@@ -36,11 +38,13 @@ single <- sapply(seq_len(nrow(hl)), function(i)
   identical(unname(hl[i, ]), c(rep(0, 10 - n_b[i]), rep(1, n_b[i]))))
 stopifnot(sum(single) == 105, all(n_b[single] >= 1))
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  filter(single) %>%
+  mutate(points = lapply(seq_len(nrow(hl)), function(i) switch_points(hl[i, ])),
+         inconsistent = as.numeric(!single | hl[, 10] == 0)) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = rowSums(across(num_range("r", 1:10))),
+            points, inconsistent,
             age,
             gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0),
             country = "India",
@@ -50,11 +54,13 @@ df <- df %>%
             lattitude = if_else(Institution == "IIITD", "28.5459", "28.6889"),
             longitude = if_else(Institution == "IIITD", "77.2732", "77.2090"),
             bibkey = "Chaturvedi2021",
-            paper = "Chaturvedi and Kanjilal 2021")
+            paper = "Chaturvedi and Kanjilal 2021") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(sum(df$inconsistent == 0) == 105)
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

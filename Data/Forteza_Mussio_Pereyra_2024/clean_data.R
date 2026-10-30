@@ -26,10 +26,18 @@ stopifnot(nrow(df) == 243, !anyDuplicated(df$i))
 ## Holt-Laury list, option A $20 or $16, option B $39 or $1 (Uruguayan pesos),
 ## the high prize with probability 1/10 ... 10/10. rpref1 ... rpref10 are the
 ## ten rows, 1 = A, 2 = B (the do-file: "chosen option for row 1 was Option
-## B"). choice = number of B choices. As in the authors' risk file, nobody is
-## dropped: 3 subjects chose B in row 1 and 37 switched more than once.
+## B"). choice = number of B choices = 11 - the row where B starts. 3 subjects
+## chose B in row 1 (not dominated) and 37 switched more than once; the 7 who
+## kept A in row 10, where B pays $39 for sure, are all among those 37. The 37
+## (counted until 29.10.2026, as in the authors' risk file) are kept for the
+## download only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R).
+source("Data/inconsistent_rows.R")
+B <- (as.matrix(select(df, rpref1:rpref10)) == 2) * 1
 df <- df %>%
-  mutate(choice = rowSums(across(rpref1:rpref10) == 2))
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0))
+stopifnot(sum(df$inconsistent) == 37)
 
 ## genero_nac is the gender assigned at birth, "Femenino" / "Masculino" (21
 ## blank). Age is only asked as "19 años o menos" / "20 años o más", so it is
@@ -39,7 +47,8 @@ df <- df %>%
             age = NA_real_,
             gender = case_when(genero_nac == "Femenino" ~ 1, genero_nac == "Masculino" ~ 0),
             task = "HL",
-            choice = choice)
+            points, inconsistent) %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 #### adding paper name and bibkey
 df <- df %>%
@@ -48,7 +57,7 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## "We conducted all experimental sessions in 2019, between August and
 ## October, at the Experimental Laboratory of the Faculty of Social Sciences at

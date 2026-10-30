@@ -23,31 +23,38 @@ library(tidyverse)
 ## it that way. choice = number of rows in which the gamble was taken, the
 ## authors' risk_loving.
 ##
-## Dropped, as in the paper: the 13 subjects who switched more than once, whose
-## risk attitude the authors say cannot be estimated. Dropped in addition: the
-## 11 subjects with choice == 0, who refused a certain 60 over a certain 40 in
-## the last row; no one chose the gamble in the first row, where it pays 0 for
-## sure. 280 subjects remain.
+## Out of the statistics, as in the paper: the 13 subjects who switched more
+## than once, whose risk attitude the authors say cannot be estimated; in
+## addition the 11 subjects with choice == 0, who refused a certain 60 over a
+## certain 40 in the last row; no one chose the gamble in the first row, where
+## it pays 0 for sure. 280 subjects remain. The 24 are kept for the download
+## only, with inconsistent = 1 and one row per switch to the gamble
+## (Data/inconsistent_rows.R).
 ##
 ## gender is the authors' recode: female = gender - 1, with session 11 subject 4
 ## corrected to female, as in their do file.
 df <- read_csv("Data/Chang_et_al_2024/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
   rowwise() %>%
   mutate(rows = list(c_across(starts_with("part2_choice"))),
          switch_row = if (any(rows == 2)) which(rows == 2)[1] else 12L,
-         multiple_switching = any(rows[switch_row:11] == 1)) %>%
+         multiple_switching = any(rows[switch_row:11] == 1),
+         points = list(switch_points(as.numeric(rows == 2)))) %>%
   ungroup() %>%
-  filter(!multiple_switching) %>%
-  mutate(choice = 12L - switch_row) %>%
-  filter(choice >= 1, choice <= 10) %>%
+  mutate(inconsistent = as.numeric(multiple_switching | !(12L - switch_row) %in% 1:10))
+stopifnot(sum(df$inconsistent == 0) == 280, sum(df$inconsistent) == 24)
+
+df <- df %>%
   transmute(subject = session * 100 + Subject,
             task = "HL",
-            choice,
+            points, inconsistent,
             age,
             gender = if_else(session == 11 & Subject == 4, 1, gender - 1),
-            country = "United Arab Emirates")
+            country = "United Arab Emirates") %>%
+  ## choice = number of gamble rows = 12 - the row where the gamble starts
+  expand_switches(function(k) if_else(is.na(k), 0, 12 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -60,7 +67,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

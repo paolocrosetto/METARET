@@ -30,9 +30,13 @@ library(tidyverse)
 ## 48 answer the second one cleanly, and among those clean on both the two counts
 ## correlate at 0.64. So the first list is kept alone; its menu is in the
 ## Bonnier2019 block of generate_r.R.
-## Kept: the 538 subjects whose ten answers switch at most once; 113 switch more
-## often, so their count is not a switching point.
-## choice = number of risky choices.
+## In the statistics: the 534 subjects whose ten answers switch at most once,
+## from the safe to the risky side (the risky prize grows down the list).
+## Kept for the download only, with inconsistent = 1 and one row per switch to
+## the risky side (Data/inconsistent_rows.R): the 113 who switch more often and
+## 4 who switch once the other way, risky first and safe after (before 29.10.2026
+## those 4 were counted).
+## choice = number of risky choices, i.e. 11 - the row where the risky side starts.
 ## gender: the authors' free-text field, "Female"/"F" = 1, "Male"/"M" = 0.
 ## age = year of the session minus year of birth; country from the site, which
 ## the do-file reads off the session name (the 1705 sessions are Valencia).
@@ -42,20 +46,24 @@ stopifnot(nrow(df) == 651)
 rd <- df %>% select(risk_decision2:risk_decision11) %>% as.matrix()
 stopifnot(all(rd %in% c(1, 2)))
 switches <- rowSums(rd[, -1] != rd[, -10])
+stopifnot(sum(switches <= 1) == 538)
 
+source("Data/inconsistent_rows.R")
+risky <- (rd == 2) * 1
 df <- df %>%
-  mutate(switches = switches, n_risky = rowSums(rd == 2)) %>%
-  filter(switches <= 1) %>%
+  mutate(points = lapply(seq_len(nrow(risky)), function(i) switch_points(risky[i, ])),
+         inconsistent = as.numeric(!apply(risky, 1, single_switch))) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = n_risky,
+            points, inconsistent,
             age = session_year - byear,
             gender = case_when(gender %in% c("Female", "F") ~ 1,
                                gender %in% c("Male", "M") ~ 0,
                                TRUE ~ NA_real_),
             country = if_else(site == "Valencia", "Spain", "Denmark"),
             city = site)
-stopifnot(nrow(df) == 538)
+stopifnot(sum(df$inconsistent == 0) == 534)
+df <- df %>% expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -69,7 +77,7 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

@@ -27,7 +27,10 @@ library(tidyverse)
 ## subjects), x.5 when they differ by one row (142). The remaining 54 values
 ## (3.17, 7.125, ...) can only come from several switch points within a list,
 ## and 22 means the sure 1,000 was never taken (dominated, 2 subjects); these
-## stay questionnaire-only. The bounds are in the Falk2023 block of
+## 56 keep a CEPL row with inconsistent = 1, for the download only
+## (Data/inconsistent_rows.R), with no choice, since the file keeps only the
+## average of their switching rows; their soep still counts. The bounds are in
+## the Falk2023 block of
 ## generate_r.R. Checked on 28.10.2026 from the online appendix, so nothing has
 ## to be asked of the authors.
 ##
@@ -41,19 +44,23 @@ stopifnot(nrow(df) == 409, sum(!is.na(df$v_94_general_risk)) == 394)
 df <- df %>%
   mutate(cepl = !is.na(x_risk_av) & abs(2 * x_risk_av - round(2 * x_risk_av)) < 1e-6 &
                 x_risk_av >= 2 & x_risk_av < 22) %>%
-  filter(cepl | !is.na(v_94_general_risk)) %>%
+  mutate(inconsistent = as.numeric(!is.na(x_risk_av) & !cepl)) %>%
+  filter(!is.na(x_risk_av) | !is.na(v_94_general_risk)) %>%
   transmute(subject = row,
-            task = if_else(cepl, "CEPL", "quest_only"),
+            task = if_else(!is.na(x_risk_av), "CEPL", "quest_only"),
+            inconsistent,
             ## for questionnaire-only rows generate_data_for_app.R moves
             ## choice into soep
-            choice = if_else(cepl, round(2 * x_risk_av) / 2, v_94_general_risk),
-            soep = if_else(cepl, v_94_general_risk, NA_real_),
+            choice = case_when(cepl ~ round(2 * x_risk_av) / 2,
+                               inconsistent == 1 ~ NA_real_,
+                               TRUE ~ v_94_general_risk),
+            soep = if_else(!is.na(x_risk_av), v_94_general_risk, NA_real_),
             gender = NA_real_,
             age = NA_real_,
             country = "Germany",
             city = "Bonn")
 
-stopifnot(sum(df$task == "CEPL") == 341)
+stopifnot(sum(df$task == "CEPL" & df$inconsistent == 0) == 341, sum(df$inconsistent) == 56)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -66,7 +73,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-cepl <- df$task == "CEPL"
+cepl <- df$task == "CEPL" & df$inconsistent == 0
 df$r <- NA_real_
 df$r[cepl] <- purrr::pmap_dbl(list(df$bibkey[cepl], df$task[cepl], df$choice[cepl]), get_r)
 

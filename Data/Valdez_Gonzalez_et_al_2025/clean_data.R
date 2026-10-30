@@ -17,17 +17,27 @@ library(tidyverse)
 ## IP addresses were dropped.
 ## Holt-Laury list (oTree app "mpl", config.py): the standard table, A = 2.00 / 1.60,
 ## B = 3.85 / 0.10, one row per page; hl_k = "A" or "B". choice = number of B
-## choices. Check: the mean number of safe choices is 5.14, as in the paper.
+## choices (11 - the row where B starts). Check: the mean number of safe
+## choices is 5.14, as in the paper. Inconsistent (counted until 29.10.2026):
+## 76 subjects switch more than once and some keep A in row 10, where B pays
+## 3.85 for sure, 81 in all; kept for the download only, with inconsistent = 1
+## and one row per switch to B (Data/inconsistent_rows.R).
 ## sex: "F" = 1, "M" = 0. Age was not asked (only the year of study).
 df <- read_csv("Data/Valdez_Gonzalez_et_al_2025/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
+B <- (as.matrix(select(df, starts_with("hl_"))) == "B") * 1
 df <- df %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject,
             task = "HL",
-            choice = rowSums(across(starts_with("hl_")) == "B"),
+            points, inconsistent,
             gender = case_when(sex == "F" ~ 1, sex == "M" ~ 0, TRUE ~ NA_real_),
             country = "United States",
-            city = "College Station")
+            city = "College Station") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(n_distinct(df$subject[df$inconsistent == 1]) == 81)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -40,7 +50,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

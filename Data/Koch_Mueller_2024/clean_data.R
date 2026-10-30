@@ -18,22 +18,21 @@ library(tidyverse)
 ##
 ## The file holds the count only, so multiple switchers cannot be told apart.
 ## The 3 subjects with 10 safe choices chose A even in the last row, where B
-## pays 3.85 for sure, and are dropped. choice = number of B choices = 10 -
+## pays 3.85 for sure: they are kept for the download only, with
+## inconsistent = 1 (Data/inconsistent_rows.R). choice = number of B choices = 10 -
 ## safe choices, the convention of the shared standard-HL block of generate_r.R.
 ## gender: male 1 flipped to the site's female 1.
 df <- read_csv("Data/Koch_Mueller_2024/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 120, all(df$n_safe %in% 0:10))
 
-df <- df %>%
-  filter(n_safe <= 9)
-
-stopifnot(nrow(df) == 117)
+stopifnot(sum(df$n_safe <= 9) == 117)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
             choice = 10 - n_safe,
+            inconsistent = as.numeric(n_safe == 10),
             gender = 1 - male,
             age,
             bibkey = "Koch2024",
@@ -41,7 +40,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## mLab, University of Mannheim; the map shows only the country
 df$country = 'Germany'

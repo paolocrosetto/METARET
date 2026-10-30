@@ -20,8 +20,10 @@ library(tidyverse)
 ## with three red and three blue sides. choice = number of sure amounts below
 ## which the lottery was taken (0-10), so the certainty equivalent lies between
 ## CHF 0.5 * choice and 0.5 * (choice + 1). 233 subjects switched once; the other
-## 8 are dropped, and so are the 2 who took the lottery even against a sure
-## CHF 5. Question 2 (a Gneezy-Potters game where the expected payoff does not
+## 8, and the 2 who took the lottery even against a sure CHF 5 (weakly
+## dominated), are out of the statistics and kept for the download only, with
+## inconsistent = 1 and one row per switch to the sure amount
+## (Data/inconsistent_rows.R); choice = that row - 1. Question 2 (a Gneezy-Potters game where the expected payoff does not
 ## depend on the amount played) is not used: it separates only risk lovers from
 ## everyone else.
 ##
@@ -30,15 +32,20 @@ df <- read_csv("Data/Mahmoud_2022/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 241, sum(df$single_switch) == 233)
 
+source("Data/inconsistent_rows.R")
+sure <- (as.matrix(select(df, starts_with("q3a_"))) == "sure") * 1
 df <- df %>%
-  filter(single_switch, lottery_choices <= 9) %>%
+  mutate(points = lapply(seq_len(nrow(sure)), function(i) switch_points(sure[i, ])),
+         inconsistent = as.numeric(!(single_switch & lottery_choices <= 9))) %>%
   transmute(subject = row_number(),
             task = "CEPL",
-            choice = lottery_choices,
+            points, inconsistent,
             gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0),
             age = NA_real_,
             country = "Switzerland",
-            city = "St. Gallen")
+            city = "St. Gallen") %>%
+  expand_switches(function(k) if_else(is.na(k), 10, k - 1))
+stopifnot(sum(df$inconsistent == 0) == 231)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -51,7 +58,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

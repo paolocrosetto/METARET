@@ -28,9 +28,12 @@ library(tidyverse)
 ## chosen in every row and 18 when the lottery was.
 ##
 ## risk_errors counts departures from a single switch. The 41 subjects with any
-## are dropped, as multiple switchers are elsewhere in this corpus, leaving 305;
-## the paper instead keeps them at their first switch and notes its results are
-## unaffected either way.
+## are out of the statistics, as multiple switchers are elsewhere in this
+## corpus, leaving 305; the paper instead keeps them at their first switch and
+## notes its results are unaffected either way. They are kept for the download
+## only, with inconsistent = 1 (Data/inconsistent_rows.R): the file has no
+## row-by-row answers, only that first switch (risk_ce), so each has one row
+## with it as choice, and their later switching points are unknown.
 ##
 ## risk_survey is the general willingness-to-take-risks question on the usual
 ## 0-10 scale, carried over as soep. It runs in the standard direction here:
@@ -39,10 +42,10 @@ library(tidyverse)
 df <- read_csv("Data/Cortes_et_al_2023/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
-  filter(risk_errors == 0) %>%
   transmute(subject = row_number(),
             task = "CEPL",
             choice = risk_ce,
+            inconsistent = as.numeric(risk_errors > 0),
             soep = risk_survey,
             age,
             gender = female,
@@ -59,7 +62,8 @@ df$longitude = '-111.9281'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

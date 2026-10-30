@@ -33,14 +33,20 @@ stopifnot(nrow(df) == 745)
 ## button). The survey asks the list twice (risk_preference_1-9 and _39-47);
 ## the authors build their risk_choice from 39-47 (1.build_baseline.do), and
 ## that list is used here.
-## One respondent switched more than once and is left out, as on the rest of
-## the site. choice = number of rows with the certain Tk 100 (0-9), as in the
-## authors' risk_choice before they negate it.
+## One respondent switched more than once and is out of the statistics, as on
+## the rest of the site, kept for the download only with inconsistent = 1 and
+## one row per switch to the game (Data/inconsistent_rows.R). No row is
+## dominated. choice = number of rows with the certain Tk 100 (0-9) = the row
+## where the game starts - 1, as in the authors' risk_choice before they
+## negate it.
 m <- as.matrix(df[, paste0("risk_preference_", 39:47)])
 single <- grepl("^1*2*$", apply(m, 1, paste, collapse = ""))
-df <- df[single, ] %>%
-  mutate(choice = rowSums(m[single, ] == 1))
-stopifnot(nrow(df) == 744)
+stopifnot(sum(single) == 744)
+source("Data/inconsistent_rows.R")
+G <- (m == 2) * 1
+df <- df %>%
+  mutate(points = lapply(seq_len(nrow(G)), function(i) switch_points(G[i, ])),
+         inconsistent = as.numeric(!single))
 
 ## resp_gender: 1 female, 0 male in the processed file ("label define genderl
 ## 0 Male 1 Female"). Age in years.
@@ -49,7 +55,8 @@ df <- df %>%
             age = age,
             gender = resp_gender,
             task = "HL",
-            choice = choice)
+            points, inconsistent) %>%
+  expand_switches(function(k) if_else(is.na(k), 9, k - 1))
 
 #### adding paper name and bibkey
 df <- df %>%
@@ -58,7 +65,7 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## The refugee camps of Cox's Bazar (Kutupalong area), Bangladesh.
 df$country = 'Bangladesh'

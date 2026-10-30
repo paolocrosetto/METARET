@@ -20,7 +20,10 @@ library(tidyverse)
 ## authors' riskGainMPLMin1 / Max1 give the CE interval of that row (steps of 250
 ## or 500 points). choice = that row. Row 2 is [-500, 0] (the lottery was refused
 ## even against nothing) and row 19 is [5000, 5500] (taken even against 5000 for
-## sure). The second gain list (4000/1000), the mixed and loss lists and the DOSE
+## sure). Both are dominated choices (0 for sure taken over a lottery of 5000 or
+## 0, and that lottery kept against 5000 for sure), so since 29.10.2026 the 35 in
+## row 2 and the 60 in row 19 are kept for the download only, with
+## inconsistent = 1 (one row each, the list allows a single switch). The second gain list (4000/1000), the mixed and loss lists and the DOSE
 ## binary choices (loss aversion) are not used. The 32 main-sample respondents who
 ## failed an attention check are kept, as in the paper.
 ## gender (main sample only): male = 1 -> 0, male = 0 -> 1. The student file has
@@ -31,6 +34,8 @@ df <- df %>%
   transmute(subject,
             task = "CEPL",
             choice = row,
+            inconsistent = as.numeric(row %in% c(2, 19)),
+            switch_no = if_else(inconsistent == 1, 1, NA_real_),
             age,
             gender = 1 - male,
             country = "United States",
@@ -47,7 +52,9 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
+stopifnot(sum(df$inconsistent) == 95)
 
 # Order of variables
 df <- df %>%

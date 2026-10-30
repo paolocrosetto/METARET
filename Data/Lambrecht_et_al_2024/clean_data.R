@@ -25,20 +25,25 @@ stopifnot(nrow(df) == 430)
 ##
 ## choice is the number of risky choices.
 ##
-## WHO IS DROPPED. Single crossing was not enforced: 362 subjects switch once
+## INCONSISTENT. Single crossing was not enforced: 362 subjects switch once
 ## and 9 sit at a corner, but 59 switch more than once and cannot be given a
-## switching point. They are dropped, the same treatment as in the file for
-## Finger et al., leaving 371. Of the 9 corners, 5 take the safe option in
-## every row -- including row 10, where the safe option is dominated -- and 4
-## take the risky one throughout.
+## switching point. Of the 9 corners, 5 take the safe option in every row --
+## including row 10, where the safe option is dominated -- and 4 take the risky
+## one throughout. Since 29.10.2026 the 59 (dropped before) and the 5 (counted
+## before) are out of the statistics and kept for the download only, with
+## inconsistent = 1 and one row per switch to the risky option
+## (Data/inconsistent_rows.R); so is anyone who switches once the wrong way,
+## risky first and safe after.
 L <- paste0("lottery", 1:10)
 b <- as.matrix(df[, L]) == 2
 switches <- rowSums(b[, -1] != b[, -10])
+stopifnot(sum(switches <= 1) == 371)
 
+source("Data/inconsistent_rows.R")
+B <- b * 1
 df <- df %>%
-  mutate(choice = rowSums(b), switches = switches) %>%
-  filter(switches <= 1)
-stopifnot(nrow(df) == 371)
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0))
 
 ## gender is unlabelled in the file, but the task settles it: the group coded
 ## 0 takes the risky side 4.58 times on average against 4.02 for the group
@@ -46,16 +51,18 @@ stopifnot(nrow(df) == 371)
 df <- df %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice,
+            points, inconsistent,
             gender = as.numeric(gender),
             age = as.numeric(age),
             frankfurt = as.numeric(frankfurt),
             bibkey = "Lambrecht2024",
-            paper = "Lambrecht et al. 2024")
+            paper = "Lambrecht et al. 2024") %>%
+  ## choice = number of risky choices = 11 - the row where they start
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Two labs: the Alfred-Weber-Institute lab in Heidelberg and the Frankfurt
 ## Laboratory for Experimental Economic Research, which the frankfurt column

@@ -35,13 +35,25 @@ df <- read_dta("Data/McGee_McGee_2024/original_dataset.dta")
 ## sets each holt variable from "option 2", and the surviving patterns are of the
 ## form 0000000111, safe first and risky in the last rows, which is how a
 ## consistent subject answers this list. So the number of risky choices, the
-## convention used for HL here, is the sum of holt1-holt10.
+## convention used for HL here, is the sum of holt1-holt10 (11 - the row where
+## B starts).
+## Inconsistent (counted until 29.10.2026): 108 subjects switch more than once
+## and 65 keep A in row 10, where B pays 385 for sure (dominated), 127 subjects
+## in all. They are kept for the download only, with inconsistent = 1 and one
+## row per switch to B (Data/inconsistent_rows.R).
+source("Data/inconsistent_rows.R")
+B <- as.matrix(select(df, num_range("holt", 1:10)))
+df <- df %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0))
+stopifnot(sum(df$inconsistent) == 127)
 df <- df %>%
   transmute(subject = as.numeric(preid),
-            choice = rowSums(across(num_range("holt", 1:10))),
+            points, inconsistent,
             age = as.numeric(age),
             ## 1 - female, 0 - male
-            gender = 1 - as.numeric(male))
+            gender = 1 - as.numeric(male)) %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding task, paper name and bibkey
 df <- df %>%
@@ -58,7 +70,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

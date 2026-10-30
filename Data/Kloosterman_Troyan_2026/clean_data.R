@@ -22,7 +22,10 @@ library(tidyverse)
 ## which they preferred A, which is choice here (the stored LotterySwitchProb).
 ##
 ## The seven subjects who answered 50 preferred a certain $24 to a certain $38
-## in the last row, which is dominated, so they are dropped and 193 remain.
+## in the last row, which is dominated, so they are out of the statistics and
+## 193 remain; the seven are kept for the download only, with inconsistent = 1
+## and choice 50 (Data/inconsistent_rows.R). The file has the stated row only,
+## so multiple switching cannot occur.
 ## The loss aversion task that follows is not an individual risk elicitation and
 ## is not used.
 ##
@@ -40,10 +43,10 @@ library(tidyverse)
 df <- read_csv("Data/Kloosterman_Troyan_2026/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
-  filter(lottery_switch_row <= 49) %>%
   transmute(subject = row_number(),
             task = "HL",
             choice = lottery_switch_row,
+            inconsistent = as.numeric(lottery_switch_row == 50),
             age = if_else(age == 0, NA_real_, as.numeric(age)),
             gender = case_when(gender_raw == 2 ~ 1, gender_raw == 1 ~ 0, TRUE ~ NA_real_),
             country = "United States",
@@ -59,7 +62,8 @@ df$longitude = '-78.5080'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

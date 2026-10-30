@@ -23,15 +23,27 @@ quest <- read_dta("Data/Schipper_2023/original_quest.dta") %>%
 ## makes one B choice fewer than in the standard list (which ends with a row where
 ## B dominates). To use the standard HL bounds, choice = number of B choices + 1,
 ## capped at 10. The loss-domain list (l1-l10) has no counterpart in METARET.
+## Inconsistent (counted until 29.10.2026): the 20 subjects who switch more than
+## once (the 2 who took B in row 1, where A dominates, are among them). They
+## are kept for the download only, with inconsistent = 1 and one row per switch
+## to B (Data/inconsistent_rows.R); a switch at row k is coded like a single
+## switch there, min(12 - k, 10).
+source("Data/inconsistent_rows.R")
+Bg <- (as.matrix(select(risk, num_range("g", 1:10))) == "B") * 1
+risk <- risk %>%
+  mutate(points = lapply(seq_len(nrow(Bg)), function(i) switch_points(Bg[i, ])),
+         inconsistent = as.numeric(!apply(Bg, 1, single_switch) | Bg[, 1] == 1))
+stopifnot(sum(risk$inconsistent) == 20)
 df <- risk %>% 
   left_join(quest, by = c("session", "subject")) %>% 
   transmute(subject = row_number(),
-            choice = pmin(rowSums(across(num_range("g", 1:10)) == "B") + 1, 10),
+            points, inconsistent,
             age = as.numeric(age),
             ## 1 - female, 0 - male
             gender = case_when(gender == "Female" ~ 1,
                                gender == "Male" ~ 0,
-                               TRUE ~ NA_real_))
+                               TRUE ~ NA_real_)) %>%
+  expand_switches(function(k) if_else(is.na(k), 1, pmin(12 - k, 10)))
 
 # adding task, paper name and bibkey
 df <- df %>% 
@@ -48,7 +60,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

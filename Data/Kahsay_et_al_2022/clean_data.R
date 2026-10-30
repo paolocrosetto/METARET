@@ -23,14 +23,16 @@ library(tidyverse)
 ## 0 for the sure amount and 1 for the coin toss, and safechoice is the number
 ## of sure choices -- it equals the count of zeros for every household.
 ## consistent_sample == 0 marks the 73 households (8%, as in the paper) that
-## switched more than once; their choices are blank and they are dropped.
+## switched more than once; their choices are blank. They are kept for the
+## download only, with inconsistent = 1 and no choice (Data/inconsistent_rows.R).
 ##
 ## DOMINATED FIRST ROW. In decision 1 the sure amount equals the prize of the
 ## coin toss (50 ETB for sure against 50 or 0), so taking the toss there is
 ## dominated. 218 of the 746 consistent households did so, i.e. took the toss
 ## in all eight rows (safechoice == 0); the paper counts them as risk seeking,
-## but no CRRA value rationalises the choice. They are dropped, as the
-## dominated-row choosers of Faravelli et al. 2026 are. 528 households remain.
+## but no CRRA value rationalises the choice. They are out of the statistics,
+## as the dominated-row choosers of Faravelli et al. 2026 are, and kept for the
+## download only, with inconsistent = 1 and choice 0. 528 households remain.
 ##
 ## choice = number of sure choices, 1 to 8. gender: the paper codes 1 = male
 ## (96% of household heads); flipped to the site's 1 = female. The paper does
@@ -40,14 +42,15 @@ df <- read_csv("Data/Kahsay_et_al_2022/original_dataset.csv", show_col_types = F
 stopifnot(nrow(df) == 819, sum(df$consistent == 0) == 73)
 
 df <- df %>%
-  filter(consistent == 1, safe_choices >= 1)
+  mutate(inconsistent = as.numeric(!(consistent %in% 1 & safe_choices %in% 1:8)))
 
-stopifnot(nrow(df) == 528, all(df$safe_choices %in% 1:8))
+stopifnot(sum(df$inconsistent == 0) == 528, sum(df$inconsistent) == 291)
 
 df <- df %>%
   transmute(subject,
             task = "CEPL",
-            choice = safe_choices,
+            choice = if_else(consistent %in% 1, as.numeric(safe_choices), NA_real_),
+            inconsistent,
             gender = 1 - male,
             age,
             bibkey = "Kahsay2022",
@@ -55,7 +58,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Amhara region; the map shows only the country
 df$country = 'Ethiopia'

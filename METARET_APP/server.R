@@ -5,7 +5,11 @@ source("libraries.R")
 ## authors, citation labels, title, year, journal, DOI, URL). Built once by
 ## Data/build_app_data.R when the data are rebuilt, instead of parsing the .bib
 ## and merging at every start, which took about 3.4 s.
-df <- readRDS("DATA/app_data.rds")
+## df_all also holds the inconsistent answers, which only the download shows;
+## df, which every statistic uses, does not (see consistent_rows.R).
+df_all <- readRDS("DATA/app_data.rds")
+source("consistent_rows.R")
+df <- consistent_rows(df_all)
 
 ## the plotting functions and the task / questionnaire description tables,
 ## read once at start-up (they were re-read on every redraw)
@@ -128,15 +132,16 @@ dump_years <- tryCatch(
     select(bibkey, collected_from = year_from, collected_to = year_to),
   error = function(e) tibble(bibkey = character(),
                              collected_from = integer(), collected_to = integer()))
-dump <- df %>%
+dump <- df_all %>%
   left_join(dump_years, by = "bibkey") %>%
   transmute(bibkey, paper = citation, authors = author,
             pub_year = as.integer(year), journal, doi = as.character(doi_2),
             country, city, collected_from, collected_to,
             subject, gender, age,
             task = if_else(task == "quest_only", "none", task), choice, r,
+            inconsistent = as.integer(inconsistent), switch_no = as.integer(switch_no),
             across(all_of(dump_quest))) %>%
-  arrange(bibkey, subject, task)
+  arrange(bibkey, subject, task, switch_no)
 dump_view <- dump %>% mutate(r = round(r, 3))   # what the preview table shows
 
 ## ------------------------------------------------------------------ map ---

@@ -21,15 +21,17 @@ library(tidyverse)
 ## all rows. choice = switching point. Row-by-row choices are not saved, so
 ## multiple switchers cannot be found (the program takes the first switch from A
 ## to B). The 3 subjects with 1 chose B at probability 0, a dominated choice, and
-## are dropped.
+## are kept for the download only,
+## with inconsistent = 1 (Data/inconsistent_rows.R).
 ## female: 1 = female, 0 = male (the authors' gender is 1 = male).
 df <- read_csv("Data/Halim_et_al_2025/original_dataset.csv", show_col_types = FALSE)
 
+stopifnot(sum(df$switch_point == 1) == 3)
 df <- df %>%
-  filter(switch_point > 1) %>%
   transmute(subject,
             task = "CEPL",
             choice = switch_point,
+            inconsistent = as.numeric(switch_point == 1),
             age,
             gender = female,
             country = "Singapore")
@@ -45,7 +47,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

@@ -30,9 +30,13 @@ stopifnot(nrow(df) == 3029)
 ## authors leave both out of the coefficient and bring them back only as a
 ## robustness check on the binary indicator, writing that such answers "are
 ## more likely to be a product of lack of comprehension of the MPL design".
-## They are left out here for the same reason: the 118 are a dominated choice,
-## and putting 1118 subjects on one censored point would plant a spike at the
-## risk-loving end of this paper's distribution. 90 more have no answer at all.
+## The 1118 are left out here for the same reason: putting 1118 subjects on one
+## censored point would plant a spike at the risk-loving end of this paper's
+## distribution. The 118 made a dominated choice: they are kept for the
+## download only, with inconsistent = 1 (Data/inconsistent_rows.R) and
+## choice = 1, the sure amount taken from the first alternative on; they are
+## the subjects with no coefficient and riskloverbas_nomiss == 0. 90 more have
+## no answer at all.
 ##
 ## RECOVERING THE SWITCH POINT. The file keeps no row-by-row answers, only
 ## riskcoefbas, but that is enough: the spreadsheet assigns each switch point
@@ -48,11 +52,14 @@ rho <- 1 - log(0.5) / (log(seq(25, 350, by = 25)) - log(500))
 mid <- c(0.77, (rho[-1] + rho[-14]) / 2)
 
 df <- df %>%
-  filter(!is.na(riskcoefbas)) %>%
-  mutate(choice = map_int(as.numeric(riskcoefbas),
-                          ~ which.min(abs(mid - .x)) + 1L))
-stopifnot(nrow(df) == 1703,
-          max(abs(mid[df$choice - 1] - as.numeric(df$riskcoefbas))) < 0.001)
+  mutate(inconsistent = as.numeric(is.na(riskcoefbas) & riskloverbas_nomiss %in% 0)) %>%
+  filter(!is.na(riskcoefbas) | inconsistent == 1) %>%
+  mutate(choice = if_else(inconsistent == 1, 1L,
+                          map_int(as.numeric(riskcoefbas),
+                                  ~ if (is.na(.x)) NA_integer_ else which.min(abs(mid - .x)) + 1L)))
+stopifnot(sum(df$inconsistent == 0) == 1703, sum(df$inconsistent) == 118,
+          max(abs(mid[df$choice[df$inconsistent == 0] - 1] -
+                    as.numeric(df$riskcoefbas[df$inconsistent == 0]))) < 0.001)
 
 ## female is 1 for women and complete for the whole trial; agebas is age at
 ## baseline, 18 to 32. Both reproduce Table 1 (age 23.45 over the 3029, 23.39
@@ -67,6 +74,7 @@ df <- df %>%
   transmute(subject = row_number(),
             task = "CEPL",
             choice,
+            inconsistent,
             gender = as.numeric(female),
             age = as.numeric(agebas),
             bibkey = "BjorkmanNyqvist2018",
@@ -80,7 +88,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

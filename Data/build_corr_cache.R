@@ -5,6 +5,9 @@
 suppressMessages(library(tidyverse))
 
 df <- read.csv("METARET_APP/DATA/df_mod.csv", sep = ",")
+## the same rows as the site: inconsistent answers out
+source("METARET_APP/consistent_rows.R")
+df <- consistent_rows(df)
 
 quest_cols <- df %>%
   select(starts_with("soep"), starts_with("do"),

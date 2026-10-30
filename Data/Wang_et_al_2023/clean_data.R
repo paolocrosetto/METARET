@@ -30,13 +30,17 @@ library(tidyverse)
 ## 126 students at CentERlab, Tilburg University, 2018, z-Tree.
 ## Holt-Laury list (instructions, Part 2): option A pays 3 or 2 EUR, option B pays
 ## 5 or 1 EUR, the high outcome with probability k/10 in row k -- not the standard
-## table. choice = number of B choices.
+## table. choice = number of B choices. Nobody switches more than once; the 5
+## who keep A in row 10, where B pays 5 for sure against 3 (dominated; counted
+## until 29.10.2026), are kept for the download only, with inconsistent = 1
+## (Data/inconsistent_rows.R).
 df <- read_csv("Data/Wang_et_al_2023/original_dataset.csv", show_col_types = FALSE)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
             choice = rowSums(across(starts_with("choice")) == 2),
+            inconsistent = as.numeric(choice10 == 1),
             age,
             gender = 1 - male,
             country = "Netherlands",
@@ -53,7 +57,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

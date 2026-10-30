@@ -23,7 +23,8 @@ library(tidyverse)
 ## RiskPref (0-10) is the authors' count; neither the paper nor the files say of
 ## which option. It is read as the number of B (risky) choices: then only 2 of 240
 ## took B even at a 0% chance (the dominated choice), against 8 with the other
-## reading, and the name is a preference for risk. Those 2 are dropped.
+## reading, and the name is a preference for risk. Those 2 are kept for the
+## download only, with inconsistent = 1 (Data/inconsistent_rows.R).
 ## Rechecked 28.10.2026: the z-Tree program stores only Choice[1..10] (1 = A,
 ## 2 = B) and computes no count; the line choices are published nowhere (the
 ## Mendeley file's Risk column equals RiskPref for all 200 matched subjects).
@@ -37,11 +38,12 @@ df <- read_csv("Data/Riyanto_Teh_2020/original_dataset.csv", show_col_types = FA
 
 stopifnot(nrow(df) == 240, all(df$RiskPref %in% 0:10), sum(df$Gender == 1) == 105)
 
+stopifnot(sum(df$RiskPref == 10) == 2)
 df <- df %>%
-  filter(RiskPref <= 9) %>%
   transmute(subject = SubjectID,
             task = "CEPL",
             choice = RiskPref,
+            inconsistent = as.numeric(RiskPref == 10),
             age = Age,
             gender = Gender,
             country = "Singapore",
@@ -55,7 +57,8 @@ df$longitude = '103.6831'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

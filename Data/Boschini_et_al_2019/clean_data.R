@@ -24,7 +24,8 @@ library(tidyverse)
 ## q6_160kr; "att singla slant" = the coin flip). choice = number of rows with
 ## the lottery. 851 subjects took the lottery for the lowest safe amounts and the
 ## safe amount from some row on; the other 152 switched more than once and are
-## dropped.
+## kept for the download only, with inconsistent = 1 and one row per switch to
+## the safe amount (Data/inconsistent_rows.R); choice = that row minus 1.
 ##
 ## kon: Kvinna = woman. bg_alder is the year of birth (0 = missing); age = 2011 -
 ## year. The interviews were nationwide, so no city or coordinates.
@@ -38,25 +39,27 @@ single <- sapply(seq_len(nrow(lot)), function(i)
   identical(unname(lot[i, ]), as.numeric(c(rep(1, k[i]), rep(0, 7 - k[i])))))
 stopifnot(sum(single) == 851)
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  mutate(k = k, single = single) %>%
-  filter(single) %>%
+  mutate(points = lapply(seq_len(nrow(lot)), function(i) switch_points(1 - lot[i, ])),
+         inconsistent = as.numeric(!single)) %>%
   transmute(subject = id,
             task = "CEPL",
-            choice = k,
+            points, inconsistent,
             age = if_else(birth_year > 1900, 2011 - birth_year, NA_real_),
             gender = case_when(kon == "Kvinna" ~ 1, kon == "Man" ~ 0),
             country = "Sweden",
             city = "",
             bibkey = "Boschini2019",
-            paper = "Boschini et al. 2019")
+            paper = "Boschini et al. 2019") %>%
+  expand_switches(function(k) if_else(is.na(k), 7, k - 1))
 
 df$lattitude = ''
 df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

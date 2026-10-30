@@ -20,8 +20,10 @@ library(tidyverse)
 ## B = $3.85 / $0.10; Internet Appendix Table IAI), after the market; "subjects
 ## were paid ... on average $3 in the elicitation phase". holt_a = number of safe
 ## (A) choices; switch = 1 for the 26 subjects with more than one switching point,
-## whom the authors also set aside (appendix.do), so they are left out here.
-## choice = number of B choices = 10 - holt_a.
+## whom the authors also set aside (appendix.do). They are kept for the download
+## only, with inconsistent = 1 (Data/inconsistent_rows.R); the file has no
+## row-by-row answers, so their switching points are unknown and choice is left
+## empty. choice = number of B choices = 10 - holt_a.
 ##
 ## Gender and age are not in the files.
 df <- read_csv("Data/Cipriani_et_al_2018/original_dataset.csv", show_col_types = FALSE)
@@ -29,10 +31,10 @@ df <- read_csv("Data/Cipriani_et_al_2018/original_dataset.csv", show_col_types =
 stopifnot(nrow(df) == 88, sum(df$switch == 1) == 26)
 
 df <- df %>%
-  filter(switch == 0) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = 10 - holt_a,
+            choice = if_else(switch == 0, 10 - holt_a, NA_real_),
+            inconsistent = as.numeric(switch == 1),
             age = NA_real_,
             gender = NA_real_,
             country = "United States",
@@ -46,7 +48,8 @@ df$longitude = '-77.3089'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

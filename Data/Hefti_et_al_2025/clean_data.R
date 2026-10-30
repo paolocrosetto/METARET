@@ -19,22 +19,27 @@ library(tidyverse)
 ## lottery in the first n rows and the sure amount after, so the certainty
 ## equivalent lies in [n - 1, n] CHF; choice = n.
 ## As the authors' LotteryIncons flag, subjects who switch more than once (38) are
-## dropped, and so are the 8 who took the sure 0 CHF over the lottery in row 1.
+## out of the statistics, and so are the 8 who took the sure 0 CHF over the
+## lottery in row 1 (dominated). They are kept for the download only, with
+## inconsistent = 1 and one row per switch to the sure amount
+## (Data/inconsistent_rows.R); choice = that row minus 1.
 ## female: 1 = female, 0 = male.
 df <- read_csv("Data/Hefti_et_al_2025/original_dataset.csv", show_col_types = FALSE)
 
 L <- df %>% select(L1:L20) %>% as.matrix()
 consistent <- apply(L, 1, function(x) all(diff(x) <= 0))
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  mutate(n = rowSums(L)) %>%
-  filter(consistent, n > 0) %>%
+  mutate(points = lapply(seq_len(nrow(L)), function(i) switch_points(1 - L[i, ])),
+         inconsistent = as.numeric(!(consistent & rowSums(L) > 0))) %>%
   transmute(subject,
             task = "CEPL",
-            choice = n,
+            points, inconsistent,
             age,
             gender = female,
-            country = "Switzerland")
+            country = "Switzerland") %>%
+  expand_switches(function(k) if_else(is.na(k), 20, k - 1))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -47,7 +52,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

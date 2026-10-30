@@ -32,10 +32,19 @@ df <- df %>%
                           !is.na(do_1) ~ "quest_only",
                           !is.na(e_g)  ~ "EG"))
 
-## deleting iconsistents in HL
+## inconsistent HL answers (29.10.2026): the 46 multiple switchers
+## (mulSwitch_hl) and the 31 with h_l == 11, who never took B, so kept A even in
+## row 10 where B pays the high prize for sure (dominated). They stay for the
+## download only, with inconsistent = 1 (Data/inconsistent_rows.R). The file has
+## no row-by-row answers, and for the multiple switchers h_l is an average
+## (3.5, 4.5 ...), not a switching point, so their choice is left empty; the 31
+## get choice 0 like any 10-safe answer. Until 29.10.2026 the multiple switchers
+## were deleted and the 31 counted.
 df <- df %>% 
-  filter(mulSwitch_hl == F | is.na(mulSwitch_hl)) %>% 
+  mutate(inconsistent = as.numeric(task %in% "HL" & (mulSwitch_hl %in% TRUE | h_l %in% 11)),
+         h_l = if_else(mulSwitch_hl %in% TRUE, NA_real_, h_l)) %>% 
   select(-mulSwitch_hl)
+stopifnot(sum(df$inconsistent) == 77)
 
 ## assuming the HL variable is the SWITHING POINT
 ## we need to traslate this into the NUMBER OF SAFE CHOICES -- these are defined as switching point - 1
@@ -48,8 +57,8 @@ df <- df %>%
 
 # gathering and renaming each different chocie variable 'choice'
 df <- df %>% 
-  gather(key, choice, -subject, -gender, -age, -task) %>%  
-  filter(!is.na(choice))
+  gather(key, choice, -subject, -gender, -age, -task, -inconsistent) %>%  
+  filter(!is.na(choice) | (inconsistent == 1 & key == "h_l"))
 
 # for the time being (aug 2019) delete Tanaka and second soep question
 df <- df %>% 
@@ -71,7 +80,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 
 # Order of variables

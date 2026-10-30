@@ -25,8 +25,10 @@ library(tidyverse)
 ## intervals; "the computer program will randomly select 1 of the 10 decisions"
 ## for payment. HL = "the number of high-variance choices" (B), which the raw
 ## files confirm; OneSwitch = 1 if the subject switched at most once. Only those
-## are kept: 150 of the 168 market subjects with the task and 65 of the 72 in the
-## individual choice experiment. choice = HL.
+## enter the statistics: 150 of the 168 market subjects with the task and 65 of
+## the 72 in the individual choice experiment. choice = HL. The 25 others are
+## kept for the download only, with inconsistent = 1 and no choice
+## (Data/inconsistent_rows.R): the files have only the count.
 ##
 ## Gender and age are not in the files.
 df <- read_csv("Data/Crockett_et_al_2019/original_dataset.csv", show_col_types = FALSE)
@@ -35,10 +37,11 @@ stopifnot(nrow(df) == 312, sum(!is.na(df$HL)) == 240,
           sum(df$OneSwitch == 1) == 215, all(!is.na(df$HL[df$OneSwitch == 1])))
 
 df <- df %>%
-  filter(OneSwitch == 1) %>%
+  filter(!is.na(HL)) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = HL,
+            choice = if_else(OneSwitch == 1, HL, NA_real_),
+            inconsistent = as.numeric(OneSwitch != 1),
             age = NA_real_,
             gender = NA_real_,
             country = "United States",
@@ -52,7 +55,8 @@ df$longitude = '-79.9608'
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

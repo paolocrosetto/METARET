@@ -35,9 +35,11 @@ library(tidyverse)
 ## from the two files; numB = number of risky choices.
 ##
 ## HL, as for the other lists on the site: subjects who switched more than once
-## are dropped (2 in Methods, 17 in the auction sessions), and so are those who
-## chose A even in the last row, where B pays the high prize for sure (2 and 3).
-## The Binswanger choice of all 53 Methods subjects is kept.
+## (2 in Methods, 17 in the auction sessions) and those who chose A even in the
+## last row, where B pays the high prize for sure (2 and 3), are out of the
+## statistics; their HL answers are kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R), added
+## after the other rows. The Binswanger choice of all 53 Methods subjects is kept.
 df <- read_csv("Data/Harrison_Rutstrom_2008/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 161, sum(df$sample == "methods") == 53)
@@ -49,6 +51,17 @@ df <- df %>%
 stopifnot(sum(df$hl_ok & df$sample == "methods") == 49,
           sum(df$hl_ok & df$sample == "fp_auction") == 88)
 
+source("Data/inconsistent_rows.R")
+Bm <- 1 - as.matrix(select(df, decision_1:decision_10))
+hl_inc <- df %>%
+  mutate(subject = row_number(),
+         points = lapply(seq_len(nrow(Bm)), function(i) switch_points(Bm[i, ]))) %>%
+  filter(!hl_ok) %>%
+  transmute(subject, task = "HL", points, inconsistent = 1,
+            gender = female, age, country = "United States", city = "Orlando") %>%
+  ## choice = number of B choices = 11 - the row where B starts
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+
 df <- df %>%
   transmute(subject = row_number(),
             HL = if_else(hl_ok, numB, NA_real_),
@@ -58,7 +71,9 @@ df <- df %>%
             country = "United States",
             city = "Orlando") %>%
   pivot_longer(c(HL, EG), names_to = "task", values_to = "choice") %>%
-  filter(!is.na(choice))
+  filter(!is.na(choice)) %>%
+  mutate(inconsistent = 0) %>%
+  bind_rows(hl_inc)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -71,7 +86,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

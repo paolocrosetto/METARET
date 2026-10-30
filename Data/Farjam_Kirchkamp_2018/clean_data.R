@@ -21,31 +21,36 @@ library(tidyverse)
 ## The z-Tree subjects tables store Risk1 ... Risk10, 1 = option B.
 ## original_dataset.csv has one row per subject and session (210, the 12
 ## sessions of the session codes) with the ten choices in order (pattern) and
-## their sum (n_risky). 7 subjects who switched more than once are dropped, and
-## so are the 3 who chose A even in the last row, where B is the better payoff
-## for sure. 200 remain. choice = number of B choices. No age is recorded.
+## their sum (n_risky). 7 subjects who switched more than once and the 3 who
+## chose A even in the last row, where B is the better payoff for sure, are out
+## of the statistics and kept for the download only, with inconsistent = 1 and
+## one row per switch to B (Data/inconsistent_rows.R). 200 remain.
+## choice = number of B choices = 11 - the row where B starts. No age is recorded.
 df <- read_csv("Data/Farjam_Kirchkamp_2018/original_dataset.csv",
                col_types = cols(pattern = col_character(), session = col_character()))
 
 stopifnot(nrow(df) == 210, all(nchar(df$pattern) == 10))
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  filter(str_detect(pattern, "^0*1*$"), n_risky >= 1)
+  mutate(points = lapply(strsplit(pattern, ""), function(x) switch_points(as.numeric(x))),
+         inconsistent = as.numeric(!(str_detect(pattern, "^0*1*$") & n_risky >= 1)))
 
-stopifnot(nrow(df) == 200)
+stopifnot(sum(df$inconsistent == 0) == 200)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
-            choice = n_risky,
+            points, inconsistent,
             gender = 0,
             age = NA_real_,
             bibkey = "Farjam2018",
-            paper = "Farjam and Kirchkamp 2018")
+            paper = "Farjam and Kirchkamp 2018") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## University of Jena laboratory; the map shows only the country
 df$country = 'Germany'

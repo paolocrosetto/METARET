@@ -28,7 +28,10 @@ library(tidyverse)
 ## choice = the first sure amount taken (number of lotteries chosen); the
 ## certainty equivalent lies between choice - 1 and choice. Subjects who switch
 ## more than once, or take 0 EUR for sure over the lottery (dominated, one
-## subject), have no task row and enter as quest_only.
+## subject), 7 in all, are kept for the download only, with inconsistent = 1
+## and one row per switch to the sure amount (Data/inconsistent_rows.R); their
+## general risk answer still counts. Nobody took the lottery against a sure
+## 10 EUR.
 df <- read_csv("Data/Hoyer_et_al_2023/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 195)
@@ -36,25 +39,29 @@ stopifnot(nrow(df) == 195)
 L <- df %>% select(lottery_risk_1:lottery_risk_11) %>% as.matrix()
 single <- apply(L, 1, function(x) all(diff(x) >= 0)) & L[, 1] == 1
 
+source("Data/inconsistent_rows.R")
+S2 <- (L == 2) * 1
 df <- df %>%
-  mutate(n_lottery = rowSums(L == 1),
+  mutate(points = lapply(seq_len(nrow(S2)), function(i) switch_points(S2[i, ])),
+         inconsistent = as.numeric(!single),
          soep_risk = (risk_pref_general - 1) / 4 * 10) %>%
   transmute(subject,
-            task = if_else(single, "CEPL", "quest_only"),
-            ## choice is what generate_data_for_app.R moves into soep for quest_only
-            choice = if_else(single, n_lottery, soep_risk),
-            soep = if_else(single, soep_risk, NA_real_),
+            task = "CEPL",
+            points, inconsistent,
+            soep = soep_risk,
             age,
             ## Male, Female, Other in the survey
             gender = case_when(gender == 2 ~ 1, gender == 1 ~ 0),
             country = "Netherlands",
             bibkey = "Hoyer2023",
-            paper = "Hoyer et al. 2023")
+            paper = "Hoyer et al. 2023") %>%
+  ## choice = number of lotteries = the row where the sure amount starts - 1
+  expand_switches(function(k) if_else(is.na(k), 11, k - 1))
 
-stopifnot(sum(df$task == "CEPL") == 188)
+stopifnot(sum(df$inconsistent == 0) == 188)
 
 source("Data/generate_r.R")
-cepl <- df$task == "CEPL"
+cepl <- df$inconsistent == 0
 df$r <- NA_real_
 df$r[cepl] <- purrr::pmap_dbl(list(df$bibkey[cepl], df$task[cepl], df$choice[cepl]), get_r)
 

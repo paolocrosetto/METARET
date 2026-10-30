@@ -41,9 +41,12 @@ library(tidyverse)
 ## authors' e_risk is the first row with the sure amount (22 if none), so
 ## choice = e_risk and the CE lies in [100 (choice - 2), 100 (choice - 1)].
 ## The 7 all-lottery answers are coded at the bound, as for the staircase.
-## Dropped: 34 who took the sure amount in every row and 7 more who took a sure
-## KSh 0 over the lottery in row 1 (dominated), and 29 who switched back and
-## forth (the authors flag only some of them in e_risk_incons).
+## Kept for the download only, with inconsistent = 1 and one row per switch to
+## the sure amount (Data/inconsistent_rows.R): 34 who took the sure amount in
+## every row and 7 more who took a sure KSh 0 over the lottery in row 1
+## (dominated), and 29 who switched back and forth (the authors flag only some
+## of them in e_risk_incons). Their choice is coded like everyone's: the row
+## where the sure amount starts.
 ##
 ## 123 rows in the file, 120 people: survey_id 142149 appears four times with
 ## the same experimental record, risk answer, age and gender, differing only in
@@ -58,10 +61,18 @@ single <- grepl("^L+S*$", df$e_risk_choices)
 stopifnot(sum(single) == 50,
           all(df$e_risk[single] == nchar(sub("S*$", "", df$e_risk_choices[single])) + 1))
 
+source("Data/inconsistent_rows.R")
+S_rows <- lapply(strsplit(df$e_risk_choices, ""), function(x) as.numeric(x == "S"))
+df <- df %>%
+  mutate(points = lapply(S_rows, switch_points),
+         cepl_inconsistent = as.numeric(!single))
+stopifnot(sum(df$cepl_inconsistent) == 70)
+
 df <- df %>%
   transmute(subject,
             CE_staircase = risk_quant,
-            CEPL = if_else(single, e_risk, NA_real_),
+            CEPL = e_risk,
+            points, cepl_inconsistent,
             soep = risk_qual,
             gender = case_when(s_gender == "Female" ~ 1, s_gender == "Male" ~ 0,
                                TRUE ~ NA_real_),
@@ -69,14 +80,21 @@ df <- df %>%
             bibkey = "Bauer2020",
             paper = "Bauer et al. 2020") %>%
   pivot_longer(c(CE_staircase, CEPL), names_to = "task", values_to = "choice") %>%
-  filter(!is.na(choice)) %>%
+  mutate(inconsistent = if_else(task == "CEPL", cepl_inconsistent, 0)) %>%
+  select(-cepl_inconsistent)
+## the consistent CEPL choice is e_risk (checked above); the inconsistent ones
+## get one row per switch to the sure amount, coded the same way (22 if never)
+df <- bind_rows(
+  df %>% filter(!(task == "CEPL" & inconsistent == 1)) %>% select(-points),
+  df %>% filter(task == "CEPL", inconsistent == 1) %>%
+    expand_switches(function(k) if_else(is.na(k), 22, as.numeric(k)))) %>%
   ## staircase rows first, so their seeded draws of r stay as they were before
   ## the CEPL rows were added
   arrange(task != "CE_staircase")
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Busara Center, Nairobi; participants from Kibera
 df$country = 'Kenya'

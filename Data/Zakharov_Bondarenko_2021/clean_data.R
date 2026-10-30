@@ -27,8 +27,11 @@ stopifnot(nrow(df) == 184)
 ## from 0.1 to 1 in 0.1 increments" -- the Holt-Laury table times 12.5.
 ## risk1 ... risk10 are the ten rows, 1 = the risky lottery B (M6_risk.ztt:
 ## '0 = "A: 10% 50.00 ...', '1 = "B: 10% 96.25 ...'), so choice = number of
-## risky choices. The authors' own `safe` is 1 - choice/10. Subjects who
-## switched more than once are kept, as the authors do.
+## risky choices (11 - the row where B starts). The authors' own `safe` is
+## 1 - choice/10. Subjects who switched more than once, kept by the authors and
+## counted here until 29.10.2026, and anyone with A in row 10, where B pays
+## 96.25 for sure (dominated), are kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R).
 ## include_data == 0 (4 subjects) only drops them from the social-learning
 ## regressions, so they are kept here.
 df <- df %>%
@@ -37,12 +40,17 @@ df <- df %>%
 stopifnot(all(abs(df$safe - (1 - df$choice / 10)) < 1e-6))
 
 ## gender1 is "Male"; on this site gender is 1 for women.
+source("Data/inconsistent_rows.R")
+B <- as.matrix(select(df, risk1:risk10))
 df <- df %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject = row_number(),
             age = age,
             gender = 1 - gender1,
             task = "HL",
-            choice = choice)
+            points, inconsistent) %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 #### adding paper name and bibkey
 df <- df %>%
@@ -51,7 +59,7 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## "14 experimental sessions with a total of 184 participants at the
 ## Laboratory for Experimental and Behavioral Economics of the Higher School

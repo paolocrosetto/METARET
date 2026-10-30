@@ -18,7 +18,13 @@ library(tidyverse)
 ## in the package belongs to a later study and is not used.)
 ## Risk task (CEPL): six choices, in random order, between a sure GBP 1, 1.5,
 ## 1.75, 2, 2.25, 2.75 and a 50% chance of GBP 4; one paid. RMx: 1 = sure,
-## 2 = gamble. choice = number of gambles taken.
+## 2 = gamble. choice = number of gambles taken. Inconsistent (counted until
+## 29.10.2026): the 136 whose answers are not monotone in the sure amount
+## (RM1-RM6 run from GBP 1 to 2.75), i.e. who take the gamble against a higher
+## sure amount after taking a lower one. The six choices came in random order,
+## so there is no list switching point; they keep one row each with their
+## count, for the download only, with inconsistent = 1 (Data/inconsistent_rows.R,
+## as for Vieider2024).
 ## Only the control condition is kept (no clip shown, control emotion rating
 ## present), as in the authors' do-file. The authors also dropped some test and
 ## unmatched Prolific ids, which cannot be identified in the anonymised file:
@@ -32,6 +38,8 @@ df <- df %>%
   transmute(subject = row_number(),
             task = "CEPL",
             choice = (RM1 == 2) + (RM2 == 2) + (RM3 == 2) + (RM4 == 2) + (RM5 == 2) + (RM6 == 2),
+            inconsistent = as.numeric(!apply(cbind(RM1, RM2, RM3, RM4, RM5, RM6) == 2, 1,
+                                             function(a) all(diff(a) <= 0))),
             age = NA_real_,
             gender = case_when(Gender == 2 ~ 1, Gender == 1 ~ 0, TRUE ~ NA_real_),
             country = NA_character_,
@@ -48,7 +56,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

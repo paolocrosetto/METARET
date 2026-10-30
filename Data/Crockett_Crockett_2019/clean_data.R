@@ -22,10 +22,14 @@ library(tidyverse)
 ##
 ## dataHL.csv is one row per subject and decision, choice 1 = B. Five subjects
 ## have a garbled record (2, 19, 23, 40 or 42 rows instead of 21; none in
-## MPL-N). Of the 61, 12 switched more than once and are dropped, and 1 who
-## chose A even at probability 1, where B pays 26.95 for sure. 48 remain.
-## choice = number of B choices, 1 ... 20; bounds in the Crockett2019 block of
-## generate_r.R. gender: male 1 flipped to the site's female 1. No age.
+## MPL-N). Of the 61, 12 switched more than once and 1 chose A even at
+## probability 1, where B pays 26.95 for sure: these 13 are kept for the
+## download only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R). 48 remain in the statistics. (B in row 1, where
+## it pays 0.70 for sure, would be dominated too; nobody did it.)
+## choice = number of B choices, 1 ... 20, i.e. 22 - the row where B starts;
+## bounds in the Crockett2019 block of generate_r.R. gender: male 1 flipped to
+## the site's female 1. No age.
 df <- read_csv("Data/Crockett_Crockett_2019/original_dataset.csv",
                col_types = cols(pattern = col_character()))
 
@@ -36,23 +40,26 @@ df <- df %>%
 
 stopifnot(nrow(df) == 61, all(nchar(df$pattern) == 21))
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  filter(str_detect(pattern, "^0*1*$"), n_risky >= 1)
+  mutate(points = lapply(strsplit(pattern, ""), function(x) switch_points(as.numeric(x))),
+         inconsistent = as.numeric(!(str_detect(pattern, "^0*1*$") & n_risky %in% 1:20)))
 
-stopifnot(nrow(df) == 48, all(df$n_risky %in% 1:20))
+stopifnot(sum(df$inconsistent == 0) == 48)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
-            choice = n_risky,
+            points, inconsistent,
             gender = 1 - male,
             age = NA_real_,
             bibkey = "Crockett2019",
-            paper = "Crockett and Crockett 2019")
+            paper = "Crockett and Crockett 2019") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 22 - k))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Baruch College, New York; the map shows only the country
 df$country = 'United States'

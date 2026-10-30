@@ -34,25 +34,31 @@ stopifnot(nrow(df) == 72)
 ## which is a sure amount against a lottery and so CEPL, 12 subjects. The
 ## bounds for each are in the BouluReshef2025 block of generate_r.R.
 ##
-## Three subjects switch more than once and are dropped, as in the file for
-## Finger et al.; one sits at a corner and is kept. That leaves 69.
+## Three subjects switch more than once: they are kept for the download only,
+## with inconsistent = 1 and one row per switch to the risky side
+## (Data/inconsistent_rows.R). One sits at a corner (R in every row, not
+## dominated) and is in the statistics. That leaves 69 there.
 ##
 ## No demographics are published: DATA_INVENTORY has no age or gender column
 ## and the raw sheets carry only names.
+source("Data/inconsistent_rows.R")
 df <- df %>%
-  filter(switches <= 1) %>%
+  mutate(points = lapply(strsplit(choices, ""), function(x) switch_points(as.numeric(x == "R"))),
+         inconsistent = as.numeric(switches > 1)) %>%
   transmute(subject = row_number(),
             task = if_else(safe_hi == safe_lo, "CEPL", "HL"),
-            choice = n_risky,
+            points, inconsistent,
             gender = NA_real_,
             age = NA_real_,
             bibkey = "BouluReshef2025",
             paper = "Boulu-Reshef and Holt 2025")
-stopifnot(nrow(df) == 69)
+stopifnot(sum(df$inconsistent == 0) == 69)
+## choice = number of R choices = 11 - the row where R starts
+df <- df %>% expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Veconlab, University of Virginia.
 df$country = 'United States'

@@ -19,11 +19,13 @@ library(tidyverse)
 ##    EUR with 97% ... 16.23 EUR with 2%, else 0 (Appendix D, Table D.2), paid.
 ##    The file keeps only the row where the subject moved to the sure 3 EUR
 ##    (riskattitude; 21 = never moved); for subjects who switched several times
-##    the authors stored the mean row, a non-integer, and these 63 have no task
-##    row here. It pitches a sure amount against a lottery, so it is CEPL;
+##    the authors stored the mean row, a non-integer; these 63 keep a CEPL row
+##    with inconsistent = 1, for the download only, and no choice
+##    (Data/inconsistent_rows.R). It pitches a sure amount against a lottery,
+##    so it is CEPL;
 ##  - the SOEP question "are you a person who is generally willing to take
 ##    risks, or do you try to avoid taking risks?", 0-10 (screen 34). It goes in
-##    soep for subjects with a task row and as quest_only for the other 63.
+##    soep and counts for everyone.
 ## The hypothetical certainty equivalent of a 50% chance of 1,000 EUR (risk2) is
 ## not used. original_dataset.csv keeps wave, treatment flags, the upside chosen,
 ## age, the SOEP answer and the switching row; the authors' ids are dropped and
@@ -40,10 +42,10 @@ stopifnot(sum(df$single) == 304)
 
 df <- df %>%
   transmute(subject,
-            task = if_else(single, "CEPL", "quest_only"),
-            ## choice is what generate_data_for_app.R moves into soep for quest_only
-            choice = if_else(single, switch_row, soep_risk),
-            soep = if_else(single, soep_risk, NA_real_),
+            task = "CEPL",
+            choice = if_else(single, switch_row, NA_real_),
+            inconsistent = as.numeric(!single),
+            soep = soep_risk,
             age,
             gender = NA_real_,
             country = "Germany",
@@ -51,7 +53,7 @@ df <- df %>%
             paper = "Schwerter 2024")
 
 source("Data/generate_r.R")
-cepl <- df$task == "CEPL"
+cepl <- df$inconsistent == 0
 df$r <- NA_real_
 df$r[cepl] <- purrr::pmap_dbl(list(df$bibkey[cepl], df$task[cepl], df$choice[cepl]), get_r)
 

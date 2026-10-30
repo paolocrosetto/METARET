@@ -34,7 +34,9 @@ library(tidyverse)
 ## nine rows and switch once from A to B are kept: 466 MTurk workers (96 of
 ## them chose A in all nine rows) and 99 ranchers. 97 MTurk workers and 8
 ## ranchers left the list blank; 45 and 2 switched more than once (the paper
-## reports 47 and 0).
+## reports 47 and 0). The 47 are kept for the download only, with
+## inconsistent = 1 and one row per switch to B (Data/inconsistent_rows.R);
+## a switch at row k of the nine is coded 11 - k, like a single switch there.
 ## Both samples are spread over the US, so no city and no coordinates.
 df <- read_csv("Data/Shrum_Travis_2022/original_dataset.csv", show_col_types = FALSE,
                col_types = cols(.default = "c", subject = "i"))
@@ -45,27 +47,32 @@ hl <- df %>% select(hl_1:hl_9) %>% as.matrix()
 pattern <- apply(hl, 1, function(x) if (any(is.na(x))) NA_character_ else paste(x, collapse = ""))
 single <- !is.na(pattern) & str_detect(pattern, "^A*B*$")
 
+source("Data/inconsistent_rows.R")
+complete <- !is.na(pattern)
 df <- df %>%
-  mutate(nB = rowSums(hl == "B", na.rm = TRUE)) %>%
-  filter(single) %>%
+  mutate(points = lapply(seq_len(nrow(hl)), function(i)
+           if (complete[i]) switch_points(as.numeric(hl[i, ] == "B")) else integer(0)),
+         inconsistent = as.numeric(complete & !single)) %>%
+  filter(complete) %>%
   transmute(subject,
             task = "HL",
-            ## number of B choices in the standard ten-row list
-            choice = nB + 1,
+            points, inconsistent,
             age = suppressWarnings(as.numeric(age)),
             gender = case_when(gender == "Female" ~ 1, gender == "Male" ~ 0),
             country = "United States",
             bibkey = "Shrum2022",
-            paper = "Shrum and Travis 2022")
+            paper = "Shrum and Travis 2022") %>%
+  ## number of B choices in the standard ten-row list: nB + 1 = 11 - k
+  expand_switches(function(k) if_else(is.na(k), 1, 11 - k))
 
-stopifnot(nrow(df) == 565)
+stopifnot(sum(df$inconsistent == 0) == 565, n_distinct(df$subject[df$inconsistent == 1]) == 47)
 
 df$lattitude = ''
 df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

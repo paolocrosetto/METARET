@@ -1,106 +1,271 @@
-bibkey,paper,task,subject,choice,r,age,gender,country,city,lattitude,longitude
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,1,7,1.3986272303287406,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,2,7,1.6755752366597298,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,3,2,-0.08596104082465172,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,4,3,0.3263565876749344,22,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,5,6,1.2583259956268593,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,6,4,0.46079312440752984,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,7,7,1.6255410561393946,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,8,4,0.6108996583297849,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,9,3,0.2989267794743646,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,10,3,0.3637283901260234,21,1,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,11,3,0.18872529657604173,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,12,4,0.4957283157845959,20,1,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,13,5,0.8949893729090691,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,14,7,1.5225640627325046,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,15,5,0.8879429868683218,19,1,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,16,3,0.2701603172966279,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,17,3,0.36732741629332305,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,18,3,0.32886445736326275,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,19,4,0.5815271854382008,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,20,4,0.5013536193538457,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,21,5,0.9957583765909076,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,22,2,-0.0496713827252388,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,23,9,2.2299909078986384,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,24,2,0.06824677549302577,23,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,25,6,1.169366161650978,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,26,4,0.4426018646601587,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,27,2,-0.29429620794206857,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,28,3,0.35523107524658554,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,29,6,1.2019042770185042,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,30,9,3.060467029951513,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,31,7,1.36422517023189,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,32,6,1.2092331586366054,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,33,3,0.4024904850330204,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,34,5,0.7228218154385686,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,35,5,0.8369966145083308,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,36,3,0.3490786394753959,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,37,7,1.3564411141886374,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,38,5,0.7414038716256618,18,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,39,7,1.3766876754900441,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,40,4,0.5892169611640274,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,41,4,0.47194697515014555,21,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,42,3,0.29651765201753005,22,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,43,5,0.961659791007638,20,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,44,6,1.1511039457549341,18,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,45,2,-0.2201459879428148,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,46,4,0.4866186621552333,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,47,2,-0.21097162707149983,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,48,7,1.6485733440686017,18,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,49,7,1.5488873877625446,19,1,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,50,4,0.61410646170564,19,1,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,51,4,0.48502265265677125,20,1,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,52,4,0.5132456509638578,19,0,India,New Delhi,28.5459,77.2732
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,53,5,0.7701961691528558,27,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,54,7,1.4866902390392496,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,55,7,1.6043184276600368,26,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,56,8,1.9155229629627428,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,57,4,0.45717741518095134,24,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,58,8,2.1227033706600777,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,59,2,-0.27657058358937503,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,60,1,-0.301,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,61,5,0.8454832934811711,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,62,3,0.19378758753277361,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,63,8,2.0968633883611765,23,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,64,4,0.6876625468954444,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,65,10,3.061,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,66,5,0.7188774445578455,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,67,5,0.9007544180825352,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,68,3,0.31634232274093665,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,69,9,2.4201572691956534,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,70,9,2.6237020619055254,24,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,71,3,0.15952797462954185,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,72,6,1.1577756836572661,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,73,6,1.1149518567316699,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,74,7,1.6292553956070914,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,75,3,0.279435236859601,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,76,5,0.8550354116559028,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,77,10,3.061,20,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,78,7,1.6651024102510419,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,79,7,1.4865422471042256,23,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,80,6,1.2728181655851658,21,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,81,6,1.0010397521962877,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,82,1,-0.301,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,83,7,1.5861683603106067,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,84,4,0.6301218830225989,21,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,85,5,0.8482332798391581,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,86,3,0.2672327139629051,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,87,5,0.9569996583685279,21,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,88,7,1.539303585202433,20,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,89,8,2.1020707285988607,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,90,1,-0.301,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,91,3,0.4104209793417249,21,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,92,7,1.4696121376282536,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,93,7,1.5686171288159676,22,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,94,4,0.46644209901150313,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,95,6,1.064207138910191,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,96,5,0.7346155808120965,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,97,9,2.5566293656793424,23,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,98,9,3.0327849078481086,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,99,7,1.536598770528566,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,100,3,0.2147918951525353,24,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,101,5,0.8769572592899203,22,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,102,6,1.0830402272192297,21,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,103,6,1.1290891595741268,23,0,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,104,3,0.2168760563202668,23,1,India,Delhi,28.6889,77.2090
-Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,105,2,0.07425634107738732,22,1,India,Delhi,28.6889,77.2090
+bibkey,paper,task,subject,choice,r,inconsistent,age,gender,country,city,lattitude,longitude,switch_no
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,1,10,NA,1,22,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,1,6,NA,1,22,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,2,7,1.3986272303287406,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,3,7,1.6755752366597298,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,4,2,-0.08596104082465172,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,5,3,0.3263565876749344,0,22,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,6,10,NA,1,24,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,6,6,NA,1,24,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,7,6,1.2583259956268593,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,8,6,NA,1,19,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,8,4,NA,1,19,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,8,2,NA,1,19,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,9,4,0.46079312440752984,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,10,8,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,10,6,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,10,4,NA,1,20,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,11,7,1.6255410561393946,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,12,4,0.6108996583297849,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,13,6,NA,1,19,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,13,3,NA,1,19,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,14,3,0.2989267794743646,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,15,3,0.3637283901260234,0,21,1,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,16,6,NA,1,22,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,16,4,NA,1,22,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,17,3,0.18872529657604173,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,18,7,NA,1,22,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,18,1,NA,1,22,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,19,4,0.4957283157845959,0,20,1,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,20,5,0.8949893729090691,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,21,9,NA,1,19,1,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,21,7,NA,1,19,1,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,21,4,NA,1,19,1,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,21,1,NA,1,19,1,India,New Delhi,28.5459,77.2732,4
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,22,8,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,22,2,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,23,7,1.5225640627325046,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,24,5,0.8879429868683218,0,19,1,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,25,3,0.2701603172966279,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,26,3,0.36732741629332305,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,27,8,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,27,5,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,28,7,NA,1,19,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,28,4,NA,1,19,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,28,2,NA,1,19,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,29,3,0.32886445736326275,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,30,4,0.5815271854382008,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,31,4,0.5013536193538457,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,32,10,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,32,7,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,32,5,NA,1,20,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,32,2,NA,1,20,0,India,New Delhi,28.5459,77.2732,4
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,33,9,NA,1,19,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,33,6,NA,1,19,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,33,4,NA,1,19,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,34,5,0.9957583765909076,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,35,2,-0.0496713827252388,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,36,5,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,36,2,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,37,9,2.2299909078986384,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,38,2,0.06824677549302577,0,23,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,39,6,1.169366161650978,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,40,6,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,40,4,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,41,9,NA,1,21,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,41,6,NA,1,21,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,42,4,0.4426018646601587,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,43,8,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,43,6,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,43,4,NA,1,20,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,44,2,-0.29429620794206857,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,45,3,0.35523107524658554,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,46,6,1.2019042770185042,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,47,9,3.060467029951513,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,48,7,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,49,6,NA,1,22,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,49,3,NA,1,22,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,49,1,NA,1,22,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,50,7,1.36422517023189,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,51,6,1.2092331586366054,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,52,3,0.4024904850330204,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,53,5,0.7228218154385686,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,54,9,NA,1,20,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,54,7,NA,1,20,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,54,3,NA,1,20,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,55,5,0.8369966145083308,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,56,3,0.3490786394753959,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,57,7,1.3564411141886374,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,58,5,0.7414038716256618,0,18,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,59,7,1.3766876754900441,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,60,10,NA,1,21,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,60,7,NA,1,21,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,60,1,NA,1,21,0,India,New Delhi,28.5459,77.2732,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,61,4,0.5892169611640274,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,62,4,0.47194697515014555,0,21,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,63,3,0.29651765201753005,0,22,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,64,5,0.961659791007638,0,20,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,65,6,1.1511039457549341,0,18,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,66,2,-0.2201459879428148,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,67,4,0.4866186621552333,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,68,2,-0.21097162707149983,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,69,7,1.6485733440686017,0,18,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,70,7,1.5488873877625446,0,19,1,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,71,4,0.61410646170564,0,19,1,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,72,4,0.48502265265677125,0,20,1,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,73,10,NA,1,19,0,India,New Delhi,28.5459,77.2732,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,73,1,NA,1,19,0,India,New Delhi,28.5459,77.2732,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,74,4,0.5132456509638578,0,19,0,India,New Delhi,28.5459,77.2732,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,75,5,0.7701961691528558,0,27,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,76,7,1.4866902390392496,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,77,7,1.6043184276600368,0,26,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,78,6,NA,1,29,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,78,1,NA,1,29,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,79,8,1.9155229629627428,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,80,4,0.45717741518095134,0,24,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,81,8,2.1227033706600777,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,82,8,NA,1,22,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,82,4,NA,1,22,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,83,6,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,83,4,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,83,1,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,84,2,-0.27657058358937503,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,85,1,-0.301,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,86,5,0.8454832934811711,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,87,3,0.19378758753277361,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,88,8,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,88,6,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,88,4,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,88,1,NA,1,23,1,India,Delhi,28.6889,77.2090,4
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,89,8,2.0968633883611765,0,23,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,90,8,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,90,3,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,91,4,0.6876625468954444,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,92,9,NA,1,21,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,92,6,NA,1,21,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,92,1,NA,1,21,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,93,10,3.061,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,94,5,0.7188774445578455,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,95,6,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,95,4,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,96,8,NA,1,24,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,96,4,NA,1,24,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,97,7,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,97,5,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,97,2,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,98,7,NA,1,21,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,98,5,NA,1,21,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,99,8,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,99,5,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,99,1,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,100,5,0.9007544180825352,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,101,9,NA,1,24,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,101,7,NA,1,24,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,102,8,NA,1,22,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,102,3,NA,1,22,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,103,3,0.31634232274093665,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,104,8,NA,1,22,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,104,5,NA,1,22,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,105,8,NA,1,25,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,105,4,NA,1,25,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,105,2,NA,1,25,0,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,106,9,2.4201572691956534,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,107,9,2.6237020619055254,0,24,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,108,3,0.15952797462954185,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,109,6,1.1577756836572661,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,110,6,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,110,4,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,111,10,NA,1,22,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,111,8,NA,1,22,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,111,1,NA,1,22,0,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,112,10,NA,1,22,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,112,1,NA,1,22,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,113,5,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,113,3,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,114,6,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,114,2,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,115,6,1.1149518567316699,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,116,7,1.6292553956070914,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,117,3,0.279435236859601,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,118,7,NA,1,21,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,118,4,NA,1,21,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,119,5,0.8550354116559028,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,120,10,3.061,0,20,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,121,7,1.6651024102510419,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,122,9,NA,1,21,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,122,3,NA,1,21,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,123,7,1.4865422471042256,0,23,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,124,6,1.2728181655851658,0,21,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,125,10,NA,1,22,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,125,7,NA,1,22,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,125,5,NA,1,22,0,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,125,1,NA,1,22,0,India,Delhi,28.6889,77.2090,4
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,126,10,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,126,8,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,127,6,1.0010397521962877,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,128,1,-0.301,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,129,7,1.5861683603106067,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,130,9,NA,1,20,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,130,1,NA,1,20,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,131,4,0.6301218830225989,0,21,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,132,9,NA,1,21,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,132,7,NA,1,21,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,133,10,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,133,6,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,134,5,0.8482332798391581,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,135,3,0.2672327139629051,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,136,7,NA,1,21,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,136,4,NA,1,21,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,137,9,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,137,7,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,137,3,NA,1,23,0,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,138,5,0.9569996583685279,0,21,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,139,7,1.539303585202433,0,20,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,140,8,NA,1,21,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,140,6,NA,1,21,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,140,4,NA,1,21,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,140,2,NA,1,21,1,India,Delhi,28.6889,77.2090,4
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,141,10,NA,1,21,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,141,5,NA,1,21,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,142,8,2.1020707285988607,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,143,1,-0.301,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,144,3,0.4104209793417249,0,21,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,145,8,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,145,4,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,146,7,1.4696121376282536,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,147,7,1.5686171288159676,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,148,9,NA,1,20,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,148,5,NA,1,20,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,149,7,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,149,5,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,149,3,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,150,7,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,150,4,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,150,2,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,151,10,NA,1,22,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,151,6,NA,1,22,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,152,5,NA,1,22,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,152,1,NA,1,22,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,153,10,NA,1,21,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,153,8,NA,1,21,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,153,6,NA,1,21,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,154,9,NA,1,21,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,154,6,NA,1,21,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,154,4,NA,1,21,0,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,155,4,0.46644209901150313,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,156,6,1.064207138910191,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,157,5,0.7346155808120965,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,158,10,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,158,5,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,159,9,2.5566293656793424,0,23,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,160,9,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,160,6,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,161,9,3.0327849078481086,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,162,7,1.536598770528566,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,163,3,0.2147918951525353,0,24,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,164,5,0.8769572592899203,0,22,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,165,6,1.0830402272192297,0,21,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,166,6,1.1290891595741268,0,23,0,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,167,10,NA,1,24,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,167,6,NA,1,24,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,168,10,NA,1,23,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,168,4,NA,1,23,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,169,3,0.2168760563202668,0,23,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,170,2,0.07425634107738732,0,22,1,India,Delhi,28.6889,77.2090,NA
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,171,8,NA,1,23,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,171,6,NA,1,23,1,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,171,3,NA,1,23,1,India,Delhi,28.6889,77.2090,3
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,172,10,NA,1,24,0,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,172,5,NA,1,24,0,India,Delhi,28.6889,77.2090,2
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,173,10,NA,1,22,1,India,Delhi,28.6889,77.2090,1
+Chaturvedi2021,Chaturvedi and Kanjilal 2021,HL,173,5,NA,1,22,1,India,Delhi,28.6889,77.2090,2

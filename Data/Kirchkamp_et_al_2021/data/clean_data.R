@@ -21,6 +21,35 @@ library(readxl)
 #### getting the data
 load("Data/Kirchkamp_et_al_2021/data/data.Rdata")
 
+## Inconsistent answers (29.10.2026): the authors' consistent == 0 (more than
+## one switch) and hlSwitch == 11 (the safe option in all ten rows, so also in
+## row 10, where the risky one pays more for sure) used to be filtered out. They
+## are now kept for the download only, with inconsistent = 1 and one row per
+## switch to the risky option, read from hl_1 ... hl_10 (TRUE = risky)
+## (Data/inconsistent_rows.R). choice = 11 - the row where the risky option
+## starts, as for everyone else.
+source("Data/inconsistent_rows.R")
+hl_rows <- function(d) {
+  B <- as.matrix(d[, paste0("hl_", 1:10)]) * 1
+  d %>%
+    mutate(subject = rownames(.),
+           points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+           inconsistent = as.numeric(consistent == 0 | hlSwitch == 11)) %>%
+    select(subject, points, inconsistent) %>%
+    expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+}
+## HLS (Roth 2016, Duersch et al 2017) keeps only hlSwitch, the row where B is
+## first chosen, not the row-by-row answers: an inconsistent subject gets one
+## row (switch_no 1) with choice = 11 - hlSwitch where it is stored, else empty.
+hls_rows <- function(d) {
+  d %>%
+    mutate(subject = rownames(.),
+           inconsistent = as.numeric(consistent == 0 | hlSwitch %in% 11),
+           choice = 11 - as.numeric(hlSwitch),
+           switch_no = if_else(inconsistent == 1, 1, NA_real_)) %>%
+    select(subject, choice, inconsistent, switch_no)
+}
+
 ## So we have several datasets from various sources, we can treat them separately
 ## If 11 then person always chose non risky lottery -> no switching point
 
@@ -46,12 +75,7 @@ load("Data/Kirchkamp_et_al_2021/data/data.Rdata")
 ## at 11 on a 0-10 scale. 11 - hlSwitch follows this file's own definition of
 ## hlSwitch and stays in range, so that is what is used.
 
-brunner = HL$BHO %>% 
-  filter(hlSwitch!=11, consistent == 1) %>% 
-  mutate(subject = rownames(.)) %>%
-  select(subject, hlSwitch) %>%
-  mutate(choice = 11L - as.integer(hlSwitch)) %>%
-  select(-hlSwitch)
+brunner = hl_rows(HL$BHO)
 
 ## add the name of the task   
 brunner$task = 'HL'
@@ -63,8 +87,7 @@ brunner <- brunner %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-brunner <- brunner %>% 
-  mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+brunner$r <- consistent_r(brunner)   # r for consistent rows only
 
 # Order of variables
 brunner <- brunner %>% 
@@ -75,13 +98,7 @@ brunner %>% write_csv("Data/Kirchkamp_et_al_2021/data/Brunner2014/formatted_data
 
 ## ----------Dürsch-----------------
 
-dursch = HL$DOV %>% 
-  filter(hlSwitch!=11, consistent == 1) %>% 
-  mutate(subject = rownames(.)) %>%
-  select(subject, hlSwitch) %>%
-  mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  mutate(choice = 11L - as.integer(hlSwitch)) %>%
-  select(-hlSwitch)
+dursch = hl_rows(HL$DOV)
 
 ## add the name of the task   
 dursch$task = 'HL'
@@ -93,8 +110,7 @@ dursch <- dursch %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-dursch <- dursch %>% 
-  mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+dursch$r <- consistent_r(dursch)   # r for consistent rows only
 
 # Order of variables
 dursch <- dursch %>% 
@@ -120,12 +136,7 @@ dursch <- dursch %>%
 # dursch %>% write_csv("Data/Kirchkamp_et_al_2021/data/Dursch2012/formatted_dataset.csv")
 
 ## ----------Proto----------------
-proto = HL$PRS %>%  
-  filter(hlSwitch!=11, consistent == 1) %>% 
-  mutate(subject = rownames(.)) %>%
-  select(subject, hlSwitch) %>%
-  mutate(choice = 11L - as.integer(hlSwitch)) %>%
-  select(-hlSwitch)
+proto = hl_rows(HL$PRS)
 
 ## add the name of the task   
 proto$task = 'HL'
@@ -137,8 +148,7 @@ proto <- proto %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-proto <- proto %>% 
-  mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+proto$r <- consistent_r(proto)   # r for consistent rows only
 
 # Order of variables
 proto <- proto %>%  
@@ -148,13 +158,7 @@ proto %>% write_csv("Data/Kirchkamp_et_al_2021/data/Proto2018/formatted_dataset.
 
 
 ## ----------Kirchkamp----------------
-kirch = HL$onlineStd %>% 
-  filter(hlSwitch!=11, consistent == 1) %>% 
-  mutate(subject = rownames(.)) %>%
-  select(subject, hlSwitch) %>%
-  mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  mutate(choice = 11L - as.integer(hlSwitch)) %>%
-  select(-hlSwitch)
+kirch = hl_rows(HL$onlineStd)
 
 ## add the name of the task   
 kirch$task = 'HL'
@@ -166,8 +170,7 @@ kirch <- kirch %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-kirch <- kirch %>% 
-  mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+kirch$r <- consistent_r(kirch)   # r for consistent rows only
 
 # Order of variables
 kirch <- kirch %>%  
@@ -176,13 +179,7 @@ kirch <- kirch %>%
 # kirch %>% write_csv("Data/Kirchkamp_et_al_2021/data/formatted_dataset.csv")
 
 ## ----------Roth----------------
-roth = HLS$RTV %>% 
-  filter(hlSwitch!=11, consistent == 1) %>% 
-  mutate(subject = rownames(.)) %>%
-  select(subject, hlSwitch) %>%
-  mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  mutate(choice = 11L - as.integer(hlSwitch)) %>%
-  select(-hlSwitch)
+roth = hls_rows(HLS$RTV)
 
 ## add the name of the task   
 roth$task = 'HL'
@@ -194,8 +191,7 @@ roth <- roth %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-roth <- roth %>% 
-  mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+roth$r <- consistent_r(roth)   # r for consistent rows only
 
 # Order of variables
 roth <- roth %>%  
@@ -205,13 +201,7 @@ roth %>% write_csv("Data/Kirchkamp_et_al_2021/data/Roth2016/formatted_dataset.cs
 
 ## ----------Dürsch et al. (2017)----------------
 
-dursch = HLS$DRR %>% 
-  filter(hlSwitch!=11, consistent == 1) %>% 
-  mutate(subject = rownames(.)) %>%
-  select(subject, hlSwitch) %>%
-  mutate(hlSwitch = as.integer(hlSwitch)) %>%
-  mutate(choice = 11L - as.integer(hlSwitch)) %>%
-  select(-hlSwitch)
+dursch = hls_rows(HLS$DRR)
 ## add the name of the task   
 dursch$task = 'HL'
 dursch$country = 'Germany'
@@ -222,8 +212,7 @@ dursch <- dursch %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-dursch <- dursch %>% 
-  mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+dursch$r <- consistent_r(dursch)   # r for consistent rows only
 
 # Order of variables
 dursch <- dursch %>% 
@@ -328,7 +317,7 @@ kirchkamp <- kirchkamp %>%
 kirchkamp <- kirchkamp %>% 
   select(bibkey, paper, task, subject, choice, r, everything())
 
-kirchkamp1 = rbind(kirchkamp, kirch) 
+kirchkamp1 = bind_rows(kirchkamp %>% mutate(inconsistent = 0), kirch)   # EG has no inconsistent answers
 
 kirchkamp1 %>% write_csv("Data/Kirchkamp_et_al_2021/data/formatted_dataset.csv")
 

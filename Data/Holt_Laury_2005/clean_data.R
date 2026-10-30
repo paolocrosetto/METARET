@@ -17,19 +17,29 @@ library(tidyverse)
 ## file. reverse = left/right position of the safe option (pooled in the paper).
 ## d1-d10: 1 = safe, 0 = risky (mean safe choices 5.7 at 1x real and 6.7 at
 ## 20x real, as in Table 1 of the paper).
-## Only the real-payment treatments are kept; choice = number of risky choices.
+## Only the real-payment treatments are kept; choice = number of risky choices
+## (11 - the row where B starts). Inconsistent (counted until 29.10.2026): 3
+## subjects switch more than once and 1 keeps the safe option in row 10, where
+## the risky one pays more for sure; they are kept for the download only, with
+## inconsistent = 1 and one row per switch to the risky option
+## (Data/inconsistent_rows.R).
 ## Holt and Laury (2002) is already in METARET as a separate paper (other subjects).
 ## No demographics in the file.
 df <- read_csv("Data/Holt_Laury_2005/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
+df <- df %>% filter(real == 1)
+B <- 1 - as.matrix(select(df, d1:d10))
 df <- df %>% 
-  filter(real == 1) %>% 
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)) %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice = (d1 == 0) + (d2 == 0) + (d3 == 0) + (d4 == 0) + (d5 == 0) +
-                     (d6 == 0) + (d7 == 0) + (d8 == 0) + (d9 == 0) + (d10 == 0),
+            points, inconsistent,
             country = "United States",
-            city = "Charlottesville")
+            city = "Charlottesville") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
+stopifnot(n_distinct(df$subject[df$inconsistent == 1]) == 4)
 
 # adding paper name and bibkey
 df <- df %>% 
@@ -42,7 +52,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

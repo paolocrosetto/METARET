@@ -25,35 +25,37 @@ library(tidyverse)
 ## Age is missing for the lab students (also in the authors' Data.dta).
 ##
 ## As for the other lists on the site, only subjects who switched once from A
-## to B are kept: 87 of the 501 switched more than once (81 field, 6 lab), and
-## 15 chose A in all ten rows, including the last, where B pays 3850 DKK for
-## sure (all in the field). 399 remain: 317 from the field, 82 from the lab.
+## to B enter the statistics: 87 of the 501 switched more than once (81 field,
+## 6 lab), and 15 chose A in all ten rows, including the last, where B pays
+## 3850 DKK for sure (all in the field). 399 remain: 317 from the field, 82
+## from the lab. The other 102 are kept for the download only with
+## inconsistent = 1, one row per switch to B (Data/inconsistent_rows.R).
 df <- read_csv("Data/Andersen_et_al_2014/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 5010, n_distinct(df$userid) == 501)
 
+source("Data/inconsistent_rows.R")
 df <- df %>%
   arrange(userid, rowproba) %>%
   group_by(userid) %>%
-  filter(str_detect(paste(choicea, collapse = ""), "^1*0*$"), sum(choicea == 0) >= 1) %>%
-  ungroup()
-
-stopifnot(n_distinct(df$userid) == 399)
-
-df <- df %>% 
-  group_by(userid) %>% 
-  summarise(choice = sum(choicea == 0),
+  summarise(points = list(switch_points(1 - choicea)),
+            inconsistent = as.numeric(!single_switch(1 - choicea) | last(choicea) == 1),
             phase = first(phase),
             age = first(age),
             gender = first(female),
-            .groups = "drop") %>% 
+            .groups = "drop")
+
+stopifnot(sum(df$inconsistent == 0) == 399)
+
+df <- df %>%
   transmute(subject = row_number(),
             task = "HL",
-            choice,
+            points, inconsistent,
             age = as.numeric(age),
             gender = as.numeric(gender),
             country = "Denmark",
-            city = if_else(phase == 3, "Copenhagen", ""))
+            city = if_else(phase == 3, "Copenhagen", "")) %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>% 
@@ -66,7 +68,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>% 

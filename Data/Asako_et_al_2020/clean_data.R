@@ -20,21 +20,19 @@ library(tidyverse)
 ## profile.dta is one row per subject (300, IDs unique) with the number of
 ## safe choices only, so multiple switchers cannot be told apart. The 6 with 10
 ## safe choices chose A even in the last row, where B is the better payoff for
-## sure, and are dropped. choice = number of B choices = 10 - safe choices.
+## sure: they are kept for the download only, with inconsistent = 1
+## (Data/inconsistent_rows.R). choice = number of B choices = 10 - safe choices.
 ## gender: the variable is labelled "GENDER 0:men", so 1 = women already.
 df <- read_csv("Data/Asako_et_al_2020/original_dataset.csv", show_col_types = FALSE)
 
 stopifnot(nrow(df) == 300, all(df$n_safe %in% 0:10), all(df$gender_code %in% 0:1))
-
-df <- df %>%
-  filter(n_safe <= 9)
-
-stopifnot(nrow(df) == 294)
+stopifnot(sum(df$n_safe <= 9) == 294)
 
 df <- df %>%
   transmute(subject,
             task = "HL",
             choice = 10 - n_safe,
+            inconsistent = as.numeric(n_safe == 10),
             gender = gender_code,
             age,
             bibkey = "Asako2020",
@@ -42,7 +40,8 @@ df <- df %>%
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 ## Waseda University, Tokyo; the map shows only the country
 df$country = 'Japan'

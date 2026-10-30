@@ -26,23 +26,33 @@ library(tidyverse)
 ## are 1 when the safe option A was chosen, and sum_hl is their sum, so
 ## choice = 10 - sum_hl is the number of risky choices.
 ##
-## Dropped on the authors' own flags: the 22 subjects marked multiple switch,
-## who have no single crossing, and the 11 marked a_10, who took option A in
-## the last row where it pays EUR 2.00 for sure against B's 3.85. One subject
-## are in both groups, so 270 remain.
+## Out of the statistics on the authors' own flags: the 22 subjects marked
+## multiple switch, who have no single crossing, and the 11 marked a_10, who
+## took option A in the last row where it pays EUR 2.00 for sure against B's
+## 3.85. Three subjects are in both groups (this note said one before), so 270
+## remain. The 30 are kept for the download only, with inconsistent = 1 and one
+## row per switch to B (Data/inconsistent_rows.R); the rule rebuilt from
+## hl1-hl10 gives the same 30.
 ##
 ## gender is 1 female, 0 male; one subject answered a third category and is
 ## left missing.
 df <- read_csv("Data/Gruener_et_al_2022/original_dataset.csv", show_col_types = FALSE)
 
+source("Data/inconsistent_rows.R")
+B <- 1 - as.matrix(df[paste0("hl", 1:10)])
 df <- df %>%
-  filter(multiple_switch == 0, a_10 == 0) %>%
+  mutate(points = lapply(seq_len(nrow(B)), function(i) switch_points(B[i, ])),
+         inconsistent = as.numeric(multiple_switch == 1 | a_10 == 1))
+stopifnot(all(df$inconsistent == as.numeric(!apply(B, 1, single_switch) | B[, 10] == 0)),
+          sum(df$inconsistent) == 30)
+df <- df %>%
   transmute(subject = id,
             task = "HL",
-            choice = 10L - sum_hl,
+            points, inconsistent,
             age,
             gender = case_when(gender == 1 ~ 1, gender == 0 ~ 0, TRUE ~ NA_real_),
-            country = "Germany")
+            country = "Germany") %>%
+  expand_switches(function(k) if_else(is.na(k), 0, 11 - k))
 
 # adding paper name and bibkey
 df <- df %>%
@@ -55,7 +65,7 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

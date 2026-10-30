@@ -23,8 +23,10 @@ library(tidyverse)
 ## 192.5/5 euro, the Holt-Laury table times 50, which keeps its CRRA intervals.
 ## "10% of all participants are selected for real payouts based on their
 ## choices." HLk: 1 = A, 0 = B; choice = number of B choices, as for the other HL
-## papers. 58 farmers switched once; the 5 who switched more than once and the one
-## who answered only the first two rows have no task answer.
+## papers. 58 farmers switched once. The 5 who switched more than once are kept
+## for the download only, with inconsistent = 1 and one row per switch to B
+## (Data/inconsistent_rows.R); the one who answered only the first two rows has
+## no task answer.
 ##
 ## Questionnaire: "How do you see yourself personally: Are you generally a
 ## risk-averse person, or do you try to avoid risks? (from 0 = 'risk averse' to 10
@@ -44,19 +46,31 @@ single <- sapply(seq_len(nrow(hl)), function(i)
 has_task <- single & n_b >= 1
 stopifnot(sum(single) == 58, sum(has_task) == 58)
 
+source("Data/inconsistent_rows.R")
+complete <- !apply(hl, 1, anyNA)
+stopifnot(sum(complete & !has_task) == 5)
 df <- df %>%
   mutate(subject = id,
-         task = if_else(has_task, "HL", "quest_only"),
+         task = if_else(complete, "HL", "quest_only"),
+         inconsistent = as.numeric(complete & !has_task),
+         points = lapply(seq_len(nrow(hl)), function(i)
+           if (complete[i]) switch_points(1 - hl[i, ]) else integer(0)),
          ## for questionnaire-only rows generate_data_for_app.R moves
          ## choice into soep
-         choice = if_else(has_task, n_b, SA),
-         soep = if_else(has_task, SA, NA_real_)) %>%
+         choice = if_else(complete, NA_real_, SA),
+         soep = if_else(complete, SA, NA_real_)) %>%
   filter(task == "HL" | !is.na(choice)) %>%
-  transmute(subject, task, choice, soep,
+  transmute(subject, task, choice, soep, points, inconsistent,
             gender = if_else(gender == 1, 0, 1),
             age,
             country = "Germany",
             city = "Münster")
+## choice = number of B choices = 11 - the row where B starts; the
+## questionnaire-only row keeps its SOEP answer in choice
+df <- bind_rows(
+  df %>% filter(task == "HL") %>% expand_switches(function(k) if_else(is.na(k), 0, 11 - k)),
+  df %>% filter(task == "quest_only") %>% select(-points)) %>%
+  arrange(subject)
 
 # adding paper name and bibkey
 df <- df %>%
@@ -71,8 +85,8 @@ df$longitude = '7.6261'
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 ## (the questionnaire-only rows have no task, so no r)
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), function(b, t, c)
-  if (t == "quest_only") NA_real_ else get_r(b, t, c)))
+df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice, inconsistent), function(b, t, c, i)
+  if (t == "quest_only" || i == 1) NA_real_ else get_r(b, t, c)))
 
 # Order of variables
 df <- df %>%

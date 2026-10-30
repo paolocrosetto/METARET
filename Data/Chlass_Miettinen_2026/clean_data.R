@@ -36,8 +36,10 @@ B <- read_dta("Data/Chlass_Miettinen_2026/original_playerB.dta")
 ## (Holzmeister and Stefan 2021 state it explicitly) and the one HL uses.
 ## S runs from 1 to 11; S == 11 means the subject never took the lottery, which
 ## in the last row means turning down a certain 3.5 ECU for a certain 2.5 ECU.
-## Two subjects did that. They are kept, as inconsistent subjects are elsewhere
-## on the site, and they sit at the bottom corner of the scale either way.
+## Two subjects did that: a dominated choice, so since 29.10.2026 they are kept
+## for the download only, with inconsistent = 1 and choice 0
+## (Data/inconsistent_rows.R). The file has S only, so multiple switching cannot
+## be seen.
 ##
 ## Sex is not labelled in the .dta. The authors enter it unrecoded in their
 ## regressions and the published tables report that row as "Gender:female",
@@ -51,6 +53,7 @@ pick <- function(d) d %>%
   arrange(ID) %>%
   transmute(id_orig = as.character(ID),
             choice = 11L - as.integer(S),
+            inconsistent = as.numeric(as.integer(S) == 11L),
             age = as.numeric(Age),
             ## 1 - female, 0 - male
             gender = as.numeric(Sex))
@@ -75,7 +78,8 @@ df$longitude = ''
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(bibkey, task, choice), get_r))
+source("Data/inconsistent_rows.R")
+df$r <- consistent_r(df)   # r for consistent rows only (Data/inconsistent_rows.R)
 
 # Order of variables
 df <- df %>%

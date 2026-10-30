@@ -40,10 +40,25 @@ df <- df %>%
                                               "Science Advances|Working Paper)\\b"))),
          paper = str_squish(paper))
 
-data=df %>% mutate(subject = paste0(bibkey, '_', subject)) %>% 
-  select(bibkey, paper, task, subject, age, gender, choice, r, starts_with('soep'),
-                starts_with('do'), 'BIS', 'BSSS', 'AuditS', 'CDCrisk', country, city,
-         longitude, lattitude)
+## Inconsistent task answers (a price list answered with more than one switch,
+## or a dominated choice) are kept for the download with inconsistent = 1, one
+## row per switching point numbered by switch_no, and r left empty: no CRRA
+## coefficient describes them. Papers that never flag anyone have neither
+## column; everyone there is 0. METARET_APP/consistent_rows.R takes these rows
+## out of every statistic.
+if (!"inconsistent" %in% names(df)) df$inconsistent <- NA_real_
+if (!"switch_no" %in% names(df)) df$switch_no <- NA_real_
+df <- df %>%
+  mutate(inconsistent = coalesce(as.numeric(inconsistent), 0),
+         r = if_else(inconsistent == 1, NA_real_, r),
+         ## an inconsistent answer with a single row (a dominated choice, or a
+         ## paper with no row-by-row answers) is its subject's switch 1
+         switch_no = if_else(inconsistent == 1, coalesce(as.numeric(switch_no), 1), NA_real_))
+
+data=df %>% mutate(subject = paste0(bibkey, '_', subject)) %>%
+  select(bibkey, paper, task, subject, age, gender, choice, r, inconsistent, switch_no,
+         starts_with('soep'), starts_with('do'), 'BIS', 'BSSS', 'AuditS', 'CDCrisk',
+         country, city, longitude, lattitude)
 
 ## save the df to the shiny director for deployment
 data %>% write_csv("METARET_APP/DATA/df_mod.csv")

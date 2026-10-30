@@ -15,7 +15,13 @@ df <- read_csv("Data/ManSci2016/original_dataset.csv")
 df <- df %>% 
   filter(safe == 0) %>%    # dropping the papers using a safe option -- i.e. a different task
   filter(ID >= 0) %>%      # keeping only published papers (this needs updating)
-  filter(incons_subj == 0) # dropping inconsistent subjects
+  ## inconsistent subjects (29.10.2026): incons_subj counts the authors' flags
+  ## (switching more than once, or a dominated choice at either end of the
+  ## list). They used to be dropped; now they are kept for the download only,
+  ## with inconsistent = 1 (Data/inconsistent_rows.R) and no choice, since the
+  ## file has only totsafe, not the row-by-row answers.
+  mutate(inconsistent = as.numeric(incons_subj >= 1))
+stopifnot(sum(df$inconsistent) == 1075)
   
 ## selecting the needed variables
 ## we select only:
@@ -24,7 +30,7 @@ df <- df %>%
 ## 3. answers to questionnaires
 df <- df %>% 
   select(subject, female, age, treatment, totsafe, 
-         texbibkey, bibdisplay)
+         texbibkey, bibdisplay, inconsistent)
 
 # rename totsafe as 'choice';
 df <- df %>% 
@@ -60,15 +66,19 @@ df <- df %>%
 
 ## some choices are coded as 'half choice' -- the subject has made e.g. 1.5 choices -> DROP THEM
 df <- df %>% 
-  filter(choice != 1.5 & choice != 4.5 & choice != 5.5 & choice != 6.5 & choice != 7.5 )
+  filter(inconsistent == 1 |
+           (choice != 1.5 & choice != 4.5 & choice != 5.5 & choice != 6.5 & choice != 7.5))
 
 # change to make choice in HL be the number of safe choices
 df <- df %>% 
-  mutate(choice = 10-choice)
+  mutate(choice = if_else(inconsistent == 1, NA_real_, 10 - choice))
 
 ## Computing the CRRA (x^r) coefficient of risk aversion from the task data
+## (consistent rows only, in their order, so the draws stay as they were)
 source("Data/generate_r.R")
-df <- df %>% mutate(r = purrr::pmap_dbl(list(metabibkey, task, choice), get_r))
+df$r <- NA_real_
+ok <- df$inconsistent == 0
+df$r[ok] <- purrr::pmap_dbl(list(df$metabibkey[ok], df$task[ok], df$choice[ok]), get_r)
 
 
 # Order of variables
